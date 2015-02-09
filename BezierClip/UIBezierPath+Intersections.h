@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DKIntersectionOfPaths.h"
 
 @interface UIBezierPath (Intersections)
 
@@ -17,8 +18,11 @@
 +(CGPoint) endPointForPathElement:(CGPathElement)element;
 
 
-+(struct IntersectionOfPaths) firstIntersectionBetween:(UIBezierPath*)myFlatPath and:(UIBezierPath*)otherFlatPath;
-+(NSArray*) calculateIntersectionAndDifferenceBetween:(UIBezierPath*)myUnclosedPath and:(UIBezierPath*)otherClosedPath;
++(DKIntersectionOfPaths*) firstIntersectionBetween:(UIBezierPath*)myFlatPath
+                                           andPath:(UIBezierPath*)otherFlatPath;
+
++(NSArray*) calculateIntersectionAndDifferenceBetween:(UIBezierPath*)myUnclosedPath
+                                              andPath:(UIBezierPath*)otherClosedPath;
 
 +(CGRect) boundsForElement:(CGPathElement)element withStartPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartingPoint;
 

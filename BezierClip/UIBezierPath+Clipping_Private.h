@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BezierClip/BezierClip.h>
 
 @interface UIBezierPath (Clipping_Private)
 

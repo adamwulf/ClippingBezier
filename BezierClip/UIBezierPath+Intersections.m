@@ -7,15 +7,21 @@
 //
 
 #import "UIBezierPath+Intersections.h"
+#import "BezierClip.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
+#import "DKIntersectionOfPaths.h"
 
 static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p4);
 
 
 @implementation UIBezierPath (Intersections)
 
-
++(void)load{
+    @autoreleasepool {
+        NSStringFromClass([self class]);
+    }
+}
 // boolean operations for an unclosed path on a closed path
 
 /**
@@ -43,7 +49,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
     // as an alternative. i've unwrapped the first iteratePathWithBlock,
     // storing each element in an array, and then looping over that array
     int elementCount = (int) [self elementCount];
-    __block CGPathElement* selfElements = malloc(sizeof(CGPathElement) * elementCount);
+    __block CGPathElement* selfElements = (CGPathElement*) malloc(sizeof(CGPathElement) * elementCount);
     if(!selfElements){
         @throw [NSException exceptionWithName:@"Memory Exception" reason:@"can't malloc" userInfo:nil];
     }
@@ -146,11 +152,12 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
  *
  * this will always ignore an intersection at element == 1 and tvalue = 0
  */
-+(struct IntersectionOfPaths) firstIntersectionBetween:(UIBezierPath*)myFlatPath and:(UIBezierPath*)otherFlatPath{
++(DKIntersectionOfPaths*) firstIntersectionBetween:(UIBezierPath*)myFlatPath
+                                           andPath:(UIBezierPath*)otherFlatPath{
     // this method is called on two flattened paths,
     // and represents the intersection of
     // two unflattened elements from the psuedoForUnflattenedPaths
-    struct IntersectionOfPaths ret;
+    DKIntersectionOfPaths* ret = [[DKIntersectionOfPaths alloc] init];
     // initialize
     ret.doesIntersect = NO;
     ret.start = nil;
@@ -339,7 +346,7 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
  * this will return both the intersection and the difference
  * of the unclosed path with the closed path.
  */
-+(NSArray*) calculateIntersectionAndDifferenceBetween:(UIBezierPath*)myUnclosedPath and:(UIBezierPath*)otherClosedPath{
++(NSArray*) calculateIntersectionAndDifferenceBetween:(UIBezierPath*)myUnclosedPath andPath:(UIBezierPath*)otherClosedPath{
     
     __block UIBezierPath* intersectionPath = [UIBezierPath bezierPath];
     __block UIBezierPath* differencePath = [UIBezierPath bezierPath];
@@ -354,7 +361,7 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
         [pathForElement addPathElement:myElement];
         
         
-        __block struct IntersectionOfPaths intersection;
+        __block DKIntersectionOfPaths* intersection = [[DKIntersectionOfPaths alloc] init];
         
         do{
             CGRect myElementBounds = pathForElement.bounds;
@@ -382,7 +389,7 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
                     [otherFlattedElement addPathElement:otherElement];
                     otherFlattedElement = [otherFlattedElement bezierPathByFlatteningPathAndImmutable:YES];
                     
-                    struct IntersectionOfPaths possibleIntersection = [UIBezierPath firstIntersectionBetween:myFlattedElement and:otherFlattedElement];
+                    DKIntersectionOfPaths* possibleIntersection = [UIBezierPath firstIntersectionBetween:myFlattedElement andPath:otherFlattedElement];
                     if(possibleIntersection.doesIntersect){
                         // yep! these two elements intersect.
                         // that means we'll need to chop myElement,
