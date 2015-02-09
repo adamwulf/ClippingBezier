@@ -7,23 +7,19 @@
 //
 
 #import "UIBezierPath+Clipping.h"
-#import "DrawKit-iOS.h"
+#import <DrawKit-iOS/DrawKit-iOS.h>
 #include "interval.h"
-#include "point.h"
 #include <vector>
-#import "UIBezierPath+Ahmed_Private.h"
 #import "DKUIBezierPathClippingResult.h"
 #import "DKUIBezierPathIntersectionPoint.h"
 #import "DKUIBezierPathClippedSegment.h"
 #import "DKUIBezierPathIntersectionPoint+Private.h"
 #import "DKUIBezierUnmatchedPathIntersectionPoint.h"
-#import "UIBezierPath+Editing.h"
-#import "DKGeometryUtilities.h"
 #include "bezierclip.hxx"
 #import "DKUIBezierPathShape.h"
-#import "NSArray+FirstObject.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "UIBezierPath+Intersections.h"
+#import <DrawKit-iOS/point.h>
 
 #define kUIBezierClippingPrecision 0.0005
 #define kUIBezierClosenessPrecision 0.5

@@ -7,10 +7,10 @@
 //
 
 #import "DKUIBezierPathIntersectionPoint.h"
-#import "UIBezierPath+Ahmed.h"
 #import "DKVector.h"
 #import "DKUIBezierPathIntersectionPoint+Private.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#import <DrawKit-iOS/DrawKit-iOS.h>
 
 @implementation DKUIBezierPathIntersectionPoint{
     NSInteger elementIndex1;

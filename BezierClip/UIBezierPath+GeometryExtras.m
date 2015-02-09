@@ -7,8 +7,7 @@
 //
 
 #import "UIBezierPath+GeometryExtras.h"
-#import "UIBezierPath+Geometry.h"
-#import "UIBezierPath+Ahmed.h"
+#import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
 @implementation UIBezierPath (GeometryExtras)
@@ -60,7 +59,7 @@
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger currentIndex){
         CGPoint np1 = CGPointZero;
         CGPoint np2 = CGPointZero;
-        double currTValue;
+        double currTValue = 0.0;
         if(element.type == kCGPathElementAddCurveToPoint )
         {
             // curve

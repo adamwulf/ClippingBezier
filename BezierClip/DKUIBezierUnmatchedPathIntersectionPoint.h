@@ -7,6 +7,7 @@
 //
 
 #import <DrawKit-iOS/DrawKit-iOS.h>
+#import "DKUIBezierPathIntersectionPoint.h"
 
 @interface DKUIBezierUnmatchedPathIntersectionPoint : DKUIBezierPathIntersectionPoint
 

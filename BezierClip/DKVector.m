@@ -133,9 +133,9 @@
     
     return thetaAB;
     
-    CGFloat scaler = self.x * otherVector.x + self.y * otherVector.y;
-    CGFloat angleBetween = acosf(scaler / (self.magnitude * otherVector.magnitude));
-    return roundf(angleBetween * pow(10, 6)) / pow(10, 6);
+//    CGFloat scaler = self.x * otherVector.x + self.y * otherVector.y;
+//    CGFloat angleBetween = acosf(scaler / (self.magnitude * otherVector.magnitude));
+//    return roundf(angleBetween * pow(10, 6)) / pow(10, 6);
 }
 
 -(CGPoint) asCGPoint{
