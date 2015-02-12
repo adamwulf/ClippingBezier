@@ -49,11 +49,13 @@
 		664CC9E91A8C206500E77887 /* DKTangentAtPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A51A893DDD0038A1C4 /* DKTangentAtPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		664CC9EA1A8C206500E77887 /* MMFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD532C1A89523400E7B486 /* MMFooBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		664CC9EB1A8C206500E77887 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66B9D1F01A8C28C200CAC341 /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */; };
+		66B9D1F11A8C28FC00CAC341 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */; };
+		66B9D1F21A8C28FC00CAC341 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */; };
+		66B9D1F41A8C2B0B00CAC341 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */; };
+		66B9D1F61A8C2B1800CAC341 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
 		66C322901A8C2416004B4972 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */; };
 		66C322911A8C2416004B4972 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */; };
-		66C322921A8C2462004B4972 /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */; };
-		66C322941A8C2462004B4972 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */; };
-		66C322971A8C24A5004B4972 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */; };
 		66FD531F1A894C7A00E7B486 /* DrawKitiOSAOOTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */; };
 		66FD53201A894C7A00E7B486 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
 		66FD53211A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */; };
@@ -110,6 +112,9 @@
 		668288561A893F7E0038A1C4 /* UIBezierPath+DKOSX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DKOSX.m"; sourceTree = "<group>"; };
 		668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Intersections.h"; sourceTree = "<group>"; };
 		668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Intersections.m"; sourceTree = "<group>"; };
+		66B9D1EE1A8C28BA00CAC341 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "../PerformanceBezier/build/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
+		66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		66B9D1F51A8C2B1800CAC341 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		66C3226C1A8C2323004B4972 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "../../../../../../Library/Developer/Xcode/DerivedData/Submodules-gtusjeclzeiqvohcggijqwyhvaui/Build/Products/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
 		66C3226E1A8C2326004B4972 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/Submodules-gtusjeclzeiqvohcggijqwyhvaui/Build/Products/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
 		66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "../../../../../../Library/Developer/Xcode/DerivedData/Submodules-atjowsbrivaldqblxffjhatdorwq/Build/Products/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
@@ -151,9 +156,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66C322971A8C24A5004B4972 /* DrawKit-iOS.framework in Frameworks */,
-				66C322921A8C2462004B4972 /* ClippingBezier.framework in Frameworks */,
-				66C322941A8C2462004B4972 /* PerformanceBezier.framework in Frameworks */,
+				66B9D1F61A8C2B1800CAC341 /* UIKit.framework in Frameworks */,
+				66B9D1F41A8C2B0B00CAC341 /* CoreGraphics.framework in Frameworks */,
+				66B9D1F11A8C28FC00CAC341 /* DrawKit-iOS.framework in Frameworks */,
+				66B9D1F21A8C28FC00CAC341 /* PerformanceBezier.framework in Frameworks */,
+				66B9D1F01A8C28C200CAC341 /* ClippingBezier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +202,9 @@
 		668287871A893CE50038A1C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66B9D1F51A8C2B1800CAC341 /* UIKit.framework */,
+				66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */,
+				66B9D1EE1A8C28BA00CAC341 /* PerformanceBezier.framework */,
 				66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */,
 				66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */,
 				66C3226E1A8C2326004B4972 /* PerformanceBezier.framework */,
@@ -530,10 +540,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Submodules-atjowsbrivaldqblxffjhatdorwq/Build/Products/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -579,10 +586,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Submodules-atjowsbrivaldqblxffjhatdorwq/Build/Products/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -638,7 +642,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Submodules-atjowsbrivaldqblxffjhatdorwq/Build/Products/Debug-iphoneos",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -658,8 +661,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = (
-					"-ObjC++",
-					"-lstdc++",
 					"$(inherited)",
 					"-framework",
 					XCTest,
@@ -692,7 +693,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Submodules-atjowsbrivaldqblxffjhatdorwq/Build/Products/Debug-iphoneos",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -705,8 +705,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
-					"-ObjC++",
-					"-lstdc++",
 					"$(inherited)",
 					"-framework",
 					XCTest,

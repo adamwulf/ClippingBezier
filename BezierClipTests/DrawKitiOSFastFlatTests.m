@@ -8,7 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
-#import <BezierClip/BezierClip.h>
+#import <ClippingBezier/BezierClip.h>
+
 
 @interface DrawKitiOSFastFlatTests : XCTestCase
 

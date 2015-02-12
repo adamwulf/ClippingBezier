@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Adam Wulf. All rights reserved.
 //
 
-#import <DrawKit-iOS/DrawKit-iOS.h>
+#import <UIKit/UIKit.h>
 
 @interface DrawKitiOSAbstractTest : XCTestCase
 

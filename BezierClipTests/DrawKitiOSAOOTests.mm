@@ -7,8 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <DrawKit-iOS/DrawKit-iOS.h>
-#import <BezierClip/BezierClip.h>
+#import <ClippingBezier/BezierClip.h>
+#import <PerformanceBezier/PerformanceBezier.h>
+
 #include <iostream>
 
 using namespace std;
