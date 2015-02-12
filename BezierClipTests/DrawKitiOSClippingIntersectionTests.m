@@ -285,32 +285,26 @@
     [shapePath addLineToPoint:CGPointMake(456.000000,738.000000)];
     [shapePath addLineToPoint:CGPointMake(242.346939,728.551025)];
     
-    @try{
-        NSArray* intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
-        NSArray* otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-        int found = [intersections count];
-        
-        XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-        XCTAssertEqual(found, 2, @"the curves do intersect");
-        
-        for(DKUIBezierPathIntersectionPoint* inter in intersections){
-            XCTAssertTrue([otherIntersections containsObject:[inter flipped]], @"share all intersections");
-        }
-        
-        // does not cross boundary because the shape is not closed
-        XCTAssertTrue(![[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
-        XCTAssertTrue(![[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
-
-        XCTAssertTrue([self point:[[intersections objectAtIndex:0] location1] isNearTo:[[intersections objectAtIndex:0] location2]], @"locations match");
-        XCTAssertTrue([self point:[[intersections objectAtIndex:1] location1] isNearTo:[[intersections objectAtIndex:1] location2]], @"locations match");
-        
-        XCTAssertTrue([self point:[[otherIntersections objectAtIndex:0] location1] isNearTo:[[otherIntersections objectAtIndex:0] location2]], @"locations match");
-        XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
-        
-    }@catch(NSException* e){
-        NSLog(@"exc %@", e);
+    NSArray* intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray* otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    int found = [intersections count];
+    
+    XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
+    XCTAssertEqual(found, 2, @"the curves do intersect");
+    
+    for(DKUIBezierPathIntersectionPoint* inter in intersections){
+        XCTAssertTrue([otherIntersections containsObject:[inter flipped]], @"share all intersections");
     }
+    
+    // does not cross boundary because the shape is not closed
+    XCTAssertTrue(![[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
+    XCTAssertTrue(![[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
 
+    XCTAssertTrue([self point:[[intersections objectAtIndex:0] location1] isNearTo:[[intersections objectAtIndex:0] location2]], @"locations match");
+    XCTAssertTrue([self point:[[intersections objectAtIndex:1] location1] isNearTo:[[intersections objectAtIndex:1] location2]], @"locations match");
+    
+    XCTAssertTrue([self point:[[otherIntersections objectAtIndex:0] location1] isNearTo:[[otherIntersections objectAtIndex:0] location2]], @"locations match");
+    XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
 }
 
 
