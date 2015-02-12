@@ -51,7 +51,7 @@
 		664CC9EB1A8C206500E77887 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66C322901A8C2416004B4972 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */; };
 		66C322911A8C2416004B4972 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */; };
-		66C322921A8C2462004B4972 /* BezierClipStatic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664CC9AC1A8C1FED00E77887 /* BezierClipStatic.framework */; };
+		66C322921A8C2462004B4972 /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */; };
 		66C322941A8C2462004B4972 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228F1A8C2416004B4972 /* PerformanceBezier.framework */; };
 		66C322971A8C24A5004B4972 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C3228E1A8C2416004B4972 /* DrawKit-iOS.framework */; };
 		66FD531F1A894C7A00E7B486 /* DrawKitiOSAOOTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */; };
@@ -67,7 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		664CC9AC1A8C1FED00E77887 /* BezierClipStatic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = BezierClipStatic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = ClippingBezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		664CC9B01A8C1FED00E77887 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		664CC9B11A8C1FED00E77887 /* BezierClipStatic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BezierClipStatic-Prefix.pch"; sourceTree = "<group>"; };
 		664CC9B31A8C1FED00E77887 /* BezierClipStatic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BezierClipStatic-Info.plist"; sourceTree = "<group>"; };
@@ -76,8 +76,6 @@
 		664CC9EC1A8C208E00E77887 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "../../LooseLeaf/Submodules/DrawKit-iOS/build/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
 		664CC9EE1A8C209200E77887 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "../../LooseLeaf/Submodules/PerformanceBezier/build/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
 		668287881A893CE50038A1C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		6682878C1A893CE50038A1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6682878F1A893CE50038A1C4 /* BezierClip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BezierClip-Info.plist"; sourceTree = "<group>"; };
 		668287911A893CE50038A1C4 /* BezierClip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BezierClip.h; sourceTree = "<group>"; };
 		6682879A1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUIBezierPathClippedSegment.h; sourceTree = "<group>"; };
 		6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUIBezierPathClippedSegment.m; sourceTree = "<group>"; };
@@ -120,7 +118,7 @@
 		66FD52BB1A89496C00E7B486 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/Livestream-fbfhkounuymzsmhkjcmbzrpkghri/Build/Products/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
 		66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FirstObject.h"; sourceTree = "<group>"; };
 		66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FirstObject.m"; sourceTree = "<group>"; };
-		66FD53081A894C5600E7B486 /* BezierClipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BezierClipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66FD53081A894C5600E7B486 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FD530B1A894C5600E7B486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DrawKitiOSAOOTests.mm; sourceTree = "<group>"; };
 		66FD53151A894C7A00E7B486 /* DrawKitiOSAbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawKitiOSAbstractTest.h; sourceTree = "<group>"; };
@@ -154,7 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66C322971A8C24A5004B4972 /* DrawKit-iOS.framework in Frameworks */,
-				66C322921A8C2462004B4972 /* BezierClipStatic.framework in Frameworks */,
+				66C322921A8C2462004B4972 /* ClippingBezier.framework in Frameworks */,
 				66C322941A8C2462004B4972 /* PerformanceBezier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,19 +165,11 @@
 			children = (
 				664CC9B11A8C1FED00E77887 /* BezierClipStatic-Prefix.pch */,
 				664CC9B31A8C1FED00E77887 /* BezierClipStatic-Info.plist */,
+				664CC9B01A8C1FED00E77887 /* Info.plist */,
 				664CC9B51A8C1FED00E77887 /* BezierClipStatic.h */,
 				664CC9B71A8C1FED00E77887 /* BezierClipStatic.m */,
-				664CC9AF1A8C1FED00E77887 /* Supporting Files */,
 			);
 			path = BezierClipStatic;
-			sourceTree = "<group>";
-		};
-		664CC9AF1A8C1FED00E77887 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				664CC9B01A8C1FED00E77887 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		668287781A893CC70038A1C4 = {
@@ -196,8 +186,8 @@
 		668287861A893CE50038A1C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				66FD53081A894C5600E7B486 /* BezierClipTests.xctest */,
-				664CC9AC1A8C1FED00E77887 /* BezierClipStatic.framework */,
+				66FD53081A894C5600E7B486 /* ClippingBezierTests.xctest */,
+				664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,18 +218,8 @@
 				668288151A893F170038A1C4 /* BaseGFX Bezier Clip */,
 				6682884C1A893F750038A1C4 /* Categories */,
 				668287991A893DD10038A1C4 /* Classes */,
-				6682878B1A893CE50038A1C4 /* Supporting Files */,
 			);
 			path = BezierClip;
-			sourceTree = "<group>";
-		};
-		6682878B1A893CE50038A1C4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6682878F1A893CE50038A1C4 /* BezierClip-Info.plist */,
-				6682878C1A893CE50038A1C4 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		668287991A893DD10038A1C4 /* Classes */ = {
@@ -379,9 +359,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		664CC9AB1A8C1FED00E77887 /* BezierClipStatic */ = {
+		664CC9AB1A8C1FED00E77887 /* ClippingBezier */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 664CC9B91A8C1FED00E77887 /* Build configuration list for PBXNativeTarget "BezierClipStatic" */;
+			buildConfigurationList = 664CC9B91A8C1FED00E77887 /* Build configuration list for PBXNativeTarget "ClippingBezier" */;
 			buildPhases = (
 				664CC9A61A8C1FED00E77887 /* Sources */,
 				664CC9A71A8C1FED00E77887 /* Frameworks */,
@@ -393,14 +373,14 @@
 			);
 			dependencies = (
 			);
-			name = BezierClipStatic;
+			name = ClippingBezier;
 			productName = BezierClipStatic;
-			productReference = 664CC9AC1A8C1FED00E77887 /* BezierClipStatic.framework */;
+			productReference = 664CC9AC1A8C1FED00E77887 /* ClippingBezier.framework */;
 			productType = "com.apple.product-type.framework.static";
 		};
-		66FD53071A894C5600E7B486 /* BezierClipTests */ = {
+		66FD53071A894C5600E7B486 /* ClippingBezierTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 66FD53111A894C5600E7B486 /* Build configuration list for PBXNativeTarget "BezierClipTests" */;
+			buildConfigurationList = 66FD53111A894C5600E7B486 /* Build configuration list for PBXNativeTarget "ClippingBezierTests" */;
 			buildPhases = (
 				66FD53041A894C5600E7B486 /* Sources */,
 				66FD53051A894C5600E7B486 /* Frameworks */,
@@ -410,9 +390,9 @@
 			);
 			dependencies = (
 			);
-			name = BezierClipTests;
+			name = ClippingBezierTests;
 			productName = BezierClipTests;
-			productReference = 66FD53081A894C5600E7B486 /* BezierClipTests.xctest */;
+			productReference = 66FD53081A894C5600E7B486 /* ClippingBezierTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -431,7 +411,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6682877C1A893CC70038A1C4 /* Build configuration list for PBXProject "BezierClip" */;
+			buildConfigurationList = 6682877C1A893CC70038A1C4 /* Build configuration list for PBXProject "ClippingBezier" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -443,8 +423,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				66FD53071A894C5600E7B486 /* BezierClipTests */,
-				664CC9AB1A8C1FED00E77887 /* BezierClipStatic */,
+				66FD53071A894C5600E7B486 /* ClippingBezierTests */,
+				664CC9AB1A8C1FED00E77887 /* ClippingBezier */,
 			);
 		};
 /* End PBXProject section */
@@ -684,7 +664,7 @@
 					"-framework",
 					XCTest,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ClippingBezierTests;
 			};
 			name = Debug;
 		};
@@ -731,7 +711,7 @@
 					"-framework",
 					XCTest,
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ClippingBezierTests;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -739,7 +719,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		664CC9B91A8C1FED00E77887 /* Build configuration list for PBXNativeTarget "BezierClipStatic" */ = {
+		664CC9B91A8C1FED00E77887 /* Build configuration list for PBXNativeTarget "ClippingBezier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				664CC9BA1A8C1FED00E77887 /* Debug */,
@@ -748,7 +728,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6682877C1A893CC70038A1C4 /* Build configuration list for PBXProject "BezierClip" */ = {
+		6682877C1A893CC70038A1C4 /* Build configuration list for PBXProject "ClippingBezier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6682877D1A893CC70038A1C4 /* Debug */,
@@ -757,7 +737,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		66FD53111A894C5600E7B486 /* Build configuration list for PBXNativeTarget "BezierClipTests" */ = {
+		66FD53111A894C5600E7B486 /* Build configuration list for PBXNativeTarget "ClippingBezierTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				66FD53121A894C5600E7B486 /* Debug */,
