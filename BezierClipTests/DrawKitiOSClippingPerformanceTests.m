@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "DrawKitiOSAbstractTest.h"
 #import <ClippingBezier/ClippingBezier.h>
+#import <DrawKit-iOS/DrawKit-iOS.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 
 
 @interface DrawKitiOSClippingPerformanceTests : DrawKitiOSAbstractTest
@@ -155,13 +157,9 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)6, @"found closed shape");
     
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
-        XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
-    }
 }
+
+
 
 -(void) testPerformanceTestOfFindingSubshapesWithScissors{
     

@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import <ClippingBezier/ClippingBezier.h>
+#import <DrawKit-iOS/DrawKit-iOS.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 
 
 @interface DrawKitiOSReverseBezierTests : XCTestCase

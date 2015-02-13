@@ -8,6 +8,7 @@
 
 #import "UIBezierPath+Intersections.h"
 #import <DrawKit-iOS/DrawKit-iOS.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 #import "DKIntersectionOfPaths.h"
 
 static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p4);

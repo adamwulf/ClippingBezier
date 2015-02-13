@@ -20,6 +20,7 @@
 #import "UIBezierPath+Intersections.h"
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #include <DrawKit-iOS/point.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 
 #define kUIBezierClippingPrecision 0.0005
 #define kUIBezierClosenessPrecision 0.5

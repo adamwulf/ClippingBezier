@@ -9,6 +9,7 @@
 #import "DKUIBezierPathShape.h"
 #import "DKUIBezierPathClippedSegment.h"
 #import <DrawKit-iOS/DrawKit-iOS.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 
 @implementation DKUIBezierPathShape
 
