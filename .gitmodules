@@ -1,0 +1,3 @@
+[submodule "Submodules/DrawKit-iOS"]
+	path = Submodules/DrawKit-iOS
+	url = git@github.com:adamwulf/DrawKit-iOS.git

@@ -1,9 +1,9 @@
 //
-//  BezierClip.h
-//  BezierClip
+//  ClippingBezier.h
+//  ClippingBezier
 //
-//  Created by Adam Wulf on 2/9/15.
-//  Copyright (c) 2015 __MyCompanyName__. All rights reserved.
+//  Created by Adam Wulf on 2/12/15.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -28,3 +28,20 @@
 #import "MMBackwardCompatible.h"
 #include "bezierclip.hxx"
 
+#pragma mark - DrawKit
+#import "UIBezierPath+GPC.h"
+#import "UIBezierPath+Editing.h"
+#import "UIBezierPath+Geometry.h"
+#import "UIBezierPath+Ahmed.h"
+#import "DKGeometryUtilities.h"
+
+#include "math.h"
+
+#pragma mark - PerformanceBezier
+
+#import "UIBezierPathProperties.h"
+#import "UIBezierPath+Clockwise.h"
+#import "UIBezierPath+Performance.h"
+#import "UIBezierPath+NSOSX.h"
+#import "UIBezierPath+Equals.h"
+#import "UIBezierPath+Center.h"

@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+Clipping.h"
-#import "BezierClip.h"
+#import "ClippingBezier.h"
 
 @implementation MMFooBar
 

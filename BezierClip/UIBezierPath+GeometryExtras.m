@@ -8,7 +8,6 @@
 
 #import "UIBezierPath+GeometryExtras.h"
 #import <DrawKit-iOS/DrawKit-iOS.h>
-#import <PerformanceBezier/PerformanceBezier.h>
 
 @implementation UIBezierPath (GeometryExtras)
 

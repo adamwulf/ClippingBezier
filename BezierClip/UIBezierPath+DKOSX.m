@@ -8,7 +8,6 @@
 
 #import "UIBezierPath+DKOSX.h"
 #import "MMBackwardCompatible.h"
-#import <PerformanceBezier/PerformanceBezier.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #import "UIBezierPath+Intersections.h"
 
