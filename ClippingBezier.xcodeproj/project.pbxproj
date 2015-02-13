@@ -62,6 +62,7 @@
 		66AFAD221A8DDE9700FD0263 /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
 		66AFAD251A8DDE9700FD0263 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD231A8DDE9700FD0263 /* DrawKit-iOS.framework */; };
 		66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */; };
+		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -335,6 +336,7 @@
 				66AFAD111A8DDD7D00FD0263 /* UIBezierPath+GeometryExtras.h in Headers */,
 				66AFAD121A8DDD7E00FD0263 /* UIBezierPath+DKOSX.h in Headers */,
 				66AFAD131A8DDD8000FD0263 /* UIBezierPath+Intersections.h in Headers */,
+				66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */,
 				66AFAD151A8DDD8300FD0263 /* DKUIBezierPathClippedSegment.h in Headers */,
 				66AFAD1A1A8DDD8D00FD0263 /* DKUIBezierPathShape.h in Headers */,
 				66AFAD1C1A8DDD9000FD0263 /* MMFooBar.h in Headers */,
