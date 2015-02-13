@@ -9,10 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <ClippingBezier/ClippingBezier.h>
 
-#include <iostream>
-
-using namespace std;
-
 @interface DrawKitiOSAOOTests : XCTestCase{
     UIBezierPath* complexShape;
 }

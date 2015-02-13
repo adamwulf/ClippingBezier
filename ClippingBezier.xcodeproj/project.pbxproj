@@ -74,7 +74,7 @@
 		666EEC0C1A8D8C6600B9F171 /* ClippingBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 662D40C31A8D862600A1CB63 /* ClippingBezier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEC0D1A8D8C6700B9F171 /* interval.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287B41A893DE90038A1C4 /* interval.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEC261A8D8F6E00B9F171 /* libClippingBezier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 662D40C11A8D862600A1CB63 /* libClippingBezier.a */; };
-		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */; };
+		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */; };
 		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
 		666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */; };
 		666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */; };
@@ -198,17 +198,17 @@
 		66B9D1F51A8C2B1800CAC341 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FirstObject.h"; sourceTree = "<group>"; };
 		66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FirstObject.m"; sourceTree = "<group>"; };
-		66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DrawKitiOSAOOTests.mm; path = ../BezierClipTests/DrawKitiOSAOOTests.mm; sourceTree = "<group>"; };
+		66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSAOOTests.m; path = ../BezierClipTests/DrawKitiOSAOOTests.m; sourceTree = "<group>"; };
 		66FD53151A894C7A00E7B486 /* DrawKitiOSAbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawKitiOSAbstractTest.h; path = ../BezierClipTests/DrawKitiOSAbstractTest.h; sourceTree = "<group>"; };
-		66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSAbstractTest.m; path = ../BezierClipTests/DrawKitiOSAbstractTest.m; sourceTree = "<group>"; };
-		66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSClippingIntersectionTests.m; path = ../BezierClipTests/DrawKitiOSClippingIntersectionTests.m; sourceTree = "<group>"; };
-		66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSClippingSegmentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTests.m; sourceTree = "<group>"; };
-		66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSClippingSegmentTangentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTangentTests.m; sourceTree = "<group>"; };
-		66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSClippingPerformanceTests.m; path = ../BezierClipTests/DrawKitiOSClippingPerformanceTests.m; sourceTree = "<group>"; };
-		66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSClippingSubshapeTests.m; path = ../BezierClipTests/DrawKitiOSClippingSubshapeTests.m; sourceTree = "<group>"; };
-		66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSReverseBezierTests.m; path = ../BezierClipTests/DrawKitiOSReverseBezierTests.m; sourceTree = "<group>"; };
-		66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSFastFlatTests.m; path = ../BezierClipTests/DrawKitiOSFastFlatTests.m; sourceTree = "<group>"; };
-		66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = DrawKitiOSFlatTests.m; path = ../BezierClipTests/DrawKitiOSFlatTests.m; sourceTree = "<group>"; };
+		66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSAbstractTest.m; path = ../BezierClipTests/DrawKitiOSAbstractTest.m; sourceTree = "<group>"; };
+		66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingIntersectionTests.m; path = ../BezierClipTests/DrawKitiOSClippingIntersectionTests.m; sourceTree = "<group>"; };
+		66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSegmentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTests.m; sourceTree = "<group>"; };
+		66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSegmentTangentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTangentTests.m; sourceTree = "<group>"; };
+		66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingPerformanceTests.m; path = ../BezierClipTests/DrawKitiOSClippingPerformanceTests.m; sourceTree = "<group>"; };
+		66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSubshapeTests.m; path = ../BezierClipTests/DrawKitiOSClippingSubshapeTests.m; sourceTree = "<group>"; };
+		66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSReverseBezierTests.m; path = ../BezierClipTests/DrawKitiOSReverseBezierTests.m; sourceTree = "<group>"; };
+		66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSFastFlatTests.m; path = ../BezierClipTests/DrawKitiOSFastFlatTests.m; sourceTree = "<group>"; };
+		66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSFlatTests.m; path = ../BezierClipTests/DrawKitiOSFlatTests.m; sourceTree = "<group>"; };
 		66FD532C1A89523400E7B486 /* MMFooBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMFooBar.h; sourceTree = "<group>"; };
 		66FD532D1A89523400E7B486 /* MMFooBar.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MMFooBar.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 		662D40CF1A8D862600A1CB63 /* ClippingBezierTests */ = {
 			isa = PBXGroup;
 			children = (
-				66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */,
+				66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */,
 				66FD53151A894C7A00E7B486 /* DrawKitiOSAbstractTest.h */,
 				66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */,
 				66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */,
@@ -659,7 +659,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.mm in Sources */,
+				666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */,
 				666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */,
 				666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */,
 				666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */,

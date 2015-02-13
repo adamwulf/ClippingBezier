@@ -26,7 +26,7 @@
 #import "DKTangentAtPoint.h"
 #import "JRSwizzle.h"
 #import "MMBackwardCompatible.h"
-#include "bezierclip.hxx"
+//#include "bezierclip.hxx"
 
 #pragma mark - DrawKit
 #import "UIBezierPath+GPC.h"
