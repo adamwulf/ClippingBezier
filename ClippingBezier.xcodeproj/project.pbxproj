@@ -103,7 +103,6 @@
 		668288561A893F7E0038A1C4 /* UIBezierPath+DKOSX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DKOSX.m"; sourceTree = "<group>"; };
 		668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Intersections.h"; sourceTree = "<group>"; };
 		668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Intersections.m"; sourceTree = "<group>"; };
-		6682FF191A8DB7E500187325 /* ClippingBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClippingBezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = ClippingBezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66AFACEB1A8DDCA200FD0263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66AFACEE1A8DDCA200FD0263 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
@@ -185,14 +184,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		666EEC161A8D8CFC00B9F171 /* Framework Product */ = {
-			isa = PBXGroup;
-			children = (
-				6682FF191A8DB7E500187325 /* ClippingBezier.framework */,
-			);
-			name = "Framework Product";
-			sourceTree = "<group>";
-		};
 		668287781A893CC70038A1C4 = {
 			isa = PBXGroup;
 			children = (
@@ -200,7 +191,6 @@
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
 				668287871A893CE50038A1C4 /* Frameworks */,
 				668287861A893CE50038A1C4 /* Products */,
-				666EEC161A8D8CFC00B9F171 /* Framework Product */,
 			);
 			sourceTree = "<group>";
 		};
