@@ -51,11 +51,6 @@
 		666EEBF01A8D8C2500B9F171 /* UIBezierPath+Center.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBA61A8D88E100B9F171 /* UIBezierPath+Center.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEBF11A8D8C2500B9F171 /* UIBezierPathProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBA71A8D88E100B9F171 /* UIBezierPathProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEBF21A8D8C2500B9F171 /* UIBezierPath+FirstLast.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBA81A8D88E100B9F171 /* UIBezierPath+FirstLast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		666EEBF31A8D8C2D00B9F171 /* UIBezierPath+GPC.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBAB1A8D892E00B9F171 /* UIBezierPath+GPC.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		666EEBF41A8D8C2D00B9F171 /* UIBezierPath+Ahmed.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBAE1A8D894A00B9F171 /* UIBezierPath+Ahmed.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		666EEBF51A8D8C2D00B9F171 /* DKGeometryUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBAF1A8D895800B9F171 /* DKGeometryUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		666EEBF61A8D8C2D00B9F171 /* UIBezierPath+Geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBAD1A8D894400B9F171 /* UIBezierPath+Geometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		666EEBF71A8D8C2D00B9F171 /* UIBezierPath+Editing.h in Headers */ = {isa = PBXBuildFile; fileRef = 666EEBAC1A8D893B00B9F171 /* UIBezierPath+Editing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEBF81A8D8C3800B9F171 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEBF91A8D8C3A00B9F171 /* MMFooBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD532C1A89523400E7B486 /* MMFooBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEBFA1A8D8C3C00B9F171 /* DKTangentAtPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A51A893DDD0038A1C4 /* DKTangentAtPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,6 +73,19 @@
 		666EEC0B1A8D8C6300B9F171 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEC0C1A8D8C6600B9F171 /* ClippingBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 662D40C31A8D862600A1CB63 /* ClippingBezier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		666EEC0D1A8D8C6700B9F171 /* interval.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287B41A893DE90038A1C4 /* interval.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		666EEC261A8D8F6E00B9F171 /* libClippingBezier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 662D40C11A8D862600A1CB63 /* libClippingBezier.a */; };
+		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.mm */; };
+		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
+		666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */; };
+		666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */; };
+		666EEC2C1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTangentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */; };
+		666EEC2D1A8D8F7500B9F171 /* DrawKitiOSClippingPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */; };
+		666EEC2E1A8D8F7500B9F171 /* DrawKitiOSClippingSubshapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */; };
+		666EEC2F1A8D8F7500B9F171 /* DrawKitiOSReverseBezierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */; };
+		666EEC301A8D8F7500B9F171 /* DrawKitiOSFastFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */; };
+		666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */; };
+		666EEC331A8D90F100B9F171 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */; };
+		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +117,13 @@
 			remoteGlobalIDString = 662D40C01A8D862600A1CB63;
 			remoteInfo = ClippingBezier;
 		};
+		666EEC241A8D8F6900B9F171 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 668287791A893CC70038A1C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 666EEC0E1A8D8C8F00B9F171;
+			remoteInfo = Framework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -138,13 +153,13 @@
 		666EEBA61A8D88E100B9F171 /* UIBezierPath+Center.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Center.h"; path = "../DrawKit-iOS/Submodules/PerformanceBezier/PerformanceBezier/UIBezierPath+Center.h"; sourceTree = "<group>"; };
 		666EEBA71A8D88E100B9F171 /* UIBezierPathProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIBezierPathProperties.h; path = "../DrawKit-iOS/Submodules/PerformanceBezier/PerformanceBezier/UIBezierPathProperties.h"; sourceTree = "<group>"; };
 		666EEBA81A8D88E100B9F171 /* UIBezierPath+FirstLast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+FirstLast.h"; path = "../DrawKit-iOS/Submodules/PerformanceBezier/PerformanceBezier/UIBezierPath+FirstLast.h"; sourceTree = "<group>"; };
-		666EEBAB1A8D892E00B9F171 /* UIBezierPath+GPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+GPC.h"; path = "../DrawKit-iOS/DrawKit-iOS/UIBezierPath+GPC.h"; sourceTree = "<group>"; };
-		666EEBAC1A8D893B00B9F171 /* UIBezierPath+Editing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Editing.h"; path = "../DrawKit-iOS/DrawKit-iOS/UIBezierPath+Editing.h"; sourceTree = "<group>"; };
-		666EEBAD1A8D894400B9F171 /* UIBezierPath+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Geometry.h"; path = "../DrawKit-iOS/DrawKit-iOS/UIBezierPath+Geometry.h"; sourceTree = "<group>"; };
-		666EEBAE1A8D894A00B9F171 /* UIBezierPath+Ahmed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Ahmed.h"; path = "../DrawKit-iOS/DrawKit-iOS/UIBezierPath+Ahmed.h"; sourceTree = "<group>"; };
-		666EEBAF1A8D895800B9F171 /* DKGeometryUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKGeometryUtilities.h; path = "../DrawKit-iOS/DrawKit-iOS/DKGeometryUtilities.h"; sourceTree = "<group>"; };
 		666EEBD31A8D8AAC00B9F171 /* DrawKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "DrawKit-iOS.xcodeproj"; path = "Submodules/DrawKit-iOS/DrawKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		666EEC151A8D8CFA00B9F171 /* ClippingBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClippingBezier.framework; path = "../../../../../../Library/Developer/Xcode/DerivedData/ClippingBezier-gcinlesstmdcbyecupfxufnlcfyq/Build/Products/Debug-iphoneos/ClippingBezier.framework"; sourceTree = "<group>"; };
+		666EEC1B1A8D8E6F00B9F171 /* UIBezierPath+Editing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Editing.h"; path = "Submodules/DrawKit-iOS/DrawKit-iOS/UIBezierPath+Editing.h"; sourceTree = "<group>"; };
+		666EEC1C1A8D8E7400B9F171 /* UIBezierPath+Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Geometry.h"; path = "Submodules/DrawKit-iOS/DrawKit-iOS/UIBezierPath+Geometry.h"; sourceTree = "<group>"; };
+		666EEC1D1A8D8E7D00B9F171 /* DKGeometryUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKGeometryUtilities.h; path = "Submodules/DrawKit-iOS/DrawKit-iOS/DKGeometryUtilities.h"; sourceTree = "<group>"; };
+		666EEC1E1A8D8E8300B9F171 /* UIBezierPath+Ahmed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+Ahmed.h"; path = "Submodules/DrawKit-iOS/DrawKit-iOS/UIBezierPath+Ahmed.h"; sourceTree = "<group>"; };
+		666EEC1F1A8D8E8900B9F171 /* UIBezierPath+GPC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBezierPath+GPC.h"; path = "Submodules/DrawKit-iOS/DrawKit-iOS/UIBezierPath+GPC.h"; sourceTree = "<group>"; };
 		668287881A893CE50038A1C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6682879A1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUIBezierPathClippedSegment.h; sourceTree = "<group>"; };
 		6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUIBezierPathClippedSegment.m; sourceTree = "<group>"; };
@@ -213,6 +228,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */,
+				666EEC331A8D90F100B9F171 /* CoreGraphics.framework in Frameworks */,
+				666EEC261A8D8F6E00B9F171 /* libClippingBezier.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,11 +301,11 @@
 		666EEBAA1A8D891900B9F171 /* DrawKit */ = {
 			isa = PBXGroup;
 			children = (
-				666EEBAB1A8D892E00B9F171 /* UIBezierPath+GPC.h */,
-				666EEBAE1A8D894A00B9F171 /* UIBezierPath+Ahmed.h */,
-				666EEBAF1A8D895800B9F171 /* DKGeometryUtilities.h */,
-				666EEBAD1A8D894400B9F171 /* UIBezierPath+Geometry.h */,
-				666EEBAC1A8D893B00B9F171 /* UIBezierPath+Editing.h */,
+				666EEC1F1A8D8E8900B9F171 /* UIBezierPath+GPC.h */,
+				666EEC1E1A8D8E8300B9F171 /* UIBezierPath+Ahmed.h */,
+				666EEC1D1A8D8E7D00B9F171 /* DKGeometryUtilities.h */,
+				666EEC1C1A8D8E7400B9F171 /* UIBezierPath+Geometry.h */,
+				666EEC1B1A8D8E6F00B9F171 /* UIBezierPath+Editing.h */,
 			);
 			name = DrawKit;
 			sourceTree = "<group>";
@@ -456,11 +474,6 @@
 				666EEBFB1A8D8C3F00B9F171 /* DKUIBezierPathShape.h in Headers */,
 				666EEBF91A8D8C3A00B9F171 /* MMFooBar.h in Headers */,
 				666EEBF81A8D8C3800B9F171 /* DKIntersectionOfPaths.h in Headers */,
-				666EEBF31A8D8C2D00B9F171 /* UIBezierPath+GPC.h in Headers */,
-				666EEBF41A8D8C2D00B9F171 /* UIBezierPath+Ahmed.h in Headers */,
-				666EEBF51A8D8C2D00B9F171 /* DKGeometryUtilities.h in Headers */,
-				666EEBF61A8D8C2D00B9F171 /* UIBezierPath+Geometry.h in Headers */,
-				666EEBF71A8D8C2D00B9F171 /* UIBezierPath+Editing.h in Headers */,
 				666EEBEA1A8D8C2500B9F171 /* UIBezierPath+Uncached.h in Headers */,
 				666EEBEB1A8D8C2500B9F171 /* UIBezierPath+Performance.h in Headers */,
 				666EEBEC1A8D8C2500B9F171 /* UIBezierPath+NSOSX.h in Headers */,
@@ -507,6 +520,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				666EEC251A8D8F6900B9F171 /* PBXTargetDependency */,
 			);
 			name = ClippingBezierTests;
 			productName = ClippingBezierTests;
@@ -645,6 +659,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.mm in Sources */,
+				666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */,
+				666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */,
+				666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */,
+				666EEC2C1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTangentTests.m in Sources */,
+				666EEC2D1A8D8F7500B9F171 /* DrawKitiOSClippingPerformanceTests.m in Sources */,
+				666EEC2E1A8D8F7500B9F171 /* DrawKitiOSClippingSubshapeTests.m in Sources */,
+				666EEC2F1A8D8F7500B9F171 /* DrawKitiOSReverseBezierTests.m in Sources */,
+				666EEC301A8D8F7500B9F171 /* DrawKitiOSFastFlatTests.m in Sources */,
+				666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +684,11 @@
 			isa = PBXTargetDependency;
 			target = 662D40C01A8D862600A1CB63 /* ClippingBezier */;
 			targetProxy = 666EEC131A8D8CA600B9F171 /* PBXContainerItemProxy */;
+		};
+		666EEC251A8D8F6900B9F171 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 666EEC0E1A8D8C8F00B9F171 /* Framework */;
+			targetProxy = 666EEC241A8D8F6900B9F171 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -791,6 +820,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -832,6 +868,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -901,6 +944,7 @@
 				666EEC111A8D8C8F00B9F171 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6682877C1A893CC70038A1C4 /* Build configuration list for PBXProject "ClippingBezier" */ = {
 			isa = XCConfigurationList;

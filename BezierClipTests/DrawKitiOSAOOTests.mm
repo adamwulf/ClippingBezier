@@ -7,8 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <ClippingBezier/BezierClip.h>
-#import <PerformanceBezier/PerformanceBezier.h>
+#import <ClippingBezier/ClippingBezier.h>
 
 #include <iostream>
 

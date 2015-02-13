@@ -7,9 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #import "DrawKitiOSAbstractTest.h"
-#import <ClippingBezier/BezierClip.h>
+#import <ClippingBezier/ClippingBezier.h>
 
 
 @interface DrawKitiOSClippingPerformanceTests : DrawKitiOSAbstractTest
