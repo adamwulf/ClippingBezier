@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
 		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */; };
 		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
 		666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */; };
@@ -20,7 +21,6 @@
 		666EEC331A8D90F100B9F171 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */; };
 		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
 		66AFACE81A8DDCA200FD0263 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668287881A893CE50038A1C4 /* Foundation.framework */; };
-		66AFACEF1A8DDCA200FD0263 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 66AFACEE1A8DDCA200FD0263 /* ClippingBezier-Info.plist */; };
 		66AFACFA1A8DDD4400FD0263 /* DKUIBezierPathClippedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */; };
 		66AFACFB1A8DDD4500FD0263 /* DKUIBezierPathClippingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879D1A893DDD0038A1C4 /* DKUIBezierPathClippingResult.m */; };
 		66AFACFC1A8DDD4800FD0263 /* DKUIBezierPathIntersectionPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 668287A01A893DDD0038A1C4 /* DKUIBezierPathIntersectionPoint.m */; };
@@ -69,6 +69,8 @@
 		662D40C31A8D862600A1CB63 /* ClippingBezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingBezier.h; sourceTree = "<group>"; };
 		662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662D40D11A8D862600A1CB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
+		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		668287881A893CE50038A1C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6682879A1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUIBezierPathClippedSegment.h; sourceTree = "<group>"; };
 		6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUIBezierPathClippedSegment.m; sourceTree = "<group>"; };
@@ -104,8 +106,6 @@
 		668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Intersections.h"; sourceTree = "<group>"; };
 		668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Intersections.m"; sourceTree = "<group>"; };
 		66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = ClippingBezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		66AFACEB1A8DDCA200FD0263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../BezierClip/Info.plist; sourceTree = "<group>"; };
-		66AFACEE1A8DDCA200FD0263 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ClippingBezier-Info.plist"; path = "../BezierClip/ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		66AFAD1E1A8DDDEF00FD0263 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "Submodules/DrawKit-iOS/build/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
 		66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "Submodules/DrawKit-iOS/Submodules/PerformanceBezier/build/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
 		66AFAD231A8DDE9700FD0263 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "Submodules/DrawKit-iOS/build/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 		668287781A893CC70038A1C4 = {
 			isa = PBXGroup;
 			children = (
-				6682878A1A893CE50038A1C4 /* BezierClip */,
+				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
 				668287871A893CE50038A1C4 /* Frameworks */,
 				668287861A893CE50038A1C4 /* Products */,
@@ -217,7 +217,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6682878A1A893CE50038A1C4 /* BezierClip */ = {
+		6682878A1A893CE50038A1C4 /* ClippingBezier */ = {
 			isa = PBXGroup;
 			children = (
 				662D40C31A8D862600A1CB63 /* ClippingBezier.h */,
@@ -229,7 +229,7 @@
 				668287991A893DD10038A1C4 /* Classes */,
 				66AFACEA1A8DDCA200FD0263 /* Supporting Files */,
 			);
-			path = BezierClip;
+			path = ClippingBezier;
 			sourceTree = "<group>";
 		};
 		668287991A893DD10038A1C4 /* Classes */ = {
@@ -308,8 +308,8 @@
 		66AFACEA1A8DDCA200FD0263 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				66AFACEE1A8DDCA200FD0263 /* ClippingBezier-Info.plist */,
-				66AFACEB1A8DDCA200FD0263 /* Info.plist */,
+				6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */,
+				6665F9F71A8EC72F0071F9B9 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			path = ../ClippingBezier;
@@ -431,7 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66AFACEF1A8DDCA200FD0263 /* ClippingBezier-Info.plist in Resources */,
+				6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,11 +678,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Submodules/DrawKit-iOS/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Submodules/DrawKit-iOS/Submodules/PerformanceBezier/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -729,11 +725,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Submodules/DrawKit-iOS/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Submodules/DrawKit-iOS/Submodules/PerformanceBezier/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -779,6 +771,7 @@
 				66AFACF61A8DDCA200FD0263 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
