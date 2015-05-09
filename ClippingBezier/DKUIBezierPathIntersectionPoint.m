@@ -9,7 +9,6 @@
 #import "DKUIBezierPathIntersectionPoint.h"
 #import "DKVector.h"
 #import "DKUIBezierPathIntersectionPoint+Private.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
 @implementation DKUIBezierPathIntersectionPoint{

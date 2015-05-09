@@ -48,9 +48,6 @@
     DKIntersectionOfPaths* firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPath] andPath:bounds];
     
     
-    NSLog(@"cropped path: %@", [firstIntersection.start bezierPathByUnflatteningPath]);
-    
-    
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 337, @"the curves do intersect");
     XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 57.0f, @"the curves do intersect");
@@ -92,9 +89,6 @@
     [bounds closePath];
     
     DKIntersectionOfPaths* firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPathAndImmutable:YES] andPath:bounds];
-    
-    
-    NSLog(@"cropped path: %@", [firstIntersection.start bezierPathByUnflatteningPath]);
     
     
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
@@ -139,9 +133,6 @@
     DKIntersectionOfPaths* firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPath] andPath:bounds];
     
     
-    NSLog(@"cropped path: %@", [firstIntersection.start bezierPathByUnflatteningPath]);
-    
-    
     XCTAssertEqual(firstIntersection.doesIntersect, NO, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, -1, @"the curves do intersect");
     XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 0.0f, @"the curves do intersect");
@@ -178,9 +169,6 @@
     [bounds closePath];
     
     DKIntersectionOfPaths* firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPath] andPath:bounds];
-    
-    
-    NSLog(@"cropped path: %@", [firstIntersection.start bezierPathByUnflatteningPath]);
     
     
     XCTAssertEqual(firstIntersection.doesIntersect, NO, @"the curves do intersect");
