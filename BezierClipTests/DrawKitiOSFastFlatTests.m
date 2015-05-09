@@ -98,7 +98,7 @@
     
     
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
-    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 1345, @"the curves do intersect");
+    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 1343, @"the curves do intersect");
     XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 92.0f, @"the curves do intersect");
     
     
@@ -238,7 +238,7 @@
     
     
     XCTAssertEqual([inter elementCount], 1556, @"the curves do intersect");
-    XCTAssertEqual([diff elementCount], 1184, @"the curves do intersect");
+    XCTAssertEqual([diff elementCount], 1183, @"the curves do intersect");
     
     XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
     XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");

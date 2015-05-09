@@ -11,6 +11,7 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
+#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
 @interface DrawKitiOSClippingSegmentTests : DrawKitiOSAbstractTest
 
@@ -78,7 +79,7 @@
     XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], .75f, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], .333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat).333333, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 5, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
     
@@ -111,12 +112,12 @@
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0f, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], .999999f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat).999997, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999999f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999996f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
 }
 
 -(void) testIntersectionAtT1{
@@ -156,9 +157,9 @@
     XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.666667f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.666667, @"correct intersection");
 }
 
 -(void) testIntersectionAtT0{
@@ -198,9 +199,9 @@
     XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.666667f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.666667, @"correct intersection");
 }
 
 
@@ -238,14 +239,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 5, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
 }
 
 -(void) testScissorAtShapeBeginningWithComplexShape2{
@@ -294,14 +295,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.170317f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.170317, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 103, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.299541f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.299541, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 104, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
 }
 
 
@@ -336,14 +337,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.666667f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.666667, @"correct intersection");
 }
 
 
@@ -370,14 +371,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.999995f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.999997f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.999999, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999997f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.999999, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
 }
 
 -(void) testReversedSquaredCircleIntersections{
@@ -403,14 +404,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.999996f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.999995, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.500001, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.500001f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.500002, @"correct intersection");
 }
 
 
@@ -485,14 +486,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.283445f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.283445, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.716555f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.716555, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.670200f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.670200, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.329800f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.329800, @"correct intersection");
 }
 
 
@@ -519,14 +520,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.670200f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.670200, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.329800f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.329800, @"correct intersection");
 
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.283445f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.283445, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.716555f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.716555, @"correct intersection");
 }
 
 //
@@ -568,14 +569,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 5, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.45f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.45, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
 }
 
 //
@@ -618,14 +619,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 5, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.45f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.45, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
 }
 
 -(void) testStraightLineThroughNotchedRectangle{
@@ -670,14 +671,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.1f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.1, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.266667f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.266667, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.666667f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.666667, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
 }
 
 -(void) testTangentThroughNotchedRectangle{
@@ -722,14 +723,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.1f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.1, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.3f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.3, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.3f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.3, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.7f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.7, @"correct intersection");
 }
 
 
@@ -775,9 +776,9 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.1f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.1, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.2f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.2, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.0f, @"correct intersection");
@@ -839,9 +840,9 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.4f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.4, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.9f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.9, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 4, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.0f, @"correct intersection");
@@ -893,9 +894,9 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.1f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.1, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.7f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.7, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.0f, @"correct intersection");
@@ -934,14 +935,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.102096f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.102096, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.697904f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.697904, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.965475f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.965475, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.034525f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.034525, @"correct intersection");
 }
 
 -(void) testStraightLineThroughSingleNotchedRectangle{
@@ -982,14 +983,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.1f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.1, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.266667f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.266667, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.666667f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.666667, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.333333f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.333333, @"correct intersection");
 }
 
 -(void) testCircleThroughRectangle{
@@ -1018,14 +1019,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.999999f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999999f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999996f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.999997, @"correct intersection");
 }
 
 -(void) testComplexShapeWithInternalTangentLine{
@@ -1055,14 +1056,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.058393f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.058393, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.238466f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.238466, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 11, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.414281f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.414279, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 12, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.772192f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.772193, @"correct intersection");
 }
 
 - (void)testCurveDifferenceWithBounds
@@ -1101,14 +1102,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.296669f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.296669, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.703331f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.703331, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.561821f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.561821, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.438179f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.438179, @"correct intersection");
 }
 
 -(void) testStraightLineThroughComplexShapeAnomaly{
@@ -1138,14 +1139,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.452033f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.452033, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.787324f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.787324, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 54, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.048580f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.048579, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 69, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.206737f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.206736, @"correct intersection");
 }
 
 -(void) testLotsOfExternalTangents{
@@ -1196,7 +1197,7 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.571429f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.571429, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
     XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 1.0f, @"correct intersection");
     
@@ -1248,14 +1249,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.5, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.875f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.875, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 5, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.6f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.6, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.25f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.25, @"correct intersection");
 }
 
 -(void) testRemoveRedSegmentsEndingInsideShape{
@@ -1312,14 +1313,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.489666f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.489666, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.301769f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.301769, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 13, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.890672f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.890672, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.085727f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.085727, @"correct intersection");
 }
 
 -(void) testLineThroughNearTangent{
@@ -1373,14 +1374,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.147685f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.147685, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.425472f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.425472, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 14, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.561507f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.561507, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.667665f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.667665, @"correct intersection");
 }
 
 -(void) testLineThroughNearTangent2{
@@ -1443,14 +1444,14 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.125865f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.125865, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.183655f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.183654, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 9, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.107146f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], (CGFloat)0.107146, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.950284f, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], (CGFloat)0.950284, @"correct intersection");
 }
 
 -(void) testScissorBeginningInShape{
@@ -1498,9 +1499,9 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.2f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.2, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.6f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.6, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
@@ -1537,9 +1538,9 @@
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
     
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.4f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.4, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.8f, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.8, @"correct intersection");
     
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 4, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.5f, @"correct intersection");
@@ -2127,21 +2128,21 @@
     
     DKUIBezierPathClippedSegment* blueSegment = [blueSegments objectAtIndex:0];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], .4f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat).4, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], .933333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat).933333, @"correct intersection");
     
     blueSegment = [blueSegments objectAtIndex:1];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], .933333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat).933333, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], .4f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat).4, @"correct intersection");
     
     blueSegment = [blueSegments objectAtIndex:2];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], 0.733333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat)0.733333, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], 0.733333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat)0.733333, @"correct intersection");
 }
 
 -(void) testTangentToSquareHoleInRectangle{
@@ -2194,21 +2195,21 @@
     
     DKUIBezierPathClippedSegment* blueSegment = [blueSegments objectAtIndex:0];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], .4f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat).4, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], .933333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat).933333, @"correct intersection");
     
     blueSegment = [blueSegments objectAtIndex:1];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], .933333f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat).933333, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], .4f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat).4, @"correct intersection");
     
     blueSegment = [blueSegments objectAtIndex:2];
     XCTAssertEqual(blueSegment.startIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], 0.866667f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.startIntersection.tValue2 to:6], (CGFloat)0.866667, @"correct intersection");
     XCTAssertEqual(blueSegment.endIntersection.elementIndex2, 1, @"correct intersection");
-    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], 0.6f, @"correct intersection");
+    XCTAssertEqual([self round:blueSegment.endIntersection.tValue2 to:6], (CGFloat)0.6, @"correct intersection");
 }
 
 -(void) testScissorsCreatingHole{

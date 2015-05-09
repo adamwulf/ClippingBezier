@@ -11,7 +11,7 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
-
+#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
 @interface DrawKitiOSClippingSegmentTangentTests : DrawKitiOSAbstractTest
 
@@ -1252,7 +1252,7 @@
     
     DKUIBezierPathClippedSegment* redSegment = [redSegments firstObject];
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"element starts in right place");
-    XCTAssertEqual(redSegment.startIntersection.tValue1, 0.4f, @"element starts in right place");
+    XCTAssertEqual(redSegment.startIntersection.tValue1, (CGFloat)0.4, @"element starts in right place");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"element starts in right place");
     
     DKUIBezierPathClippedSegment* currentSegmentCandidate = [UIBezierPath getBestMatchSegmentForSegments:[NSArray arrayWithObject:redSegment]
