@@ -12,3 +12,6 @@ macros.h        public domain
 scale.h         unknown
 translate.h     unknown
 
+
+
+bezier clipping licensed in Mozilla Public License Version 1.1
