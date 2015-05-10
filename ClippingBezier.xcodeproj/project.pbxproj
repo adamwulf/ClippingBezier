@@ -20,6 +20,15 @@
 		666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */; };
 		666EEC331A8D90F100B9F171 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */; };
 		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
+		66767CB21AFED58200443B03 /* UIBezierPath+DKFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB01AFED58200443B03 /* UIBezierPath+DKFix.h */; };
+		66767CB31AFED58200443B03 /* UIBezierPath+DKFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 66767CB11AFED58200443B03 /* UIBezierPath+DKFix.m */; };
+		66767CB61AFED77400443B03 /* point.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB51AFED77400443B03 /* point.h */; };
+		66767CB81AFED78A00443B03 /* coord.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB71AFED78A00443B03 /* coord.h */; };
+		66767CBA1AFED79400443B03 /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB91AFED79400443B03 /* macros.h */; };
+		66767CBC1AFED7A000443B03 /* math-utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CBB1AFED7A000443B03 /* math-utils.h */; };
+		66767CBE1AFED93E00443B03 /* GraphicsGems in Resources */ = {isa = PBXBuildFile; fileRef = 66767CBD1AFED93E00443B03 /* GraphicsGems */; };
+		66767CC21AFEDA5000443B03 /* NearestPoint.c in Sources */ = {isa = PBXBuildFile; fileRef = 66767CC01AFEDA5000443B03 /* NearestPoint.c */; };
+		66767CC31AFEDA5000443B03 /* NearestPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CC11AFEDA5000443B03 /* NearestPoint.h */; };
 		66AFACE81A8DDCA200FD0263 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668287881A893CE50038A1C4 /* Foundation.framework */; };
 		66AFACFA1A8DDD4400FD0263 /* DKUIBezierPathClippedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */; };
 		66AFACFB1A8DDD4500FD0263 /* DKUIBezierPathClippingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879D1A893DDD0038A1C4 /* DKUIBezierPathClippingResult.m */; };
@@ -58,7 +67,6 @@
 		66AFAD201A8DDDEF00FD0263 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD1E1A8DDDEF00FD0263 /* DrawKit-iOS.framework */; };
 		66AFAD211A8DDDEF00FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */; };
 		66AFAD221A8DDE9700FD0263 /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
-		66AFAD251A8DDE9700FD0263 /* DrawKit-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD231A8DDE9700FD0263 /* DrawKit-iOS.framework */; };
 		66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -70,6 +78,15 @@
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		66767CB01AFED58200443B03 /* UIBezierPath+DKFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+DKFix.h"; sourceTree = "<group>"; };
+		66767CB11AFED58200443B03 /* UIBezierPath+DKFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DKFix.m"; sourceTree = "<group>"; };
+		66767CB51AFED77400443B03 /* point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = point.h; sourceTree = "<group>"; };
+		66767CB71AFED78A00443B03 /* coord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coord.h; sourceTree = "<group>"; };
+		66767CB91AFED79400443B03 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
+		66767CBB1AFED7A000443B03 /* math-utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math-utils.h"; sourceTree = "<group>"; };
+		66767CBD1AFED93E00443B03 /* GraphicsGems */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GraphicsGems; path = Submodules/GraphicsGems; sourceTree = "<group>"; };
+		66767CC01AFEDA5000443B03 /* NearestPoint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NearestPoint.c; sourceTree = "<group>"; };
+		66767CC11AFEDA5000443B03 /* NearestPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearestPoint.h; sourceTree = "<group>"; };
 		668287881A893CE50038A1C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6682879A1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKUIBezierPathClippedSegment.h; sourceTree = "<group>"; };
 		6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKUIBezierPathClippedSegment.m; sourceTree = "<group>"; };
@@ -133,7 +150,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66AFAD251A8DDE9700FD0263 /* DrawKit-iOS.framework in Frameworks */,
 				66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */,
 				66AFAD221A8DDE9700FD0263 /* ClippingBezier.framework in Frameworks */,
 				666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */,
@@ -181,9 +197,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		66767CB41AFED76800443B03 /* bezier-utils */ = {
+			isa = PBXGroup;
+			children = (
+				66767CB71AFED78A00443B03 /* coord.h */,
+				66767CBB1AFED7A000443B03 /* math-utils.h */,
+				66767CB91AFED79400443B03 /* macros.h */,
+				66767CB51AFED77400443B03 /* point.h */,
+			);
+			name = "bezier-utils";
+			sourceTree = "<group>";
+		};
+		66767CBF1AFEDA3E00443B03 /* GraphicsGems */ = {
+			isa = PBXGroup;
+			children = (
+				66767CC11AFEDA5000443B03 /* NearestPoint.h */,
+				66767CC01AFEDA5000443B03 /* NearestPoint.c */,
+			);
+			name = GraphicsGems;
+			sourceTree = "<group>";
+		};
 		668287781A893CC70038A1C4 = {
 			isa = PBXGroup;
 			children = (
+				66767CBD1AFED93E00443B03 /* GraphicsGems */,
 				66767CAC1AFEB8C600443B03 /* README.md */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
@@ -218,6 +255,8 @@
 		6682878A1A893CE50038A1C4 /* ClippingBezier */ = {
 			isa = PBXGroup;
 			children = (
+				66767CBF1AFEDA3E00443B03 /* GraphicsGems */,
+				66767CB41AFED76800443B03 /* bezier-utils */,
 				662D40C31A8D862600A1CB63 /* ClippingBezier.h */,
 				668287B41A893DE90038A1C4 /* interval.h */,
 				668288101A893EFA0038A1C4 /* Vector */,
@@ -297,6 +336,8 @@
 				668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */,
 				66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */,
 				66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */,
+				66767CB01AFED58200443B03 /* UIBezierPath+DKFix.h */,
+				66767CB11AFED58200443B03 /* UIBezierPath+DKFix.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -318,12 +359,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66767CB81AFED78A00443B03 /* coord.h in Headers */,
 				66AFAD0C1A8DDD7100FD0263 /* ClippingBezier.h in Headers */,
+				66767CB21AFED58200443B03 /* UIBezierPath+DKFix.h in Headers */,
 				66AFAD111A8DDD7D00FD0263 /* UIBezierPath+GeometryExtras.h in Headers */,
 				66AFAD121A8DDD7E00FD0263 /* UIBezierPath+DKOSX.h in Headers */,
 				66AFAD131A8DDD8000FD0263 /* UIBezierPath+Intersections.h in Headers */,
 				66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */,
 				66AFAD151A8DDD8300FD0263 /* DKUIBezierPathClippedSegment.h in Headers */,
+				66767CC31AFEDA5000443B03 /* NearestPoint.h in Headers */,
 				66AFAD1A1A8DDD8D00FD0263 /* DKUIBezierPathShape.h in Headers */,
 				66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */,
 				66AFAD1B1A8DDD8F00FD0263 /* DKTangentAtPoint.h in Headers */,
@@ -332,6 +376,9 @@
 				66AFAD191A8DDD8A00FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.h in Headers */,
 				66AFAD141A8DDD8100FD0263 /* NSArray+FirstObject.h in Headers */,
 				66AFAD0F1A8DDD7800FD0263 /* UIBezierPath+Clipping.h in Headers */,
+				66767CB61AFED77400443B03 /* point.h in Headers */,
+				66767CBA1AFED79400443B03 /* macros.h in Headers */,
+				66767CBC1AFED7A000443B03 /* math-utils.h in Headers */,
 				66AFAD0D1A8DDD7300FD0263 /* JRSwizzle.h in Headers */,
 				66AFAD0E1A8DDD7500FD0263 /* MMBackwardCompatible.h in Headers */,
 				66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */,
@@ -427,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */,
+				66767CBE1AFED93E00443B03 /* GraphicsGems in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,12 +555,14 @@
 				66AFAD041A8DDD5E00FD0263 /* UIBezierPath+DKOSX.m in Sources */,
 				66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */,
 				66AFAD0B1A8DDD6C00FD0263 /* DKVector.m in Sources */,
+				66767CB31AFED58200443B03 /* UIBezierPath+DKFix.m in Sources */,
 				66AFAD091A8DDD6800FD0263 /* JRSwizzle.m in Sources */,
 				66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */,
 				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */,
 				66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */,
 				66AFAD051A8DDD5F00FD0263 /* UIBezierPath+GeometryExtras.m in Sources */,
 				66AFAD031A8DDD5C00FD0263 /* UIBezierPath+Intersections.m in Sources */,
+				66767CC21AFEDA5000443B03 /* NearestPoint.c in Sources */,
 				66AFAD011A8DDD5700FD0263 /* DKIntersectionOfPaths.m in Sources */,
 				66AFACFE1A8DDD5200FD0263 /* DKUIBezierPathShape.m in Sources */,
 				66AFACFC1A8DDD4800FD0263 /* DKUIBezierPathIntersectionPoint.m in Sources */,

@@ -7,9 +7,11 @@
 //
 
 #import "UIBezierPath+Intersections.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "DKIntersectionOfPaths.h"
+#import "UIBezierPath+Clipping.h"
+#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+DKFix.h"
 
 static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p4);
 
@@ -81,7 +83,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
             [iterateOnThisPath iteratePathWithBlock:^(CGPathElement seenElement, NSUInteger idx){
                 if(seenElement.type == kCGPathElementAddLineToPoint){
                     CGPoint intersection = intersects2D(lastMyPoint, element.points[0], lastSeenPoint, seenElement.points[0]);
-                    if(!CGPointEqualToPoint(intersection,CGNotFoundPoint) &&
+                    if(!CGPointEqualToPoint(intersection,CGPointNotFound) &&
                        !pointIsNearToPoint(intersection, lastMyPoint)){
                         [intersections addObject:[NSValue valueWithCGPoint:intersection]];
                         
@@ -213,9 +215,9 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
             }else if(element.type == kCGPathElementAddLineToPoint){
                 CGPoint nextPoint = element.points[0];
                 if(!hasSeenIntersection){
-                    __block CGPoint lastPointOfOperatedPath = CGNotFoundPoint;
-                    __block CGPoint closestIntersectionOfCurve = CGNotFoundPoint;
-                    __block CGPoint mostRecentMoveToPoint = CGNotFoundPoint;
+                    __block CGPoint lastPointOfOperatedPath = CGPointNotFound;
+                    __block CGPoint closestIntersectionOfCurve = CGPointNotFound;
+                    __block CGPoint mostRecentMoveToPoint = CGPointNotFound;
                     //
                     // now, we iterate over the entire path with our line segment,
                     // looking for the closest intersection point to the start
@@ -239,7 +241,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
                             }
                             // find our intersection, if any
                             CGPoint intersection = intersects2D(myLastPoint, nextPoint, lastPointOfOperatedPath, lineToPoint);
-                            if(!CGPointEqualToPoint(intersection,CGNotFoundPoint) &&
+                            if(!CGPointEqualToPoint(intersection,CGPointNotFound) &&
                                !CGPointEqualToPoint(myLastPoint, intersection)){
                                 // ok, we found an intersection! save this intersection
                                 // if it's the closest one we've seen so far, otherwise
@@ -257,7 +259,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
                     //
                     // at this point, closestIntersectionOfCurve and distanceToClosestIntersection
                     // will both be set with values if we found an intersection at all
-                    if(!CGPointEqualToPoint(closestIntersectionOfCurve,CGNotFoundPoint)){
+                    if(!CGPointEqualToPoint(closestIntersectionOfCurve,CGPointNotFound)){
                         // save the element and T value for the intersection
                         // the t value is just the distance to the intersection compared to the entire line
                         myElementIndexOfIntersection = myCurrentElementIndex;
@@ -498,5 +500,5 @@ inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p4)
         // parallel
     }
     
-    return CGNotFoundPoint; // No collision
+    return CGPointNotFound; // No collision
 }

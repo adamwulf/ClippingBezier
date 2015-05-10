@@ -12,6 +12,8 @@
 #import "DKTangentAtPoint.h"
 #import "DKUIBezierPathClippedSegment.h"
 
+#define CGPointNotFound CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)
+
 @interface UIBezierPath (Clipping)
 
 -(NSArray*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;

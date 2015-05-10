@@ -15,6 +15,7 @@
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+GeometryExtras.h"
 #import "UIBezierPath+DKOSX.h"
+#import "UIBezierPath+DKFix.h"
 #import "NSArray+FirstObject.h"
 #import "DKUIBezierPathClippedSegment.h"
 #import "DKUIBezierPathClippingResult.h"

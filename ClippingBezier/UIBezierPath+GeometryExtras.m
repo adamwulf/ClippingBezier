@@ -7,11 +7,21 @@
 //
 
 #import "UIBezierPath+GeometryExtras.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
+#import "UIBezierPath+Clipping.h"
+#import "UIBezierPath+DKFix.h"
+#include "NearestPoint.h"
 
 @implementation UIBezierPath (GeometryExtras)
 
+CGFloat tValOfPointOnLine(CGPoint p, CGPoint a, CGPoint b){
+    CGFloat lineLength = distance(a, b);
+    if(lineLength > 0){
+        CGFloat lengthToA = distance(p, a);
+        return lengthToA / lineLength;
+    }
+    return 0;
+}
 
 // this will return YES if self contains
 // a subpath and that subpath's reverse
@@ -36,6 +46,34 @@
     NSInteger index;
     double tValue;
     return [self closestPointOnPathTo:pointNearTheCurve atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+}
+
+// from http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
+CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b){
+    
+    if(CGPointEqualToPoint(a, b)) return a;
+    
+    // Storing vector A->P
+    CGPoint a_to_p = CGPointMake(p.x - a.x, p.y - a.y);
+    // Storing vector A->B
+    CGPoint a_to_b = CGPointMake(b.x - a.x, b.y - a.y);
+    
+    // Basically finding the squared magnitude
+    // of a_to_b
+    CGFloat atb2 = a_to_b.x*a_to_b.x + a_to_b.y*a_to_b.y;
+    
+    // The dot product of a_to_p and a_to_b
+    CGFloat atp_dot_atb = a_to_p.x*a_to_b.x + a_to_p.y*a_to_b.y;
+    
+    if(atb2 == 0) return a;
+    
+    // The normalized "distance" from a to
+    CGFloat t = atp_dot_atb / atb2;
+    //   your closest point
+    
+    // Add the distance to A, moving
+    //   towards B
+    return CGPointMake(a.x + a_to_b.x*t, a.y + a_to_b.y*t );
 }
 
 /**
@@ -80,7 +118,7 @@
         }else if(element.type == kCGPathElementAddLineToPoint){
             np1 = NearestPointOnLine( pointNearTheCurve, previousEndpoint, element.points[0] );
             np2 = NearestPointOnLine( endPoint, previousEndpoint, element.points[0] );
-            currTValue = RelPoint( np1, previousEndpoint, element.points[0] );
+            currTValue = tValOfPointOnLine( np1, previousEndpoint, element.points[0] );
             previousEndpoint = element.points[0];
         }
         
@@ -90,7 +128,7 @@
                 winningPoint = np1;
                 winningIndex = currentIndex;
                 winningTValue = currTValue;
-            }else if(LineLength(pointNearTheCurve, np1) < LineLength(pointNearTheCurve, winningPoint)){
+            }else if(distance(pointNearTheCurve, np1) < distance(pointNearTheCurve, winningPoint)){
                 winningPoint = np1;
                 winningIndex = currentIndex;
                 winningTValue = currTValue;
@@ -101,7 +139,7 @@
             if(CGPointEqualToPoint(winningEndPoint, CGPointZero)){
                 winningEndPoint = np2;
                 winningEndIndex = currentIndex;
-            }else if(LineLength(endPoint, np2) < LineLength(endPoint, winningEndPoint)){
+            }else if(distance(endPoint, np2) < distance(endPoint, winningEndPoint)){
                 winningEndPoint = np2;
                 winningEndIndex = currentIndex;
             }

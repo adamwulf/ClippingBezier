@@ -7,10 +7,10 @@
 //
 
 #import "DKUIBezierPathClippedSegment.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "DKVector.h"
 #import "UIBezierPath+Clipping.h"
+#import "UIBezierPath+DKFix.h"
 
 @implementation DKUIBezierPathClippedSegment{
     DKUIBezierPathIntersectionPoint* startIntersection;

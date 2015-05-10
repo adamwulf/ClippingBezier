@@ -7,7 +7,6 @@
 //
 
 #import "UIBezierPath+Clipping.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
 #include "interval.h"
 #include <vector>
 #import "DKUIBezierPathClippingResult.h"
@@ -18,9 +17,10 @@
 #include "bezierclip.hxx"
 #import "DKUIBezierPathShape.h"
 #import "UIBezierPath+Intersections.h"
-#import <DrawKit-iOS/DrawKit-iOS.h>
-#include <DrawKit-iOS/point.h>
+#import "UIBezierPath+DKFix.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#include "point.h"
+#include "NearestPoint.h"
 
 #define kUIBezierClippingPrecision 0.0005
 #define kUIBezierClosenessPrecision 0.5
@@ -935,7 +935,7 @@ static NSInteger segmentCompareCount = 0;
     // outside the closed path. this will help us track
     // if intersection points actually change where the curve
     // lands
-    __block CGPoint lastPath1Point = CGNotFoundPoint;
+    __block CGPoint lastPath1Point = CGPointNotFound;
     // this array will hold all of the intersection data as we
     // find them
     NSMutableArray* foundIntersections = [NSMutableArray array];
@@ -983,7 +983,7 @@ static NSInteger segmentCompareCount = 0;
             if(path1Element.type != kCGPathElementMoveToPoint){
                 path1EstimatedElementLength = [UIBezierPath estimateArcLengthOf:bez1 withSteps:10];
                 
-                __block CGPoint lastPath2Point = CGNotFoundPoint;
+                __block CGPoint lastPath2Point = CGPointNotFound;
                 
                 if(CGRectIntersectsRect(path1ElementBounds, path2Bounds)){
                     // at this point, we know that path1's element intersections somewhere within
@@ -1018,7 +1018,7 @@ static NSInteger segmentCompareCount = 0;
                                     // only 1 place.
                                     // TODO: should i return two intersections if they're tangent?
                                     CGPoint intersection = [UIBezierPath intersects2D:bez1[0] to:bez1[3] andLine:bez2[0] to:bez2[3]];
-                                    if(!CGPointEqualToPoint(intersection,CGNotFoundPoint)){
+                                    if(!CGPointEqualToPoint(intersection,CGPointNotFound)){
                                         CGFloat path1TValue = distance(bez1[0], intersection) / distance(bez1[0], bez1[3]);
                                         CGFloat path2TValue = distance(bez2[0], intersection) / distance(bez2[0], bez2[3]);
                                         if(path1TValue >= 0 && path1TValue <= 1 &&
@@ -1508,7 +1508,7 @@ static NSInteger segmentCompareCount = 0;
     __block BOOL closedPathIsPoint = NO;
     
     __block BOOL lastElementIsClosePath = NO;
-    __block CGPoint startingPoint = CGNotFoundPoint;
+    __block CGPoint startingPoint = CGPointNotFound;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger currentElementIndex){
         if(![tValuesOfIntersectionPoints count] || currentElementIndex != [[tValuesOfIntersectionPoints firstObject] elementIndex1]){
             // no intersection between these two elements, so add the
@@ -2661,7 +2661,7 @@ static NSInteger segmentCompareCount = 0;
     }
     
     __block CGFloat entireLength = 0;
-    __block CGPoint lastPoint = CGNotFoundPoint;
+    __block CGPoint lastPoint = CGPointNotFound;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx){
         CGPoint nextLastPoint = lastPoint;
         if(element.type == kCGPathElementAddLineToPoint){
@@ -2676,7 +2676,7 @@ static NSInteger segmentCompareCount = 0;
             nextLastPoint = self.firstPoint;
         }
         
-        if(CGPointEqualToPoint(lastPoint, CGNotFoundPoint) || element.type == kCGPathElementMoveToPoint){
+        if(CGPointEqualToPoint(lastPoint, CGPointNotFound) || element.type == kCGPathElementMoveToPoint){
             lastPoint = element.points[0];
         }else if(element.type != kCGPathElementCloseSubpath){
             entireLength += distance(lastPoint, nextLastPoint);
@@ -2709,7 +2709,7 @@ static NSInteger segmentCompareCount = 0;
     __block CGFloat tValueToUse = tValue;
     
     __block CGFloat lengthSoFar = 0;
-    lastPoint = CGNotFoundPoint;
+    lastPoint = CGPointNotFound;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx){
         // if we have an answer, just exit
         if(ret) return;
@@ -2728,7 +2728,7 @@ static NSInteger segmentCompareCount = 0;
         
         // we're still looking for the element that contains t
         CGFloat lengthOfElement = 0;
-        if(CGPointEqualToPoint(lastPoint, CGNotFoundPoint) || element.type == kCGPathElementMoveToPoint){
+        if(CGPointEqualToPoint(lastPoint, CGPointNotFound) || element.type == kCGPathElementMoveToPoint){
             lastPoint = element.points[0];
             nextLastPoint = lastPoint;
         }else if(element.type != kCGPathElementCloseSubpath){
@@ -2940,5 +2940,7 @@ CGFloat distance(const CGPoint p1, const CGPoint p2) {
     CGFloat dist = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
     return dist;
 }
+
+
 
 @end

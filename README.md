@@ -13,7 +13,8 @@ This library will generate a proper static framework bundle that can be used in 
 
 1. Link against the built framework and the included PerformanceBezier framework
 2. Add "-ObjC++ -lstdc++" to the Other Linker Flags in the project's Settings
-3. #import <DrawKit-iOS/DrawKit-iOS.h>
+3. #import <PerformanceBezier/PerformanceBezier.h>
+4. #import <ClippingBezier/ClippingBezier.h>
 
 ## Example
 
