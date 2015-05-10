@@ -93,6 +93,8 @@
 		664A488C1AFEF28700DE634E /* scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scale.h; sourceTree = "<group>"; };
 		664A488F1AFEF39800DE634E /* BezierUtilsLicense */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierUtilsLicense; sourceTree = "<group>"; };
 		664A48911AFEF78800DE634E /* translate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate.h; sourceTree = "<group>"; };
+		664A48921AFEF9E400DE634E /* bezier-utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "bezier-utils.cpp"; sourceTree = "<group>"; };
+		664A48931AFEF9E400DE634E /* bezier-utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-utils.h"; sourceTree = "<group>"; };
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -216,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				664A488F1AFEF39800DE634E /* BezierUtilsLicense */,
+				664A48921AFEF9E400DE634E /* bezier-utils.cpp */,
+				664A48931AFEF9E400DE634E /* bezier-utils.h */,
 				664A48801AFEF26200DE634E /* matrix.cpp */,
 				664A48811AFEF26200DE634E /* matrix.h */,
 				664A487D1AFEF23F00DE634E /* point.cpp */,
