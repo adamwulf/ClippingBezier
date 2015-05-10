@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Submodules/DrawKit-iOS/Submodules/PerformanceBezier/PerformanceBezier.xcodeproj">
+      location = "group:Submodules/PerformanceBezier/PerformanceBezier.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:ClippingBezier.xcodeproj">

@@ -4,3 +4,6 @@
 [submodule "Submodules/GraphicsGems"]
 	path = Submodules/GraphicsGems
 	url = git@github.com:erich666/GraphicsGems.git
+[submodule "Submodules/PerformanceBezier"]
+	path = Submodules/PerformanceBezier
+	url = git@github.com:adamwulf/PerformanceBezier.git
