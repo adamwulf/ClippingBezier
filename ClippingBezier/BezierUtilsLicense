@@ -1,0 +1,14 @@
+I believe the original .h and .cpp files were from open source InkScape project
+
+
+matrix.h        public domain
+point.h         unknown
+rotate.h        unknown
+transform.h     unknown
+coord.h         Mozilla Public License Version 1.1
+isnan.h         GPL ?!
+math-utils.h    Mozilla Public License Version 1.1
+macros.h        public domain
+scale.h         unknown
+translate.h     unknown
+

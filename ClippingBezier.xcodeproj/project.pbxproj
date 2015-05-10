@@ -15,6 +15,7 @@
 		664A488A1AFEF27A00DE634E /* rotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48881AFEF27A00DE634E /* rotate.cpp */; };
 		664A488B1AFEF27A00DE634E /* rotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48891AFEF27A00DE634E /* rotate.h */; };
 		664A488E1AFEF29100DE634E /* translate.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A488D1AFEF29100DE634E /* translate.h */; };
+		664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */ = {isa = PBXBuildFile; fileRef = 664A488F1AFEF39800DE634E /* BezierUtilsLicense */; };
 		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
 		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */; };
 		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
@@ -92,6 +93,7 @@
 		664A48891AFEF27A00DE634E /* rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rotate.h; sourceTree = "<group>"; };
 		664A488C1AFEF28700DE634E /* scale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scale.h; sourceTree = "<group>"; };
 		664A488D1AFEF29100DE634E /* translate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = translate.h; path = "../../../../DrawKit-iOS/DrawKit-iOS/translate.h"; sourceTree = "<group>"; };
+		664A488F1AFEF39800DE634E /* BezierUtilsLicense */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BezierUtilsLicense; sourceTree = "<group>"; };
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		66767CB41AFED76800443B03 /* bezier-utils */ = {
 			isa = PBXGroup;
 			children = (
+				664A488F1AFEF39800DE634E /* BezierUtilsLicense */,
 				664A48801AFEF26200DE634E /* matrix.cpp */,
 				664A48811AFEF26200DE634E /* matrix.h */,
 				664A487D1AFEF23F00DE634E /* point.cpp */,
@@ -499,6 +502,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */,
 				6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */,
 				66767CBE1AFED93E00443B03 /* GraphicsGems in Resources */,
 			);
