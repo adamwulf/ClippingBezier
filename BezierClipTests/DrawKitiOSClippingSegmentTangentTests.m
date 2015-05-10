@@ -101,11 +101,11 @@
     
     DKTangentAtPoint* tan = [bezierPath tangentNearStart];
     
-    XCTAssertTrue([self checkTanPoint:LineLength(CGPointMake(100.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
+    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(100.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
     
     tan = [bezierPath tangentNearEnd];
     
-    XCTAssertTrue([self checkTanPoint:LineLength(CGPointMake(200.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
+    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(200.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
 }
 
 

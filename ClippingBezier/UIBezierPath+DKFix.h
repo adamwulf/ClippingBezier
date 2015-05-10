@@ -14,6 +14,8 @@
 
 -(NSArray*) subPaths;
 
+-(NSInteger) countSubPaths;
+
 - (NSInteger) subpathIndexForElement:(NSInteger) element;
 
 - (CGFloat) length;

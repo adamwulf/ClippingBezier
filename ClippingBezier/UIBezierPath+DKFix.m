@@ -19,6 +19,10 @@
     return nil;
 }
 
+-(NSInteger) countSubPaths{
+    return 0;
+}
+
 - (UIBezierPath*) bezierPathByTrimmingFromLength:(CGFloat)trimLength{
     return nil;
 }
