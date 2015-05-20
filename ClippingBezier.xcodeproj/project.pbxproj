@@ -15,7 +15,7 @@
 		664A488A1AFEF27A00DE634E /* rotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48881AFEF27A00DE634E /* rotate.cpp */; };
 		664A488B1AFEF27A00DE634E /* rotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48891AFEF27A00DE634E /* rotate.h */; };
 		664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */ = {isa = PBXBuildFile; fileRef = 664A488F1AFEF39800DE634E /* BezierUtilsLicense */; };
-		665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */ = {isa = PBXBuildFile; fileRef = 665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */; };
+		665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */ = {isa = PBXBuildFile; fileRef = 665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		665E8D491B0D2366009E32FC /* UIBezierPath+Ahmed.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D4A1B0D2688009E32FC /* DKFixTests.m */; };
 		665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
@@ -402,7 +402,6 @@
 				66AFAD121A8DDD7E00FD0263 /* UIBezierPath+DKOSX.h in Headers */,
 				66AFAD131A8DDD8000FD0263 /* UIBezierPath+Intersections.h in Headers */,
 				66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */,
-				665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */,
 				66AFAD151A8DDD8300FD0263 /* DKUIBezierPathClippedSegment.h in Headers */,
 				66767CC31AFEDA5000443B03 /* NearestPoint.h in Headers */,
 				66AFAD1A1A8DDD8D00FD0263 /* DKUIBezierPathShape.h in Headers */,
@@ -410,6 +409,7 @@
 				66AFAD1B1A8DDD8F00FD0263 /* DKTangentAtPoint.h in Headers */,
 				66AFAD161A8DDD8500FD0263 /* DKUIBezierPathClippingResult.h in Headers */,
 				66AFAD171A8DDD8600FD0263 /* DKUIBezierPathIntersectionPoint.h in Headers */,
+				665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */,
 				66767CB21AFED58200443B03 /* UIBezierPath+DKFix.h in Headers */,
 				66AFAD191A8DDD8A00FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.h in Headers */,
 				66AFAD141A8DDD8100FD0263 /* NSArray+FirstObject.h in Headers */,

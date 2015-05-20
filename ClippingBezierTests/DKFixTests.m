@@ -73,4 +73,14 @@
     XCTAssertEqual([sub2 lastPoint].y, (CGFloat) 30, "element count is correct");
 }
 
+- (void)testStartTangent {
+    // This is an example of a functional test case.
+    
+    UIBezierPath* path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(10, 10)];
+    
+    CGFloat tangent = [path1 tangentAtStart];
+    XCTAssertEqual((CGFloat)tangent, (CGFloat) -2.3561945, "tangent is correct");
+}
 @end

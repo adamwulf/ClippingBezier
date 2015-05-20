@@ -61,7 +61,35 @@
 }
 
 - (CGFloat) tangentAtStart{
-    return 0;
+    if([self elementCount] < 2){
+        return CGFLOAT_MAX;
+    }
+    
+    CGPathElement ele1 = [self elementAtIndex:0];
+    CGPathElement ele2 = [self elementAtIndex:1];
+    
+    if(ele1.type != kCGPathElementMoveToPoint){
+        return CGFLOAT_MAX;
+    }
+    
+    CGPoint point1 = ele1.points[0];
+    CGPoint point2 = CGPointZero;
+    
+    switch (ele2.type) {
+        case kCGPathElementMoveToPoint:
+            return CGFLOAT_MAX;
+            break;
+        case kCGPathElementAddCurveToPoint:
+        case kCGPathElementAddQuadCurveToPoint:
+        case kCGPathElementAddLineToPoint:
+            point2 = ele2.points[0];
+            break;
+        case kCGPathElementCloseSubpath:
+            return CGFLOAT_MAX;
+            break;
+    }
+
+    return atan2( point1.y - point2.y, point1.x - point2.x );
 }
 
 +(void) subdivideBezier:(CGPoint[4])bez intoLeft:(CGPoint[4])bez1 andRight:(CGPoint[4])bez2 atT:(CGFloat)t{
