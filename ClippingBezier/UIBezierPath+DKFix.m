@@ -21,7 +21,17 @@
 }
 
 -(NSArray*) subPaths{
-    return nil;
+    NSMutableArray* output = [NSMutableArray array];
+    __block UIBezierPath* subpath = nil;
+    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if(element.type == kCGPathElementMoveToPoint){
+            if(subpath) [output addObject:subpath];
+            subpath = [UIBezierPath bezierPath];
+        }
+        [subpath addPathElement:element];
+    }];
+    if(subpath) [output addObject:subpath];
+    return output;
 }
 
 -(NSInteger) countSubPaths{

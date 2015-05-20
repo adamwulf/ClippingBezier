@@ -46,11 +46,28 @@
     XCTAssertEqual([path1 lastPoint].y, (CGFloat) 30, "element count is correct");
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testSubPaths {
+    // This is an example of a functional test case.
+    
+    UIBezierPath* path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(10, 10)];
+    [path1 moveToPoint:CGPointMake(20, 20)];
+    [path1 addLineToPoint:CGPointMake(30, 30)];
+    
+    XCTAssertEqual([[path1 subPaths] count], 2, "element count is correct");
+    
+    UIBezierPath* sub1 = [[path1 subPaths] objectAtIndex:0];
+    XCTAssertEqual([sub1 firstPoint].x, (CGFloat) 0, "element count is correct");
+    XCTAssertEqual([sub1 firstPoint].y, (CGFloat) 0, "element count is correct");
+    XCTAssertEqual([sub1 lastPoint].x, (CGFloat) 10, "element count is correct");
+    XCTAssertEqual([sub1 lastPoint].y, (CGFloat) 10, "element count is correct");
+
+    UIBezierPath* sub2 = [[path1 subPaths] objectAtIndex:1];
+    XCTAssertEqual([sub2 firstPoint].x, (CGFloat) 20, "element count is correct");
+    XCTAssertEqual([sub2 firstPoint].y, (CGFloat) 20, "element count is correct");
+    XCTAssertEqual([sub2 lastPoint].x, (CGFloat) 30, "element count is correct");
+    XCTAssertEqual([sub2 lastPoint].y, (CGFloat) 30, "element count is correct");
 }
 
 @end
