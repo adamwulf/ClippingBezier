@@ -81,6 +81,6 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
     
     CGFloat tangent = [path1 tangentAtStart];
-    XCTAssertEqual((CGFloat)tangent, (CGFloat) -2.3561945, "tangent is correct");
+    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.92699075, "tangent is correct");
 }
 @end

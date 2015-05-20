@@ -12,7 +12,7 @@
 
 
 static CGFloat idealFlatness = .01;
-
+static inline void subdivideBezierAtT(const CGPoint bez[4], CGPoint bez1[4], CGPoint bez2[4], CGFloat t);
 
 @implementation UIBezierPath (Ahmed)
 
