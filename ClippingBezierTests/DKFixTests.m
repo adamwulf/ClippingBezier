@@ -54,8 +54,11 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
     [path1 moveToPoint:CGPointMake(20, 20)];
     [path1 addLineToPoint:CGPointMake(30, 30)];
+    UIBezierPath* path2 = [UIBezierPath bezierPath];
     
     XCTAssertEqual([[path1 subPaths] count], 2, "element count is correct");
+    XCTAssertEqual([path1 countSubPaths], 2, "element count is correct");
+    XCTAssertEqual([path2 countSubPaths], 0, "element count is correct");
     
     UIBezierPath* sub1 = [[path1 subPaths] objectAtIndex:0];
     XCTAssertEqual([sub1 firstPoint].x, (CGFloat) 0, "element count is correct");

@@ -35,7 +35,13 @@
 }
 
 -(NSInteger) countSubPaths{
-    return 0;
+    __block NSInteger subPathCount = 0;
+    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if(element.type == kCGPathElementMoveToPoint){
+            subPathCount++;
+        }
+    }];
+    return subPathCount;
 }
 
 - (UIBezierPath*) bezierPathByTrimmingFromLength:(CGFloat)trimLength{
