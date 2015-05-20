@@ -8,11 +8,16 @@
 
 #import "UIBezierPath+DKFix.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#import "ClippingBezier.h"
 
 @implementation UIBezierPath (DKFix)
 
 -(void) appendPathRemovingInitialMoveToPoint:(UIBezierPath*)otherPath{
-    
+    [otherPath iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if(idx > 0){
+            [self addPathElement:element];
+        }
+    }];
 }
 
 -(NSArray*) subPaths{

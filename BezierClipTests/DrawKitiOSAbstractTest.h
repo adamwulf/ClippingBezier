@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ClippingBezier/ClippingBezier.h>
+#import <PerformanceBezier/PerformanceBezier.h>
 
 @interface DrawKitiOSAbstractTest : XCTestCase
 
