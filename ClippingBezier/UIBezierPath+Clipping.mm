@@ -68,6 +68,7 @@
 #import "DKUIBezierPathShape.h"
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Ahmed.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #include "point.h"
 #include "NearestPoint.h"

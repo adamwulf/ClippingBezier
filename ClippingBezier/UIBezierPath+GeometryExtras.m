@@ -8,6 +8,7 @@
 
 #import "UIBezierPath+GeometryExtras.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#import "UIBezierPath+Ahmed.h"
 #import "UIBezierPath+Clipping.h"
 #import "UIBezierPath+DKFix.h"
 #include "NearestPoint.h"

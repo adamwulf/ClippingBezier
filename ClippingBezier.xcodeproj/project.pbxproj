@@ -15,6 +15,8 @@
 		664A488A1AFEF27A00DE634E /* rotate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48881AFEF27A00DE634E /* rotate.cpp */; };
 		664A488B1AFEF27A00DE634E /* rotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48891AFEF27A00DE634E /* rotate.h */; };
 		664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */ = {isa = PBXBuildFile; fileRef = 664A488F1AFEF39800DE634E /* BezierUtilsLicense */; };
+		665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */ = {isa = PBXBuildFile; fileRef = 665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */; };
+		665E8D491B0D2366009E32FC /* UIBezierPath+Ahmed.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
 		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */; };
 		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
@@ -95,6 +97,8 @@
 		664A48911AFEF78800DE634E /* translate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = translate.h; sourceTree = "<group>"; };
 		664A48921AFEF9E400DE634E /* bezier-utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "bezier-utils.cpp"; sourceTree = "<group>"; };
 		664A48931AFEF9E400DE634E /* bezier-utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-utils.h"; sourceTree = "<group>"; };
+		665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Ahmed.h"; sourceTree = "<group>"; };
+		665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Ahmed.m"; sourceTree = "<group>"; };
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 				668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */,
 				66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */,
 				66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */,
+				665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */,
+				665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */,
 				66767CB01AFED58200443B03 /* UIBezierPath+DKFix.h */,
 				66767CB11AFED58200443B03 /* UIBezierPath+DKFix.m */,
 			);
@@ -395,6 +401,7 @@
 				66AFAD121A8DDD7E00FD0263 /* UIBezierPath+DKOSX.h in Headers */,
 				66AFAD131A8DDD8000FD0263 /* UIBezierPath+Intersections.h in Headers */,
 				66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */,
+				665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */,
 				66AFAD151A8DDD8300FD0263 /* DKUIBezierPathClippedSegment.h in Headers */,
 				66767CC31AFEDA5000443B03 /* NearestPoint.h in Headers */,
 				66AFAD1A1A8DDD8D00FD0263 /* DKUIBezierPathShape.h in Headers */,
@@ -592,6 +599,7 @@
 				66AFAD091A8DDD6800FD0263 /* JRSwizzle.m in Sources */,
 				664A488A1AFEF27A00DE634E /* rotate.cpp in Sources */,
 				66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */,
+				665E8D491B0D2366009E32FC /* UIBezierPath+Ahmed.m in Sources */,
 				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */,
 				66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */,
 				66AFAD051A8DDD5F00FD0263 /* UIBezierPath+GeometryExtras.m in Sources */,

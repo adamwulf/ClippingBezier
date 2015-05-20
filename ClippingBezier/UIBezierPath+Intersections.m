@@ -11,7 +11,7 @@
 #import "DKIntersectionOfPaths.h"
 #import "UIBezierPath+Clipping.h"
 #import "UIBezierPath+DKFix.h"
-#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Ahmed.h"
 
 static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p4);
 

@@ -47,4 +47,36 @@
     subdivideBezierAtT(bez, bez1, bez2, t);
 }
 
+
+/**
+ * will divide a bezier curve into two curves at time t
+ * 0 <= t <= 1.0
+ *
+ * these two curves will exactly match the former single curve
+ */
+static inline void subdivideBezierAtT(const CGPoint bez[4], CGPoint bez1[4], CGPoint bez2[4], CGFloat t){
+    CGPoint q;
+    CGFloat mt = 1 - t;
+    
+    bez1[0].x = bez[0].x;
+    bez1[0].y = bez[0].y;
+    bez2[3].x = bez[3].x;
+    bez2[3].y = bez[3].y;
+    
+    q.x = mt * bez[1].x + t * bez[2].x;
+    q.y = mt * bez[1].y + t * bez[2].y;
+    bez1[1].x = mt * bez[0].x + t * bez[1].x;
+    bez1[1].y = mt * bez[0].y + t * bez[1].y;
+    bez2[2].x = mt * bez[2].x + t * bez[3].x;
+    bez2[2].y = mt * bez[2].y + t * bez[3].y;
+    
+    bez1[2].x = mt * bez1[1].x + t * q.x;
+    bez1[2].y = mt * bez1[1].y + t * q.y;
+    bez2[1].x = mt * q.x + t * bez2[2].x;
+    bez2[1].y = mt * q.y + t * bez2[2].y;
+    
+    bez1[3].x = bez2[0].x = mt * bez1[2].x + t * bez2[1].x;
+    bez1[3].y = bez2[0].y = mt * bez1[2].y + t * bez2[1].y;
+}
+
 @end
