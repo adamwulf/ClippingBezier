@@ -70,6 +70,7 @@
 #import "UIBezierPath+Trimming.h"
 #import "UIBezierPath+Ahmed.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#import <ClippingBezier/ClippingBezier.h>
 #include "point.h"
 #include "NearestPoint.h"
 

@@ -20,6 +20,8 @@
 		665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D4A1B0D2688009E32FC /* DKFixTests.m */; };
 		665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
 		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
+		666CC5B41B0D8C020047825D /* UIBezierPath+Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 666CC5B21B0D8C020047825D /* UIBezierPath+Util.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		666CC5B51B0D8C020047825D /* UIBezierPath+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 666CC5B31B0D8C020047825D /* UIBezierPath+Util.m */; };
 		666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* MMClippingBezierAOOTests.m */; };
 		666EEC291A8D8F7500B9F171 /* MMClippingBezierAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */; };
 		666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */; };
@@ -102,6 +104,8 @@
 		665E8D4A1B0D2688009E32FC /* DKFixTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKFixTests.m; sourceTree = "<group>"; };
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		666CC5B21B0D8C020047825D /* UIBezierPath+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Util.h"; sourceTree = "<group>"; };
+		666CC5B31B0D8C020047825D /* UIBezierPath+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Util.m"; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		66767CB01AFED58200443B03 /* UIBezierPath+Trimming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Trimming.h"; sourceTree = "<group>"; };
 		66767CB11AFED58200443B03 /* UIBezierPath+Trimming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Trimming.m"; sourceTree = "<group>"; };
@@ -371,6 +375,8 @@
 				665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */,
 				66767CB01AFED58200443B03 /* UIBezierPath+Trimming.h */,
 				66767CB11AFED58200443B03 /* UIBezierPath+Trimming.m */,
+				666CC5B21B0D8C020047825D /* UIBezierPath+Util.h */,
+				666CC5B31B0D8C020047825D /* UIBezierPath+Util.m */,
 				66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */,
 				66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */,
 			);
@@ -412,6 +418,7 @@
 				665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */,
 				66767CB21AFED58200443B03 /* UIBezierPath+Trimming.h in Headers */,
 				66AFAD191A8DDD8A00FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.h in Headers */,
+				666CC5B41B0D8C020047825D /* UIBezierPath+Util.h in Headers */,
 				66AFAD141A8DDD8100FD0263 /* NSArray+FirstObject.h in Headers */,
 				66AFAD0F1A8DDD7800FD0263 /* UIBezierPath+Clipping.h in Headers */,
 				66767CB61AFED77400443B03 /* point.h in Headers */,
@@ -597,6 +604,7 @@
 				66AFAD041A8DDD5E00FD0263 /* UIBezierPath+DKOSX.m in Sources */,
 				66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */,
 				66AFAD0B1A8DDD6C00FD0263 /* DKVector.m in Sources */,
+				666CC5B51B0D8C020047825D /* UIBezierPath+Util.m in Sources */,
 				66767CB31AFED58200443B03 /* UIBezierPath+Trimming.m in Sources */,
 				66AFAD091A8DDD6800FD0263 /* JRSwizzle.m in Sources */,
 				664A488A1AFEF27A00DE634E /* rotate.cpp in Sources */,
