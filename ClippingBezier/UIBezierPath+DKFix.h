@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIBezierPath (DKFix)
+@interface UIBezierPath (Trim)
 
 -(void) appendPathRemovingInitialMoveToPoint:(UIBezierPath*)otherPath;
 

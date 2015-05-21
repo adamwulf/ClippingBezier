@@ -10,7 +10,7 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
-@interface DrawKitiOSAbstractTest : XCTestCase
+@interface MMClippingBezierAbstractTest : XCTestCase
 
 @property (nonatomic, readonly) UIBezierPath* complexShape;
 

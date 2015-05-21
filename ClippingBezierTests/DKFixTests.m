@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "DrawKitiOSAbstractTest.h"
+#import "MMClippingBezierAbstractTest.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 
-@interface DKFixTests : DrawKitiOSAbstractTest
+@interface DKFixTests : MMClippingBezierAbstractTest
 
 @end
 

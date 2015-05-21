@@ -10,13 +10,13 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
-@interface DrawKitiOSAOOTests : XCTestCase{
+@interface MMClippingBezierAOOTests : XCTestCase{
     UIBezierPath* complexShape;
 }
 
 @end
 
-@implementation DrawKitiOSAOOTests
+@implementation MMClippingBezierAOOTests
 
 -(void) setUp{
     complexShape = [UIBezierPath bezierPath];

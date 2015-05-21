@@ -11,11 +11,11 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 
 
-@interface DrawKitiOSReverseBezierTests : XCTestCase
+@interface MMClippingBezierReversePathTests : XCTestCase
 
 @end
 
-@implementation DrawKitiOSReverseBezierTests
+@implementation MMClippingBezierReversePathTests
 
 - (void)setUp
 {

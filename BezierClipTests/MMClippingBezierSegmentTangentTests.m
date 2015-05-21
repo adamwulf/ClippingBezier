@@ -7,16 +7,16 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "DrawKitiOSAbstractTest.h"
+#import "MMClippingBezierAbstractTest.h"
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
-@interface DrawKitiOSClippingSegmentTangentTests : DrawKitiOSAbstractTest
+@interface MMClippingBezierSegmentTangentTests : MMClippingBezierAbstractTest
 
 @end
 
-@implementation DrawKitiOSClippingSegmentTangentTests
+@implementation MMClippingBezierSegmentTangentTests
 
 - (void)setUp
 {

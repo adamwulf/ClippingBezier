@@ -7,14 +7,14 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "DrawKitiOSAbstractTest.h"
+#import "MMClippingBezierAbstractTest.h"
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
 
 #define kIntersectionPointPrecision .1
 
-@implementation DrawKitiOSAbstractTest{
+@implementation MMClippingBezierAbstractTest{
     UIBezierPath* complexShape;
 }
 

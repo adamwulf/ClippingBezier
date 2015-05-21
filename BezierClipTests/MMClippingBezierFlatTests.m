@@ -10,11 +10,11 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
-@interface DrawKitiOSFlatTests : XCTestCase
+@interface MMClippingBezierFlatTests : XCTestCase
 
 @end
 
-@implementation DrawKitiOSFlatTests
+@implementation MMClippingBezierFlatTests
 
 - (void)testReverseSimplePath
 {

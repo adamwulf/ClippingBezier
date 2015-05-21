@@ -10,7 +10,7 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "ClippingBezier.h"
 
-@implementation UIBezierPath (DKFix)
+@implementation UIBezierPath (Trim)
 
 -(void) appendPathRemovingInitialMoveToPoint:(UIBezierPath*)otherPath{
     [otherPath iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {

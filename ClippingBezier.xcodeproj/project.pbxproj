@@ -20,16 +20,16 @@
 		665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D4A1B0D2688009E32FC /* DKFixTests.m */; };
 		665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
 		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
-		666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */; };
-		666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */; };
-		666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */; };
-		666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */; };
-		666EEC2C1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTangentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */; };
-		666EEC2D1A8D8F7500B9F171 /* DrawKitiOSClippingPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */; };
-		666EEC2E1A8D8F7500B9F171 /* DrawKitiOSClippingSubshapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */; };
-		666EEC2F1A8D8F7500B9F171 /* DrawKitiOSReverseBezierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */; };
-		666EEC301A8D8F7500B9F171 /* DrawKitiOSFastFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */; };
-		666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */; };
+		666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* MMClippingBezierAOOTests.m */; };
+		666EEC291A8D8F7500B9F171 /* MMClippingBezierAbstractTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */; };
+		666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */; };
+		666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53181A894C7A00E7B486 /* MMClippingBezierSegmentTests.m */; };
+		666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53191A894C7A00E7B486 /* MMClippingBezierSegmentTangentTests.m */; };
+		666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */; };
+		666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */; };
+		666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */; };
+		666EEC301A8D8F7500B9F171 /* MMClippingBezierFastFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */; };
+		666EEC311A8D8F7500B9F171 /* MMClippingBezierFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */; };
 		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
 		66767CB21AFED58200443B03 /* UIBezierPath+DKFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB01AFED58200443B03 /* UIBezierPath+DKFix.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66767CB31AFED58200443B03 /* UIBezierPath+DKFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 66767CB11AFED58200443B03 /* UIBezierPath+DKFix.m */; };
@@ -153,17 +153,17 @@
 		66B9D1F51A8C2B1800CAC341 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+FirstObject.h"; sourceTree = "<group>"; };
 		66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+FirstObject.m"; sourceTree = "<group>"; };
-		66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSAOOTests.m; path = ../BezierClipTests/DrawKitiOSAOOTests.m; sourceTree = "<group>"; };
-		66FD53151A894C7A00E7B486 /* DrawKitiOSAbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawKitiOSAbstractTest.h; path = ../BezierClipTests/DrawKitiOSAbstractTest.h; sourceTree = "<group>"; };
-		66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSAbstractTest.m; path = ../BezierClipTests/DrawKitiOSAbstractTest.m; sourceTree = "<group>"; };
-		66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingIntersectionTests.m; path = ../BezierClipTests/DrawKitiOSClippingIntersectionTests.m; sourceTree = "<group>"; };
-		66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSegmentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTests.m; sourceTree = "<group>"; };
-		66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSegmentTangentTests.m; path = ../BezierClipTests/DrawKitiOSClippingSegmentTangentTests.m; sourceTree = "<group>"; };
-		66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingPerformanceTests.m; path = ../BezierClipTests/DrawKitiOSClippingPerformanceTests.m; sourceTree = "<group>"; };
-		66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSClippingSubshapeTests.m; path = ../BezierClipTests/DrawKitiOSClippingSubshapeTests.m; sourceTree = "<group>"; };
-		66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSReverseBezierTests.m; path = ../BezierClipTests/DrawKitiOSReverseBezierTests.m; sourceTree = "<group>"; };
-		66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSFastFlatTests.m; path = ../BezierClipTests/DrawKitiOSFastFlatTests.m; sourceTree = "<group>"; };
-		66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSFlatTests.m; path = ../BezierClipTests/DrawKitiOSFlatTests.m; sourceTree = "<group>"; };
+		66FD53141A894C7A00E7B486 /* MMClippingBezierAOOTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierAOOTests.m; path = ../BezierClipTests/MMClippingBezierAOOTests.m; sourceTree = "<group>"; };
+		66FD53151A894C7A00E7B486 /* MMClippingBezierAbstractTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMClippingBezierAbstractTest.h; path = ../BezierClipTests/MMClippingBezierAbstractTest.h; sourceTree = "<group>"; };
+		66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierAbstractTest.m; path = ../BezierClipTests/MMClippingBezierAbstractTest.m; sourceTree = "<group>"; };
+		66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierIntersectionTests.m; path = ../BezierClipTests/MMClippingBezierIntersectionTests.m; sourceTree = "<group>"; };
+		66FD53181A894C7A00E7B486 /* MMClippingBezierSegmentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierSegmentTests.m; path = ../BezierClipTests/MMClippingBezierSegmentTests.m; sourceTree = "<group>"; };
+		66FD53191A894C7A00E7B486 /* MMClippingBezierSegmentTangentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierSegmentTangentTests.m; path = ../BezierClipTests/MMClippingBezierSegmentTangentTests.m; sourceTree = "<group>"; };
+		66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierPerformanceTests.m; path = ../BezierClipTests/MMClippingBezierPerformanceTests.m; sourceTree = "<group>"; };
+		66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierSubshapeTests.m; path = ../BezierClipTests/MMClippingBezierSubshapeTests.m; sourceTree = "<group>"; };
+		66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierReversePathTests.m; path = ../BezierClipTests/MMClippingBezierReversePathTests.m; sourceTree = "<group>"; };
+		66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFastFlatTests.m; path = ../BezierClipTests/MMClippingBezierFastFlatTests.m; sourceTree = "<group>"; };
+		66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFlatTests.m; path = ../BezierClipTests/MMClippingBezierFlatTests.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
 		66FD53311A89546A00E7B486 /* DKIntersectionOfPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKIntersectionOfPaths.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,19 +194,19 @@
 		662D40CF1A8D862600A1CB63 /* ClippingBezierTests */ = {
 			isa = PBXGroup;
 			children = (
-				66FD53141A894C7A00E7B486 /* DrawKitiOSAOOTests.m */,
-				66FD53151A894C7A00E7B486 /* DrawKitiOSAbstractTest.h */,
-				66FD53161A894C7A00E7B486 /* DrawKitiOSAbstractTest.m */,
-				66FD53171A894C7A00E7B486 /* DrawKitiOSClippingIntersectionTests.m */,
-				66FD53181A894C7A00E7B486 /* DrawKitiOSClippingSegmentTests.m */,
-				66FD53191A894C7A00E7B486 /* DrawKitiOSClippingSegmentTangentTests.m */,
-				66FD531A1A894C7A00E7B486 /* DrawKitiOSClippingPerformanceTests.m */,
-				66FD531B1A894C7A00E7B486 /* DrawKitiOSClippingSubshapeTests.m */,
-				66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */,
-				66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */,
-				66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */,
-				662D40D01A8D862600A1CB63 /* Supporting Files */,
+				66FD53141A894C7A00E7B486 /* MMClippingBezierAOOTests.m */,
+				66FD53151A894C7A00E7B486 /* MMClippingBezierAbstractTest.h */,
+				66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */,
+				66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */,
+				66FD53181A894C7A00E7B486 /* MMClippingBezierSegmentTests.m */,
+				66FD53191A894C7A00E7B486 /* MMClippingBezierSegmentTangentTests.m */,
+				66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */,
+				66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */,
+				66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */,
+				66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */,
+				66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */,
 				665E8D4A1B0D2688009E32FC /* DKFixTests.m */,
+				662D40D01A8D862600A1CB63 /* Supporting Files */,
 			);
 			path = ClippingBezierTests;
 			sourceTree = "<group>";
@@ -570,17 +570,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */,
-				666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */,
-				666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */,
-				666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */,
-				666EEC2C1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTangentTests.m in Sources */,
-				666EEC2D1A8D8F7500B9F171 /* DrawKitiOSClippingPerformanceTests.m in Sources */,
+				666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */,
+				666EEC291A8D8F7500B9F171 /* MMClippingBezierAbstractTest.m in Sources */,
+				666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */,
+				666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */,
+				666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */,
+				666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */,
 				665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */,
-				666EEC2E1A8D8F7500B9F171 /* DrawKitiOSClippingSubshapeTests.m in Sources */,
-				666EEC2F1A8D8F7500B9F171 /* DrawKitiOSReverseBezierTests.m in Sources */,
-				666EEC301A8D8F7500B9F171 /* DrawKitiOSFastFlatTests.m in Sources */,
-				666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */,
+				666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */,
+				666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */,
+				666EEC301A8D8F7500B9F171 /* MMClippingBezierFastFlatTests.m in Sources */,
+				666EEC311A8D8F7500B9F171 /* MMClippingBezierFlatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

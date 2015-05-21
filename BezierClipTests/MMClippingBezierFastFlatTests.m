@@ -11,11 +11,11 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 
 
-@interface DrawKitiOSFastFlatTests : XCTestCase
+@interface MMClippingBezierFastFlatTests : XCTestCase
 
 @end
 
-@implementation DrawKitiOSFastFlatTests
+@implementation MMClippingBezierFastFlatTests
 
 
 - (void)testCurveIntersectionThroughRect{
