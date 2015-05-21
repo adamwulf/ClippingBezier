@@ -10,7 +10,7 @@
 #import "MMBackwardCompatible.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "UIBezierPath+Intersections.h"
-#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Trimming.h"
 
 @implementation UIBezierPath (DKOSX)
 

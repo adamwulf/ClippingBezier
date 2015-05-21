@@ -128,4 +128,96 @@ static inline void subdivideBezierAtT(const CGPoint bez[4], CGPoint bez1[4], CGP
     bez1[3].y = bez2[0].y = mt * bez1[2].y + t * bez2[1].y;
 }
 
+/**
+ * divide the input curve at its halfway point
+ */
+static inline void subdivideBezier(const CGPoint bez[4], CGPoint bez1[4], CGPoint bez2[4]){
+    subdivideBezierAtT(bez, bez1, bez2, .5);
+}
+
+/**
+ * calculates the distance between two points
+ */
+static inline CGFloat distanceBetween(CGPoint a, CGPoint b){
+    return hypotf( a.x - b.x, a.y - b.y );
+}
+
+/**
+ * estimates the length along the curve of the
+ * input bezier within the input acceptableError
+ */
+CGFloat jotLengthOfBezier(const  CGPoint bez[4], CGFloat acceptableError){
+    CGFloat   polyLen = 0.0;
+    CGFloat   chordLen = distanceBetween (bez[0], bez[3]);
+    CGFloat   retLen, errLen;
+    NSUInteger n;
+    
+    for (n = 0; n < 3; ++n)
+        polyLen += distanceBetween (bez[n], bez[n + 1]);
+    
+    errLen = polyLen - chordLen;
+    
+    if (errLen > acceptableError) {
+        CGPoint left[4], right[4];
+        subdivideBezier (bez, left, right);
+        retLen = (jotLengthOfBezier (left, acceptableError)
+                  + jotLengthOfBezier (right, acceptableError));
+    } else {
+        retLen = 0.5 * (polyLen + chordLen);
+    }
+    
+    return retLen;
+}
+
+/**
+ * will split the input bezier curve at the input length
+ * within a given margin of error
+ *
+ * the two curves will exactly match the original curve
+ */
+static CGFloat subdivideBezierAtLength (const CGPoint bez[4],
+                                        CGPoint bez1[4],
+                                        CGPoint bez2[4],
+                                        CGFloat length,
+                                        CGFloat acceptableError,
+                                        CGFloat* subBezierlengthCache){
+    CGFloat top = 1.0, bottom = 0.0;
+    CGFloat t, prevT;
+    
+    prevT = t = 0.5;
+    for (;;) {
+        CGFloat len1;
+        
+        subdivideBezierAtT (bez, bez1, bez2, t);
+        
+        int lengthCacheIndex = (int)floorf(t*1000);
+        len1 = subBezierlengthCache[lengthCacheIndex];
+        if(!len1){
+            len1 = jotLengthOfBezier (bez1, 0.5 * acceptableError);
+            subBezierlengthCache[lengthCacheIndex] = len1;
+        }
+        
+        if (fabs (length - len1) < acceptableError){
+            return len1;
+        }
+        
+        if (length > len1) {
+            bottom = t;
+            t = 0.5 * (t + top);
+        } else if (length < len1) {
+            top = t;
+            t = 0.5 * (bottom + t);
+        }
+        
+        if (t == prevT){
+            subBezierlengthCache[lengthCacheIndex] = len1;
+            return len1;
+        }
+        
+        prevT = t;
+    }
+}
+
+
+
 @end

@@ -10,7 +10,7 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "DKVector.h"
 #import "UIBezierPath+Clipping.h"
-#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Trimming.h"
 
 @implementation DKUIBezierPathClippedSegment{
     DKUIBezierPathIntersectionPoint* startIntersection;

@@ -67,7 +67,7 @@
 #include "bezierclip.hxx"
 #import "DKUIBezierPathShape.h"
 #import "UIBezierPath+Intersections.h"
-#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Trimming.h"
 #import "UIBezierPath+Ahmed.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #include "point.h"
