@@ -367,12 +367,12 @@
 				668288561A893F7E0038A1C4 /* UIBezierPath+DKOSX.m */,
 				668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */,
 				668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */,
-				66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */,
-				66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */,
 				665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */,
 				665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */,
 				66767CB01AFED58200443B03 /* UIBezierPath+Trimming.h */,
 				66767CB11AFED58200443B03 /* UIBezierPath+Trimming.m */,
+				66FD53001A894BA800E7B486 /* NSArray+FirstObject.h */,
+				66FD53011A894BA800E7B486 /* NSArray+FirstObject.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
