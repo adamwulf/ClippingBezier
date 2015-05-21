@@ -745,7 +745,7 @@ namespace Geom {
      *  Compute the signed distance of the point "P" from the normalized line l
      */
     inline
-    double distance (Point const& P, std::vector<double> const& l)
+    double distancePtoL (Point const& P, std::vector<double> const& l)
     {
         return l[X] * P[X] + l[Y] * P[Y] + l[2];
     }
@@ -765,7 +765,7 @@ namespace Geom {
         double d;
         for (size_t i = 0; i < c.size(); ++i)
         {
-            d = distance(c[i], l);
+            d = distancePtoL(c[i], l);
             if (bound[0] > d)  bound[0] = d;
             if (bound[1] < d)  bound[1] = d;
         }
@@ -803,7 +803,7 @@ namespace Geom {
         double d;
         for (size_t i = 0; i < B.size(); ++i)
         {
-            d = distance (B[i], l);
+            d = distancePtoL (B[i], l);
             D.push_back (Point(i/n, d));
         }
         //print(D);
@@ -2986,13 +2986,6 @@ static NSInteger segmentCompareCount = 0;
     double factor = pow(10, digits);
     return roundf(val * factor) / factor;
 }
-
-
-CGFloat distance(const CGPoint p1, const CGPoint p2) {
-    CGFloat dist = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
-    return dist;
-}
-
 
 
 @end
