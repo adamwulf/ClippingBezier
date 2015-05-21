@@ -97,7 +97,7 @@
 }
 
 - (CGFloat) tangentAtStartOfSubpath:(NSInteger)index{
-    return 0;
+    return [[[self subPaths] objectAtIndex:index] tangentAtStart];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  DKFixTests.m
+//  MMClippingBezierTrimmingTests.m
 //  ClippingBezier
 //
 //  Created by Adam Wulf on 5/20/15.
@@ -11,11 +11,11 @@
 #import "MMClippingBezierAbstractTest.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 
-@interface DKFixTests : MMClippingBezierAbstractTest
+@interface MMClippingBezierTrimmingTests : MMClippingBezierAbstractTest
 
 @end
 
-@implementation DKFixTests
+@implementation MMClippingBezierTrimmingTests
 
 - (void)setUp {
     [super setUp];
@@ -83,4 +83,31 @@
     CGFloat tangent = [path1 tangentAtStart];
     XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.92699075, "tangent is correct");
 }
+
+- (void)testStartTangentOfSubpath {
+    // This is an example of a functional test case.
+    
+    UIBezierPath* path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(20, 20)];
+    [path1 addLineToPoint:CGPointMake(30, 20)];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(10, 10)];
+    
+    CGFloat tangent = [path1 tangentAtStartOfSubpath:1];
+    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.92699075, "tangent is correct");
+}
+
+- (void)testStartTangentOfSubpath2 {
+    // This is an example of a functional test case.
+    
+    UIBezierPath* path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(20, 20)];
+    [path1 addLineToPoint:CGPointMake(30, 20)];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(10, 10)];
+    
+    CGFloat tangent = [path1 tangentAtStartOfSubpath:0];
+    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.14159274, "tangent is correct");
+}
+
 @end

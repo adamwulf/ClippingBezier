@@ -17,7 +17,7 @@
 		664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */ = {isa = PBXBuildFile; fileRef = 664A488F1AFEF39800DE634E /* BezierUtilsLicense */; };
 		665E8D481B0D2366009E32FC /* UIBezierPath+Ahmed.h in Headers */ = {isa = PBXBuildFile; fileRef = 665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		665E8D491B0D2366009E32FC /* UIBezierPath+Ahmed.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D4A1B0D2688009E32FC /* DKFixTests.m */; };
+		665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E8D4A1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m */; };
 		665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
 		6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */; };
 		666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD53141A894C7A00E7B486 /* MMClippingBezierAOOTests.m */; };
@@ -99,7 +99,7 @@
 		664A48931AFEF9E400DE634E /* bezier-utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-utils.h"; sourceTree = "<group>"; };
 		665E8D461B0D2365009E32FC /* UIBezierPath+Ahmed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Ahmed.h"; sourceTree = "<group>"; };
 		665E8D471B0D2365009E32FC /* UIBezierPath+Ahmed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+Ahmed.m"; sourceTree = "<group>"; };
-		665E8D4A1B0D2688009E32FC /* DKFixTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKFixTests.m; sourceTree = "<group>"; };
+		665E8D4A1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTrimmingTests.m; sourceTree = "<group>"; };
 		6665F9F61A8EC72F0071F9B9 /* ClippingBezier-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClippingBezier-Info.plist"; sourceTree = "<group>"; };
 		6665F9F71A8EC72F0071F9B9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66767CAC1AFEB8C600443B03 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 				66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */,
 				66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */,
 				66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */,
-				665E8D4A1B0D2688009E32FC /* DKFixTests.m */,
+				665E8D4A1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m */,
 				662D40D01A8D862600A1CB63 /* Supporting Files */,
 			);
 			path = ClippingBezierTests;
@@ -576,7 +576,7 @@
 				666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */,
 				666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */,
 				666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */,
-				665E8D4B1B0D2688009E32FC /* DKFixTests.m in Sources */,
+				665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */,
 				666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */,
 				666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */,
 				666EEC301A8D8F7500B9F171 /* MMClippingBezierFastFlatTests.m in Sources */,
