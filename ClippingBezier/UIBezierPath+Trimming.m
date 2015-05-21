@@ -6,11 +6,11 @@
 //
 //
 
-#import "UIBezierPath+DKFix.h"
+#import "UIBezierPath+Trimming.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "ClippingBezier.h"
 
-@implementation UIBezierPath (Trim)
+@implementation UIBezierPath (Trimming)
 
 -(void) appendPathRemovingInitialMoveToPoint:(UIBezierPath*)otherPath{
     [otherPath iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
