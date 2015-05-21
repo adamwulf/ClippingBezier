@@ -52,6 +52,10 @@
     return nil;
 }
 
+- (UIBezierPath*) bezierPathByTrimmingToLength:(CGFloat)trimLength withMaximumError:(CGFloat)err{
+    return nil;
+}
+
 - (NSInteger) subpathIndexForElement:(NSInteger) element{
     return 0;
 }
@@ -90,6 +94,10 @@
     }
 
     return atan2f( point2.y - point1.y, point2.x - point1.x ) + M_PI;
+}
+
+- (CGFloat) tangentAtStartOfSubpath:(NSInteger)index{
+    return 0;
 }
 
 

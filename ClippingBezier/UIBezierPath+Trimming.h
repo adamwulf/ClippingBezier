@@ -22,8 +22,12 @@
 
 - (CGFloat) tangentAtStart;
 
+- (CGFloat) tangentAtStartOfSubpath:(NSInteger)index;
+
 - (UIBezierPath*) bezierPathByTrimmingFromLength:(CGFloat)trimLength;
 
 - (UIBezierPath*) bezierPathByTrimmingToLength:(CGFloat)trimLength;
+
+- (UIBezierPath*) bezierPathByTrimmingToLength:(CGFloat)trimLength withMaximumError:(CGFloat)err;
 
 @end
