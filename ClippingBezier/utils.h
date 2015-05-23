@@ -1,9 +1,11 @@
-#ifndef MATH_UTILS_HEADER
-#define MATH_UTILS_HEADER
+#ifndef LIB2GEOM_UTILS_HEADER
+#define LIB2GEOM_UTILS_HEADER
 
-/** Math utilities scrounged from parts of 2geom as well as some code found via Krugle -
- *  Game Boy Xport's mathutils.h .
+/**
+ * \file
+ * \brief  Various utility functions.
  *
+ * Copyright 2007 Johan Engelen <goejendaagh@zonnet.nl>
  * Copyright 2006 Michael G. Sloan <mgsloan@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -32,8 +34,12 @@
  */
 
 #include <cmath>
+#include <vector>
 
-const double Geom_EPSILON = 1e-18; // taken from libnr.  Probably sqrt(MIN_FLOAT).
+namespace Geom {
+
+// proper logical xor
+inline bool logical_xor (bool a, bool b) { return (a || b) && !(a && b); }
 
 /** Sign function - indicates the sign of a numeric type.  -1 indicates negative, 1 indicates
  *  positive, and 0 indicates, well, 0.  Mathsy people will know this is basically the derivative
@@ -41,30 +47,14 @@ const double Geom_EPSILON = 1e-18; // taken from libnr.  Probably sqrt(MIN_FLOAT
  */
 template <class T> inline int sgn(const T& x) {return (x < 0 ? -1 : (x > 0 ? 1 : 0) );}
 
-/** Square function - sqr(x) is equivalent to x * x. */
-template <class T> inline int sqr(const T& x) {return x * x;}
-
-/** Cube function - cube(x) is equivalent to x * x * x. */
-template <class T> inline int cube(const T& x) {return x * x * x;}
+template <class T> inline T sqr(const T& x) {return x * x;}
+template <class T> inline T cube(const T& x) {return x * x * x;}
 
 /** Between function - returns true if a number x is within a range. The values delimiting the
- *  range, as well as the number must have the same type.
+ *  range and the number must have the same type.
  */
 template <class T> inline const T& between (const T& min, const T& max, const T& x)
     { return min < x && max > x; }
-
-/** Inverse Square-Root function - equivalent to 1 / sqrt(x), however much faster. Gleaned from the
- *  Quake 3 source, this function is very very magic in its working, actually converting a float to
- *  integer form and back during the process.
- */
-inline float invSqrt (float x){
-   float xhalf = 0.5f*x;
-   int i = *(int*)&x;
-   i = 0x5f3759df - (i>>1);
-   x = *(float*)&i;
-   x = x*(1.5f - xhalf*x*x);
-   return x;
-}
 
 /** Returns x rounded to the nearest integer.  It is unspecified what happens
  *  if x is half way between two integers: we may in future use rint/round
@@ -89,4 +79,20 @@ inline double decimal_round(double const x, int const places) {
     return round( x * multiplier ) / multiplier;
 }
 
+
+void binomial_coefficients(std::vector<size_t>& bc, size_t n);
+
+}
+
 #endif
+
+/*
+  Local Variables:
+  mode:c++
+  c-file-style:"stroustrup"
+  c-file-offsets:((innamespace . 0)(inline-open . 0)(case-label . +))
+  indent-tabs-mode:nil
+  fill-column:99
+  End:
+*/
+// vim: filetype=cpp:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=99 :

@@ -83,15 +83,6 @@ using Geom::Point;
 // TODO: change the namespace so i don't conflict with the actual Geom namespace
 namespace Geom {
     
-    /**
-     * returns YES if the two input points are within precision distance
-     * of each other
-     */
-    inline bool are_near(Point a, Point b, double precision) {
-        return are_near(a[X], b[X], precision) && are_near(a[Y], b[Y], precision);
-    }
-    
-    
 #pragma mark - interval routines
     
     /*
@@ -204,7 +195,7 @@ namespace Geom {
         {
             for (size_t j = n-1; j > i-1 ; --j)
             {
-                B[j] = Lerp(t, B[j-1], B[j]);
+                B[j] = lerp(t, B[j-1], B[j]);
             }
         }
     }
@@ -220,7 +211,7 @@ namespace Geom {
         {
             for (size_t j = 0; j < n-i; ++j)
             {
-                B[j] = Lerp(t, B[j], B[j+1]);
+                B[j] = lerp(t, B[j], B[j+1]);
             }
         }
     }
