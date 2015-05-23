@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6605F6E81B11250D0092991F /* GraphicsGems.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F6E71B11250D0092991F /* GraphicsGems.license */; };
+		6605F9EC1B1125680092991F /* lib2geom-0.2.0 in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9EB1B1125680092991F /* lib2geom-0.2.0 */; };
+		6605F9EE1B11259F0092991F /* lib2geom.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9ED1B11259F0092991F /* lib2geom.license */; };
+		6605F9F01B1125D60092991F /* JRSwizzle.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9EF1B1125D60092991F /* JRSwizzle.license */; };
+		6605F9F21B1125FC0092991F /* BaseGFX.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9F11B1125FC0092991F /* BaseGFX.license */; };
 		664A487E1AFEF23F00DE634E /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A487D1AFEF23F00DE634E /* point.cpp */; };
 		664A48821AFEF26200DE634E /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48801AFEF26200DE634E /* matrix.cpp */; };
 		664A48831AFEF26200DE634E /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48811AFEF26200DE634E /* matrix.h */; };
@@ -37,7 +42,6 @@
 		66767CB81AFED78A00443B03 /* coord.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB71AFED78A00443B03 /* coord.h */; };
 		66767CBA1AFED79400443B03 /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB91AFED79400443B03 /* macros.h */; };
 		66767CBC1AFED7A000443B03 /* math-utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CBB1AFED7A000443B03 /* math-utils.h */; };
-		66767CBE1AFED93E00443B03 /* GraphicsGems in Resources */ = {isa = PBXBuildFile; fileRef = 66767CBD1AFED93E00443B03 /* GraphicsGems */; };
 		66767CC21AFEDA5000443B03 /* NearestPoint.c in Sources */ = {isa = PBXBuildFile; fileRef = 66767CC01AFEDA5000443B03 /* NearestPoint.c */; };
 		66767CC31AFEDA5000443B03 /* NearestPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CC11AFEDA5000443B03 /* NearestPoint.h */; };
 		66AFACE81A8DDCA200FD0263 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668287881A893CE50038A1C4 /* Foundation.framework */; };
@@ -81,6 +85,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6605F6E71B11250D0092991F /* GraphicsGems.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GraphicsGems.license; sourceTree = "<group>"; };
+		6605F9EB1B1125680092991F /* lib2geom-0.2.0 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "lib2geom-0.2.0"; path = "tmp/lib2geom-0.2.0"; sourceTree = SOURCE_ROOT; };
+		6605F9ED1B11259F0092991F /* lib2geom.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lib2geom.license; sourceTree = "<group>"; };
+		6605F9EF1B1125D60092991F /* JRSwizzle.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JRSwizzle.license; sourceTree = "<group>"; };
+		6605F9F11B1125FC0092991F /* BaseGFX.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BaseGFX.license; sourceTree = "<group>"; };
 		662D40C31A8D862600A1CB63 /* ClippingBezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingBezier.h; sourceTree = "<group>"; };
 		662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662D40D11A8D862600A1CB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,7 +118,6 @@
 		66767CB71AFED78A00443B03 /* coord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coord.h; sourceTree = "<group>"; };
 		66767CB91AFED79400443B03 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		66767CBB1AFED7A000443B03 /* math-utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "math-utils.h"; sourceTree = "<group>"; };
-		66767CBD1AFED93E00443B03 /* GraphicsGems */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GraphicsGems; path = Submodules/GraphicsGems; sourceTree = "<group>"; };
 		66767CC01AFEDA5000443B03 /* NearestPoint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NearestPoint.c; sourceTree = "<group>"; };
 		66767CC11AFEDA5000443B03 /* NearestPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearestPoint.h; sourceTree = "<group>"; };
 		668287881A893CE50038A1C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -191,6 +199,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6605F6E61B1125020092991F /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				6605F6E71B11250D0092991F /* GraphicsGems.license */,
+				6605F9ED1B11259F0092991F /* lib2geom.license */,
+				6605F9EF1B1125D60092991F /* JRSwizzle.license */,
+				6605F9F11B1125FC0092991F /* BaseGFX.license */,
+			);
+			name = Licenses;
+			sourceTree = "<group>";
+		};
 		662D40CF1A8D862600A1CB63 /* ClippingBezierTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +274,7 @@
 		668287781A893CC70038A1C4 = {
 			isa = PBXGroup;
 			children = (
-				66767CBD1AFED93E00443B03 /* GraphicsGems */,
+				6605F6E61B1125020092991F /* Licenses */,
 				66767CAC1AFEB8C600443B03 /* README.md */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
@@ -288,6 +307,7 @@
 		6682878A1A893CE50038A1C4 /* ClippingBezier */ = {
 			isa = PBXGroup;
 			children = (
+				6605F9EB1B1125680092991F /* lib2geom-0.2.0 */,
 				66767CBF1AFEDA3E00443B03 /* GraphicsGems */,
 				66767CB41AFED76800443B03 /* bezier-utils */,
 				662D40C31A8D862600A1CB63 /* ClippingBezier.h */,
@@ -512,9 +532,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6605F9F21B1125FC0092991F /* BaseGFX.license in Resources */,
+				6605F9F01B1125D60092991F /* JRSwizzle.license in Resources */,
 				664A48901AFEF39800DE634E /* BezierUtilsLicense in Resources */,
 				6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */,
-				66767CBE1AFED93E00443B03 /* GraphicsGems in Resources */,
+				6605F9EC1B1125680092991F /* lib2geom-0.2.0 in Resources */,
+				6605F6E81B11250D0092991F /* GraphicsGems.license in Resources */,
+				6605F9EE1B11259F0092991F /* lib2geom.license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
