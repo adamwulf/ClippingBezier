@@ -12,6 +12,8 @@
 		6605F9F01B1125D60092991F /* JRSwizzle.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9EF1B1125D60092991F /* JRSwizzle.license */; };
 		6605F9F21B1125FC0092991F /* BaseGFX.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9F11B1125FC0092991F /* BaseGFX.license */; };
 		6605F9F41B112D0E0092991F /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 6605F9F31B112D0E0092991F /* utils.h */; };
+		6605F9F71B11328B0092991F /* bezier-clipping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6605F9F61B11328B0092991F /* bezier-clipping.mm */; };
+		6605F9F91B1133390092991F /* lib2geom-0.2.0 in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9F81B1133390092991F /* lib2geom-0.2.0 */; };
 		664A487E1AFEF23F00DE634E /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A487D1AFEF23F00DE634E /* point.cpp */; };
 		664A48821AFEF26200DE634E /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48801AFEF26200DE634E /* matrix.cpp */; };
 		664A48831AFEF26200DE634E /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48811AFEF26200DE634E /* matrix.h */; };
@@ -86,6 +88,9 @@
 		6605F9EF1B1125D60092991F /* JRSwizzle.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JRSwizzle.license; sourceTree = "<group>"; };
 		6605F9F11B1125FC0092991F /* BaseGFX.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BaseGFX.license; sourceTree = "<group>"; };
 		6605F9F31B112D0E0092991F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		6605F9F61B11328B0092991F /* bezier-clipping.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "bezier-clipping.mm"; sourceTree = "<group>"; };
+		6605F9F81B1133390092991F /* lib2geom-0.2.0 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "lib2geom-0.2.0"; path = "tmp/lib2geom-0.2.0"; sourceTree = SOURCE_ROOT; };
+		6605F9FC1B11362F0092991F /* bezier-clipping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-clipping.h"; sourceTree = "<group>"; };
 		662D40C31A8D862600A1CB63 /* ClippingBezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingBezier.h; sourceTree = "<group>"; };
 		662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662D40D11A8D862600A1CB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -242,6 +247,7 @@
 		66767CB41AFED76800443B03 /* bezier-utils */ = {
 			isa = PBXGroup;
 			children = (
+				6605F9F81B1133390092991F /* lib2geom-0.2.0 */,
 				664A488F1AFEF39800DE634E /* BezierUtilsLicense */,
 				664A48921AFEF9E400DE634E /* bezier-utils.cpp */,
 				664A48931AFEF9E400DE634E /* bezier-utils.h */,
@@ -255,6 +261,8 @@
 				66767CB71AFED78A00443B03 /* coord.h */,
 				664A487F1AFEF25500DE634E /* isnan.h */,
 				6605F9F31B112D0E0092991F /* utils.h */,
+				6605F9F61B11328B0092991F /* bezier-clipping.mm */,
+				6605F9FC1B11362F0092991F /* bezier-clipping.h */,
 			);
 			name = "bezier-utils";
 			sourceTree = "<group>";
@@ -528,6 +536,7 @@
 				6665F9F81A8EC72F0071F9B9 /* ClippingBezier-Info.plist in Resources */,
 				6605F6E81B11250D0092991F /* GraphicsGems.license in Resources */,
 				6605F9EE1B11259F0092991F /* lib2geom.license in Resources */,
+				6605F9F91B1133390092991F /* lib2geom-0.2.0 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6605F9F71B11328B0092991F /* bezier-clipping.mm in Sources */,
 				664A487E1AFEF23F00DE634E /* point.cpp in Sources */,
 				66AFACFA1A8DDD4400FD0263 /* DKUIBezierPathClippedSegment.m in Sources */,
 				66AFACFD1A8DDD5000FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.m in Sources */,

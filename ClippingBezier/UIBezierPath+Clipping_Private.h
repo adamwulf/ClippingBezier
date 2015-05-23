@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIBezierPath (Clipping_Private)
+@interface UIBezierPath (MMClipping_Private)
 
 // for tests
 

@@ -12,7 +12,7 @@
 #import "DKTangentAtPoint.h"
 #import "DKUIBezierPathClippedSegment.h"
 
-@interface UIBezierPath (Clipping)
+@interface UIBezierPath (MMClipping)
 
 -(NSArray*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;
 
