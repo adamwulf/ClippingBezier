@@ -33,7 +33,6 @@
 		666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */; };
 		666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */; };
 		666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */; };
-		666EEC301A8D8F7500B9F171 /* MMClippingBezierFastFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */; };
 		666EEC311A8D8F7500B9F171 /* MMClippingBezierFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */; };
 		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
 		66767CB21AFED58200443B03 /* UIBezierPath+Trimming.h in Headers */ = {isa = PBXBuildFile; fileRef = 66767CB01AFED58200443B03 /* UIBezierPath+Trimming.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -165,7 +164,6 @@
 		66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierPerformanceTests.m; path = ../BezierClipTests/MMClippingBezierPerformanceTests.m; sourceTree = "<group>"; };
 		66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierSubshapeTests.m; path = ../BezierClipTests/MMClippingBezierSubshapeTests.m; sourceTree = "<group>"; };
 		66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierReversePathTests.m; path = ../BezierClipTests/MMClippingBezierReversePathTests.m; sourceTree = "<group>"; };
-		66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFastFlatTests.m; path = ../BezierClipTests/MMClippingBezierFastFlatTests.m; sourceTree = "<group>"; };
 		66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFlatTests.m; path = ../BezierClipTests/MMClippingBezierFlatTests.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
 		66FD53311A89546A00E7B486 /* DKIntersectionOfPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKIntersectionOfPaths.m; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 				66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */,
 				66FD531B1A894C7A00E7B486 /* MMClippingBezierSubshapeTests.m */,
 				66FD531C1A894C7A00E7B486 /* MMClippingBezierReversePathTests.m */,
-				66FD531D1A894C7A00E7B486 /* MMClippingBezierFastFlatTests.m */,
 				66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */,
 				665E8D4A1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m */,
 				662D40D01A8D862600A1CB63 /* Supporting Files */,
@@ -601,7 +598,6 @@
 				665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */,
 				666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */,
 				666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */,
-				666EEC301A8D8F7500B9F171 /* MMClippingBezierFastFlatTests.m in Sources */,
 				666EEC311A8D8F7500B9F171 /* MMClippingBezierFlatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

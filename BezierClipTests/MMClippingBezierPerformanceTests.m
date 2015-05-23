@@ -174,4 +174,78 @@
     
 }
 
+
+
+
+
+#pragma mark - Performance for Flat
+
+- (void)testCalculateUnclosedPathThroughClosedBoundsFast{
+    
+    //
+    // testPath is a curved line that starts
+    // out above bounds, and curves through the
+    // bounds box until it ends outside on the
+    // other side
+    
+    UIBezierPath* testPath = [UIBezierPath bezierPath];
+    [testPath moveToPoint:CGPointMake(100, 50)];
+    [testPath addCurveToPoint:CGPointMake(100, 250)
+                controlPoint1:CGPointMake(170, 80)
+                controlPoint2:CGPointMake(170, 220)];
+    
+    
+    // simple 100x100 box
+    UIBezierPath* bounds = [UIBezierPath bezierPath];
+    [bounds moveToPoint:CGPointMake(100, 100)];
+    [bounds addLineToPoint:CGPointMake(200, 100)];
+    [bounds addLineToPoint:CGPointMake(200, 200)];
+    [bounds addLineToPoint:CGPointMake(100, 200)];
+    [bounds addLineToPoint:CGPointMake(100, 100)];
+    [bounds closePath];
+    
+    NSArray* output = [UIBezierPath calculateIntersectionAndDifferenceBetween:testPath andPath:bounds];
+    
+    
+    //    NSLog(@"cropped path: %@", [[output firstObject] bezierPathByUnflatteningPath]);
+    //    NSLog(@"cropped path: %@", [[output lastObject] bezierPathByUnflatteningPath]);
+    
+    UIBezierPath* inter = [output firstObject];
+    UIBezierPath* diff = [output lastObject];
+    
+    
+    XCTAssertEqual([inter elementCount], 1556, @"the curves do intersect");
+    XCTAssertEqual([diff elementCount], 1183, @"the curves do intersect");
+    
+    XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
+    XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
+    
+    XCTAssertEqual(inter.firstPoint.x, 100.0f, @"starts at the right place");
+    XCTAssertEqual(inter.firstPoint.y, 50.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0f, @"ends at the right place");
+    XCTAssertEqual(inter.lastPoint.y, 250.0f, @"ends at the right place");
+    
+    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0f, @"starts at the right place");
+    XCTAssertEqual(diff.firstPoint.y, 100.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0f, @"starts at the right place");
+    XCTAssertEqual(diff.lastPoint.y, 200.0f, @"starts at the right place");
+    
+}
+
+
+-(void) testPerformanceTestOfIntersectionAndDifference{
+    
+    [NSThread sleepForTimeInterval:2];
+    NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
+    
+    for(int i=0;i<1000;i++){
+        @autoreleasepool {
+            [self testCalculateUnclosedPathThroughClosedBoundsFast];
+        }
+    }
+    
+    NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
+    
+}
+
 @end
