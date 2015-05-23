@@ -233,7 +233,7 @@
 }
 
 
--(void) testPerformanceTestOfIntersectionAndDifference{
+-(void) testPerformanceCalculateUnclosedPathThroughClosedBoundsFast{
     
     [NSThread sleepForTimeInterval:2];
     NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
