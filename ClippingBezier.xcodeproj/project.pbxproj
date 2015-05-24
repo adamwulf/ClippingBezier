@@ -87,7 +87,6 @@
 		6605F9F11B1125FC0092991F /* BaseGFX.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BaseGFX.license; sourceTree = "<group>"; };
 		6605F9F31B112D0E0092991F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		6605F9F61B11328B0092991F /* bezier-clipping.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "bezier-clipping.mm"; sourceTree = "<group>"; };
-		6605F9F81B1133390092991F /* lib2geom-0.2.0 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "lib2geom-0.2.0"; path = "tmp/lib2geom-0.2.0"; sourceTree = SOURCE_ROOT; };
 		6605F9FC1B11362F0092991F /* bezier-clipping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-clipping.h"; sourceTree = "<group>"; };
 		662D40C31A8D862600A1CB63 /* ClippingBezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingBezier.h; sourceTree = "<group>"; };
 		662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -243,7 +242,6 @@
 		66767CB41AFED76800443B03 /* bezier-utils */ = {
 			isa = PBXGroup;
 			children = (
-				6605F9F81B1133390092991F /* lib2geom-0.2.0 */,
 				664A488F1AFEF39800DE634E /* BezierUtilsLicense */,
 				664A48921AFEF9E400DE634E /* bezier-utils.cpp */,
 				664A48931AFEF9E400DE634E /* bezier-utils.h */,
