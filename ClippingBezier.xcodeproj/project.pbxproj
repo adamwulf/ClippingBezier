@@ -13,6 +13,15 @@
 		6605F9F21B1125FC0092991F /* BaseGFX.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9F11B1125FC0092991F /* BaseGFX.license */; };
 		6605F9F41B112D0E0092991F /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 6605F9F31B112D0E0092991F /* utils.h */; };
 		6605F9F71B11328B0092991F /* bezier-clipping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6605F9F61B11328B0092991F /* bezier-clipping.mm */; };
+		6605FA061B1159640092991F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605FA051B1159640092991F /* main.m */; };
+		6605FA091B1159640092991F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605FA081B1159640092991F /* AppDelegate.m */; };
+		6605FA0C1B1159640092991F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605FA0B1B1159640092991F /* ViewController.m */; };
+		6605FA0F1B1159640092991F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6605FA0D1B1159640092991F /* Main.storyboard */; };
+		6605FA111B1159640092991F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6605FA101B1159640092991F /* Images.xcassets */; };
+		6605FA141B1159640092991F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6605FA121B1159640092991F /* LaunchScreen.xib */; };
+		6605FA291B1159AC0092991F /* MMClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605FA281B1159AC0092991F /* MMClipView.m */; };
+		6605FA2A1B1159D10092991F /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
+		6605FA2C1B1159D50092991F /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6605FA2B1B1159D50092991F /* PerformanceBezier.framework */; };
 		664A487E1AFEF23F00DE634E /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A487D1AFEF23F00DE634E /* point.cpp */; };
 		664A48821AFEF26200DE634E /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48801AFEF26200DE634E /* matrix.cpp */; };
 		664A48831AFEF26200DE634E /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48811AFEF26200DE634E /* matrix.h */; };
@@ -88,6 +97,19 @@
 		6605F9F31B112D0E0092991F /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		6605F9F61B11328B0092991F /* bezier-clipping.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "bezier-clipping.mm"; sourceTree = "<group>"; };
 		6605F9FC1B11362F0092991F /* bezier-clipping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bezier-clipping.h"; sourceTree = "<group>"; };
+		6605FA011B1159640092991F /* ClippingExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClippingExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6605FA041B1159640092991F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6605FA051B1159640092991F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6605FA071B1159640092991F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6605FA081B1159640092991F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6605FA0A1B1159640092991F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6605FA0B1B1159640092991F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6605FA0E1B1159640092991F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6605FA101B1159640092991F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6605FA131B1159640092991F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6605FA271B1159AC0092991F /* MMClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMClipView.h; sourceTree = "<group>"; };
+		6605FA281B1159AC0092991F /* MMClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClipView.m; sourceTree = "<group>"; };
+		6605FA2B1B1159D50092991F /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "Submodules/PerformanceBezier/build/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
 		662D40C31A8D862600A1CB63 /* ClippingBezier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClippingBezier.h; sourceTree = "<group>"; };
 		662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClippingBezierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		662D40D11A8D862600A1CB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,6 +190,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6605F9FE1B1159640092991F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6605FA2C1B1159D50092991F /* PerformanceBezier.framework in Frameworks */,
+				6605FA2A1B1159D10092991F /* ClippingBezier.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		662D40C81A8D862600A1CB63 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +241,32 @@
 				668288151A893F170038A1C4 /* BaseGFX Bezier Clip */,
 			);
 			name = "3rd Party";
+			sourceTree = "<group>";
+		};
+		6605FA021B1159640092991F /* ClippingExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				6605FA271B1159AC0092991F /* MMClipView.h */,
+				6605FA281B1159AC0092991F /* MMClipView.m */,
+				6605FA071B1159640092991F /* AppDelegate.h */,
+				6605FA081B1159640092991F /* AppDelegate.m */,
+				6605FA0A1B1159640092991F /* ViewController.h */,
+				6605FA0B1B1159640092991F /* ViewController.m */,
+				6605FA0D1B1159640092991F /* Main.storyboard */,
+				6605FA101B1159640092991F /* Images.xcassets */,
+				6605FA121B1159640092991F /* LaunchScreen.xib */,
+				6605FA031B1159640092991F /* Supporting Files */,
+			);
+			path = ClippingExampleApp;
+			sourceTree = "<group>";
+		};
+		6605FA031B1159640092991F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6605FA041B1159640092991F /* Info.plist */,
+				6605FA051B1159640092991F /* main.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		662D40CF1A8D862600A1CB63 /* ClippingBezierTests */ = {
@@ -277,6 +334,7 @@
 				66767CAC1AFEB8C600443B03 /* README.md */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
+				6605FA021B1159640092991F /* ClippingExampleApp */,
 				668287871A893CE50038A1C4 /* Frameworks */,
 				668287861A893CE50038A1C4 /* Products */,
 			);
@@ -287,6 +345,7 @@
 			children = (
 				662D40CB1A8D862600A1CB63 /* ClippingBezierTests.xctest */,
 				66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */,
+				6605FA011B1159640092991F /* ClippingExampleApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -294,6 +353,7 @@
 		668287871A893CE50038A1C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6605FA2B1B1159D50092991F /* PerformanceBezier.framework */,
 				66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */,
 				66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */,
 				66B9D1F51A8C2B1800CAC341 /* UIKit.framework */,
@@ -440,6 +500,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		6605FA001B1159640092991F /* ClippingExampleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6605FA251B1159640092991F /* Build configuration list for PBXNativeTarget "ClippingExampleApp" */;
+			buildPhases = (
+				6605F9FD1B1159640092991F /* Sources */,
+				6605F9FE1B1159640092991F /* Frameworks */,
+				6605F9FF1B1159640092991F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClippingExampleApp;
+			productName = ClippingExampleApp;
+			productReference = 6605FA011B1159640092991F /* ClippingExampleApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		662D40CA1A8D862600A1CB63 /* ClippingBezierTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 662D40D51A8D862600A1CB63 /* Build configuration list for PBXNativeTarget "ClippingBezierTests" */;
@@ -486,6 +563,9 @@
 			attributes = {
 				LastUpgradeCheck = 0630;
 				TargetAttributes = {
+					6605FA001B1159640092991F = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					662D40CA1A8D862600A1CB63 = {
 						CreatedOnToolsVersion = 6.3;
 					};
@@ -500,6 +580,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 668287781A893CC70038A1C4;
 			productRefGroup = 668287861A893CE50038A1C4 /* Products */;
@@ -508,11 +589,22 @@
 			targets = (
 				66AFACE61A8DDCA200FD0263 /* ClippingBezier */,
 				662D40CA1A8D862600A1CB63 /* ClippingBezierTests */,
+				6605FA001B1159640092991F /* ClippingExampleApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6605F9FF1B1159640092991F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6605FA0F1B1159640092991F /* Main.storyboard in Resources */,
+				6605FA141B1159640092991F /* LaunchScreen.xib in Resources */,
+				6605FA111B1159640092991F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		662D40C91A8D862600A1CB63 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -581,6 +673,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6605F9FD1B1159640092991F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6605FA291B1159AC0092991F /* MMClipView.m in Sources */,
+				6605FA0C1B1159640092991F /* ViewController.m in Sources */,
+				6605FA091B1159640092991F /* AppDelegate.m in Sources */,
+				6605FA061B1159640092991F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		662D40C71A8D862600A1CB63 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -631,7 +734,130 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		6605FA0D1B1159640092991F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6605FA0E1B1159640092991F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6605FA121B1159640092991F /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6605FA131B1159640092991F /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		6605FA211B1159640092991F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Submodules/PerformanceBezier/build/Debug-iphoneos",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ClippingExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		6605FA221B1159640092991F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Submodules/PerformanceBezier/build/Debug-iphoneos",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ClippingExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		662D40D61A8D862600A1CB63 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -838,6 +1064,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6605FA251B1159640092991F /* Build configuration list for PBXNativeTarget "ClippingExampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6605FA211B1159640092991F /* Debug */,
+				6605FA221B1159640092991F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		662D40D51A8D862600A1CB63 /* Build configuration list for PBXNativeTarget "ClippingBezierTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
