@@ -25,7 +25,7 @@
     [super tearDown];
 }
 
-- (void)testExample {
+- (void)testComplexShape {
     // This is an example of a functional test case.
     
     CGPoint p = [self.complexShape closestPointOnPathTo:CGPointZero];
@@ -37,5 +37,15 @@
     
     
 }
+
+-(void) testClosestPointOnSimpleCurve{
+    UIBezierPath* bez = [UIBezierPath bezierPathWithArcCenter:CGPointMake(500, 500) radius:300 startAngle:-M_PI/24 endAngle:-M_PI*12/45 clockwise:YES];
+    
+    CGPoint p = [bez closestPointOnPathTo:CGPointZero];
+    
+    XCTAssertEqual([self round:p.x to:6], 287.945679f, @"point is correct");
+    XCTAssertEqual([self round:p.y to:6], 287.768799f, @"point is correct");
+}
+
 
 @end

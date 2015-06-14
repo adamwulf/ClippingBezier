@@ -40,7 +40,7 @@
  *  Forward declarations
  */
 CGPoint *ConvertToBezierForm(CGPoint P, CGPoint* V);
-CGPoint Bezier(CGPoint* V, int degree, double t, CGPoint* Left, CGPoint* Right);
+CGPoint Bezier(CGPoint* V, long degree, double t, CGPoint* Left, CGPoint* Right);
 static int CrossingCount(CGPoint* V, int degree);
 static int ControlPolygonFlatEnough(CGPoint* V, int degree);
 static double ComputeXIntercept(CGPoint* V, int degree);
@@ -456,9 +456,9 @@ static double ComputeXIntercept(CGPoint* V, int degree)
  * Point2 	*Left;		RETURN left half ctl pts
  * Point2 	*Right;		RETURN right half ctl pts
  */
-CGPoint Bezier(CGPoint* V, int degree, double t, CGPoint* Left, CGPoint* Right)
+CGPoint Bezier(CGPoint* V, long degree, double t, CGPoint* Left, CGPoint* Right)
 {
-    int 	i, j;		/* Index variables	*/
+    long 	i, j;		/* Index variables	*/
     CGPoint 	Vtemp[W_DEGREE+1][W_DEGREE+1];
     
     

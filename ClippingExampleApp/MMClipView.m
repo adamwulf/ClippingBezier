@@ -146,11 +146,16 @@
 
 
 -(void) drawRect:(CGRect)rect{
-    CGPoint intersection = [complexShape closestPointOnPathTo:CGPointZero];
+    UIBezierPath* bez = [UIBezierPath bezierPathWithArcCenter:CGPointMake(500, 500) radius:300 startAngle:-M_PI/24 endAngle:-M_PI*12/45 clockwise:YES];
+    
+    CGPoint p = [bez closestPointOnPathTo:CGPointZero];
+
+    
+    CGPoint intersection = [bez closestPointOnPathTo:CGPointZero];
     
     [[UIColor blueColor] setStroke];
-    [complexShape setLineWidth:1];
-    [complexShape stroke];
+    [bez setLineWidth:1];
+    [bez stroke];
     
     [[UIColor redColor] setStroke];
     UIBezierPath* line = [UIBezierPath bezierPath];
