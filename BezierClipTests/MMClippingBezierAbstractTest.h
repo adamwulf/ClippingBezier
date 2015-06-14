@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
+#import <XCTest/XCTest.h>
 
 @interface MMClippingBezierAbstractTest : XCTestCase
 
