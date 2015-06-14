@@ -11,6 +11,7 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
+#import "UIBezierPath+Clipping_Private.h"
 
 @interface DrawKitiOSClippingSegmentTests : DrawKitiOSAbstractTest
 

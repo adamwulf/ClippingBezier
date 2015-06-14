@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>61106F41-5AA8-468C-A48B-09B933CF70D8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ClippingBezier</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2F908E79772220A6FB7E9CD66EC08940081B368D</key>
+		<string>github.com:adamwulf/PerformanceBezier.git</string>
+		<key>6A8F5F4D9693F686F748DFD9CC90B9AD157BCA73</key>
+		<string>github.com:adamwulf/ClippingBezier.git</string>
+		<key>DAF93FB062EA747941221BC588740DE29279908A</key>
+		<string>github.com:adamwulf/DrawKit-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ClippingBezier.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2F908E79772220A6FB7E9CD66EC08940081B368D</key>
+		<string>../..Submodules/DrawKit-iOS/Submodules/PerformanceBezier/</string>
+		<key>6A8F5F4D9693F686F748DFD9CC90B9AD157BCA73</key>
+		<string>../..</string>
+		<key>DAF93FB062EA747941221BC588740DE29279908A</key>
+		<string>../..Submodules/DrawKit-iOS/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:adamwulf/ClippingBezier.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6A8F5F4D9693F686F748DFD9CC90B9AD157BCA73</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6A8F5F4D9693F686F748DFD9CC90B9AD157BCA73</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ClippingBezier</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DAF93FB062EA747941221BC588740DE29279908A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DrawKit-iOS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2F908E79772220A6FB7E9CD66EC08940081B368D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PerformanceBezier</string>
+		</dict>
+	</array>
+</dict>
+</plist>

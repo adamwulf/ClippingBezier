@@ -20,6 +20,7 @@
 		666EEC311A8D8F7500B9F171 /* DrawKitiOSFlatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */; };
 		666EEC331A8D90F100B9F171 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */; };
 		666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B9D1F51A8C2B1800CAC341 /* UIKit.framework */; };
+		6696DEE71B2E31D500A2BC8E /* DrawKitiOSGeometryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6696DEE61B2E31D500A2BC8E /* DrawKitiOSGeometryTest.m */; };
 		66AFACE81A8DDCA200FD0263 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 668287881A893CE50038A1C4 /* Foundation.framework */; };
 		66AFACFA1A8DDD4400FD0263 /* DKUIBezierPathClippedSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879B1A893DDD0038A1C4 /* DKUIBezierPathClippedSegment.m */; };
 		66AFACFB1A8DDD4500FD0263 /* DKUIBezierPathClippingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 6682879D1A893DDD0038A1C4 /* DKUIBezierPathClippingResult.m */; };
@@ -105,6 +106,7 @@
 		668288561A893F7E0038A1C4 /* UIBezierPath+DKOSX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+DKOSX.m"; sourceTree = "<group>"; };
 		668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Intersections.h"; sourceTree = "<group>"; };
 		668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIBezierPath+Intersections.m"; sourceTree = "<group>"; };
+		6696DEE61B2E31D500A2BC8E /* DrawKitiOSGeometryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawKitiOSGeometryTest.m; path = BezierClipTests/DrawKitiOSGeometryTest.m; sourceTree = SOURCE_ROOT; };
 		66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = ClippingBezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66AFAD1E1A8DDDEF00FD0263 /* DrawKit-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "DrawKit-iOS.framework"; path = "Submodules/DrawKit-iOS/build/Debug-iphoneos/DrawKit-iOS.framework"; sourceTree = "<group>"; };
 		66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerformanceBezier.framework; path = "Submodules/DrawKit-iOS/Submodules/PerformanceBezier/build/Debug-iphoneos/PerformanceBezier.framework"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				66FD531C1A894C7A00E7B486 /* DrawKitiOSReverseBezierTests.m */,
 				66FD531D1A894C7A00E7B486 /* DrawKitiOSFastFlatTests.m */,
 				66FD531E1A894C7A00E7B486 /* DrawKitiOSFlatTests.m */,
+				6696DEE61B2E31D500A2BC8E /* DrawKitiOSGeometryTest.m */,
 				662D40D01A8D862600A1CB63 /* Supporting Files */,
 			);
 			path = ClippingBezierTests;
@@ -488,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				666EEC271A8D8F7500B9F171 /* DrawKitiOSAOOTests.m in Sources */,
+				6696DEE71B2E31D500A2BC8E /* DrawKitiOSGeometryTest.m in Sources */,
 				666EEC291A8D8F7500B9F171 /* DrawKitiOSAbstractTest.m in Sources */,
 				666EEC2A1A8D8F7500B9F171 /* DrawKitiOSClippingIntersectionTests.m in Sources */,
 				666EEC2B1A8D8F7500B9F171 /* DrawKitiOSClippingSegmentTests.m in Sources */,
