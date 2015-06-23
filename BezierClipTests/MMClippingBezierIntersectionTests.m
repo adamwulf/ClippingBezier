@@ -864,32 +864,32 @@
     
     NSArray* intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
     NSArray* otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-
+    
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
     
     XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], (CGFloat)1.0, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], 1.0f, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], (CGFloat)0.0, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0f, @"found correct intersection location");
     
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex1], 3, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], (CGFloat)0.999997, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], 0.999999f, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 1, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], (CGFloat)0.499999, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.499998f, @"found correct intersection location");
     
     XCTAssertEqual([[intersections objectAtIndex:2] elementIndex1], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], (CGFloat)0.999997, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 0.999996f, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], (CGFloat)0.999998, @"found correct intersection location");
-
+    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0.999998f, @"found correct intersection location");
+    
     DKUIBezierPathIntersectionPoint* intersection = [intersections objectAtIndex:0];
-    XCTAssertEqual(roundf([intersection location1].x), (CGFloat)200.0, @"intersects at the right place");
-    XCTAssertEqual(roundf([intersection location1].y), (CGFloat)300.0, @"intersects at the right place");
-
+    XCTAssertEqual(roundf([intersection location1].x), 200.0f, @"intersects at the right place");
+    XCTAssertEqual(roundf([intersection location1].y), 300.0f, @"intersects at the right place");
+    
     intersection = [intersections objectAtIndex:1];
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");
-
+    
     intersection = [intersections objectAtIndex:2];
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
     
@@ -899,13 +899,9 @@
     intersection = [otherIntersections objectAtIndex:1];
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
     
-    DKUIBezierPathIntersectionPoint* ointersection = [otherIntersections objectAtIndex:2];
     intersection = [otherIntersections objectAtIndex:2];
-    CGPoint p1 = intersection.location1;
-    CGPoint p2 = ointersection.location1;
-    
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(200, 300)], @"correct location");
-
+    
 }
 
 

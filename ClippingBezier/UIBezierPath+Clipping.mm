@@ -249,6 +249,7 @@ static NSInteger segmentCompareCount = 0;
                                         // bez1 is always the unclosed path and bez2 is always closed
                                         inter = [inter flipped];
                                     }
+                                    
                                     // add to our output!
                                     [foundIntersections addObject:inter];
                                 }
@@ -479,6 +480,7 @@ static NSInteger segmentCompareCount = 0;
                 isInside = isInsideAfterIntersection;
             }
         }
+        
         return  [foundIntersections copy];
     }
 

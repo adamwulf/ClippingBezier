@@ -73,6 +73,12 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b){
     CGFloat t = atp_dot_atb / atb2;
     //   your closest point
     
+    if(t < 0){
+        return a;
+    }else if(t > 1){
+        return b;
+    }
+    
     // Add the distance to A, moving
     //   towards B
     return CGPointMake(a.x + a_to_b.x*t, a.y + a_to_b.y*t );

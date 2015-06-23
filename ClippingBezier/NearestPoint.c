@@ -89,7 +89,7 @@ double V2Dot(CGPoint a, CGPoint b){
 /*
  *  Forward declarations
  */
-CGPoint *ConvertToBezierForm(CGPoint P, CGPoint* V);
+static CGPoint*		ConvertToBezierForm( const CGPoint inp, const CGPoint bez[4] );
 CGPoint Bezier(const CGPoint* V, const int degree, const double t, CGPoint* Left, CGPoint* Right);
 static int CrossingCount(CGPoint* V, int degree);
 static int ControlPolygonFlatEnough(CGPoint* V, int degree);
@@ -114,52 +114,60 @@ int		MAXDEPTH = 64;	/*  Maximum depth for recursion */
  */
 CGPoint		NearestPointOnCurve( const CGPoint inp, const CGPoint bez[4], double* tValue )
 {
-    CGPoint	*w;			/* Ctl pts for 5th-degree eqn	*/
-    double 	t_candidate[W_DEGREE];	/* Possible roots		*/
-    int 	n_solutions;		/* Number of roots found	*/
+    CGPoint*	w;						// Ctl pts for 5th-degree eqn
+    double		t_candidate[5];			// Possible roots
+    int			n_solutions;			// Number of roots found
     double		t;						// Parameter value of closest pt
     
-    /*  Convert problem to 5th-degree Bezier form	*/
+    // Convert problem to 5th-degree Bezier form
+    
     w = ConvertToBezierForm( inp, bez );
     
-    /* Find all possible roots of 5th-degree equation */
-    n_solutions = FindRoots(w, W_DEGREE, t_candidate, 0);
-    free((char *)w);
+    // Find all possible roots of 5th-degree equation
     
-    /* Compare distances of P to all candidates, and to t=0, and t=1 */
+    n_solutions = FindRoots( w, 5, t_candidate, 0 );
+    free((char*) w);
+    
+    // Compare distances of P to all candidates, and to t=0, and t=1
+    
+    double		dist, new_dist;
+    CGPoint 	p;
+    int			i;
+    
+    // Check distance to beginning of curve, where t = 0
+    
+    dist = V2SquaredLength(CGPointDiff( inp, bez[0] ));
+    t = 0.0;
+    
+    // Find distances for candidate points
+    
+    for (i = 0; i < n_solutions; i++)
     {
-        double 	dist, new_dist;
-        CGPoint 	p;
-        int		i;
+        p = Bezier( bez, DEGREE, t_candidate[i], NULL, NULL );
         
-        
-        /* Check distance to beginning of curve, where t = 0	*/
-        dist = V2SquaredLength(CGPointDiff(inp, bez[0]));
-        t = 0.0;
-        
-        /* Find distances for candidate points	*/
-        for (i = 0; i < n_solutions; i++) {
-            p = Bezier(bez, DEGREE, t_candidate[i],
-                       NULL, NULL);
-            new_dist = V2SquaredLength(CGPointDiff(inp, p));
-            if (new_dist < dist) {
-                dist = new_dist;
-                t = t_candidate[i];
-            }
-        }
-        
-        /* Finally, look at distance to end point, where t = 1.0 */
-        new_dist = V2SquaredLength(CGPointDiff(inp, bez[DEGREE]));
-        if (new_dist < dist) {
+        new_dist = V2SquaredLength(CGPointDiff( inp, p ));
+        if ( new_dist < dist )
+        {
             dist = new_dist;
-            t = 1.0;
+            t = t_candidate[i];
         }
     }
     
+    // Finally, look at distance to end point, where t = 1.0
+    
+    new_dist = V2SquaredLength(CGPointDiff( inp, bez[3]));
+    if (new_dist < dist)
+    {
+        t = 1.0;
+    }
+    
     /*  Return the point on the curve at parameter value t */
-//    printf("t : %4.12f\n", t);
-    if(tValue) tValue[0] = t;
-    return (Bezier(bez, DEGREE, t, NULL, NULL));
+//    LogEvent_(kInfoEvent, @"t : %4.12f", t);
+    
+    if ( tValue )
+        *tValue = t;
+    
+    return Bezier( bez, DEGREE, t, NULL, NULL);
 }
 
 
@@ -171,14 +179,15 @@ CGPoint		NearestPointOnCurve( const CGPoint inp, const CGPoint bez[4], double* t
  * CGPoint 	P;			The point to find t for
  * CGPoint 	*V;			The control points
  */
-CGPoint *ConvertToBezierForm(CGPoint P, CGPoint* V)
+static CGPoint*		ConvertToBezierForm( const CGPoint inp, const CGPoint bez[4] )
 {
-    int 	i, j, k, m, n, ub, lb;
-    int 	row, column;		/* Table indices		*/
-    CGPoint 	c[DEGREE+1];		/* V(i)'s - P			*/
-    CGPoint 	d[DEGREE];		/* V(i+1) - V(i)		*/
-    CGPoint 	*w;			/* Ctl pts of 5th-degree curve  */
-    double 	cdTable[3][4];		/* Dot product of c, d		*/
+    int				i, j, k, m, n, ub, lb;
+    int				row, column;		// Table indices
+    CGPoint			c[DEGREE+1];				// V(i)'s - P
+    CGPoint			d[DEGREE];				// V(i+1) - V(i)
+    CGPoint*		w;					// Ctl pts of 5th-degree curve
+    double			cdTable[3][4];		// Dot product of c, d
+    
     static double z[3][4] = {	/* Precomputed "z" for cubics	*/
         {1.0, 0.6, 0.3, 0.1},
         {0.4, 0.6, 0.6, 0.4},
@@ -188,38 +197,48 @@ CGPoint *ConvertToBezierForm(CGPoint P, CGPoint* V)
     
     /*Determine the c's -- these are vectors created by subtracting*/
     /* point P from each of the control points				*/
-    for (i = 0; i <= DEGREE; i++) {
-        c[i] = CGPointDiff(V[i], P);
+    for (i = 0; i <= DEGREE; i++)
+    {
+        c[i] = CGPointDiff( bez[i], inp );
     }
+    
     /* Determine the d's -- these are vectors created by subtracting*/
     /* each control point from the next					*/
-    for (i = 0; i <= DEGREE - 1; i++) {
-        d[i] = CGPointDiff(V[i+1], V[i]);
+    for (i = 0; i < DEGREE; i++)
+    {
+        d[i] = CGPointDiff(bez[i+1], bez[i]);
         d[i] = V2ScaleII(d[i], 3.0);
     }
     
     /* Create the c,d table -- this is a table of dot products of the */
     /* c's and d's							*/
+    
     for (row = 0; row <= DEGREE - 1; row++) {
         for (column = 0; column <= DEGREE; column++) {
-            cdTable[row][column] = V2Dot(d[row], c[column]);
+            cdTable[row][column] = V2Dot( d[row], c[column] );
         }
     }
     
     /* Now, apply the z's to the dot products, on the skew diagonal*/
     /* Also, set up the x-values, making these "points"		*/
-    w = (CGPoint *)malloc((unsigned)(W_DEGREE+1) * sizeof(CGPoint));
-    for (i = 0; i <= W_DEGREE; i++) {
+    
+    w = (CGPoint*)	malloc((W_DEGREE+1) * sizeof(CGPoint));
+    for (i = 0; i <= W_DEGREE; i++)
+    {
         w[i].y = 0.0;
         w[i].x = (double)(i) / W_DEGREE;
     }
     
     n = DEGREE;
     m = DEGREE-1;
-    for (k = 0; k <= n + m; k++) {
+    
+    for (k = 0; k <= n + m; k++)
+    {
         lb = MAX(0, k - m);
         ub = MIN(k, n);
-        for (i = lb; i <= ub; i++) {
+        
+        for (i = lb; i <= ub; i++)
+        {
             j = k - i;
             w[i+j].y += cdTable[j][i] * z[j][i];
         }
@@ -239,52 +258,59 @@ CGPoint *ConvertToBezierForm(CGPoint P, CGPoint* V)
  * double 	*t;			RETURN candidate t-values
  * int 	depth;          The depth of the recursion
  */
-int FindRoots(CGPoint* w, int degree, double* t, int depth)
+int FindRoots( CGPoint* w, int degree, double* t, int depth )
 {
-    int 	i;
-    CGPoint 	Left[W_DEGREE+1],	/* New left and right 		*/
-    Right[W_DEGREE+1];	/* control polygons		*/
-    int 	left_count,		/* Solution count from		*/
-    right_count;		/* children			*/
-    double 	left_t[W_DEGREE+1],	/* Solutions from kids		*/
-    right_t[W_DEGREE+1];
+    int			i;
+    CGPoint 	Left[W_DEGREE+1], Right[W_DEGREE+1];	// control polygons
+    int			left_count,	 right_count;
+    double		left_t[W_DEGREE+1], right_t[W_DEGREE+1];
     
-    switch (CrossingCount(w, degree)) {
-       	case 0 : {	/* No solutions here	*/
+    switch ( CrossingCount( w, degree ))
+    {
+       	default:
+            break;
+            
+        case 0:	// No solutions here
             return 0;
-        }
-        case 1 : {	/* Unique solution	*/
-            /* Stop recursion when the tree is deep enough	*/
-            /* if deep enough, return 1 solution at midpoint 	*/
-            if (depth >= MAXDEPTH) {
-                t[0] = (w[0].x + w[W_DEGREE].x) / 2.0;
+            
+        case 1:	// Unique solution
+            // Stop recursion when the tree is deep enough
+            // if deep enough, return 1 solution at midpoint
+            
+            if (depth >= MAXDEPTH)
+            {
+                t[0] = ( w[0].x + w[W_DEGREE].x) / 2.0;
                 return 1;
             }
-            if (ControlPolygonFlatEnough(w, degree)) {
-                t[0] = ComputeXIntercept(w, degree);
+            
+            if ( ControlPolygonFlatEnough( w, degree ))
+            {
+                t[0] = ComputeXIntercept( w, degree );
                 return 1;
             }
             break;
-        }
     }
     
-    /* Otherwise, solve recursively after	*/
-    /* subdividing control polygon		*/
-    Bezier(w, degree, 0.5, Left, Right);
-    left_count  = FindRoots(Left,  degree, left_t, depth+1);
-    right_count = FindRoots(Right, degree, right_t, depth+1);
+    // Otherwise, solve recursively after
+    // subdividing control polygon
     
+    Bezier( w, degree, 0.5, Left, Right );
+    left_count  = FindRoots( Left,  degree, left_t, depth+1 );
+    right_count = FindRoots( Right, degree, right_t, depth+1 );
     
-    /* Gather solutions together	*/
-    for (i = 0; i < left_count; i++) {
+    // Gather solutions together
+    for (i = 0; i < left_count; i++)
+    {
         t[i] = left_t[i];
     }
-    for (i = 0; i < right_count; i++) {
+    for (i = 0; i < right_count; i++)
+    {
         t[i+left_count] = right_t[i];
     }
     
-    /* Send back total number of solutions	*/
-    return (left_count+right_count);
+    // Send back total number of solutions
+    
+    return (left_count + right_count);
 }
 
 
@@ -296,16 +322,20 @@ int FindRoots(CGPoint* w, int degree, double* t, int depth)
  * Point2	*V;			Control pts of Bezier curve
  * int		degree;		Degreee of Bezier curve
  */
-static int CrossingCount(CGPoint* V, int degree)
+static int CrossingCount( CGPoint* v, int degree )
 {
     int 	i;
     int 	n_crossings = 0;	/*  Number of zero-crossings	*/
     int		sign, old_sign;		/*  Sign of coefficients	*/
     
-    sign = old_sign = SGN(V[0].y);
-    for (i = 1; i <= degree; i++) {
-        sign = SGN(V[i].y);
-        if (sign != old_sign) n_crossings++;
+    old_sign = SGN( v[0].y );
+    
+    for ( i = 1; i <= degree; i++ )
+    {
+        sign = SGN( v[i].y );
+        
+        if (sign != old_sign)
+            n_crossings++;
         old_sign = sign;
     }
     return n_crossings;
@@ -336,12 +366,12 @@ static int ControlPolygonFlatEnough( CGPoint* v, int degree )
     /* Find the  perpendicular distance		*/
     /* from each interior control point to 	*/
     /* line connecting V[0] and V[degree]	*/
-    distance = (double *)malloc((unsigned)(degree + 1) * 					sizeof(double));
+    distance = (double*) malloc((unsigned)(degree + 1) * sizeof(double));
     {
         double	abSquared;
         
         /* Derive the implicit equation for line connecting first */
-         /*  and last control points */
+        /*  and last control points */
         a = v[0].y - v[degree].y;
         b = v[degree].x - v[0].x;
         c = v[0].x * v[degree].y - v[degree].x * v[0].y;
@@ -362,7 +392,6 @@ static int ControlPolygonFlatEnough( CGPoint* v, int degree )
             }
         }
     }
-    
     
     /* Find the largest distance	*/
     max_distance_above = 0.0;
@@ -414,11 +443,13 @@ static int ControlPolygonFlatEnough( CGPoint* v, int degree )
     left_intercept = MIN(intercept_1, intercept_2);
     right_intercept = MAX(intercept_1, intercept_2);
     
-    error = 0.5 * (right_intercept-left_intercept);
-    if (error < EPSILON) {
+    error = 0.5 * (right_intercept - left_intercept);    
+    if (error < EPSILON)
+    {
         return 1;
     }
-    else {
+    else
+    {
         return 0;
     }
 }

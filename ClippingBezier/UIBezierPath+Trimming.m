@@ -25,23 +25,17 @@
     __block UIBezierPath* subpath = nil;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
         if(element.type == kCGPathElementMoveToPoint){
-            if(subpath) [output addObject:subpath];
+            if(subpath && [subpath elementCount] > 1) [output addObject:subpath];
             subpath = [UIBezierPath bezierPath];
         }
         [subpath addPathElement:element];
     }];
-    if(subpath) [output addObject:subpath];
+    if(subpath && [subpath elementCount] > 1) [output addObject:subpath];
     return output;
 }
 
 -(NSInteger) countSubPaths{
-    __block NSInteger subPathCount = 0;
-    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
-        if(element.type == kCGPathElementMoveToPoint){
-            subPathCount++;
-        }
-    }];
-    return subPathCount;
+    return [[self subPaths] count];
 }
 
 - (UIBezierPath*) bezierPathByTrimmingFromLength:(CGFloat)trimLength{

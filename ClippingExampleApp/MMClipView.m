@@ -146,23 +146,27 @@
 
 
 -(void) drawRect:(CGRect)rect{
-    UIBezierPath* bez = [UIBezierPath bezierPathWithArcCenter:CGPointMake(500, 500) radius:300 startAngle:-M_PI/24 endAngle:-M_PI*12/45 clockwise:YES];
+    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
+    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
     
-    CGPoint p = [bez closestPointOnPathTo:CGPointZero];
+    NSArray* intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray* otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     
-    CGPoint intersection = [bez closestPointOnPathTo:CGPointZero];
-    
     [[UIColor blueColor] setStroke];
-    [bez setLineWidth:1];
-    [bez stroke];
+    [shapePath setLineWidth:1];
+    [shapePath stroke];
     
     [[UIColor redColor] setStroke];
-    UIBezierPath* line = [UIBezierPath bezierPath];
-    [line moveToPoint:CGPointZero];
-    [line addLineToPoint:intersection];
-    [line setLineWidth:10];
-    [line stroke];
+    [scissorPath setLineWidth:1];
+    [scissorPath stroke];
+    
+    for (DKUIBezierPathIntersectionPoint* intersection in otherIntersections) {
+        UIBezierPath* dot = [UIBezierPath bezierPathWithArcCenter:intersection.location1 radius:4 startAngle:0 endAngle:2*M_PI clockwise:YES];
+        [[UIColor greenColor] setFill];
+        [dot fill];
+    }
+    
 }
 
 @end
