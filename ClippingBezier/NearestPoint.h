@@ -17,7 +17,7 @@ extern "C" {
 #include <stdio.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-CGPoint NearestPointOnCurve(CGPoint P, CGPoint* V, double* t);
+CGPoint NearestPointOnCurve(const CGPoint P, const CGPoint* V, double* t);
 
 int FindRoots(CGPoint* w, int degree,double* t, int depth);
 
