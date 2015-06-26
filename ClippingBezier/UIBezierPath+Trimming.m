@@ -51,7 +51,19 @@
 }
 
 - (NSInteger) subpathIndexForElement:(NSInteger) element{
-    return 0;
+    __block NSInteger subpathIndex = -1;
+    __block BOOL lastWasMoveTo = NO;
+    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if(element.type == kCGPathElementMoveToPoint){
+            if(!lastWasMoveTo){
+                subpathIndex += 1;
+            }
+            lastWasMoveTo = YES;
+        }else{
+            lastWasMoveTo = NO;
+        }
+    }];
+    return subpathIndex;
 }
 
 - (CGFloat) length{

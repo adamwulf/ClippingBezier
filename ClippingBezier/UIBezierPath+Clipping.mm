@@ -415,7 +415,6 @@ static NSInteger segmentCompareCount = 0;
                     nextIntersection = [foundIntersections objectAtIndex:i+1];
                 }
                 
-                CGPoint possibleNextBezier[4];
                 CGPoint* bezToUseForNextPoint = intersection.bez1;
                 // if the next intersection isn't in the same element, then we
                 // can test a point halfway between our intersection and the end
@@ -441,17 +440,24 @@ static NSInteger segmentCompareCount = 0;
                             // we can just use it as a point bezier
                             CGPathElement ele = [self elementAtIndex:intersection.elementIndex1+1];
                             if(ele.type != kCGPathElementCloseSubpath){
-                                possibleNextBezier[0] = ele.points[0];
-                                possibleNextBezier[1] = ele.points[0];
-                                possibleNextBezier[2] = ele.points[0];
-                                possibleNextBezier[3] = ele.points[0];
-                                bezToUseForNextPoint = (CGPoint*) &possibleNextBezier;
+                                bezToUseForNextPoint[0] = ele.points[0];
+                                bezToUseForNextPoint[1] = ele.points[0];
+                                bezToUseForNextPoint[2] = ele.points[0];
+                                bezToUseForNextPoint[3] = ele.points[0];
                             }else{
-                                UIBezierPath* subpath = [[self subPaths] objectAtIndex:[self subpathIndexForElement:intersection.elementIndex1]];
-                                bezToUseForNextPoint[0] = subpath.lastPoint;
-                                bezToUseForNextPoint[1] = subpath.lastPoint;
-                                bezToUseForNextPoint[2] = subpath.lastPoint;
-                                bezToUseForNextPoint[3] = subpath.lastPoint;
+                                CGPoint p = CGPointZero;
+                                CGPathElement ele = [self elementAtIndex:intersection.elementIndex1];
+                                if(ele.type == kCGPathElementMoveToPoint || ele.type == kCGPathElementAddLineToPoint){
+                                    p = ele.points[0];
+                                }else if(ele.type == kCGPathElementAddQuadCurveToPoint){
+                                    p = ele.points[1];
+                                }else if(ele.type == kCGPathElementAddQuadCurveToPoint){
+                                    p = ele.points[2];
+                                }
+                                bezToUseForNextPoint[0] = p;
+                                bezToUseForNextPoint[1] = p;
+                                bezToUseForNextPoint[2] = p;
+                                bezToUseForNextPoint[3] = p;
                             }
                         }
                     }
