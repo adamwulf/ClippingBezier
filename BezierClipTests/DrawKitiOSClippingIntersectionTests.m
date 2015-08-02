@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "DrawKitiOSAbstractTest.h"
 #import <ClippingBezier/ClippingBezier.h>
+#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 #import <DrawKit-iOS/DrawKit-iOS.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "UIBezierPath+Clipping_Private.h"

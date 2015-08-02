@@ -44,7 +44,7 @@
 		66AFAD0D1A8DDD7300FD0263 /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288441A893F5A0038A1C4 /* JRSwizzle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD0E1A8DDD7500FD0263 /* MMBackwardCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288461A893F5A0038A1C4 /* MMBackwardCompatible.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD0F1A8DDD7800FD0263 /* UIBezierPath+Clipping.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288501A893F7E0038A1C4 /* UIBezierPath+Clipping.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288511A893F7E0038A1C4 /* UIBezierPath+Clipping_Private.h */; };
+		66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288511A893F7E0038A1C4 /* UIBezierPath+Clipping_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		66AFAD111A8DDD7D00FD0263 /* UIBezierPath+GeometryExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288531A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD121A8DDD7E00FD0263 /* UIBezierPath+DKOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288551A893F7E0038A1C4 /* UIBezierPath+DKOSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD131A8DDD8000FD0263 /* UIBezierPath+Intersections.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288571A893F7E0038A1C4 /* UIBezierPath+Intersections.h */; settings = {ATTRIBUTES = (Public, ); }; };
