@@ -80,6 +80,25 @@
         }else if(element.type == kCGPathElementAddLineToPoint){
             length += distance(lastElementEndPoint, element.points[0]);
             lastElementEndPoint = element.points[0];
+        }else if(element.type == kCGPathElementAddQuadCurveToPoint ||
+                 element.type == kCGPathElementAddCurveToPoint){
+            
+            CGPoint bez[4];
+            bez[0] = lastElementEndPoint;
+            
+            if(element.type == kCGPathElementAddQuadCurveToPoint){
+                bez[1] = element.points[0];
+                bez[2] = element.points[0];
+                bez[3] = element.points[1];
+                lastElementEndPoint = element.points[1];
+            }else if(element.type == kCGPathElementAddCurveToPoint){
+                bez[1] = element.points[0];
+                bez[2] = element.points[1];
+                bez[3] = element.points[2];
+                lastElementEndPoint = element.points[2];
+            }
+            
+            length += lengthOfBezier(bez, .5);;
         }
     }];
     return length;

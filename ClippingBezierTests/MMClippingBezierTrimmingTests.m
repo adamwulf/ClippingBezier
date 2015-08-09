@@ -163,4 +163,20 @@
     XCTAssertEqual([zeroPath length], (CGFloat) 0.0, "path length is correct");
 }
 
+- (void)testCircleCircumference{
+    CGFloat r = 5;
+    UIBezierPath* path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 2*r, 2*r)];
+    
+    XCTAssertTrue([self check:[path length] isEqualTo:[self round:M_PI * 2 * r to:6] within:.5]);
+}
+
+- (void)testStraightCurve{
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addCurveToPoint:CGPointMake(100, 0) controlPoint1:CGPointMake(10, 0) controlPoint2:CGPointMake(20, 0)];
+    
+    
+    XCTAssertEqual([path length], (CGFloat) 100.0, "path length is correct");
+}
+
 @end

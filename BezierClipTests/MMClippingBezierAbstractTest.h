@@ -21,6 +21,7 @@
 
 -(BOOL) checkTanPoint:(CGFloat) f1 isLessThan:(CGFloat)f2;
 -(BOOL) check:(CGFloat) f1 isLessThan:(CGFloat)f2 within:(CGFloat)marginOfError;
+-(BOOL) check:(CGFloat) f1 isEqualTo:(CGFloat)f2 within:(CGFloat)marginOfError;
 
 @end
 

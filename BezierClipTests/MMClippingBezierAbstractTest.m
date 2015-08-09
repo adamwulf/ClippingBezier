@@ -157,6 +157,14 @@
     return NO;
 }
 
+-(BOOL) check:(CGFloat) f1 isEqualTo:(CGFloat)f2 within:(CGFloat)marginOfError{
+    if(ABS(f1 - f2) < marginOfError){
+        return YES;
+    }
+    NSLog(@"float value %f is != %f within %f", f1, f2, marginOfError);
+    return NO;
+}
+
 -(BOOL) checkTanPoint:(CGFloat) f1 isLessThan:(CGFloat)f2{
     return [self check:f1 isLessThan:f2 within:.2];
 }

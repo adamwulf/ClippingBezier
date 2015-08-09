@@ -146,6 +146,20 @@
 
 
 -(void) drawRect:(CGRect)rect{
+    
+    [[UIColor blueColor] setStroke];
+
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addCurveToPoint:CGPointMake(400, 0) controlPoint1:CGPointMake(800, 150) controlPoint2:CGPointMake(-400, 150)];
+    
+    [path applyTransform:CGAffineTransformMakeTranslation(200, 200)];
+    
+    [path setLineWidth:1];
+    [path stroke];
+    return;
+    
+    
     UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
     UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
     
