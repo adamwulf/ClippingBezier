@@ -92,6 +92,10 @@
         double		elementLength;
         double		remainingLength = trimLength - length;
         
+        if(remainingLength == 0){
+            break;
+        }
+        
         switch (element.type) {
             case kCGPathElementMoveToPoint:
                 [newPath moveToPoint:points[0]];
@@ -187,6 +191,7 @@
     double       length = 0.0;
     CGPoint      pointForClose = CGPointMake (0.0, 0.0);
     CGPoint      lastPoint = CGPointMake (0.0, 0.0);
+    BOOL legitMoveTo = NO;
     
     for (n = 0; n < elements; ++n) {
         CGPoint		points[3];
@@ -199,6 +204,7 @@
             case kCGPathElementMoveToPoint:
                 if(remainingLength < 0){
                     [newPath moveToPoint:points[0]];
+                    legitMoveTo = YES;
                 }
                 pointForClose = lastPoint = points[0];
                 continue;
@@ -206,9 +212,9 @@
             case kCGPathElementAddLineToPoint:
                 elementLength = distance (lastPoint, points[0]);
                 
-                if (length > trimLength)
+                if (length > trimLength){
                     [newPath addLineToPoint:points[0]];
-                else if (length + elementLength > trimLength) {
+                }else if (length + elementLength > trimLength) {
                     double f = remainingLength / elementLength;
                     [newPath moveToPoint:CGPointMake (lastPoint.x
                                                       + f * (points[0].x - lastPoint.x),
@@ -237,11 +243,11 @@
                 }
                 elementLength = lengthOfBezier (bezier, maxError);
                 
-                if (length > trimLength)
+                if (length > trimLength){
                     [newPath addCurveToPoint:points[2]
                             controlPoint1:points[0]
                             controlPoint2:points[1]];
-                else if (length + elementLength > trimLength) {
+                }else if (length + elementLength > trimLength) {
                     CGPoint bez1[4], bez2[4];
                     subdivideBezierAtLength (bezier, bez1, bez2,
                                              remainingLength, maxError);
@@ -259,9 +265,13 @@
             case kCGPathElementCloseSubpath:
                 elementLength = distance (lastPoint, pointForClose);
                 
-                if (length > trimLength)
-                    [newPath closePath];
-                else if (length + elementLength > trimLength) {
+                if (length > trimLength){
+                    if(legitMoveTo){
+                        [newPath closePath];
+                    }else{
+                        [newPath addLineToPoint:pointForClose];
+                    }
+                } else if (length + elementLength > trimLength) {
                     double f = remainingLength / elementLength;
                     [newPath moveToPoint:CGPointMake (lastPoint.x
                                                       + f * (points[0].x - lastPoint.x),

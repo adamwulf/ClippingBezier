@@ -119,7 +119,7 @@
     
     UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:10];
     
-    [self check:[trimmedPath length] isEqualTo:22.360680 within:.5];
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:22.360680 within:.5], "length is correct");
 }
 
 - (void)testTrimmingFromLengthAtElementBoundary {
@@ -130,7 +130,8 @@
     
     UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:10];
     
-    [self check:[trimmedPath length] isEqualTo:20 within:.5];
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:20 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath elementCount], 2, @"element count is correct");
 }
 
 - (void)testTrimmingFromLength {
@@ -141,7 +142,26 @@
     
     UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:5];
     
-    [self check:[trimmedPath length] isEqualTo:25 within:.5];
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:25 within:.5], @"length is correct");
+}
+
+- (void)testTrimmingFromLengthWithCloseElement {
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:50];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:50 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 1, @"subpath count is correct");
+}
+
+- (void)testTrimmingFromLengthWithMultipleSubpaths {
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:50];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:110 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
 }
 
 - (void)testTrimmingCircleFromLength {
@@ -149,17 +169,74 @@
     
     UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:M_PI * 5]; // half a circle
     
-    [self check:[trimmedPath length] isEqualTo:M_PI * 5 within:.5];
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:M_PI * 5 within:.5], @"length is correct");
+}
+
+- (void)testTrimmingToLengthAtMoveToBoundary {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path moveToPoint:CGPointZero];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:10];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:10.0 within:.5], "length is correct");
+}
+
+- (void)testTrimmingToLengthAtElementBoundary {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:10];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:10 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath elementCount], 2, @"element count is correct");
 }
 
 - (void)testTrimmingToLength {
-    XCTAssertTrue(NO, @"test needs writing");
-    return;
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:5];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:5 within:.5], @"length is correct");
 }
 
-- (void)testTrimmingToLengthWithMaximumError {
-    XCTAssertTrue(NO, @"test needs writing");
-    return;
+- (void)testTrimmingFromLengthToCloseElement {
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:100];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:100 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 1, @"subpath count is correct");
+
+    trimmedPath = [path bezierPathByTrimmingToLength:50];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:50 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 1, @"subpath count is correct");
+}
+
+- (void)testTrimmingToLengthWithMultipleSubpaths {
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:120];
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:120 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
+}
+
+- (void)testTrimmingCircleToLength {
+    UIBezierPath* path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 10, 10)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingToLength:M_PI * 5]; // half a circle
+    
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:M_PI * 5 within:.5], @"length is correct");
 }
 
 - (void)testLinePathLength {
