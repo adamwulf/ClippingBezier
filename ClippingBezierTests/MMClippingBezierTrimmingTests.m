@@ -110,4 +110,57 @@
     XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.14159274, "tangent is correct");
 }
 
+- (void)testTrimmingFromLength {
+    XCTAssertTrue(NO, @"test needs writing");
+    return;
+}
+
+- (void)testTrimmingToLength {
+    XCTAssertTrue(NO, @"test needs writing");
+    return;
+}
+
+- (void)testTrimmingToLengthWithMaximumError {
+    XCTAssertTrue(NO, @"test needs writing");
+    return;
+}
+
+- (void)testLinePathLength {
+    UIBezierPath* unitPath = [UIBezierPath bezierPath];
+    [unitPath moveToPoint:CGPointMake(0, 0)];
+    [unitPath addLineToPoint:CGPointMake(0, 1)];
+    
+    XCTAssertEqual([unitPath length], (CGFloat) 1.0, "path length is correct");
+}
+
+- (void)testLongerLinePathLength {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(3, 4)];
+    
+    XCTAssertEqual([path length], (CGFloat) 5.0, "path length is correct");
+}
+
+- (void)testShortLinePathLength {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(1, 1)];
+    
+    XCTAssertEqual([self round:[path length] to:6], (CGFloat) 1.414214, "path length is correct");
+}
+
+- (void)testRectangleLength {
+    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 4, 3)];
+    
+    XCTAssertEqual([path length], (CGFloat) 14.0, "path length is correct");
+}
+
+- (void)testZeroLength {
+    UIBezierPath* zeroPath = [UIBezierPath bezierPath];
+    [zeroPath moveToPoint:CGPointMake(1, 1)];
+    [zeroPath closePath];
+    
+    XCTAssertEqual([zeroPath length], (CGFloat) 0.0, "path length is correct");
+}
+
 @end

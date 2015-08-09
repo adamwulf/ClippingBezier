@@ -67,7 +67,22 @@
 }
 
 - (CGFloat) length{
-    return 0;
+    __block CGFloat length = 0;
+    __block CGPoint lastMoveToPoint = CGPointNotFound;
+    __block CGPoint lastElementEndPoint = CGPointNotFound;
+    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if(element.type == kCGPathElementMoveToPoint){
+            lastElementEndPoint = element.points[0];
+            lastMoveToPoint = element.points[0];
+        }else if(element.type == kCGPathElementCloseSubpath){
+            length += distance(lastElementEndPoint, lastMoveToPoint);
+            lastElementEndPoint = lastMoveToPoint;
+        }else if(element.type == kCGPathElementAddLineToPoint){
+            length += distance(lastElementEndPoint, element.points[0]);
+            lastElementEndPoint = element.points[0];
+        }
+    }];
+    return length;
 }
 
 - (CGFloat) tangentAtStart{
