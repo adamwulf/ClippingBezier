@@ -110,9 +110,46 @@
     XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.14159274, "tangent is correct");
 }
 
+- (void)testTrimmingFromLengthAtMoveToBoundary {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path moveToPoint:CGPointZero];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:10];
+    
+    [self check:[trimmedPath length] isEqualTo:22.360680 within:.5];
+}
+
+- (void)testTrimmingFromLengthAtElementBoundary {
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:10];
+    
+    [self check:[trimmedPath length] isEqualTo:20 within:.5];
+}
+
 - (void)testTrimmingFromLength {
-    XCTAssertTrue(NO, @"test needs writing");
-    return;
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(10, 0)];
+    [path addLineToPoint:CGPointMake(10, 20)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:5];
+    
+    [self check:[trimmedPath length] isEqualTo:25 within:.5];
+}
+
+- (void)testTrimmingCircleFromLength {
+    UIBezierPath* path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 10, 10)];
+    
+    UIBezierPath* trimmedPath = [path bezierPathByTrimmingFromLength:M_PI * 5]; // half a circle
+    
+    [self check:[trimmedPath length] isEqualTo:M_PI * 5 within:.5];
 }
 
 - (void)testTrimmingToLength {
