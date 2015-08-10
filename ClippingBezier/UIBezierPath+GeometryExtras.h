@@ -1,6 +1,6 @@
 //
 //  UIBezierPath+GeometryExtras.h
-//  DrawKit-iOS
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 2/1/15.
 //  Copyright (c) 2015 Adam Wulf. All rights reserved.

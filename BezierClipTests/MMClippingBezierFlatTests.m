@@ -1,6 +1,6 @@
 //
-//  DrawKitiOSFlatTests.m
-//  DrawKit-iOS Tests
+//  MMClippingBezierFlatTests.m
+//  ClippingBezier Tests
 //
 //  Created by Adam Wulf on 8/7/13.
 //  Copyright (c) 2013 Milestone Made LLC. All rights reserved.

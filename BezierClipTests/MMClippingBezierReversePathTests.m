@@ -1,6 +1,6 @@
 //
-//  DrawKitiOSReverseBezierTests.m
-//  DrawKit-iOS
+//  MMClippingBezierReversePathTests.m
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 1/7/14.
 //  Copyright (c) 2014 Adam Wulf. All rights reserved.

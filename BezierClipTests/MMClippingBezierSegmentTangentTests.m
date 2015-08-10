@@ -1,6 +1,6 @@
 //
-//  DrawKitiOSClippingSegmentTangentTests.m
-//  DrawKit-iOS
+//  MMClippingBezierSegmentTangentTests.m
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 11/21/13.
 //  Copyright (c) 2013 Adam Wulf. All rights reserved.

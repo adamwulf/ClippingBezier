@@ -1,6 +1,6 @@
 //
 //  DKUIBezierPathIntersectionPoint.h
-//  DrawKit-iOS
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 9/11/13.
 //  Copyright (c) 2013 Milestone Made LLC. All rights reserved.

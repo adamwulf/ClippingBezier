@@ -1,6 +1,6 @@
 //
-//  DrawKitiOSAOOTests.m
-//  DrawKit-iOS
+//  MMClippingBezierAOOTests.m
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 9/9/13.
 //  Copyright (c) 2013 Milestone Made LLC. All rights reserved.

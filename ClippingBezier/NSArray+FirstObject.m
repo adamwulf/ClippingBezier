@@ -1,6 +1,6 @@
 //
 //  NSArray+FirstObject.m
-//  DrawKit-iOS
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 2/3/14.
 //  Copyright (c) 2014 Adam Wulf. All rights reserved.

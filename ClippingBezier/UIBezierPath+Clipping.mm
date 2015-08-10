@@ -1,6 +1,6 @@
 //
 //  UIBezierPath+Clipping.m
-//  DrawKit-iOS
+//  ClippingBezier
 //
 //  Created by Adam Wulf on 9/10/13.
 //  Copyright (c) 2013 Milestone Made LLC. All rights reserved.
@@ -341,7 +341,7 @@ static NSInteger segmentCompareCount = 0;
             [foundIntersections addObject:[allFoundIntersections firstObject]];
         }else{
             // sort exact match intersections out of the flipped intersections
-            // [DrawKitiOSClippingIntersectionTests testLineNearBoundary]
+            // [MMClippingBezierIntersectionTests testLineNearBoundary]
             NSMutableArray* originallyFoundIntersections = [NSMutableArray arrayWithArray:foundIntersections];
             [foundIntersections sortUsingComparator:^NSComparisonResult(id obj1, id obj2){
                 if([obj1 elementIndex2] < [obj2 elementIndex2]){
