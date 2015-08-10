@@ -2339,5 +2339,34 @@
     XCTAssertEqual([blueSegments count], (NSUInteger) 10, @"correct number of segments");
 }
 
+-(void) testRedBlueSegmentsFromLooseLeafCrash{
+    UIBezierPath* path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0.000000, 0.000000)];
+    [path addLineToPoint:CGPointMake(768.000000, 0.000000)];
+    [path addLineToPoint:CGPointMake(768.000000, 1024.000000)];
+    [path addLineToPoint:CGPointMake(0.000000, 1024.000000)];
+    [path closePath];
+    UIBezierPath* shapePath = path;
+
+
+    path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(492.000000, 1024.000000)];
+    [path addCurveToPoint:CGPointMake(496.000000, 1024.000000) controlPoint1:CGPointMake(493.500000, 1024.000000) controlPoint2:CGPointMake(494.500000, 1024.000000)];
+    UIBezierPath* scissorPath = path;
+
+    // TODO: define correct behavior
+    
+    XCTAssertTrue(NO, @"define correct behavior for segments along a tangent");
+    return;
+
+    NSArray* allSegments = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray* redSegments = [allSegments firstObject];
+    NSArray* greenSegments = [allSegments objectAtIndex:1];
+    NSArray* blueSegments = [allSegments lastObject];
+
+    XCTAssertEqual([redSegments count], (NSUInteger) 2, @"correct number of segments");
+    XCTAssertEqual([greenSegments count], (NSUInteger) 2, @"correct number of segments");
+    XCTAssertEqual([blueSegments count], (NSUInteger) 10, @"correct number of segments");
+}
 
 @end
