@@ -189,7 +189,6 @@
 		66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFlatTests.m; path = ../BezierClipTests/MMClippingBezierFlatTests.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
 		66FD53311A89546A00E7B486 /* DKIntersectionOfPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKIntersectionOfPaths.m; sourceTree = "<group>"; };
-		66FFC7BF1B391AF60069F4B2 /* gems */ = {isa = PBXFileReference; lastKnownFileType = folder; name = gems; path = "webdocs.cs.ualberta.ca/~graphics/books/GraphicsGems/gems"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +237,6 @@
 		6605F9F51B1131890092991F /* 3rd Party */ = {
 			isa = PBXGroup;
 			children = (
-				66FFC7BF1B391AF60069F4B2 /* gems */,
 				66767CBF1AFEDA3E00443B03 /* GraphicsGems */,
 				66767CB41AFED76800443B03 /* bezier-utils */,
 				668288431A893F530038A1C4 /* JRSwizzle */,
