@@ -335,8 +335,8 @@
 		668287781A893CC70038A1C4 = {
 			isa = PBXGroup;
 			children = (
-				6605F6E61B1125020092991F /* Licenses */,
 				66767CAC1AFEB8C600443B03 /* README.md */,
+				6605F6E61B1125020092991F /* Licenses */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
 				6605FA021B1159640092991F /* ClippingExampleApp */,
