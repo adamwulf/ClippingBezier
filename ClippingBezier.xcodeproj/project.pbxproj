@@ -189,6 +189,8 @@
 		66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMClippingBezierFlatTests.m; path = ../BezierClipTests/MMClippingBezierFlatTests.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
 		66FD53311A89546A00E7B486 /* DKIntersectionOfPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKIntersectionOfPaths.m; sourceTree = "<group>"; };
+		C50DBB061E0B5C600006F58A /* scissor-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scissor-example.png"; sourceTree = "<group>"; };
+		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				66767CAC1AFEB8C600443B03 /* README.md */,
+				C50DBB061E0B5C600006F58A /* scissor-example.png */,
+				C50DBB071E0B5C650006F58A /* intersection-example.png */,
 				6605F6E61B1125020092991F /* Licenses */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,

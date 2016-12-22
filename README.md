@@ -18,6 +18,7 @@ This library will generate a proper static framework bundle that can be used in 
 
 ## Example
 
+```
 UIBezierPath* aClosedPath = /* some path */;
 UIBezierPath* scissorPath = /* some other path */;
 
@@ -25,4 +26,15 @@ NSArray* subshapes = [aClosedPath uniqueShapesCreatedFromSlicingWithUnclosedPath
 for(DKUIBezierPathShape* shape in subshapes){
     UIBezierPath* aClosedPathSlice = shape.fullPath;
 }
+```
+
+## Screenshots
+
+Find intersections between two UIBezierPaths:
+
+![intersection-example.png](intersection-example.png)
+
+Or find the component shapes generated from two path's intersections
+
+![scissor-example.png](scissor-example.png)
 
