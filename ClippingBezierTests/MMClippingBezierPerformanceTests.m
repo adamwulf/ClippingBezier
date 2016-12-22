@@ -35,7 +35,7 @@
     //    [NSThread sleepForTimeInterval:2];
     NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
     
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<100;i++){
         @autoreleasepool {
             [self performanceHelperIntersectionWithComplexShape];
         }
@@ -111,7 +111,7 @@
     [NSThread sleepForTimeInterval:2];
     NSLog(@"beginning test testPerformanceTestOfIntersectionAndDifference");
     
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<100;i++){
         @autoreleasepool {
 //            [self testClipUnclosedCurveToClosedBounds];
         }
@@ -164,7 +164,7 @@
     
     NSLog(@"beginning test testPerformanceTestOfIntersectionAndDifference");
     
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<100;i++){
         @autoreleasepool {
             [self testScissorsThroughMultipleShapeHoles];
         }
@@ -238,7 +238,7 @@
     [NSThread sleepForTimeInterval:2];
     NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
     
-    for(int i=0;i<1000;i++){
+    for(int i=0;i<100;i++){
         @autoreleasepool {
             [self testCalculateUnclosedPathThroughClosedBoundsFast];
         }
