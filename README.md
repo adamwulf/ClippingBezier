@@ -6,7 +6,7 @@ closed or unclosed UIBezierPath.
 
 ## ClippingBezier in Loose Leaf
 
-The ClippingBezier.framework powers the scissors tool in [Loose Leaf](http://getlooseleaf.com). It also allows
+The ClippingBezier.framework powers the scissors tool in [Loose Leaf](http://getlooseleaf.com), and it allows
 for drawing to be clipped to any imported image scraps.
 
 ![clipped-pen-example.png](clipped-pen-example.png)
