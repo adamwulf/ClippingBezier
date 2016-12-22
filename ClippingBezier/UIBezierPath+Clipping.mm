@@ -66,9 +66,6 @@ static NSInteger segmentCompareCount = 0;
 }
 
 
-
-
-
 #pragma mark - Intersection Finding
 
 
@@ -1571,7 +1568,6 @@ static NSInteger segmentCompareCount = 0;
                                                                     andSetUsedBlueSegments:usedBlueSegments];
         
         if(failedBuildingShape){
-            NSLog(@"found failed shape");
             // allow any used up blue segments to be used
             // next time, and don't add the shape
 //            [output addObject:currentlyBuiltShape];
