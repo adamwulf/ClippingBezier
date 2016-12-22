@@ -81,7 +81,7 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
     
     CGFloat tangent = [path1 tangentAtStart];
-    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.92699075, "tangent is correct");
+    XCTAssertEqual([self round:tangent to:6], (CGFloat) 3.926991, "tangent is correct");
 }
 
 - (void)testStartTangentOfSubpath {
@@ -94,7 +94,7 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
     
     CGFloat tangent = [path1 tangentAtStartOfSubpath:1];
-    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.92699075, "tangent is correct");
+    XCTAssertEqual([self round:tangent to:6], (CGFloat) 3.926991, "tangent is correct");
 }
 
 - (void)testStartTangentOfSubpath2 {
@@ -107,7 +107,7 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
     
     CGFloat tangent = [path1 tangentAtStartOfSubpath:0];
-    XCTAssertEqual((CGFloat)tangent, (CGFloat) 3.14159274, "tangent is correct");
+    XCTAssertEqual([self round:tangent to:6], (CGFloat) 3.141593, "tangent is correct");
 }
 
 - (void)testTrimmingFromLengthAtMoveToBoundary {

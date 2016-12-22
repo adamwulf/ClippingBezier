@@ -101,11 +101,11 @@
     
     DKTangentAtPoint* tan = [bezierPath tangentNearStart];
     
-    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(100.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
+    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(100.0, 100.0), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
     
     tan = [bezierPath tangentNearEnd];
     
-    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(200.0f, 100.0f), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
+    XCTAssertTrue([self checkTanPoint:distance(CGPointMake(200.0, 100.0), tan.point) isLessThan:[UIBezierPath maxDistForEndPointTangents]], @"good rounding error for tangent ends");
 }
 
 
@@ -1303,9 +1303,12 @@
     [scissorPath moveToPoint:CGPointMake(478.500000, 1024.000000)];
     [scissorPath addCurveToPoint:CGPointMake(484.000000, 1024.000000) controlPoint1:CGPointMake(480.562500, 1024.000000) controlPoint2:CGPointMake(481.937500, 1024.000000)];
 
+
+    XCTAssertTrue(NO, @"incorrect intersection count");
     
+    // This is an example where the two paths generate different intersection
+    // counts depending on which path is comparing to the other
     NSArray* redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    
     
     NSArray* redSegments = [redGreenBlueSegs firstObject];
     NSArray* greenSegments = [redGreenBlueSegs objectAtIndex:1];

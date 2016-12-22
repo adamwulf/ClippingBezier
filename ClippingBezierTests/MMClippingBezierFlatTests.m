@@ -187,18 +187,18 @@
     
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 337, @"the curves do intersect");
-    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 57.0f, @"the curves do intersect");
+    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 57.0, @"the curves do intersect");
     
     
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 100.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 50.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 143.0f, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 100.0f, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.x, 100.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.y, 50.0, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 143.0, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.lastPoint.y, 100.0, @"ends at the right place");
     
-    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 143.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.firstPoint.y, 100.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.lastPoint.x, 100.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 143.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.end.firstPoint.y, 100.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.end.lastPoint.x, 100.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0, @"starts at the right place");
     
 }
 
@@ -229,18 +229,18 @@
     
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 1345, @"the curves do intersect");
-    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 92.0f, @"the curves do intersect");
+    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 92.0, @"the curves do intersect");
     
     
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 162.0f, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 200.0f, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 162.0, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.lastPoint.y, 200.0, @"ends at the right place");
     
-    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 162.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.firstPoint.y, 200.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.end.lastPoint.x), 150.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 162.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.end.firstPoint.y, 200.0, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.end.lastPoint.x), 150.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0, @"starts at the right place");
 }
 
 
@@ -271,13 +271,13 @@
     
     XCTAssertEqual(firstIntersection.doesIntersect, NO, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, -1, @"the curves do intersect");
-    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 0.0f, @"the curves do intersect");
+    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 0.0, @"the curves do intersect");
     
     
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 170.0f, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 180.0f, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 170.0, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.lastPoint.y, 180.0, @"ends at the right place");
     
     XCTAssertEqual([firstIntersection.end elementCount], 0, @"end path is empty");
 }
@@ -309,23 +309,16 @@
     
     XCTAssertEqual(firstIntersection.doesIntersect, NO, @"the curves do intersect");
     XCTAssertEqual(firstIntersection.elementNumberOfIntersection, -1, @"the curves do intersect");
-    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 0.0f, @"the curves do intersect");
+    XCTAssertEqual(floorf(100*firstIntersection.tValueOfIntersection), 0.0, @"the curves do intersect");
     
     
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 250.0f, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 250.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 270.0f, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 280.0f, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.x, 250.0, @"starts at the right place");
+    XCTAssertEqual(firstIntersection.start.firstPoint.y, 250.0, @"starts at the right place");
+    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 270.0, @"ends at the right place");
+    XCTAssertEqual(firstIntersection.start.lastPoint.y, 280.0, @"ends at the right place");
     
     XCTAssertEqual([firstIntersection.end elementCount], 0, @"end path is empty");
 }
-
-
-
-
-
-
-
 
 - (void)testCalculateUnclosedPathThroughClosedBoundsFast{
     
@@ -367,15 +360,15 @@
     XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
     XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
     
-    XCTAssertEqual(inter.firstPoint.x, 100.0f, @"starts at the right place");
-    XCTAssertEqual(inter.firstPoint.y, 50.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0f, @"ends at the right place");
-    XCTAssertEqual(inter.lastPoint.y, 250.0f, @"ends at the right place");
+    XCTAssertEqual(inter.firstPoint.x, 100.0, @"starts at the right place");
+    XCTAssertEqual(inter.firstPoint.y, 50.0, @"starts at the right place");
+    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0, @"ends at the right place");
+    XCTAssertEqual(inter.lastPoint.y, 250.0, @"ends at the right place");
     
-    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0f, @"starts at the right place");
-    XCTAssertEqual(diff.firstPoint.y, 100.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0f, @"starts at the right place");
-    XCTAssertEqual(diff.lastPoint.y, 200.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0, @"starts at the right place");
+    XCTAssertEqual(diff.firstPoint.y, 100.0, @"starts at the right place");
+    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0, @"starts at the right place");
+    XCTAssertEqual(diff.lastPoint.y, 200.0, @"starts at the right place");
     
 }
 

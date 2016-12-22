@@ -72,10 +72,10 @@
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger) 1, @"found intersections");
     
-    XCTAssertEqual(floorf(val1.x), 143.0f, @"ends at the right place");
-    XCTAssertEqual(floorf(val2.x), 143.0f, @"ends at the right place");
-    XCTAssertEqual(roundf(val1.y), 100.0f, @"ends at the right place");
-    XCTAssertEqual(roundf(val2.y), 100.0f, @"ends at the right place");
+    XCTAssertEqual(floorf(val1.x), 143.0, @"ends at the right place");
+    XCTAssertEqual(floorf(val2.x), 143.0, @"ends at the right place");
+    XCTAssertEqual(roundf(val1.y), 100.0, @"ends at the right place");
+    XCTAssertEqual(roundf(val2.y), 100.0, @"ends at the right place");
 }
 
 -(void) testIntersectionWithComplexShape{
@@ -717,7 +717,7 @@
     XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 2, @"found correct intersection location");
     XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], (CGFloat)1.0, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.0f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.0, @"found correct intersection location");
     
     XCTAssertEqual([[otherIntersections objectAtIndex:0] elementIndex1], 1, @"found correct intersection location");
     XCTAssertEqual([self round:[[otherIntersections objectAtIndex:0] tValue1] to:6], (CGFloat)1.0, @"found correct intersection location");
@@ -869,23 +869,23 @@
     XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
     
     XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], 1.0f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], 1.0, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0, @"found correct intersection location");
     
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex1], 3, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], 0.999999f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], 0.999997, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 1, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.499998f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.499999, @"found correct intersection location");
     
     XCTAssertEqual([[intersections objectAtIndex:2] elementIndex1], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 0.999996f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 0.999997, @"found correct intersection location");
     XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0.999998f, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0.999998, @"found correct intersection location");
     
     DKUIBezierPathIntersectionPoint* intersection = [intersections objectAtIndex:0];
-    XCTAssertEqual(roundf([intersection location1].x), 200.0f, @"intersects at the right place");
-    XCTAssertEqual(roundf([intersection location1].y), 300.0f, @"intersects at the right place");
+    XCTAssertEqual(roundf([intersection location1].x), 200.0, @"intersects at the right place");
+    XCTAssertEqual(roundf([intersection location1].y), 300.0, @"intersects at the right place");
     
     intersection = [intersections objectAtIndex:1];
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");

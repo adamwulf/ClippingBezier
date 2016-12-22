@@ -220,15 +220,15 @@
     XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
     XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
     
-    XCTAssertEqual(inter.firstPoint.x, 100.0f, @"starts at the right place");
-    XCTAssertEqual(inter.firstPoint.y, 50.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0f, @"ends at the right place");
-    XCTAssertEqual(inter.lastPoint.y, 250.0f, @"ends at the right place");
+    XCTAssertEqual(inter.firstPoint.x, 100.0, @"starts at the right place");
+    XCTAssertEqual(inter.firstPoint.y, 50.0, @"starts at the right place");
+    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0, @"ends at the right place");
+    XCTAssertEqual(inter.lastPoint.y, 250.0, @"ends at the right place");
     
-    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0f, @"starts at the right place");
-    XCTAssertEqual(diff.firstPoint.y, 100.0f, @"starts at the right place");
-    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0f, @"starts at the right place");
-    XCTAssertEqual(diff.lastPoint.y, 200.0f, @"starts at the right place");
+    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0, @"starts at the right place");
+    XCTAssertEqual(diff.firstPoint.y, 100.0, @"starts at the right place");
+    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0, @"starts at the right place");
+    XCTAssertEqual(diff.lastPoint.y, 200.0, @"starts at the right place");
     
 }
 

@@ -30,8 +30,8 @@
     
     CGPoint p = [self.complexShape closestPointOnPathTo:CGPointZero];
     
-    XCTAssertEqual([self round:p.x to:6], 183.165283f, @"point is correct");
-    XCTAssertEqual([self round:p.y to:6], 146.622711f, @"point is correct");
+    XCTAssertEqual([self round:p.x to:6], 183.165312, @"point is correct");
+    XCTAssertEqual([self round:p.y to:6], 146.622688, @"point is correct");
     
     XCTAssert(YES, @"Pass");
     
@@ -43,8 +43,8 @@
     
     CGPoint p = [bez closestPointOnPathTo:CGPointZero];
     
-    XCTAssertEqual([self round:p.x to:6], 287.945679f, @"point is correct");
-    XCTAssertEqual([self round:p.y to:6], 287.768799f, @"point is correct");
+    XCTAssertEqual([self round:p.x to:6], 287.945664, @"point is correct");
+    XCTAssertEqual([self round:p.y to:6], 287.768800, @"point is correct");
 }
 
 

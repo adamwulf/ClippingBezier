@@ -8,7 +8,9 @@
 //
 //
 //
-// This category is based on the masters thesis of
+// This category is based on the masters thesis
+// APPROXIMATION OF A BÉZIER CURVE WITH A MINIMAL NUMBER OF LINE SEGMENTS
+// by Athar Luqman Ahmad
 // available at http://www.cis.usouthal.edu/~hain/general/Theses/Ahmad_thesis.pdf
 //
 // More information available at
