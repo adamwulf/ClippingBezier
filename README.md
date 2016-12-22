@@ -16,6 +16,10 @@ This library will generate a proper static framework bundle that can be used in 
 3. #import <PerformanceBezier/PerformanceBezier.h>
 4. #import <ClippingBezier/ClippingBezier.h>
 
+## Dependencies
+
+This library depends on the UIBezierPath performance improvements in the [PerformanceBezier](https://github.com/adamwulf/PerformanceBezier) library.
+
 ## Example
 
 ```
@@ -38,3 +42,15 @@ Or find the component shapes generated from two path's intersections
 
 ![scissor-example.png](scissor-example.png)
 
+
+## Sample Application
+The Xcode workspace includes a ClippingExampleApp project that shows a fully functional integration of the ClippingBezier framework. You can refer to this example for any questions about how to integrate into your app.
+
+
+## License
+The ClippingBezier framework and sample code are provided under the MIT License.
+
+
+## Support This Project
+- Download [Loose Leaf](https://itunes.apple.com/us/app/loose-leaf/id625659452?mt=8&uo=4&at=10lNUI)
+- Follow [@adamwulf](http://twitter.com/adamwulf) on twitter.
