@@ -1955,7 +1955,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -1971,7 +1971,7 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)4, @"correct number of segments");
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2052,7 +2052,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2068,7 +2068,7 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)4, @"correct number of segments");
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2099,7 +2099,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2116,7 +2116,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2166,7 +2166,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }
@@ -2183,7 +2183,7 @@
     
     for(DKUIBezierPathClippedSegment* segment in blueSegments){
         __block int countOfMoveTo = 0;
-        [segment.pathSegment1 iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
+        [segment.pathSegment iteratePathWithBlock:^(CGPathElement ele, NSUInteger idx){
             if(ele.type == kCGPathElementMoveToPoint){
                 countOfMoveTo++;
             }

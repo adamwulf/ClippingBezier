@@ -886,7 +886,7 @@ static NSInteger segmentCompareCount = 0;
         // this will merge the two segments and replace them in our output.
         if([firstIntersectionSegments count]){
             DKUIBezierPathClippedSegment* firstSeg = [firstIntersectionSegments firstObject];
-            [currentIntersectionSegment appendPathRemovingInitialMoveToPoint:firstSeg.pathSegment1];
+            [currentIntersectionSegment appendPathRemovingInitialMoveToPoint:firstSeg.pathSegment];
             DKUIBezierPathClippedSegment* newSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:firstSeg.startIntersection
                                                                                                andEnd:firstSeg.endIntersection
                                                                                        andPathSegment:currentIntersectionSegment
@@ -899,13 +899,13 @@ static NSInteger segmentCompareCount = 0;
     UIBezierPath* intersection = [UIBezierPath bezierPath];
     UIBezierPath* difference = [UIBezierPath bezierPath];
     for(DKUIBezierPathClippedSegment* seg in intersectionSegments){
-        if([seg.pathSegment1 elementCount] > 1){
-            [intersection appendPath:seg.pathSegment1];
+        if([seg.pathSegment elementCount] > 1){
+            [intersection appendPath:seg.pathSegment];
         }
     }
     for(DKUIBezierPathClippedSegment* seg in differenceSegments){
-        if([seg.pathSegment1 elementCount] > 1){
-            [difference appendPath:seg.pathSegment1];
+        if([seg.pathSegment elementCount] > 1){
+            [difference appendPath:seg.pathSegment];
         }
     }
     
@@ -1006,7 +1006,7 @@ static NSInteger segmentCompareCount = 0;
         if(altStartInter || altEndInter){
             return [DKUIBezierPathClippedSegment clippedPairWithStart:altStartInter ? altStartInter : seg.startIntersection
                                                                andEnd:altEndInter ? altEndInter : seg.endIntersection
-                                                       andPathSegment:seg.pathSegment1
+                                                       andPathSegment:seg.pathSegment
                                                          fromFullPath:scissorPath];
         }
         return seg;
@@ -1089,7 +1089,7 @@ static NSInteger segmentCompareCount = 0;
             // of just the scissor subpath
             DKUIBezierPathClippedSegment* correctedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:correctedStartIntersection
                                                                                                      andEnd:correctedEndIntersection
-                                                                                             andPathSegment:seg.pathSegment1
+                                                                                             andPathSegment:seg.pathSegment
                                                                                                fromFullPath:scissorPath];
             [output addObject:correctedSeg];
         }
@@ -1296,8 +1296,8 @@ static NSInteger segmentCompareCount = 0;
                 if([possibleMatchedBlueSeg.startIntersection isEqualToIntersection:currBlueSeg.endIntersection] &&
                    possibleMatchedBlueSeg != currBlueSeg){
                     // merge the two segments
-                    UIBezierPath* newPathSegment = currBlueSeg.pathSegment1;
-                    [newPathSegment appendPathRemovingInitialMoveToPoint:possibleMatchedBlueSeg.pathSegment1];
+                    UIBezierPath* newPathSegment = currBlueSeg.pathSegment;
+                    [newPathSegment appendPathRemovingInitialMoveToPoint:possibleMatchedBlueSeg.pathSegment];
                     
                     DKUIBezierPathClippedSegment* newBlueSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:currBlueSeg.startIntersection
                                                                                                            andEnd:possibleMatchedBlueSeg.endIntersection
@@ -1639,8 +1639,8 @@ static NSInteger segmentCompareCount = 0;
             DKUIBezierPathClippedSegment* blueSeg = [blueSegmentsLeftToUse objectAtIndex:bi];
             if([blueSeg.startIntersection crossMatchesIntersection:[segment endIntersection]]){
                 if(!currentSegmentCandidate){
-                    DKVector* currSeg = [[segment pathSegment1] tangentNearEnd].tangent;
-                    DKVector* currPoss = [[blueSeg pathSegment1] tangentNearStart].tangent;
+                    DKVector* currSeg = [[segment pathSegment] tangentNearEnd].tangent;
+                    DKVector* currPoss = [[blueSeg pathSegment] tangentNearStart].tangent;
                     //                        NSLog(@"angle: %f", [currSeg angleBetween:currPoss]);
                     if([UIBezierPath round:[currSeg angleBetween:currPoss] to:6] == [UIBezierPath round:M_PI to:6]){
                         // never allow exactly backwards tangents
@@ -1651,9 +1651,9 @@ static NSInteger segmentCompareCount = 0;
                         lastWasRed = NO;
                     }
                 }else{
-                    DKVector* currSeg = [[segment pathSegment1] tangentNearEnd].tangent;
-                    DKVector* currPoss = [[currentSegmentCandidate pathSegment1] tangentNearStart].tangent;
-                    DKVector* newPoss = [[blueSeg pathSegment1] tangentNearStart].tangent;
+                    DKVector* currSeg = [[segment pathSegment] tangentNearEnd].tangent;
+                    DKVector* currPoss = [[currentSegmentCandidate pathSegment] tangentNearStart].tangent;
+                    DKVector* newPoss = [[blueSeg pathSegment] tangentNearStart].tangent;
                     //                        NSLog(@"angle: %f vs %f", [currSeg angleBetween:currPoss], [currSeg angleBetween:newPoss]);
                     if(gt){
                         if([currSeg angleBetween:newPoss] > [currSeg angleBetween:currPoss]){
@@ -1690,8 +1690,8 @@ static NSInteger segmentCompareCount = 0;
         DKUIBezierPathClippedSegment* lastSegmentInShapeAsBlue = [segment flippedRedBlueSegment];
         if([redSeg.startIntersection crossMatchesIntersection:[lastSegmentInShapeAsBlue endIntersection]]){
             if(!currentSegmentCandidate){
-                DKVector* currSeg = [[segment pathSegment1] tangentNearEnd].tangent;
-                DKVector* currPoss = [[redSeg pathSegment1] tangentNearStart].tangent;
+                DKVector* currSeg = [[segment pathSegment] tangentNearEnd].tangent;
+                DKVector* currPoss = [[redSeg pathSegment] tangentNearStart].tangent;
                 //                    NSLog(@"angle: %f", [currSeg angleBetween:currPoss]);
                 if([UIBezierPath round:[currSeg angleBetween:currPoss] to:6] == [UIBezierPath round:M_PI to:6]){
                     // never allow exactly backwards tangents
@@ -1702,9 +1702,9 @@ static NSInteger segmentCompareCount = 0;
                     lastWasRed = YES;
                 }
             }else{
-                DKVector* currSeg = [[segment pathSegment1] tangentNearEnd].tangent;
-                DKVector* currPoss = [[currentSegmentCandidate pathSegment1] tangentNearStart].tangent;
-                DKVector* newPoss = [[redSeg pathSegment1] tangentNearStart].tangent;
+                DKVector* currSeg = [[segment pathSegment] tangentNearEnd].tangent;
+                DKVector* currPoss = [[currentSegmentCandidate pathSegment] tangentNearStart].tangent;
+                DKVector* newPoss = [[redSeg pathSegment] tangentNearStart].tangent;
                 if(gt){
                     if([currSeg angleBetween:newPoss] >= [currSeg angleBetween:currPoss]){
                         if([UIBezierPath round:[currSeg angleBetween:newPoss] to:3] == [UIBezierPath round:M_PI to:3]){

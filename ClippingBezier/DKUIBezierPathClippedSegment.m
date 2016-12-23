@@ -15,7 +15,7 @@
 @implementation DKUIBezierPathClippedSegment{
     DKUIBezierPathIntersectionPoint* startIntersection;
     DKUIBezierPathIntersectionPoint* endIntersection;
-    UIBezierPath* pathSegment1;
+    UIBezierPath* pathSegment;
     UIBezierPath* fullPath;
     
     __weak DKUIBezierPathClippedSegment* reversedFrom;
@@ -24,7 +24,7 @@
 
 @synthesize startIntersection;
 @synthesize endIntersection;
-@synthesize pathSegment1;
+@synthesize pathSegment;
 @synthesize fullPath;
 @synthesize isReversed;
 
@@ -43,14 +43,14 @@
     if(self = [super init]){
         startIntersection = _tStart;
         endIntersection = _tEnd;
-        pathSegment1 = segment;
+        pathSegment = segment;
         fullPath = _fullPath;
     }
     return self;
 }
 
 -(DKUIBezierPathClippedSegment*) flippedRedBlueSegment{
-    DKUIBezierPathClippedSegment* flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment1 fromFullPath:fullPath];
+    DKUIBezierPathClippedSegment* flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment fromFullPath:fullPath];
     [flippedSeg setIsReversed:self.isReversed];
     return flippedSeg;
 }
@@ -75,8 +75,8 @@
 }
 
 -(DKUIBezierPathClippedSegment*) prependTo:(DKUIBezierPathClippedSegment*)otherSegment{
-    UIBezierPath* combinedPathSegment = [self.pathSegment1 copy];
-    [combinedPathSegment appendPathRemovingInitialMoveToPoint:otherSegment.pathSegment1];
+    UIBezierPath* combinedPathSegment = [self.pathSegment copy];
+    [combinedPathSegment appendPathRemovingInitialMoveToPoint:otherSegment.pathSegment];
     return [DKUIBezierPathClippedSegment clippedPairWithStart:self.startIntersection
                                                                        andEnd:otherSegment.endIntersection
                                                                andPathSegment:combinedPathSegment
@@ -87,7 +87,7 @@
     if(reversedFrom){
         return reversedFrom;
     }
-    DKUIBezierPathClippedSegment* ret = [DKUIBezierPathClippedSegment clippedPairWithStart:self.endIntersection andEnd:self.startIntersection andPathSegment:[self.pathSegment1 bezierPathByReversingPath] fromFullPath:self.fullPath];
+    DKUIBezierPathClippedSegment* ret = [DKUIBezierPathClippedSegment clippedPairWithStart:self.endIntersection andEnd:self.startIntersection andPathSegment:[self.pathSegment bezierPathByReversingPath] fromFullPath:self.fullPath];
     [ret setIsReversed:!isReversed];
     [ret setReversedFrom:self];
     [self setReversedFrom:ret];
@@ -124,11 +124,11 @@
 }
 
 -(DKVector*) endVector{
-    return [self.pathSegment1 tangentNearEnd].tangent;
+    return [self.pathSegment tangentNearEnd].tangent;
 }
 
 -(DKVector*) startVector{
-    return [self.pathSegment1 tangentNearStart].tangent;
+    return [self.pathSegment tangentNearStart].tangent;
 }
 
 

@@ -38,10 +38,10 @@
 }
 
 -(UIBezierPath*) fullPath{
-    UIBezierPath* outputPath = [[[segments firstObject] pathSegment1] copy];
+    UIBezierPath* outputPath = [[[segments firstObject] pathSegment] copy];
     for(int i=1;i<[segments count];i++){
         DKUIBezierPathClippedSegment* seg = [segments objectAtIndex:i];
-        [outputPath appendPathRemovingInitialMoveToPoint:[seg pathSegment1]];
+        [outputPath appendPathRemovingInitialMoveToPoint:[seg pathSegment]];
     }
     if([self isClosed]){
         [outputPath closePath];

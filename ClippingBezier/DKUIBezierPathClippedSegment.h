@@ -22,7 +22,7 @@
 
 @property (nonatomic, readonly) DKUIBezierPathIntersectionPoint* startIntersection;
 @property (nonatomic, readonly) DKUIBezierPathIntersectionPoint* endIntersection;
-@property (nonatomic, readonly) UIBezierPath* pathSegment1;
+@property (nonatomic, readonly) UIBezierPath* pathSegment;
 @property (nonatomic, readonly) UIBezierPath* fullPath;
 @property (nonatomic, readonly) BOOL isReversed;
 @property (nonatomic, readonly) DKUIBezierPathClippedSegment* reversedSegment;
