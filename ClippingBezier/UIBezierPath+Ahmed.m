@@ -126,7 +126,7 @@ static CGFloat idealFlatness = .01;
                     curveTo = element.points[1];
                     ctrl1 = element.points[0];
                     ctrl2 = ctrl1;
-                }else if(element.type == kCGPathElementAddCurveToPoint){
+                }else{ // element.type == kCGPathElementAddCurveToPoint
                     curveTo = element.points[2];
                     ctrl1 = element.points[0];
                     ctrl2 = element.points[1];
