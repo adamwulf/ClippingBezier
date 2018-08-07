@@ -497,7 +497,8 @@ static NSInteger segmentCompareCount = 0;
 
 /**
  * This method will clip out the intersection and the difference
- * of self compared to the closed path input
+ * of self compared to the closed path input. This method only
+ * clips the segments themselves, it does not
  *
  * IMPORTANT:
  * this method should only be sent single paths without any additional subpaths.
@@ -1348,13 +1349,9 @@ static NSInteger segmentCompareCount = 0;
  * need to handle this better:
  * https://github.com/adamwulf/loose-leaf/issues/295
  */
--(NSArray*) shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
-    NSMutableArray* subpaths = [NSMutableArray array];
-    NSMutableArray* subpathsSegs = [NSMutableArray array];
-    NSArray* shapes = [UIBezierPath subshapesCreatedFrom:self bySlicingWithPath:scissorPath];
-    [subpaths addObjectsFromArray:[shapes firstObject]];
-    [subpathsSegs addObjectsFromArray:[shapes lastObject]];
-    return [NSArray arrayWithObjects:subpaths, subpathsSegs, nil];
+-(NSArray<NSArray<DKUIBezierPathShape*>*>*) shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
+    // return @[ array_of_shells, array_of_holes ]
+    return [UIBezierPath subshapesCreatedFrom:self bySlicingWithPath:scissorPath];
 }
 
 
@@ -1362,7 +1359,7 @@ static NSInteger segmentCompareCount = 0;
 /**
  * returns only unique subshapes, removing duplicates
  */
--(NSArray*) uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
+-(NSArray<NSArray<DKUIBezierPathShape*>*>*) uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
     NSArray* shapeShellsAndSubShapes = [self shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     NSArray* shapeShells = [shapeShellsAndSubShapes firstObject];
     NSArray* subShapes = [shapeShellsAndSubShapes lastObject];
@@ -1398,7 +1395,7 @@ static NSInteger segmentCompareCount = 0;
 /**
  * returns only unique subshapes, removing duplicates
  */
--(NSArray*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
+-(NSArray<DKUIBezierPathShape*>*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath{
     NSArray* shapeShellsAndSubShapes = [self uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     NSArray* shapeShells = [shapeShellsAndSubShapes firstObject];
     NSArray* subShapes = [shapeShellsAndSubShapes lastObject];
@@ -1419,7 +1416,7 @@ static NSInteger segmentCompareCount = 0;
 }
 
 
-+(NSArray*) subshapesCreatedFrom:(UIBezierPath*)shapePath bySlicingWithPath:(UIBezierPath*)scissorPath{
++(NSArray<NSArray<DKUIBezierPathShape*>*>*) subshapesCreatedFrom:(UIBezierPath*)shapePath bySlicingWithPath:(UIBezierPath*)scissorPath{
     NSUInteger numberOfBlueShellSegments = 0;
     NSArray* redBlueSegments = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:&numberOfBlueShellSegments];
     NSArray* redSegments = [redBlueSegments firstObject];
@@ -1430,6 +1427,60 @@ static NSInteger segmentCompareCount = 0;
     // red segment and proceeding along the left most path. this will
     // create all of the new shapes possible from these segments.
     return [UIBezierPath generateShapesFromRedSegments:redSegments andBlueSegments:blueSegments comp:[shapePath isClockwise] shapeShellElementCount:(int)numberOfBlueShellSegments];
+}
+
+-(NSArray<UIBezierPath *>*)booleanWithPath:(UIBezierPath*)scissors calculateIntersection:(BOOL)intersection{
+    if([self isClosed]){
+        NSUInteger numberOfBlueShellSegments = 0;
+        NSArray* redBlueSegments = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:self bySlicingWithPath:scissors andNumberOfBlueShellSegments:&numberOfBlueShellSegments];
+        NSArray<DKUIBezierPathClippedSegment*>* redSegments = [[redBlueSegments firstObject] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(DKUIBezierPathClippedSegment * redSegment, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return (intersection && ![redSegment isReversed]) || (!intersection && [redSegment isReversed]);
+        }]];
+        
+        BOOL(^containsRedSegment)(DKUIBezierPathShape*) = ^(DKUIBezierPathShape* inShape){
+            NSArray * shapes = [[inShape holes] arrayByAddingObject:inShape];
+            for (DKUIBezierPathShape *shape in shapes) {
+                for (DKUIBezierPathClippedSegment *segment in [shape segments]) {
+                    for (DKUIBezierPathClippedSegment *redSegment in redSegments) {
+                        if([redSegment isEqualToSegment:segment] && [[redSegment fullPath] isEqual:[segment fullPath]]){
+                            return YES;
+                        }
+                    }
+                }
+            }
+            
+            return NO;
+        };
+        
+        NSArray *clippingResult = [self uniqueShapesCreatedFromSlicingWithUnclosedPath:scissors];
+        NSMutableArray *result = [NSMutableArray array];
+        
+        for (DKUIBezierPathShape *shape in clippingResult) {
+            // any shape whose first segment is not reversed part of the intersection.
+            // this is because the first segment is a red segment, and non-reversed
+            // means its part of the original scissor path
+            if(containsRedSegment(shape)){
+                [result addObject:[shape fullPath]];
+            }
+        }
+        
+        return result;
+    }else if([scissors isClosed]){
+        BOOL beginsInside1 = NO;
+        NSMutableArray* tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
+        DKUIBezierPathClippingResult* clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
+        return @[clipped.entireIntersectionPath];
+    }else{
+        return nil;
+    }
+}
+
+-(NSArray<UIBezierPath *>*)intersectionWithPath:(UIBezierPath*)scissors{
+    return [self booleanWithPath:scissors calculateIntersection:YES];
+}
+
+-(NSArray<UIBezierPath *>*)differenceWithPath:(UIBezierPath*)scissors{
+    return [self booleanWithPath:scissors calculateIntersection:NO];
 }
 
 
@@ -1452,8 +1503,6 @@ static NSInteger segmentCompareCount = 0;
         [intersectionsOfShell addObject:[obj endIntersection]];
     }];
     NSMutableArray* output = [NSMutableArray array];
-    
-    
     
     //
     // tangent fixing:
@@ -1478,8 +1527,8 @@ static NSInteger segmentCompareCount = 0;
                 if([self round:angleBetween to:6] == [self round:M_PI to:6] ||
                    [self round:angleBetween to:6] == [self round:-M_PI to:6]){
                     //
-                    // right now, if a segmetn is tangent for red and blue, then
-                    // i need to delete teh blue, delete teh reversed red, and leave
+                    // right now, if a segment is tangent for red and blue, then
+                    // i need to delete the blue, delete the reversed red, and leave
                     // the red that's identical to the blue
 //                    shouldAdd = YES;
                     // this is the tangent that's identical to blue

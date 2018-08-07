@@ -9,6 +9,12 @@
 #import "MMClipView.h"
 #import <ClippingBezier/ClippingBezier.h>
 
+@interface UIBezierPath (Private)
+
+-(DKUIBezierPathClippingResult*) clipUnclosedPathToClosedPath:(UIBezierPath*)closedPath usingIntersectionPoints:(NSArray*)intersectionPoints andBeginsInside:(BOOL)beginsInside;
+
+@end
+
 @interface MMClipView ()
 
 @property (nonatomic, readwrite) IBOutlet UISegmentedControl* displayTypeControl;
@@ -163,13 +169,43 @@
             
             [[UIBezierPath bezierPathWithArcCenter:p radius:7 startAngle:0 endAngle:2*M_PI clockwise:YES] fill];
         }
-    }else{
+    }else if(_displayTypeControl.selectedSegmentIndex == 1){
         NSArray<DKUIBezierPathShape*>* shapes = [shapePath1 uniqueShapesCreatedFromSlicingWithUnclosedPath:shapePath2];
         
         for (DKUIBezierPathShape* shape in shapes) {
             [[MMClipView randomColor] setFill];
             
             [[shape fullPath] fill];
+        }
+    }else if(_displayTypeControl.selectedSegmentIndex == 2){
+        [[UIColor purpleColor] setStroke];
+        [shapePath1 setLineWidth:3];
+        [shapePath1 stroke];
+        
+        [[UIColor greenColor] setStroke];
+        [shapePath2 setLineWidth:3];
+        [shapePath2 stroke];
+        
+        NSArray<UIBezierPath *> *intersection = [shapePath1 intersectionWithPath:shapePath2];
+
+        for (UIBezierPath *path in intersection) {
+            [[MMClipView randomColor] setFill];
+            [path fill];
+        }
+    }else if(_displayTypeControl.selectedSegmentIndex == 3){
+        [[UIColor purpleColor] setStroke];
+        [shapePath1 setLineWidth:3];
+        [shapePath1 stroke];
+        
+        [[UIColor greenColor] setStroke];
+        [shapePath2 setLineWidth:3];
+        [shapePath2 stroke];
+        
+        NSArray<UIBezierPath *> *intersection = [shapePath1 differenceWithPath:shapePath2];
+        
+        for (UIBezierPath *path in intersection) {
+            [[MMClipView randomColor] setFill];
+            [path fill];
         }
     }
 }

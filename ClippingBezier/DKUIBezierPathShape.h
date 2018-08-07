@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DKUIBezierPathIntersectionPoint.h"
 
+@class DKUIBezierPathClippedSegment, DKUIBezierPathShape;
+
 @interface DKUIBezierPathShape : NSObject{
     NSMutableArray* segments;
     NSMutableArray* holes;
 }
 
-@property (nonatomic, readonly) NSMutableArray* segments;
-@property (nonatomic, readonly) NSMutableArray* holes;
+@property (nonatomic, readonly) NSMutableArray<DKUIBezierPathClippedSegment*>* segments;
+@property (nonatomic, readonly) NSMutableArray<DKUIBezierPathShape*>* holes;
 
 -(DKUIBezierPathIntersectionPoint*) startingPoint;
 -(DKUIBezierPathIntersectionPoint*) endingPoint;

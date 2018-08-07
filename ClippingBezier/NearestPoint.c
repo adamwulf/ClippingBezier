@@ -94,7 +94,7 @@ CGPoint Bezier(const CGPoint* V, const int degree, const double t, CGPoint* Left
 static int CrossingCount(CGPoint* V, int degree);
 static int ControlPolygonFlatEnough(CGPoint* V, int degree);
 static double ComputeXIntercept(CGPoint* V, int degree);
-static	CGPoint	V2ScaleII();
+static	CGPoint	V2ScaleII(CGPoint v, double s);
 
 int		MAXDEPTH = 64;	/*  Maximum depth for recursion */
 

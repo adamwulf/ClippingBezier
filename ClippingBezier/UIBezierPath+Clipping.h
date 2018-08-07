@@ -12,11 +12,20 @@
 #import "DKTangentAtPoint.h"
 #import "DKUIBezierPathClippedSegment.h"
 
+@class DKUIBezierPathShape;
+
 @interface UIBezierPath (MMClipping)
+
+// boolean operations
+-(NSArray<UIBezierPath *>*)intersectionWithPath:(UIBezierPath*)path;
+
+-(NSArray<UIBezierPath *>*)differenceWithPath:(UIBezierPath*)path;
+
+// shape clipping
 
 -(NSArray*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;
 
--(NSArray*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
+-(NSArray<DKUIBezierPathShape*>*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
 
 +(NSArray*) redAndGreenAndBlueSegmentsCreatedFrom:(UIBezierPath*)shapePath bySlicingWithPath:(UIBezierPath*)scissorPath andNumberOfBlueShellSegments:(NSUInteger*)numberOfBlueShellSegments;
 

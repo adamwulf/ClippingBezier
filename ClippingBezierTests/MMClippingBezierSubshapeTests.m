@@ -2451,6 +2451,16 @@
     XCTAssertTrue(CGRectContainsRect(container, b), @"shape is very small from the knot");
 }
 
+-(void) testIntersectionCircles{
 
+    UIBezierPath* path1 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 200, 200)];
+    UIBezierPath* path2 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 10, 100, 100)];
+
+    BOOL beginsInside1 = NO;
+    NSMutableArray* tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[path1 findIntersectionsWithClosedPath:path2 andBeginsInside:&beginsInside1]];
+    DKUIBezierPathClippingResult* clipped = [path1 clipUnclosedPathToClosedPath:path2 usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
+    UIBezierPath *intersection = clipped.entireIntersectionPath;
+
+    XCTAssertTrue(intersection != nil, @"shape is very small from the knot");}
 
 @end
