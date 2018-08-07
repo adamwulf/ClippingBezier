@@ -2453,14 +2453,32 @@
 
 -(void) testIntersectionCircles{
 
-    UIBezierPath* path1 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 200, 200)];
+    UIBezierPath* path1 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 100)];
     UIBezierPath* path2 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 10, 100, 100)];
 
-    BOOL beginsInside1 = NO;
-    NSMutableArray* tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[path1 findIntersectionsWithClosedPath:path2 andBeginsInside:&beginsInside1]];
-    DKUIBezierPathClippingResult* clipped = [path1 clipUnclosedPathToClosedPath:path2 usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
-    UIBezierPath *intersection = clipped.entireIntersectionPath;
+    UIBezierPath* intersection = [UIBezierPath bezierPath];
+    [intersection moveToPoint:CGPointMake(66.575819, 97.186932)];
+    [intersection addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
+    [intersection addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
+    [intersection addCurveToPoint:CGPointMake(100.000000, 50.000000) controlPoint1:CGPointMake(93.600590, 21.965776) controlPoint2:CGPointMake(100.000000, 35.235557)];
+    [intersection addLineToPoint:CGPointMake(100.000000, 50.000000)];
+    [intersection addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
+    [intersection closePath];
+    
+    UIBezierPath * difference = [UIBezierPath bezierPath];
+    [difference moveToPoint:CGPointMake(66.575819, 97.186932)];
+    [difference addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
+    [difference addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
+    [difference addCurveToPoint:CGPointMake(100.000000, 50.000000) controlPoint1:CGPointMake(93.600590, 21.965776) controlPoint2:CGPointMake(100.000000, 35.235557)];
+    [difference addLineToPoint:CGPointMake(100.000000, 50.000000)];
+    [difference addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
+    [difference closePath];
+    
+    UIBezierPath* calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
+    UIBezierPath* calcDifference = [[path1 intersectionWithPath:path2] firstObject];
 
-    XCTAssertTrue(intersection != nil, @"shape is very small from the knot");}
+    XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection], @"shape is very small from the knot");
+    XCTAssertTrue([difference isEqualToBezierPath:calcDifference], @"shape is very small from the knot");
+}
 
 @end
