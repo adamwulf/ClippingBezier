@@ -1666,6 +1666,29 @@ static NSInteger segmentCompareCount = 0;
 //    NSLog(@"found possible holes: %@", holesInNewShapes);
 //    NSLog(@"still have %d unused blue segments", [allUnusedBlueSegments count]);
     
+    for (DKUIBezierPathShape* potentialHole in [holesInNewShapes copy]) {
+        // make sure the probable hole is actually a hole, and that
+        // it exists within one of the output shells.
+        // otherwise add it as a shell
+        BOOL isDefinitelyHole = NO;
+        for (DKUIBezierPathShape* knownShell in output) {
+            if(![knownShell sharesSegmentWith:potentialHole]){
+                // they don't share a segment
+                if([knownShell.fullPath containsPoint:potentialHole.fullPath.firstPoint]){
+                    // it's definitely a hole
+                    isDefinitelyHole = YES;
+                    break;
+                }
+            }
+        }
+        if(!isDefinitelyHole){
+            // the potential hole isn't inside of any of our shells,
+            // which means it's really a shell iteself
+            [output addObject:potentialHole];
+            [holesInNewShapes removeObject:potentialHole];
+        }
+    }
+    
     return [NSArray arrayWithObjects:output, holesInNewShapes, nil];
 }
 

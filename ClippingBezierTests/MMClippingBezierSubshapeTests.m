@@ -63,6 +63,40 @@
     }
 }
 
+-(void) testNonIntersectingPaths{
+    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(0, 500)];
+    [scissorPath addLineToPoint:CGPointMake(2000, 500)];
+    
+    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(50, 50)];
+    [shapePath addLineToPoint:CGPointMake(50, 0)];
+    [shapePath addLineToPoint:CGPointMake(150, 0)];
+    [shapePath addLineToPoint:CGPointMake(150, 150)];
+    [shapePath addLineToPoint:CGPointMake(50, 150)];
+    [shapePath closePath];
+    
+    UIBezierPath *secondPath = [shapePath copy];
+    [secondPath applyTransform:CGAffineTransformMakeTranslation(200, 0)];
+    [shapePath appendPath:secondPath];
+    
+    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray* foundShapes = [subShapePaths firstObject];
+    
+    XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
+    
+    for(DKUIBezierPathShape* shape in foundShapes){
+        XCTAssertTrue([shape isClosed], @"shape is closed");
+    }
+    
+    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
+    for(DKUIBezierPathShape* shape in uniqueShapes){
+        XCTAssertTrue([shape isClosed], @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+    }
+}
+
 -(void) testCircleThroughRectangleFirstSegmentTangent{
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
