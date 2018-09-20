@@ -51,9 +51,9 @@
 # include <ieefp.h>
 #endif
 
-#include <2geom/bezier-utils.h>
+#include <bezier-utils.h>
 
-#include <2geom/isnan.h>
+#include <isnan.h>
 #include <assert.h>
 
 namespace Geom{
@@ -123,7 +123,7 @@ DOUBLE_ASSERT((b)[3][X]); DOUBLE_ASSERT((b)[3][Y]);  \
      * possible weedout of identical points and NaNs.
      *
      * \param max_beziers Maximum number of generated segments
-     * \param Result array, must be large enough for n. segments * 4 elements.
+     * param Result array, must be large enough for n. segments * 4 elements.
      *
      * \return Number of segments generated, or -1 on error.
      */
@@ -192,7 +192,7 @@ DOUBLE_ASSERT((b)[3][X]); DOUBLE_ASSERT((b)[3][Y]);  \
      *
      * \pre data is uniqued, i.e. not exist i: data[i] == data[i + 1].
      * \param max_beziers Maximum number of generated segments
-     * \param Result array, must be large enough for n. segments * 4 elements.
+     * param Result array, must be large enough for n. segments * 4 elements.
      */
     int
     bezier_fit_cubic_full(Point bezier[], int split_points[],
