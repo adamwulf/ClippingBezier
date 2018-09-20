@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2443E97CB98A8D4E554C3574 /* libPods-ClippingBezier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D30C2199113DFA850D942AF /* libPods-ClippingBezier.a */; };
+		366E721BEAA2D434ACD0F72F /* libPods-ClippingExampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */; };
+		4D48C3488D7A50C8D364DDF4 /* libPods-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */; };
 		6605F6E81B11250D0092991F /* GraphicsGems.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F6E71B11250D0092991F /* GraphicsGems.license */; };
 		6605F9EE1B11259F0092991F /* lib2geom.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9ED1B11259F0092991F /* lib2geom.license */; };
 		6605F9F01B1125D60092991F /* JRSwizzle.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9EF1B1125D60092991F /* JRSwizzle.license */; };
@@ -21,7 +24,6 @@
 		6605FA141B1159640092991F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6605FA121B1159640092991F /* LaunchScreen.xib */; };
 		6605FA291B1159AC0092991F /* MMClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605FA281B1159AC0092991F /* MMClipView.m */; };
 		6605FA2A1B1159D10092991F /* ClippingBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFACE71A8DDCA200FD0263 /* ClippingBezier.framework */; };
-		6605FA2C1B1159D50092991F /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6605FA2B1B1159D50092991F /* PerformanceBezier.framework */; };
 		664A487E1AFEF23F00DE634E /* point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A487D1AFEF23F00DE634E /* point.cpp */; };
 		664A48821AFEF26200DE634E /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664A48801AFEF26200DE634E /* matrix.cpp */; };
 		664A48831AFEF26200DE634E /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 664A48811AFEF26200DE634E /* matrix.h */; };
@@ -64,11 +66,9 @@
 		66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.mm */; };
 		66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 668288161A893F200038A1C4 /* bezierclip.cxx */; };
 		66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 668288181A893F200038A1C4 /* convexhull.cxx */; };
-		66AFAD091A8DDD6800FD0263 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288451A893F5A0038A1C4 /* JRSwizzle.m */; };
 		66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */; };
 		66AFAD0B1A8DDD6C00FD0263 /* DKVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288121A893F060038A1C4 /* DKVector.m */; };
 		66AFAD0C1A8DDD7100FD0263 /* ClippingBezier.h in Headers */ = {isa = PBXBuildFile; fileRef = 662D40C31A8D862600A1CB63 /* ClippingBezier.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66AFAD0D1A8DDD7300FD0263 /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288441A893F5A0038A1C4 /* JRSwizzle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD0E1A8DDD7500FD0263 /* MMBackwardCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288461A893F5A0038A1C4 /* MMBackwardCompatible.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD0F1A8DDD7800FD0263 /* UIBezierPath+Clipping.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288501A893F7E0038A1C4 /* UIBezierPath+Clipping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288511A893F7E0038A1C4 /* UIBezierPath+Clipping_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -83,12 +83,14 @@
 		66AFAD1A1A8DDD8D00FD0263 /* DKUIBezierPathShape.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A31A893DDD0038A1C4 /* DKUIBezierPathShape.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD1B1A8DDD8F00FD0263 /* DKTangentAtPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A51A893DDD0038A1C4 /* DKTangentAtPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66AFAD211A8DDDEF00FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */; };
 		66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1675776EDE88237E73803790 /* Pods-ClippingBezier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.debug.xcconfig"; sourceTree = "<group>"; };
+		224CE0A774C001BFE30C887E /* Pods-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezierTests/Pods-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
+		47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6605F6E71B11250D0092991F /* GraphicsGems.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GraphicsGems.license; sourceTree = "<group>"; };
 		6605F9ED1B11259F0092991F /* lib2geom.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lib2geom.license; sourceTree = "<group>"; };
 		6605F9EF1B1125D60092991F /* JRSwizzle.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JRSwizzle.license; sourceTree = "<group>"; };
@@ -154,8 +156,6 @@
 		668288171A893F200038A1C4 /* bezierclip.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bezierclip.hxx; sourceTree = "<group>"; };
 		668288181A893F200038A1C4 /* convexhull.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = convexhull.cxx; sourceTree = "<group>"; };
 		668288191A893F200038A1C4 /* gauss.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gauss.hxx; sourceTree = "<group>"; };
-		668288441A893F5A0038A1C4 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
-		668288451A893F5A0038A1C4 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		668288461A893F5A0038A1C4 /* MMBackwardCompatible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMBackwardCompatible.h; sourceTree = "<group>"; };
 		668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBackwardCompatible.m; sourceTree = "<group>"; };
 		668288501A893F7E0038A1C4 /* UIBezierPath+Clipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Clipping.h"; sourceTree = "<group>"; };
@@ -185,9 +185,15 @@
 		66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierFlatTests.m; sourceTree = "<group>"; };
 		66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKIntersectionOfPaths.h; sourceTree = "<group>"; };
 		66FD53311A89546A00E7B486 /* DKIntersectionOfPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKIntersectionOfPaths.m; sourceTree = "<group>"; };
+		6D30C2199113DFA850D942AF /* libPods-ClippingBezier.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezier.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4AF618EA4695A6BF653CEC /* Pods-ClippingExampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingExampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingExampleApp/Pods-ClippingExampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		97F36008205968353E58B289 /* Pods-ClippingExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingExampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingExampleApp/Pods-ClippingExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		9B49664D932EF0D7FCE24864 /* Pods-ClippingBezierTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezierTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezierTests/Pods-ClippingBezierTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingExampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50DBB061E0B5C600006F58A /* scissor-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scissor-example.png"; sourceTree = "<group>"; };
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
+		F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,8 +201,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6605FA2C1B1159D50092991F /* PerformanceBezier.framework in Frameworks */,
 				6605FA2A1B1159D10092991F /* ClippingBezier.framework in Frameworks */,
+				366E721BEAA2D434ACD0F72F /* libPods-ClippingExampleApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +213,7 @@
 				665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */,
 				66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */,
 				666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */,
+				4D48C3488D7A50C8D364DDF4 /* libPods-ClippingBezierTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,14 +221,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66AFAD211A8DDDEF00FD0263 /* PerformanceBezier.framework in Frameworks */,
 				66AFACE81A8DDCA200FD0263 /* Foundation.framework in Frameworks */,
+				2443E97CB98A8D4E554C3574 /* libPods-ClippingBezier.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52D543ED1B327C6DD96AD674 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1675776EDE88237E73803790 /* Pods-ClippingBezier.debug.xcconfig */,
+				F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */,
+				9B49664D932EF0D7FCE24864 /* Pods-ClippingBezierTests.debug.xcconfig */,
+				224CE0A774C001BFE30C887E /* Pods-ClippingBezierTests.release.xcconfig */,
+				97F36008205968353E58B289 /* Pods-ClippingExampleApp.debug.xcconfig */,
+				8D4AF618EA4695A6BF653CEC /* Pods-ClippingExampleApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6605F6E61B1125020092991F /* Licenses */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +362,7 @@
 				6605FA021B1159640092991F /* ClippingExampleApp */,
 				668287871A893CE50038A1C4 /* Frameworks */,
 				668287861A893CE50038A1C4 /* Products */,
+				52D543ED1B327C6DD96AD674 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -364,6 +385,9 @@
 				66B9D1F51A8C2B1800CAC341 /* UIKit.framework */,
 				66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */,
 				668287881A893CE50038A1C4 /* Foundation.framework */,
+				6D30C2199113DFA850D942AF /* libPods-ClippingBezier.a */,
+				47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */,
+				B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -426,8 +450,6 @@
 		668288431A893F530038A1C4 /* JRSwizzle */ = {
 			isa = PBXGroup;
 			children = (
-				668288441A893F5A0038A1C4 /* JRSwizzle.h */,
-				668288451A893F5A0038A1C4 /* JRSwizzle.m */,
 				668288461A893F5A0038A1C4 /* MMBackwardCompatible.h */,
 				668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */,
 			);
@@ -491,7 +513,6 @@
 				66AFAD191A8DDD8A00FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.h in Headers */,
 				66AFAD0F1A8DDD7800FD0263 /* UIBezierPath+Clipping.h in Headers */,
 				66767CB61AFED77400443B03 /* point.h in Headers */,
-				66AFAD0D1A8DDD7300FD0263 /* JRSwizzle.h in Headers */,
 				66AFAD0E1A8DDD7500FD0263 /* MMBackwardCompatible.h in Headers */,
 				66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */,
 				66AFAD181A8DDD8800FD0263 /* DKUIBezierPathIntersectionPoint+Private.h in Headers */,
@@ -506,6 +527,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6605FA251B1159640092991F /* Build configuration list for PBXNativeTarget "ClippingExampleApp" */;
 			buildPhases = (
+				0FE49EDB5BDA8B7E9E1E532B /* [CP] Check Pods Manifest.lock */,
 				6605F9FD1B1159640092991F /* Sources */,
 				6605F9FE1B1159640092991F /* Frameworks */,
 				6605F9FF1B1159640092991F /* Resources */,
@@ -523,6 +545,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 662D40D51A8D862600A1CB63 /* Build configuration list for PBXNativeTarget "ClippingBezierTests" */;
 			buildPhases = (
+				738C3452A7AB0BA80C64B197 /* [CP] Check Pods Manifest.lock */,
 				662D40C71A8D862600A1CB63 /* Sources */,
 				662D40C81A8D862600A1CB63 /* Frameworks */,
 				662D40C91A8D862600A1CB63 /* Resources */,
@@ -540,6 +563,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66AFACF41A8DDCA200FD0263 /* Build configuration list for PBXNativeTarget "ClippingBezier" */;
 			buildPhases = (
+				46C5B36E58B50306283C6993 /* [CP] Check Pods Manifest.lock */,
 				66AFACF71A8DDCD600FD0263 /* Prepare Build Script */,
 				66AFACE11A8DDCA200FD0263 /* Sources */,
 				66AFACE21A8DDCA200FD0263 /* Frameworks */,
@@ -631,6 +655,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0FE49EDB5BDA8B7E9E1E532B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClippingExampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		46C5B36E58B50306283C6993 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClippingBezier-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		66AFACF71A8DDCD600FD0263 /* Prepare Build Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -672,6 +732,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\nset -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n# Nothing for the slave script to do\nexit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n    eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\necho \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\nexit 1\nfi\n\necho \"Target Executable: ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nUFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nUFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nUFW_OTHER_PLATFORM=iphonesimulator\nelse\nUFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\nUFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\necho \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\nONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM:-$ONLY_ACTIVE_ARCH}\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${PRODUCT_NAME}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${PRODUCT_NAME}\" ]]\nthen\nexit 0\nfi\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" == \"YES\" ]\nthen\necho \"ONLY_ACTIVE_PLATFORM=${ONLY_ACTIVE_PLATFORM}: Skipping other platform build\"\nelse\n# Make sure the other platform gets built\n\necho \"Build other platform\"\n\necho xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n\n# Build the fat static library binary\n\necho \"Create universal static library\"\n\necho \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\necho mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\"\nmv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\"\nfi\n\n# Move executable to product name location\n\necho \"Moving Executable\"\necho \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\necho \"to\"\necho \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\nmv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\nif [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\nthen\necho ln -sfh \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\nln -sfh \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\nfi\ndone\n\n\nif [ \"${ONLY_ACTIVE_PLATFORM}\" != \"YES\" ]\nthen\n# Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n\necho \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n\necho rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nrm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\necho cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\ncp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nfi\n";
+		};
+		738C3452A7AB0BA80C64B197 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClippingBezierTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -719,7 +797,6 @@
 				66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */,
 				66AFAD0B1A8DDD6C00FD0263 /* DKVector.m in Sources */,
 				66767CB31AFED58200443B03 /* UIBezierPath+Trimming.m in Sources */,
-				66AFAD091A8DDD6800FD0263 /* JRSwizzle.m in Sources */,
 				66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */,
 				665E8D491B0D2366009E32FC /* UIBezierPath+Ahmed.m in Sources */,
 				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */,
@@ -759,6 +836,7 @@
 /* Begin XCBuildConfiguration section */
 		6605FA211B1159640092991F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97F36008205968353E58B289 /* Pods-ClippingExampleApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -795,6 +873,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -811,6 +890,7 @@
 		};
 		6605FA221B1159640092991F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D4AF618EA4695A6BF653CEC /* Pods-ClippingExampleApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -841,6 +921,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingExampleApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
@@ -857,6 +938,7 @@
 		};
 		662D40D61A8D862600A1CB63 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B49664D932EF0D7FCE24864 /* Pods-ClippingBezierTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -909,6 +991,7 @@
 		};
 		662D40D71A8D862600A1CB63 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 224CE0A774C001BFE30C887E /* Pods-ClippingBezierTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1012,6 +1095,7 @@
 		};
 		66AFACF51A8DDCA200FD0263 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1675776EDE88237E73803790 /* Pods-ClippingBezier.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1046,9 +1130,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingBezier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				ONLY_ACTIVE_PLATFORM = YES;
-				OTHER_LDFLAGS = "-ObjC++";
+				OTHER_LDFLAGS = (
+					"-ObjC++",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1058,6 +1147,7 @@
 		};
 		66AFACF61A8DDCA200FD0263 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1087,9 +1177,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingBezier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_PLATFORM = YES;
-				OTHER_LDFLAGS = "-ObjC++";
+				OTHER_LDFLAGS = (
+					"-ObjC++",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
