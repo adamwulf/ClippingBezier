@@ -66,7 +66,7 @@ static CGFloat idealFlatness = .01;
     return [self bezierPathByFlatteningPathAndImmutable:NO];
 }
 /**
- * @param shouldBeImmutable: YES if this function should return a distinct UIBezier, NO otherwise
+ * @param willBeImmutable YES if this function should return a distinct UIBezier, NO otherwise
  *
  * if the caller plans to modify the returned path, then shouldBeImmutable should
  * be called with NO.
@@ -80,11 +80,11 @@ static CGFloat idealFlatness = .01;
     UIBezierPath* ret = props.bezierPathByFlatteningPath;
     if(ret){
         if(willBeImmutable) return ret;
-        return [[ret copy] autorelease];
+        return [ret copy];
     }
     if(self.isFlat){
         if(willBeImmutable) return self;
-        return [[self copy] autorelease];
+        return [self copy];
     }
     
     __block NSInteger flattenedElementCount = 0;
@@ -140,7 +140,9 @@ static CGFloat idealFlatness = .01;
                 //
                 // define our recursive function that will
                 // help us split the curve up as needed
-                void (^__block flattenCurve)(UIBezierPath* newPath, CGPoint startPoint, CGPoint bez[4]) = ^(UIBezierPath* newPath, CGPoint startPoint, CGPoint bez[4]){
+                __block __weak void (^weak_flattenCurve)(UIBezierPath* newPath, CGPoint startPoint, CGPoint bez[4]);
+                void (^flattenCurve)(UIBezierPath* newPath, CGPoint startPoint, CGPoint bez[4]);
+                weak_flattenCurve = flattenCurve = ^(UIBezierPath* newPath, CGPoint startPoint, CGPoint bez[4]){
                     //
                     // first, calculate the error rate for
                     // a line segement between the start/end points
@@ -168,8 +170,8 @@ static CGFloat idealFlatness = .01;
                         // now we've split the curve in half, and have
                         // two bezier curves bez1 and bez2. recur
                         // on these two halves
-                        flattenCurve(newPath, startPoint, bez1);
-                        flattenCurve(newPath, startPoint, bez2);
+                        weak_flattenCurve(newPath, startPoint, bez1);
+                        weak_flattenCurve(newPath, startPoint, bez2);
                     }
                 };
                 

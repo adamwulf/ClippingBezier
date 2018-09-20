@@ -23,7 +23,6 @@
 #import "DKUIBezierUnmatchedPathIntersectionPoint.h"
 #import "DKUIBezierPathShape.h"
 #import "DKTangentAtPoint.h"
-#import "JRSwizzle.h"
 #import "DKVector.h"
 #import "MMBackwardCompatible.h"
 //#include "bezierclip.hxx"
