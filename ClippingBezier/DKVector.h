@@ -14,15 +14,15 @@
 @property (nonatomic) CGFloat x;
 @property (nonatomic) CGFloat y;
 
-+(id) vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
++(instancetype) vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
 
-+(id) vectorWithX:(CGFloat)x andY:(CGFloat)y;
++(instancetype) vectorWithX:(CGFloat)x andY:(CGFloat)y;
 
-+(id) vectorWithAngle:(CGFloat)angle;
++(instancetype) vectorWithAngle:(CGFloat)angle;
 
--(id) initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
+-(instancetype) initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
 
--(id) initWithX:(CGFloat)x andY:(CGFloat)y;
+-(instancetype) initWithX:(CGFloat)x andY:(CGFloat)y;
 
 -(DKVector*) normal;
 

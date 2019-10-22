@@ -17,23 +17,23 @@
 
 @synthesize x, y;
 
-+(id) vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2{
++(instancetype) vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2{
     return [[DKVector alloc] initWithPoint:p1 andPoint:p2];
 }
 
-+(id) vectorWithX:(CGFloat)x andY:(CGFloat)y{
++(instancetype) vectorWithX:(CGFloat)x andY:(CGFloat)y{
     return [[DKVector alloc] initWithX:x andY:y];
 }
 
-+(id) vectorWithAngle:(CGFloat)angle{
++(instancetype) vectorWithAngle:(CGFloat)angle{
     return [[DKVector alloc] initWithX:cosf(angle) andY:sinf(angle)];
 }
 
--(id) initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2{
+-(instancetype) initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2{
     return [self initWithX:p2.x - p1.x andY:p2.y - p1.y];
 }
 
--(id) initWithX:(CGFloat)_x andY:(CGFloat)_y{
+-(instancetype) initWithX:(CGFloat)_x andY:(CGFloat)_y{
     if(self = [super init]){
         x = _x;
         y = _y;
