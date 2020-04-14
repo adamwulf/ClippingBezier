@@ -30,8 +30,4 @@
 -(UIBezierPath*) bezierPathByFlatteningPath;
 -(UIBezierPath*) bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy;
 
--(UIBezierPath*) bezierPathByTrimmingElement:(NSInteger)elementIndex fromTValue:(double)fromTValue toTValue:(double)toTValue;
--(UIBezierPath*) bezierPathByTrimmingToElement:(NSInteger)elementIndex andTValue:(double)tValue;
--(UIBezierPath*) bezierPathByTrimmingFromElement:(NSInteger)elementIndex andTValue:(double)tValue;
-
 @end

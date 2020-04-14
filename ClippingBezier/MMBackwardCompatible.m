@@ -68,7 +68,7 @@ userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescription
         return YES;
 	}
     
-    return [self jr_swizzleMethod:origSel_ withMethod:altSel_ error:error_];
+    return [self mmcb_swizzleMethod:origSel_ withMethod:altSel_ error:error_];
 }
 
 

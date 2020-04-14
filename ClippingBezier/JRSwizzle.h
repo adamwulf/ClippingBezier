@@ -5,9 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (JRSwizzle)
+@interface NSObject (ClippingBezierJRSwizzle)
 
-+ (BOOL)jr_swizzleMethod:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_;
-+ (BOOL)jr_swizzleClassMethod:(SEL)origSel_ withClassMethod:(SEL)altSel_ error:(NSError**)error_;
++ (BOOL)mmcb_swizzleMethod:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_;
++ (BOOL)mmcb_swizzleClassMethod:(SEL)origSel_ withClassMethod:(SEL)altSel_ error:(NSError**)error_;
 
 @end
