@@ -1469,7 +1469,7 @@ static NSInteger segmentCompareCount = 0;
         BOOL beginsInside1 = NO;
         NSMutableArray* tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
         DKUIBezierPathClippingResult* clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
-        return @[clipped.entireIntersectionPath];
+        return intersection ? @[clipped.entireIntersectionPath] : @[clipped.entireDifferencePath];
     }else{
         return nil;
     }
