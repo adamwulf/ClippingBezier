@@ -17,9 +17,9 @@
 @implementation UIBezierPath (GeometryExtras)
 
 CGFloat tValOfPointOnLine(CGPoint p, CGPoint a, CGPoint b){
-    CGFloat lineLength = distance(a, b);
+    CGFloat lineLength = [UIBezierPath distance:a p2:b];
     if(lineLength > 0){
-        CGFloat lengthToA = distance(p, a);
+        CGFloat lengthToA = [UIBezierPath distance:p p2:a];
         return lengthToA / lineLength;
     }
     return 0;
@@ -136,7 +136,8 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b){
                 winningPoint = np1;
                 winningIndex = currentIndex;
                 winningTValue = currTValue;
-            }else if(distance(pointNearTheCurve, np1) < distance(pointNearTheCurve, winningPoint)){
+                
+            }else if([UIBezierPath distance:pointNearTheCurve p2:np1] < [UIBezierPath distance:pointNearTheCurve p2:winningPoint]){
                 winningPoint = np1;
                 winningIndex = currentIndex;
                 winningTValue = currTValue;
@@ -147,7 +148,7 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b){
             if(CGPointEqualToPoint(winningEndPoint, CGPointZero)){
                 winningEndPoint = np2;
                 winningEndIndex = currentIndex;
-            }else if(distance(endPoint, np2) < distance(endPoint, winningEndPoint)){
+            }else if([UIBezierPath distance:endPoint p2:np2] < [UIBezierPath distance:endPoint p2:winningEndPoint]){
                 winningEndPoint = np2;
                 winningEndIndex = currentIndex;
             }

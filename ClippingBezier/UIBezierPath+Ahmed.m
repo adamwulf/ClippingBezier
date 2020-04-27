@@ -146,9 +146,11 @@ static CGFloat idealFlatness = .01;
                     // a line segement between the start/end points
                     // vs the curve
                     
-                    CGPoint onCurve = bezierPointAtT(bez, .5);
                     
-                    CGFloat error = distanceOfPointToLine(onCurve, startPoint, bez[2]);
+                    CGPoint onCurve = [UIBezierPath bezierTangentAtT:bez t:.5];
+                    
+                    
+                    CGFloat error = [UIBezierPath distanceOfPointToLine:onCurve start:startPoint end:bez[2]];
                     
                     
                     //
@@ -164,7 +166,7 @@ static CGFloat idealFlatness = .01;
                     else
                     {
                         CGPoint bez1[4], bez2[4];
-                        subdivideBezierAtT(bez, bez1, bez2, .5);
+                        [UIBezierPath subdivideBezierAtT:bez bez1:bez1 bez2:bez2 t:.5];
                         // now we've split the curve in half, and have
                         // two bezier curves bez1 and bez2. recur
                         // on these two halves

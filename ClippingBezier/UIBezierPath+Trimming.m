@@ -103,7 +103,7 @@
                 continue;
                 
             case kCGPathElementAddLineToPoint:
-                elementLength = distance (lastPoint, points[0]);
+                elementLength = [UIBezierPath distance:lastPoint p2:points[0]];
                 
                 if (length + elementLength <= trimLength)
                     [newPath addLineToPoint:points[0]];
@@ -134,14 +134,13 @@
                     bezier[2] = points[0];
                     bezier[3] = points[1];
                 }
-                elementLength = lengthOfBezier (bezier, maxError);
+                elementLength = [UIBezierPath lengthOfBezier:bezier withAccuracy:maxError];
                 
                 if (length + elementLength <= trimLength)
                     [newPath addCurveToPoint:points[2] controlPoint1:points[0] controlPoint2:points[1]];
                 else {
                     CGPoint bez1[4], bez2[4];
-                    subdivideBezierAtLength (bezier, bez1, bez2,
-                                             remainingLength, maxError);
+                    [UIBezierPath subdivideBezier:bezier bez1:bez1 bez2:bez2 atLength:remainingLength acceptableError:maxError];
                     [newPath addCurveToPoint:bez1[3] controlPoint1:bez1[1] controlPoint2:bez1[2]];
                     return newPath;
                 }
@@ -152,7 +151,7 @@
             }
                 
             case kCGPathElementCloseSubpath:
-                elementLength = distance (lastPoint, pointForClose);
+                elementLength = [UIBezierPath distance:lastPoint p2:pointForClose];
                 
                 if (length + elementLength <= trimLength)
                     [newPath closePath];
@@ -210,7 +209,7 @@
                 continue;
                 
             case kCGPathElementAddLineToPoint:
-                elementLength = distance (lastPoint, points[0]);
+                elementLength = [UIBezierPath distance:lastPoint p2:points[0]];
                 
                 if (length > trimLength){
                     [newPath addLineToPoint:points[0]];
@@ -241,7 +240,7 @@
                     bezier[2] = points[0];
                     bezier[3] = points[1];
                 }
-                elementLength = lengthOfBezier (bezier, maxError);
+                elementLength = [UIBezierPath lengthOfBezier:bezier withAccuracy:maxError];
                 
                 if (length > trimLength){
                     [newPath addCurveToPoint:points[2]
@@ -249,8 +248,7 @@
                             controlPoint2:points[1]];
                 }else if (length + elementLength > trimLength) {
                     CGPoint bez1[4], bez2[4];
-                    subdivideBezierAtLength (bezier, bez1, bez2,
-                                             remainingLength, maxError);
+                    [UIBezierPath subdivideBezier:bezier bez1:bez1 bez2:bez2 atLength:remainingLength acceptableError:maxError];
                     [newPath moveToPoint:bez2[0]];
                     [newPath addCurveToPoint:bez2[3]
                             controlPoint1:bez2[1]
@@ -263,7 +261,7 @@
             }
                 
             case kCGPathElementCloseSubpath:
-                elementLength = distance (lastPoint, pointForClose);
+                elementLength = [UIBezierPath distance:lastPoint p2:pointForClose];
                 
                 if (length > trimLength){
                     if(legitMoveTo){
@@ -320,10 +318,10 @@
             lastElementEndPoint = element.points[0];
             lastMoveToPoint = element.points[0];
         }else if(element.type == kCGPathElementCloseSubpath){
-            length += distance(lastElementEndPoint, lastMoveToPoint);
+            length += [UIBezierPath distance:lastElementEndPoint p2:lastMoveToPoint];
             lastElementEndPoint = lastMoveToPoint;
         }else if(element.type == kCGPathElementAddLineToPoint){
-            length += distance(lastElementEndPoint, element.points[0]);
+            length += [UIBezierPath distance:lastElementEndPoint p2:element.points[0]];
             lastElementEndPoint = element.points[0];
         }else if(element.type == kCGPathElementAddQuadCurveToPoint ||
                  element.type == kCGPathElementAddCurveToPoint){
@@ -343,7 +341,7 @@
                 lastElementEndPoint = element.points[2];
             }
             
-            length += lengthOfBezier(bez, .5);;
+            length += [UIBezierPath lengthOfBezier:bez withAccuracy:.5];
         }
     }];
     return length;

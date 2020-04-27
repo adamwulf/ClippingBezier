@@ -196,8 +196,8 @@ static NSInteger segmentCompareCount = 0;
                                     // TODO: should i return two intersections if they're tangent?
                                     CGPoint intersection = [UIBezierPath intersects2D:bez1[0] to:bez1[3] andLine:bez2[0] to:bez2[3]];
                                     if(!CGPointEqualToPoint(intersection,CGPointNotFound)){
-                                        CGFloat path1TValue = distance(bez1[0], intersection) / distance(bez1[0], bez1[3]);
-                                        CGFloat path2TValue = distance(bez2[0], intersection) / distance(bez2[0], bez2[3]);
+                                        CGFloat path1TValue = [UIBezierPath distance:bez1[0] p2:intersection] / [UIBezierPath distance:bez1[0] p2:bez1[3]];
+                                        CGFloat path2TValue = [UIBezierPath distance:bez2[0] p2:intersection] / [UIBezierPath distance:bez2[0] p2:bez2[3]];
                                         if(path1TValue >= 0 && path1TValue <= 1 &&
                                            path2TValue >= 0 && path2TValue <= 1){
                                             intersections = [NSArray arrayWithObject:[NSValue valueWithCGPoint:CGPointMake(path2TValue, path1TValue)]];
@@ -1935,7 +1935,7 @@ static NSInteger segmentCompareCount = 0;
         if(CGPointEqualToPoint(lastPoint, CGPointNotFound) || element.type == kCGPathElementMoveToPoint){
             lastPoint = element.points[0];
         }else if(element.type != kCGPathElementCloseSubpath){
-            entireLength += distance(lastPoint, nextLastPoint);
+            entireLength += [UIBezierPath distance:lastPoint p2:nextLastPoint];
         }
         
         lastPoint = nextLastPoint;
@@ -1988,7 +1988,7 @@ static NSInteger segmentCompareCount = 0;
             lastPoint = element.points[0];
             nextLastPoint = lastPoint;
         }else if(element.type != kCGPathElementCloseSubpath){
-            lengthOfElement = distance(lastPoint, nextLastPoint);
+            lengthOfElement = [UIBezierPath distance:lastPoint p2:nextLastPoint];
         }
         if(lengthSoFar + lengthOfElement > lengthAtT){
             // this is the element to use for our calculation

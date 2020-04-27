@@ -88,17 +88,17 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
                         [intersections addObject:[NSValue valueWithCGPoint:intersection]];
                         
                         // ok, we have an intersection
-                        UIBezierPath* outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + distance(lastSeenPoint, intersection)];
+                        UIBezierPath* outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
                         if(![outPath elementCount]){
-                            outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + distance(lastSeenPoint, intersection)];
+                            outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
                         }
                         [outPath addLineToPoint:intersection];
                         [output addObject:outPath];
                         
-                        seenSoFar = [seenSoFar bezierPathByTrimmingToLength:distanceSoFar + distance(lastSeenPoint, intersection)];
+                        seenSoFar = [seenSoFar bezierPathByTrimmingToLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
                         lastSeenPoint = intersection;
                     }
-                    distanceSoFar += distance(lastSeenPoint, seenElement.points[0]);
+                    distanceSoFar += [UIBezierPath distance:lastSeenPoint p2:seenElement.points[0]];
                 }
                 lastSeenPoint = seenElement.points[0];
             }];
@@ -246,7 +246,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
                                 // ok, we found an intersection! save this intersection
                                 // if it's the closest one we've seen so far, otherwise
                                 // disregard it
-                                CGFloat distanceToIntersection = distance(intersection, myLastPoint);
+                                CGFloat distanceToIntersection = [UIBezierPath distance:intersection p2:myLastPoint];
                                 if(distanceToIntersection < distanceToClosestIntersection){
                                     closestIntersectionOfCurve = intersection;
                                     distanceToClosestIntersection = distanceToIntersection;
@@ -263,7 +263,7 @@ static inline CGPoint   	intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoin
                         // save the element and T value for the intersection
                         // the t value is just the distance to the intersection compared to the entire line
                         myElementIndexOfIntersection = myCurrentElementIndex;
-                        myTValueOfIntersection = distance(myLastPoint, closestIntersectionOfCurve) / distance(myLastPoint, nextPoint);
+                        myTValueOfIntersection = [UIBezierPath distance:myLastPoint p2:closestIntersectionOfCurve] / [UIBezierPath distance:myLastPoint p2:nextPoint];
                         // the location of the intersection is where we'll pick up
                         // when we next loop. We don't actually need this in the
                         // case where we find teh interesection, but i'm including it
