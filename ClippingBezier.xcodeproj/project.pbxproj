@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2443E97CB98A8D4E554C3574 /* libPods-ClippingBezier.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D30C2199113DFA850D942AF /* libPods-ClippingBezier.a */; };
-		366E721BEAA2D434ACD0F72F /* libPods-ClippingExampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */; };
-		4D48C3488D7A50C8D364DDF4 /* libPods-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */; };
+		361B02840F2AB450EEE6BB11 /* libPods-ClippingExampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF4BEF223EE094757130036 /* libPods-ClippingExampleApp.a */; };
 		6605F6E81B11250D0092991F /* GraphicsGems.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F6E71B11250D0092991F /* GraphicsGems.license */; };
 		6605F9EE1B11259F0092991F /* lib2geom.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9ED1B11259F0092991F /* lib2geom.license */; };
 		6605F9F01B1125D60092991F /* JRSwizzle.license in Resources */ = {isa = PBXBuildFile; fileRef = 6605F9EF1B1125D60092991F /* JRSwizzle.license */; };
@@ -83,13 +82,24 @@
 		66AFAD1B1A8DDD8F00FD0263 /* DKTangentAtPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A51A893DDD0038A1C4 /* DKTangentAtPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0EBF66A32FA4C24856190C5 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D365A63EDF021814D0238F9E /* libPods-ClippingBezier-ClippingBezierTests.a */; };
+		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
+		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
+		DD26B78DFD8510CCBB10B4D2 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C5692F6124577E6200BD0D8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 668287791A893CC70038A1C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66AFACE61A8DDCA200FD0263;
+			remoteInfo = ClippingBezier;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1675776EDE88237E73803790 /* Pods-ClippingBezier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.debug.xcconfig"; sourceTree = "<group>"; };
 		224CE0A774C001BFE30C887E /* Pods-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezierTests/Pods-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
-		47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6605F6E71B11250D0092991F /* GraphicsGems.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GraphicsGems.license; sourceTree = "<group>"; };
 		6605F9ED1B11259F0092991F /* lib2geom.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lib2geom.license; sourceTree = "<group>"; };
 		6605F9EF1B1125D60092991F /* JRSwizzle.license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JRSwizzle.license; sourceTree = "<group>"; };
@@ -189,13 +199,15 @@
 		97F36008205968353E58B289 /* Pods-ClippingExampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingExampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingExampleApp/Pods-ClippingExampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9B49664D932EF0D7FCE24864 /* Pods-ClippingBezierTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezierTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezierTests/Pods-ClippingBezierTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9FD94F479CCB0F2C3B3D5CD9 /* Pods-ClippingBezier-ClippingBezierTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier-ClippingBezierTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier-ClippingBezierTests/Pods-ClippingBezier-ClippingBezierTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingExampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50DBB061E0B5C600006F58A /* scissor-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scissor-example.png"; sourceTree = "<group>"; };
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
-		D365A63EDF021814D0238F9E /* libPods-ClippingBezier-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezier-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
+		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		D9EC2CF48A52BA019E4C6A1B /* Pods-ClippingBezier-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier-ClippingBezierTests/Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
+		DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezier-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.release.xcconfig"; sourceTree = "<group>"; };
+		FDF4BEF223EE094757130036 /* libPods-ClippingExampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingExampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				366E721BEAA2D434ACD0F72F /* libPods-ClippingExampleApp.a in Frameworks */,
+				361B02840F2AB450EEE6BB11 /* libPods-ClippingExampleApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,8 +225,7 @@
 			files = (
 				665E8D4C1B0D273F009E32FC /* ClippingBezier.framework in Frameworks */,
 				666EEC341A8D910100B9F171 /* UIKit.framework in Frameworks */,
-				4D48C3488D7A50C8D364DDF4 /* libPods-ClippingBezierTests.a in Frameworks */,
-				A0EBF66A32FA4C24856190C5 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */,
+				DD26B78DFD8510CCBB10B4D2 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,9 +400,8 @@
 				66B9D1F31A8C2B0B00CAC341 /* CoreGraphics.framework */,
 				668287881A893CE50038A1C4 /* Foundation.framework */,
 				6D30C2199113DFA850D942AF /* libPods-ClippingBezier.a */,
-				47DB75D1C288B880597FDADC /* libPods-ClippingBezierTests.a */,
-				B98B813067928F62A6CF75E8 /* libPods-ClippingExampleApp.a */,
-				D365A63EDF021814D0238F9E /* libPods-ClippingBezier-ClippingBezierTests.a */,
+				FDF4BEF223EE094757130036 /* libPods-ClippingExampleApp.a */,
+				DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -456,6 +466,8 @@
 			children = (
 				668288461A893F5A0038A1C4 /* MMBackwardCompatible.h */,
 				668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */,
+				C5692F642457874000BD0D8F /* JRSwizzle.h */,
+				C5692F632457874000BD0D8F /* JRSwizzle.m */,
 			);
 			name = JRSwizzle;
 			sourceTree = "<group>";
@@ -521,6 +533,7 @@
 				66AFAD101A8DDD7A00FD0263 /* UIBezierPath+Clipping_Private.h in Headers */,
 				66AFAD181A8DDD8800FD0263 /* DKUIBezierPathIntersectionPoint+Private.h in Headers */,
 				664A48871AFEF26E00DE634E /* transforms.h in Headers */,
+				C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +570,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C5692F6224577E6200BD0D8F /* PBXTargetDependency */,
 			);
 			name = ClippingBezierTests;
 			productName = ClippingBezierTests;
@@ -807,6 +821,7 @@
 				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */,
 				66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */,
 				66AFAD051A8DDD5F00FD0263 /* UIBezierPath+GeometryExtras.m in Sources */,
+				C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */,
 				66AFAD031A8DDD5C00FD0263 /* UIBezierPath+Intersections.m in Sources */,
 				664A48861AFEF26E00DE634E /* transforms.cpp in Sources */,
 				66767CC21AFEDA5000443B03 /* NearestPoint.c in Sources */,
@@ -818,6 +833,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C5692F6224577E6200BD0D8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66AFACE61A8DDCA200FD0263 /* ClippingBezier */;
+			targetProxy = C5692F6124577E6200BD0D8F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6605FA0D1B1159640092991F /* Main.storyboard */ = {
@@ -845,8 +868,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -862,7 +883,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = MU27A4SCKC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -899,8 +919,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -917,7 +935,6 @@
 				DEVELOPMENT_TEAM = MU27A4SCKC;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -946,8 +963,6 @@
 			baseConfigurationReference = 9FD94F479CCB0F2C3B3D5CD9 /* Pods-ClippingBezier-ClippingBezierTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -963,7 +978,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -983,11 +997,10 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lstdc++",
 					"$(inherited)",
 					"-framework",
 					XCTest,
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -999,8 +1012,6 @@
 			baseConfigurationReference = D9EC2CF48A52BA019E4C6A1B /* Pods-ClippingBezier-ClippingBezierTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1017,7 +1028,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1029,11 +1039,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lstdc++",
 					"$(inherited)",
 					"-framework",
 					XCTest,
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1045,6 +1054,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1063,8 +1074,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1072,7 +1085,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -1084,6 +1097,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1102,7 +1117,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1110,7 +1127,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -1122,8 +1139,6 @@
 			baseConfigurationReference = 1675776EDE88237E73803790 /* Pods-ClippingBezier.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1139,7 +1154,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1154,7 +1168,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingBezier/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				ONLY_ACTIVE_PLATFORM = YES;
@@ -1171,8 +1184,6 @@
 			baseConfigurationReference = F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1190,7 +1201,6 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1198,7 +1208,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ClippingBezier/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_PLATFORM = YES;
 				OTHER_LDFLAGS = "$(inherited)";

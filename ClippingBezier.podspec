@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage        = "https://github.com/adamwulf/ClippingBezier"
   s.license         = {:type => 'CC BY', :file => 'LICENSE' }
 
-  s.source          = { :git => "https://github.com/thaya-cameraxis/ClippingBezier.git", :tag => s.version}
+  s.source          = { :git => "https://github.com/adamwulf/ClippingBezier.git", :tag => s.version}
   s.source_files    = ['ClippingBezier/*.{h,m,mm,cpp,cxx,hxx,c}']
   s.public_header_files = ['ClippingBezier/UIBezierPath+*.h','ClippingBezier/DK*.h','ClippingBezier/ClippingBezier.h','ClippingBezier/MMBackwardCompatible.h']
 

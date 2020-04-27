@@ -6,14 +6,14 @@ target 'ClippingBezier' do
   # use_frameworks!
 
   # Pods for ClippingBezier
-  pod 'PerformanceBezier'
+  pod 'PerformanceBezier', '~> 1.0.2'
 
   target 'ClippingBezierTests' do
       
     #if the test project not build successfully, solution is add inherit! search_paths, pod install, then remove it, and pod install again, from the test target, like this:
     #reference:- https://stackoverflow.com/questions/37400929/cocoapods-testing-linker-error
       
-    #inherit! :search_paths
+    # inherit! :search_paths
     # Pods for testing
     
   end
