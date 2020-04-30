@@ -73,7 +73,7 @@ static NSInteger segmentCompareCount = 0;
  * this will return all intersections points between
  * the self path and the input closed path.
  */
--(NSArray*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside{
+-(NSArray<DKUIBezierPathIntersectionPoint*>*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside{
     
     // hold our bezier information for the curves we compare
     CGPoint bez1_[4];
@@ -115,7 +115,7 @@ static NSInteger segmentCompareCount = 0;
     __block CGPoint lastPath1Point = CGPointNotFound;
     // this array will hold all of the intersection data as we
     // find them
-    NSMutableArray* foundIntersections = [NSMutableArray array];
+    NSMutableArray<DKUIBezierPathIntersectionPoint*>* foundIntersections = [NSMutableArray array];
     
     
     __block CGPoint path1StartingPoint = path1.firstPoint;

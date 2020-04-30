@@ -23,7 +23,7 @@
 
 // shape clipping
 
--(NSArray*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;
+-(NSArray<DKUIBezierPathIntersectionPoint*>*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;
 
 -(NSArray<DKUIBezierPathShape*>*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
 
