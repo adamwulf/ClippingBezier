@@ -145,13 +145,8 @@ static CGFloat idealFlatness = .01;
                     // first, calculate the error rate for
                     // a line segement between the start/end points
                     // vs the curve
-                    
-                    
-                    CGPoint onCurve = [UIBezierPath bezierTangentAtT:bez t:.5];
-                    
-                    
+                    CGPoint onCurve = [UIBezierPath pointAtT:.5 forBezier:bez];
                     CGFloat error = [UIBezierPath distanceOfPointToLine:onCurve start:startPoint end:bez[2]];
-                    
                     
                     //
                     // if that error is less than our accepted
