@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name            = "ClippingBezier"
-  s.version         = "1.0.3"
+  s.version         = "1.0.4"
   s.summary         = "This library adds categories to UIBezierPath to simplify clipping a single closed UIBezierPath with another closed or unclosed UIBezierPath."
   s.author          = {
       'Adam Wulf' => 'adam.wulf@gmail.com',
