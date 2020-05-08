@@ -9,6 +9,11 @@
 #ifndef ClippingBezier_bezier_clipping_h
 #define ClippingBezier_bezier_clipping_h
 
+#include "interval.h"
+#include "point.h"
+#import <Foundation/Foundation.h>
+#include <vector>
+
 namespace Geom
 {
 typedef void clip_fnc_t(Interval &,
