@@ -1463,10 +1463,11 @@ static NSInteger segmentCompareCount = 0;
         NSMutableArray *result = [NSMutableArray array];
 
         for (DKUIBezierPathShape *shape in clippingResult) {
-            // any shape whose first segment is not reversed part of the intersection.
-            // this is because the first segment is a red segment, and non-reversed
-            // means its part of the original scissor path
-            if (containsRedSegment(shape)) {
+            BOOL containsRed = containsRedSegment(shape);
+            if (containsRed) {
+                // any shape whose first segment is not reversed part of the intersection.
+                // this is because the first segment is a red segment, and non-reversed
+                // means its part of the original scissor path
                 [result addObject:[shape fullPath]];
             }
         }

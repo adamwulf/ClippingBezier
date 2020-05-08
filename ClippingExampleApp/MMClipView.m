@@ -42,15 +42,21 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (_displayTypeControl.selectedSegmentIndex == 0) {
+    if (_displayTypeControl.selectedSegmentIndex != 1 && _displayTypeControl.selectedSegmentIndex != 4 && _displayTypeControl.selectedSegmentIndex != 5) {
         [[UIColor purpleColor] setStroke];
+        [[[UIColor purpleColor] colorWithAlphaComponent:.1] setFill];
         [shapePath1 setLineWidth:3];
+        [shapePath1 fill];
         [shapePath1 stroke];
 
         [[UIColor greenColor] setStroke];
+        [[[UIColor greenColor] colorWithAlphaComponent:.1] setFill];
         [shapePath2 setLineWidth:3];
+        [shapePath2 fill];
         [shapePath2 stroke];
+    }
 
+    if (_displayTypeControl.selectedSegmentIndex == 0) {
         NSArray *intersections = [shapePath1 findIntersectionsWithClosedPath:shapePath2 andBeginsInside:nil];
 
         for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
@@ -70,14 +76,6 @@
             [[shape fullPath] fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 2) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
-
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
-
         NSArray<UIBezierPath *> *intersection = [shapePath1 intersectionWithPath:shapePath2];
 
         for (UIBezierPath *path in intersection) {
@@ -85,14 +83,6 @@
             [path fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 3) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
-
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
-
         NSArray<UIBezierPath *> *intersection = [shapePath1 differenceWithPath:shapePath2];
 
         for (UIBezierPath *path in intersection) {
@@ -101,11 +91,15 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 4) {
         [[UIColor purpleColor] setStroke];
+        [[[UIColor purpleColor] colorWithAlphaComponent:.5] setFill];
         [shapePath1 setLineWidth:3];
+        [shapePath1 fill];
         [shapePath1 stroke];
     } else if (_displayTypeControl.selectedSegmentIndex == 5) {
         [[UIColor greenColor] setStroke];
+        [[[UIColor greenColor] colorWithAlphaComponent:.5] setFill];
         [shapePath2 setLineWidth:3];
+        [shapePath2 fill];
         [shapePath2 stroke];
     }
 }

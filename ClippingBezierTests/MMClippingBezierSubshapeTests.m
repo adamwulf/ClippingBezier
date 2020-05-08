@@ -2549,4 +2549,35 @@
     XCTAssertTrue([difference isEqualToBezierPath:calcDifference], @"shape is very small from the knot");
 }
 
+// This tests calculating the intersection/difference of a square that fully surrounds another square
+- (void)testIntersectionInsideRect
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(-50, -50, 200, 200)];
+
+    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
+
+    XCTAssertTrue([calcIntersection isEqualToBezierPath:path1]);
+
+    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2] firstObject];
+
+    XCTAssertTrue([calcDifference isEqualToBezierPath:[UIBezierPath bezierPath]]);
+
+    calcDifference = [[path2 differenceWithPath:path1] firstObject];
+    UIBezierPath *diff = [path2 copy];
+    [diff appendPath:[path1 bezierPathByReversingPath]];
+
+    XCTAssertTrue([calcDifference isEqualToBezierPath:diff]);
+}
+
+- (void)testIntersectionsWithComplexShapes
+{
+    UIBezierPath *complexShape = [UIBezierPath samplePath1];
+    UIBezierPath *scissorPath = [UIBezierPath samplePath2];
+
+    NSArray *intersections = [complexShape intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([intersections count], 10, @"found intersections");
+}
+
 @end
