@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MMClippingBezierAbstractTest.h"
+#import "UIBezierPath+SamplePaths.h"
 
 @interface MMClippingBezierGeometryTest : MMClippingBezierAbstractTest
 
@@ -31,7 +32,7 @@
 {
     // This is an example of a functional test case.
 
-    CGPoint p = [self.complexShape closestPointOnPathTo:CGPointZero];
+    CGPoint p = [[UIBezierPath samplePath1] closestPointOnPathTo:CGPointZero];
 
     XCTAssertEqual([self round:p.x to:6], 183.165312, @"point is correct");
     XCTAssertEqual([self round:p.y to:6], 146.622688, @"point is correct");

@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "MMClippingBezierAbstractTest.h"
+#import "UIBezierPath+SamplePaths.h"
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
@@ -69,7 +70,7 @@
 
     NSMutableArray *output = [NSMutableArray array];
 
-    [self.complexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+    [[UIBezierPath samplePath1] iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
         if (element.type == kCGPathElementCloseSubpath) {
             // noop
         } else {
@@ -95,7 +96,7 @@
     }];
 
 
-    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *intersections = [line findIntersectionsWithClosedPath:[UIBezierPath samplePath1] andBeginsInside:nil];
 
 
     XCTAssertEqual(found, 8, @"the curves do intersect");

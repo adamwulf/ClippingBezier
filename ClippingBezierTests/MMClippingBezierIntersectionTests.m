@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "MMClippingBezierAbstractTest.h"
+#import "UIBezierPath+SamplePaths.h"
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
@@ -100,7 +101,7 @@
 
     NSMutableArray *output = [NSMutableArray array];
 
-    [self.complexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+    [[UIBezierPath samplePath1] iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
         if (element.type == kCGPathElementCloseSubpath) {
             // noop
         } else {
@@ -125,8 +126,8 @@
         }
     }];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:[UIBezierPath samplePath1] andBeginsInside:nil];
+    NSArray *otherIntersections = [[UIBezierPath samplePath1] findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)8, @"the curves do intersect");
@@ -390,8 +391,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:[UIBezierPath samplePath1] andBeginsInside:nil];
+    NSArray *otherIntersections = [[UIBezierPath samplePath1] findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
@@ -448,8 +449,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:[UIBezierPath samplePath1] andBeginsInside:nil];
+    NSArray *otherIntersections = [[UIBezierPath samplePath1] findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)8, @"found intersections");
@@ -935,7 +936,7 @@
     [scissorPath moveToPoint:CGPointMake(200, 1000)];
     [scissorPath addLineToPoint:CGPointMake(450, 710)];
 
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
 
     NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
     NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
@@ -980,7 +981,7 @@
     [scissorPath addCurveToPoint:CGPointMake(370.28271, 814.02014) controlPoint1:CGPointMake(386.05728, 802.76263) controlPoint2:CGPointMake(378.29507, 808.56891)];
     [scissorPath closePath];
 
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
 
     NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
     NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
@@ -1148,7 +1149,7 @@
 
 - (void)testComplexShapeWithInternalTangentLine
 {
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
     UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(200, 301.7455)];
     [scissorPath addLineToPoint:CGPointMake(700, 301.7455)];

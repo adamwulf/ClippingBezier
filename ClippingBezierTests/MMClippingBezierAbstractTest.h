@@ -13,8 +13,6 @@
 
 @interface MMClippingBezierAbstractTest : XCTestCase
 
-@property(nonatomic, readonly) UIBezierPath *complexShape;
-
 - (CGFloat)round:(CGFloat)val to:(int)digits;
 
 - (BOOL)point:(CGPoint)p1 isNearTo:(CGPoint)p2;

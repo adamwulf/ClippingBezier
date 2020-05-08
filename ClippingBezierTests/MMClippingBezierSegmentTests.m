@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "MMClippingBezierAbstractTest.h"
+#import "UIBezierPath+SamplePaths.h"
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
@@ -278,7 +279,7 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
 
     XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
 
@@ -1052,7 +1053,7 @@
 {
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
     UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(200, 301.7455)];
     [scissorPath addLineToPoint:CGPointMake(700, 301.7455)];
@@ -1139,7 +1140,7 @@
     [scissorPath moveToPoint:CGPointMake(200, 1000)];
     [scissorPath addLineToPoint:CGPointMake(450, 710)];
 
-    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *shapePath = [UIBezierPath samplePath1];
 
     XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
 

@@ -86,6 +86,7 @@
 		66AFAD211A8DDDEF00FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */; };
 		66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5609FE62465E0C500AFFAC9 /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 /* End PBXBuildFile section */
 
@@ -700,6 +701,7 @@
 			files = (
 				666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */,
 				666EEC291A8D8F7500B9F171 /* MMClippingBezierAbstractTest.m in Sources */,
+				C5609FE62465E0C500AFFAC9 /* UIBezierPath+SamplePaths.m in Sources */,
 				666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */,
 				666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */,
 				666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */,
