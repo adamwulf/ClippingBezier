@@ -86,6 +86,7 @@
 		66AFAD211A8DDDEF00FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD1F1A8DDDEF00FD0263 /* PerformanceBezier.framework */; };
 		66AFAD261A8DDE9700FD0263 /* PerformanceBezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66AFAD241A8DDE9700FD0263 /* PerformanceBezier.framework */; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,6 +189,8 @@
 		C50DBB061E0B5C600006F58A /* scissor-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scissor-example.png"; sourceTree = "<group>"; };
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
+		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
+		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 			children = (
 				6605FA271B1159AC0092991F /* MMClipView.h */,
 				6605FA281B1159AC0092991F /* MMClipView.m */,
+				C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */,
+				C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */,
 				6605FA071B1159640092991F /* AppDelegate.h */,
 				6605FA081B1159640092991F /* AppDelegate.m */,
 				6605FA0A1B1159640092991F /* ViewController.h */,
@@ -681,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */,
 				6605FA291B1159AC0092991F /* MMClipView.m in Sources */,
 				6605FA0C1B1159640092991F /* ViewController.m in Sources */,
 				6605FA091B1159640092991F /* AppDelegate.m in Sources */,
