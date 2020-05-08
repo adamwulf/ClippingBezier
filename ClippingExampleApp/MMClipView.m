@@ -210,6 +210,14 @@
             [[MMClipView randomColor] setFill];
             [path fill];
         }
+    } else if (_displayTypeControl.selectedSegmentIndex == 4) {
+        [[UIColor purpleColor] setStroke];
+        [shapePath1 setLineWidth:3];
+        [shapePath1 stroke];
+    } else if (_displayTypeControl.selectedSegmentIndex == 5) {
+        [[UIColor greenColor] setStroke];
+        [shapePath2 setLineWidth:3];
+        [shapePath2 stroke];
     }
 }
 
