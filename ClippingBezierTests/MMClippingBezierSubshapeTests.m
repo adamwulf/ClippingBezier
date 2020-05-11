@@ -2570,6 +2570,17 @@
     XCTAssertTrue([calcDifference isEqualToBezierPath:diff]);
 }
 
+// This tests calculating the intersection/difference of a square that fully surrounds another square
+- (void)testIntersectionOverlappingRect
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 100, 100)];
+
+    NSArray *intersections = [path1 intersectionWithPath:path2];
+
+    XCTAssertEqual([intersections count], 1, @"found intersections");
+}
+
 - (void)testIntersectionsWithComplexShapes
 {
     UIBezierPath *complexShape = [UIBezierPath samplePath1];

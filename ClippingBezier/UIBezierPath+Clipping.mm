@@ -1469,6 +1469,16 @@ static NSInteger segmentCompareCount = 0;
                 // this is because the first segment is a red segment, and non-reversed
                 // means its part of the original scissor path
                 [result addObject:[shape fullPath]];
+            } else if (!containsRed && [scissors containsPoint:[[shape fullPath] firstPoint]] && intersection) {
+                [result addObject:[shape fullPath]];
+            } else if (!containsRed && [scissors containsPoint:[self firstPoint]] && !intersection) {
+                // empty result, the scissor has cut out the shape away entirely
+                [result addObject:[UIBezierPath bezierPath]];
+            } else if (!containsRed && [self containsPoint:[scissors firstPoint]] && !intersection) {
+                // the scissor cut a hole
+                UIBezierPath *ret = [self copy];
+                [ret appendPath:[scissors bezierPathByReversingPath]];
+                [result addObject:ret];
             }
         }
 
