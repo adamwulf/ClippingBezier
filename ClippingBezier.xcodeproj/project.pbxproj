@@ -85,6 +85,7 @@
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
 		DD26B78DFD8510CCBB10B4D2 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */; };
+		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,8 @@
 		DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezier-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.release.xcconfig"; sourceTree = "<group>"; };
 		FDF4BEF223EE094757130036 /* libPods-ClippingExampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingExampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
+		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +286,8 @@
 			children = (
 				6605FA271B1159AC0092991F /* MMClipView.h */,
 				6605FA281B1159AC0092991F /* MMClipView.m */,
+				C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */,
+				C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */,
 				6605FA071B1159640092991F /* AppDelegate.h */,
 				6605FA081B1159640092991F /* AppDelegate.m */,
 				6605FA0A1B1159640092991F /* ViewController.h */,
@@ -777,6 +782,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */,
 				6605FA291B1159AC0092991F /* MMClipView.m in Sources */,
 				6605FA0C1B1159640092991F /* ViewController.m in Sources */,
 				6605FA091B1159640092991F /* AppDelegate.m in Sources */,

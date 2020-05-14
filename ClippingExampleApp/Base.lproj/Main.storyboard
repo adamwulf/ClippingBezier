@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad12_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,12 +20,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JEO-2L-Z2s">
-                                <rect key="frame" x="257" y="28" width="511" height="29"/>
+                                <rect key="frame" x="209.5" y="8" width="605" height="32"/>
                                 <segments>
-                                    <segment title="Intersection Points"/>
+                                    <segment title="Intersections"/>
                                     <segment title="Cut Shapes"/>
                                     <segment title="Intersection"/>
                                     <segment title="Difference"/>
+                                    <segment title="Path 1"/>
+                                    <segment title="Path 2"/>
                                 </segments>
                                 <connections>
                                     <action selector="changedPreviewType:" destination="8bC-Xf-vdC" eventType="valueChanged" id="wk2-sg-kR5"/>
@@ -37,6 +37,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="JEO-2L-Z2s" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="7E3-hf-IWR"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="JEO-2L-Z2s" secondAttribute="trailing" constant="40" id="X5G-7d-jAh"/>
+                            <constraint firstItem="JEO-2L-Z2s" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="h4Y-8Z-YBK"/>
                             <constraint firstItem="JEO-2L-Z2s" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hbT-b8-2Is"/>
                         </constraints>
                         <connections>
@@ -46,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-11" y="105"/>
+            <point key="canvasLocation" x="-11.1328125" y="104.97803806734991"/>
         </scene>
     </scenes>
 </document>

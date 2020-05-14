@@ -32,6 +32,8 @@
 #include "NearestPoint.h"
 #include "bezier-clipping.h"
 
+using namespace Geom;
+
 #define kUIBezierClippingPrecision 0.0005
 #define kUIBezierClosenessPrecision 0.5
 
