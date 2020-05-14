@@ -11,21 +11,21 @@
 
 @class DKUIBezierPathClippedSegment, DKUIBezierPathShape;
 
-@interface DKUIBezierPathShape : NSObject{
-    NSMutableArray* segments;
-    NSMutableArray* holes;
+@interface DKUIBezierPathShape : NSObject {
+    NSMutableArray *segments;
+    NSMutableArray *holes;
 }
 
-@property (nonatomic, readonly) NSMutableArray<DKUIBezierPathClippedSegment*>* segments;
-@property (nonatomic, readonly) NSMutableArray<DKUIBezierPathShape*>* holes;
+@property(nonatomic, readonly) NSMutableArray<DKUIBezierPathClippedSegment *> *segments;
+@property(nonatomic, readonly) NSMutableArray<DKUIBezierPathShape *> *holes;
 
--(DKUIBezierPathIntersectionPoint*) startingPoint;
--(DKUIBezierPathIntersectionPoint*) endingPoint;
--(BOOL) isClosed;
--(UIBezierPath*) fullPath;
+- (DKUIBezierPathIntersectionPoint *)startingPoint;
+- (DKUIBezierPathIntersectionPoint *)endingPoint;
+- (BOOL)isClosed;
+- (UIBezierPath *)fullPath;
 
--(BOOL) isSameShapeAs:(DKUIBezierPathShape*)otherShape;
+- (BOOL)isSameShapeAs:(DKUIBezierPathShape *)otherShape;
 
--(BOOL) sharesSegmentWith:(DKUIBezierPathShape*)otherShape;
+- (BOOL)sharesSegmentWith:(DKUIBezierPathShape *)otherShape;
 
 @end

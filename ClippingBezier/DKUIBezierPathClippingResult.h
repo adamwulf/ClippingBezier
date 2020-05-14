@@ -20,17 +20,17 @@
  */
 @interface DKUIBezierPathClippingResult : NSObject
 
-@property (nonatomic, readonly) UIBezierPath* entireIntersectionPath;
-@property (nonatomic, readonly) UIBezierPath* entireDifferencePath;
-@property (nonatomic, readonly) NSArray* intersectionSegments;
-@property (nonatomic, readonly) NSArray* differenceSegments;
-@property (nonatomic, readonly) NSUInteger numberOfShellIntersectionSegments;
-@property (nonatomic, readonly) NSUInteger numberOfShellDifferenceSegments;
+@property(nonatomic, readonly) UIBezierPath *entireIntersectionPath;
+@property(nonatomic, readonly) UIBezierPath *entireDifferencePath;
+@property(nonatomic, readonly) NSArray *intersectionSegments;
+@property(nonatomic, readonly) NSArray *differenceSegments;
+@property(nonatomic, readonly) NSUInteger numberOfShellIntersectionSegments;
+@property(nonatomic, readonly) NSUInteger numberOfShellDifferenceSegments;
 
--(id) initWithIntersection:(UIBezierPath*)_intersection
-                andSegments:(NSArray*)_intersectionSegments
-             andDifference:(UIBezierPath*)_difference
-                andSegments:(NSArray*)_differenceSegments
+- (id)initWithIntersection:(UIBezierPath *)_intersection
+               andSegments:(NSArray *)_intersectionSegments
+             andDifference:(UIBezierPath *)_difference
+               andSegments:(NSArray *)_differenceSegments
        andShellIntSegments:(NSUInteger)_numberOfShellIntersectionSegments
       andShellDiffSegments:(NSUInteger)_numberOfShellDifferenceSegments;
 

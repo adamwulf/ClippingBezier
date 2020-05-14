@@ -10,24 +10,24 @@
 
 @interface UIBezierPath (Trimming)
 
--(void) appendPathRemovingInitialMoveToPoint:(UIBezierPath*)otherPath;
+- (void)appendPathRemovingInitialMoveToPoint:(UIBezierPath *)otherPath;
 
--(NSArray*) subPaths;
+- (NSArray *)subPaths;
 
--(NSInteger) countSubPaths;
+- (NSInteger)countSubPaths;
 
-- (NSInteger) subpathIndexForElement:(NSInteger) element;
+- (NSInteger)subpathIndexForElement:(NSInteger)element;
 
-- (CGFloat) length;
+- (CGFloat)length;
 
-- (CGFloat) tangentAtStart;
+- (CGFloat)tangentAtStart;
 
-- (CGFloat) tangentAtStartOfSubpath:(NSInteger)index;
+- (CGFloat)tangentAtStartOfSubpath:(NSInteger)index;
 
-- (UIBezierPath*) bezierPathByTrimmingFromLength:(CGFloat)trimLength;
+- (UIBezierPath *)bezierPathByTrimmingFromLength:(CGFloat)trimLength;
 
-- (UIBezierPath*) bezierPathByTrimmingToLength:(CGFloat)trimLength;
+- (UIBezierPath *)bezierPathByTrimmingToLength:(CGFloat)trimLength;
 
-- (UIBezierPath*) bezierPathByTrimmingToLength:(CGFloat)trimLength withMaximumError:(CGFloat)err;
+- (UIBezierPath *)bezierPathByTrimmingToLength:(CGFloat)trimLength withMaximumError:(CGFloat)err;
 
 @end

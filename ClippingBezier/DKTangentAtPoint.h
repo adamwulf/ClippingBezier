@@ -11,9 +11,9 @@
 
 @interface DKTangentAtPoint : NSObject
 
-@property (nonatomic, readonly) DKVector* tangent;
-@property (nonatomic, readonly) CGPoint point;
+@property(nonatomic, readonly) DKVector *tangent;
+@property(nonatomic, readonly) CGPoint point;
 
-+(DKTangentAtPoint*) tangent:(DKVector*)tangent atPoint:(CGPoint)point;
++ (DKTangentAtPoint *)tangent:(DKVector *)tangent atPoint:(CGPoint)point;
 
 @end

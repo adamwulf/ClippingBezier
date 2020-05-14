@@ -31,64 +31,64 @@
 
 - (void)testReverseLine
 {
-    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(100, 100)];
     [linePath addLineToPoint:CGPointMake(200, 300)];
-    
-    UIBezierPath* reversed = [UIBezierPath bezierPath];
+
+    UIBezierPath *reversed = [UIBezierPath bezierPath];
     [reversed moveToPoint:CGPointMake(200, 300)];
     [reversed addLineToPoint:CGPointMake(100, 100)];
-    
+
     XCTAssertTrue(CGPathEqualToPath(reversed.CGPath, [linePath bezierPathByReversingPath].CGPath), @"revesed path is correct");
 }
 
 - (void)testReverseQuadCurve
 {
-    UIBezierPath* curvePath = [UIBezierPath bezierPath];
+    UIBezierPath *curvePath = [UIBezierPath bezierPath];
     [curvePath moveToPoint:CGPointMake(100, 100)];
     [curvePath addQuadCurveToPoint:CGPointMake(200, 100) controlPoint:CGPointMake(150, 0)];
-    
-    UIBezierPath* reversed = [UIBezierPath bezierPath];
+
+    UIBezierPath *reversed = [UIBezierPath bezierPath];
     [reversed moveToPoint:CGPointMake(200, 100)];
     [reversed addQuadCurveToPoint:CGPointMake(100, 100) controlPoint:CGPointMake(150, 0)];
-    
+
     XCTAssertTrue(CGPathEqualToPath(reversed.CGPath, [curvePath bezierPathByReversingPath].CGPath), @"revesed path is correct");
 }
 
 - (void)testReverseCubicCurve
 {
-    UIBezierPath* curvePath = [UIBezierPath bezierPath];
+    UIBezierPath *curvePath = [UIBezierPath bezierPath];
     [curvePath moveToPoint:CGPointMake(100, 100)];
     [curvePath addCurveToPoint:CGPointMake(200, 100) controlPoint1:CGPointMake(100, 0) controlPoint2:CGPointMake(200, 0)];
-    
-    UIBezierPath* reversed = [UIBezierPath bezierPath];
+
+    UIBezierPath *reversed = [UIBezierPath bezierPath];
     [reversed moveToPoint:CGPointMake(200, 100)];
     [reversed addCurveToPoint:CGPointMake(100, 100) controlPoint1:CGPointMake(200, 0) controlPoint2:CGPointMake(100, 0)];
-    
+
     XCTAssertTrue(CGPathEqualToPath(reversed.CGPath, [curvePath bezierPathByReversingPath].CGPath), @"revesed path is correct");
 }
 
 - (void)testReverseClosedPath
 {
-    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(100, 100)];
     [linePath addLineToPoint:CGPointMake(200, 300)];
     [linePath addLineToPoint:CGPointMake(200, 500)];
     [linePath closePath];
-    
-    UIBezierPath* reversed = [UIBezierPath bezierPath];
+
+    UIBezierPath *reversed = [UIBezierPath bezierPath];
     [reversed moveToPoint:CGPointMake(200, 500)];
     [reversed addLineToPoint:CGPointMake(200, 300)];
     [reversed addLineToPoint:CGPointMake(100, 100)];
     [reversed closePath];
-    
+
     XCTAssertTrue(CGPathEqualToPath(reversed.CGPath, [linePath bezierPathByReversingPath].CGPath), @"revesed path is correct");
 }
 
 
 - (void)testReverseIncludingSubpaths
 {
-    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    UIBezierPath *linePath = [UIBezierPath bezierPath];
     [linePath moveToPoint:CGPointMake(100, 100)];
     [linePath addLineToPoint:CGPointMake(200, 300)];
     [linePath addLineToPoint:CGPointMake(200, 500)];
@@ -97,8 +97,8 @@
     [linePath addLineToPoint:CGPointMake(600, 300)];
     [linePath addLineToPoint:CGPointMake(600, 500)];
     [linePath closePath];
-    
-    UIBezierPath* reversed = [UIBezierPath bezierPath];
+
+    UIBezierPath *reversed = [UIBezierPath bezierPath];
     [reversed moveToPoint:CGPointMake(200, 500)];
     [reversed addLineToPoint:CGPointMake(200, 300)];
     [reversed addLineToPoint:CGPointMake(100, 100)];
@@ -107,7 +107,7 @@
     [reversed addLineToPoint:CGPointMake(600, 300)];
     [reversed addLineToPoint:CGPointMake(500, 100)];
     [reversed closePath];
-    
+
     XCTAssertTrue(CGPathEqualToPath(reversed.CGPath, [linePath bezierPathByReversingPath].CGPath), @"revesed path is correct");
 }
 

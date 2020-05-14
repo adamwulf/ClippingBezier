@@ -35,24 +35,30 @@
 #include <cmath>
 #include <limits>
 
-namespace Geom {
-    
-    /**
+namespace Geom
+{
+/**
      * A "real" type with sufficient precision for coordinates.
      *
      * You may safely assume that double (or even float) provides enough precision for storing
      * on-canvas points, and hence that double provides enough precision for dot products of
      * differences of on-canvas points.
      */
-    typedef double Coord;
-    
-    const Coord EPSILON = 1e-5; //1e-18;
-    
-    inline Coord infinity() {  return std::numeric_limits<Coord>::infinity();  }
-    
-    //IMPL: NearConcept
-    inline bool are_near(Coord a, Coord b, double eps=EPSILON) { return fabs(a-b) <= eps; }
-    
+typedef double Coord;
+
+const Coord EPSILON = 1e-5; //1e-18;
+
+inline Coord infinity()
+{
+    return std::numeric_limits<Coord>::infinity();
+}
+
+//IMPL: NearConcept
+inline bool are_near(Coord a, Coord b, double eps = EPSILON)
+{
+    return fabs(a - b) <= eps;
+}
+
 } /* namespace Geom */
 
 

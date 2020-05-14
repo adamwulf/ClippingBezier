@@ -10,6 +10,6 @@
 
 @interface DKUIBezierUnmatchedPathIntersectionPoint : DKUIBezierPathIntersectionPoint
 
-@property (readonly) NSUInteger uniqueUnmatchedIntersectionId;
+@property(readonly) NSUInteger uniqueUnmatchedIntersectionId;
 
 @end

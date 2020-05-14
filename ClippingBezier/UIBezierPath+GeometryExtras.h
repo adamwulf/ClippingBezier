@@ -10,12 +10,12 @@
 
 @interface UIBezierPath (GeometryExtras)
 
--(CGPoint) closestPointOnPathTo:(CGPoint)point;
+- (CGPoint)closestPointOnPathTo:(CGPoint)point;
 
--(UIBezierPath*) bezierPathByTrimmingFromClosestPointOnPathFrom:(CGPoint)pointNearTheCurve to:(CGPoint)toPoint;
+- (UIBezierPath *)bezierPathByTrimmingFromClosestPointOnPathFrom:(CGPoint)pointNearTheCurve to:(CGPoint)toPoint;
 
--(BOOL) containsDuplicateAndReversedSubpaths;
+- (BOOL)containsDuplicateAndReversedSubpaths;
 
-- (CGPoint) pointOnPathAtElement:(NSInteger)elementIndex andTValue:(CGFloat)tVal;
+- (CGPoint)pointOnPathAtElement:(NSInteger)elementIndex andTValue:(CGFloat)tVal;
 
 @end

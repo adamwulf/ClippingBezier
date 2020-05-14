@@ -11,40 +11,40 @@
 
 @interface DKVector : NSObject
 
-@property (nonatomic) CGFloat x;
-@property (nonatomic) CGFloat y;
+@property(nonatomic) CGFloat x;
+@property(nonatomic) CGFloat y;
 
-+(instancetype) vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
++ (instancetype)vectorWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
 
-+(instancetype) vectorWithX:(CGFloat)x andY:(CGFloat)y;
++ (instancetype)vectorWithX:(CGFloat)x andY:(CGFloat)y;
 
-+(instancetype) vectorWithAngle:(CGFloat)angle;
++ (instancetype)vectorWithAngle:(CGFloat)angle;
 
--(instancetype) initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
+- (instancetype)initWithPoint:(CGPoint)p1 andPoint:(CGPoint)p2;
 
--(instancetype) initWithX:(CGFloat)x andY:(CGFloat)y;
+- (instancetype)initWithX:(CGFloat)x andY:(CGFloat)y;
 
--(DKVector*) normal;
+- (DKVector *)normal;
 
--(DKVector*) perpendicular;
+- (DKVector *)perpendicular;
 
--(DKVector*) flip;
+- (DKVector *)flip;
 
--(CGFloat) magnitude;
+- (CGFloat)magnitude;
 
--(CGFloat) angle;
+- (CGFloat)angle;
 
--(CGPoint) pointFromPoint:(CGPoint)point distance:(CGFloat)distance;
+- (CGPoint)pointFromPoint:(CGPoint)point distance:(CGFloat)distance;
 
--(DKVector*) averageWith:(DKVector*)vector;
+- (DKVector *)averageWith:(DKVector *)vector;
 
--(DKVector*) rotateBy:(CGFloat)angle;
+- (DKVector *)rotateBy:(CGFloat)angle;
 
--(DKVector*) mirrorAround:(DKVector*)normal;
+- (DKVector *)mirrorAround:(DKVector *)normal;
 
--(CGPoint) mirrorPoint:(CGPoint)point aroundPoint:(CGPoint)startPoint;
+- (CGPoint)mirrorPoint:(CGPoint)point aroundPoint:(CGPoint)startPoint;
 
--(CGFloat) angleBetween:(DKVector*)otherVector;
+- (CGFloat)angleBetween:(DKVector *)otherVector;
 
--(CGPoint) asCGPoint;
+- (CGPoint)asCGPoint;
 @end

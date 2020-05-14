@@ -18,45 +18,47 @@
  * ios 6+ reverse bezier paths by reversing each subpath in order
  * so we're going to mimic that here
  */
--(UIBezierPath*) nsosx_backwardcompatible_bezierPathByReversingPath{
-    UIBezierPath* output = [UIBezierPath bezierPath];
-    for(UIBezierPath* subPath in [self subPaths]){
+- (UIBezierPath *)nsosx_backwardcompatible_bezierPathByReversingPath
+{
+    UIBezierPath *output = [UIBezierPath bezierPath];
+    for (UIBezierPath *subPath in [self subPaths]) {
         [output appendPath:[subPath nsosx_backwardcompatible_bezierPathByReversingPath_helper]];
     }
     return output;
 }
 
--(UIBezierPath*) nsosx_backwardcompatible_bezierPathByReversingPath_helper{
-    
-    int eleCount = (int) [self elementCount];
-    UIBezierPath* output = [UIBezierPath bezierPath];
+- (UIBezierPath *)nsosx_backwardcompatible_bezierPathByReversingPath_helper
+{
+    int eleCount = (int)[self elementCount];
+    UIBezierPath *output = [UIBezierPath bezierPath];
     [output moveToPoint:[self lastPoint]];
-    
-    for(int i = eleCount-1; i>=1;i--){
+
+    for (int i = eleCount - 1; i >= 1; i--) {
         CGPathElement element = [self elementAtIndex:i];
-        CGPathElement prevElement = [self elementAtIndex:i-1];
-        
-        if(element.type == kCGPathElementMoveToPoint){
+        CGPathElement prevElement = [self elementAtIndex:i - 1];
+
+        if (element.type == kCGPathElementMoveToPoint) {
             [output moveToPoint:[UIBezierPath endPointForPathElement:prevElement]];
-        }else if(element.type == kCGPathElementAddLineToPoint){
+        } else if (element.type == kCGPathElementAddLineToPoint) {
             [output addLineToPoint:[UIBezierPath endPointForPathElement:prevElement]];
-        }else if(element.type == kCGPathElementAddCurveToPoint){
+        } else if (element.type == kCGPathElementAddCurveToPoint) {
             [output addCurveToPoint:[UIBezierPath endPointForPathElement:prevElement]
                       controlPoint1:element.points[1]
                       controlPoint2:element.points[0]];
-        }else if(element.type == kCGPathElementAddQuadCurveToPoint){
+        } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
             [output addQuadCurveToPoint:[UIBezierPath endPointForPathElement:prevElement] controlPoint:element.points[0]];
-        }else if(element.type == kCGPathElementCloseSubpath){
+        } else if (element.type == kCGPathElementCloseSubpath) {
             [output moveToPoint:[UIBezierPath endPointForPathElement:prevElement]];
         }
     }
-    if([self isClosed]){
+    if ([self isClosed]) {
         [output closePath];
     }
     return output;
 }
 
-+(void)load{
++ (void)load
+{
     @autoreleasepool {
         NSError *error = nil;
 

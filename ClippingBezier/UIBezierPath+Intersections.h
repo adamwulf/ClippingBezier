@@ -12,21 +12,21 @@
 @interface UIBezierPath (Intersections)
 
 // boolean operations for an unclosed path on a closed path
-- (NSArray*) pathsFromSelfIntersections;
--(void) addPathElement:(CGPathElement)element;
+- (NSArray *)pathsFromSelfIntersections;
+- (void)addPathElement:(CGPathElement)element;
 
-+(CGPoint) endPointForPathElement:(CGPathElement)element;
++ (CGPoint)endPointForPathElement:(CGPathElement)element;
 
 
-+(DKIntersectionOfPaths*) firstIntersectionBetween:(UIBezierPath*)myFlatPath
-                                           andPath:(UIBezierPath*)otherFlatPath;
++ (DKIntersectionOfPaths *)firstIntersectionBetween:(UIBezierPath *)myFlatPath
+                                            andPath:(UIBezierPath *)otherFlatPath;
 
-+(NSArray*) calculateIntersectionAndDifferenceBetween:(UIBezierPath*)myUnclosedPath
-                                              andPath:(UIBezierPath*)otherClosedPath;
++ (NSArray *)calculateIntersectionAndDifferenceBetween:(UIBezierPath *)myUnclosedPath
+                                               andPath:(UIBezierPath *)otherClosedPath;
 
-+(CGRect) boundsForElement:(CGPathElement)element withStartPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartingPoint;
++ (CGRect)boundsForElement:(CGPathElement)element withStartPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartingPoint;
 
-+(CGPoint) intersects2D:(CGPoint)p1 to:(CGPoint)p2 andLine:(CGPoint)p3 to:(CGPoint)p4;
++ (CGPoint)intersects2D:(CGPoint)p1 to:(CGPoint)p2 andLine:(CGPoint)p3 to:(CGPoint)p4;
 
 
 @end
