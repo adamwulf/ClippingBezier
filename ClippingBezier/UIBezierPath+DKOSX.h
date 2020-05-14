@@ -10,7 +10,7 @@
 
 @interface UIBezierPath (DKOSX)
 
--(UIBezierPath*) nsosx_backwardcompatible_bezierPathByReversingPath;
+- (UIBezierPath *)nsosx_backwardcompatible_bezierPathByReversingPath;
 
 
 @end

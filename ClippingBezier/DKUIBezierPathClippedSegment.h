@@ -20,35 +20,35 @@
  */
 @interface DKUIBezierPathClippedSegment : NSObject
 
-@property (nonatomic, readonly) DKUIBezierPathIntersectionPoint* startIntersection;
-@property (nonatomic, readonly) DKUIBezierPathIntersectionPoint* endIntersection;
-@property (nonatomic, readonly) UIBezierPath* pathSegment;
-@property (nonatomic, readonly) UIBezierPath* fullPath;
-@property (nonatomic, readonly) BOOL isReversed;
-@property (nonatomic, readonly) DKUIBezierPathClippedSegment* reversedSegment;
+@property(nonatomic, readonly) DKUIBezierPathIntersectionPoint *startIntersection;
+@property(nonatomic, readonly) DKUIBezierPathIntersectionPoint *endIntersection;
+@property(nonatomic, readonly) UIBezierPath *pathSegment;
+@property(nonatomic, readonly) UIBezierPath *fullPath;
+@property(nonatomic, readonly) BOOL isReversed;
+@property(nonatomic, readonly) DKUIBezierPathClippedSegment *reversedSegment;
 
-+(DKUIBezierPathClippedSegment*) clippedPairWithStart:(DKUIBezierPathIntersectionPoint *)_tStart
-                                               andEnd:(DKUIBezierPathIntersectionPoint *)_tEnd
-                                       andPathSegment:(UIBezierPath *)segment
-                                         fromFullPath:(UIBezierPath*)_fullPath;
++ (DKUIBezierPathClippedSegment *)clippedPairWithStart:(DKUIBezierPathIntersectionPoint *)_tStart
+                                                andEnd:(DKUIBezierPathIntersectionPoint *)_tEnd
+                                        andPathSegment:(UIBezierPath *)segment
+                                          fromFullPath:(UIBezierPath *)_fullPath;
 
 //
 // returns YES if the input segment could connect to the
 // end of this segment
--(BOOL) canBePrependedTo:(DKUIBezierPathClippedSegment*)otherPath;
+- (BOOL)canBePrependedTo:(DKUIBezierPathClippedSegment *)otherPath;
 
--(DKUIBezierPathClippedSegment*) prependTo:(DKUIBezierPathClippedSegment*)otherSegment;
+- (DKUIBezierPathClippedSegment *)prependTo:(DKUIBezierPathClippedSegment *)otherSegment;
 
--(DKUIBezierPathClippedSegment*) reversedSegment;
+- (DKUIBezierPathClippedSegment *)reversedSegment;
 
--(DKUIBezierPathClippedSegment*) flippedRedBlueSegment;
+- (DKUIBezierPathClippedSegment *)flippedRedBlueSegment;
 
--(CGFloat) angleBetween:(DKUIBezierPathClippedSegment*)otherInter;
+- (CGFloat)angleBetween:(DKUIBezierPathClippedSegment *)otherInter;
 
--(DKVector*) endVector;
+- (DKVector *)endVector;
 
--(DKVector*) startVector;
+- (DKVector *)startVector;
 
--(BOOL) isEqualToSegment:(DKUIBezierPathClippedSegment*)otherSegment;
+- (BOOL)isEqualToSegment:(DKUIBezierPathClippedSegment *)otherSegment;
 
 @end

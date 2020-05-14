@@ -12,23 +12,23 @@
 
 // for tests
 
-+(NSArray*) redAndBlueSegmentsForShapeBuildingCreatedFrom:(UIBezierPath*)shapePath bySlicingWithPath:(UIBezierPath*)scissorPath andNumberOfBlueShellSegments:(NSUInteger*)numberOfBlueShellSegments;
++ (NSArray *)redAndBlueSegmentsForShapeBuildingCreatedFrom:(UIBezierPath *)shapePath bySlicingWithPath:(UIBezierPath *)scissorPath andNumberOfBlueShellSegments:(NSUInteger *)numberOfBlueShellSegments;
 
--(DKUIBezierPathClippingResult*) clipUnclosedPathToClosedPath:(UIBezierPath*)closedPath usingIntersectionPoints:(NSArray*)intersectionPoints andBeginsInside:(BOOL)beginsInside;
+- (DKUIBezierPathClippingResult *)clipUnclosedPathToClosedPath:(UIBezierPath *)closedPath usingIntersectionPoints:(NSArray *)intersectionPoints andBeginsInside:(BOOL)beginsInside;
 
-+(CGFloat) maxDistForEndPointTangents;
++ (CGFloat)maxDistForEndPointTangents;
 
-+(NSArray*) findIntersectionsBetweenBezier:(CGPoint[4])bez1 andBezier:(CGPoint[4])bez2;
++ (NSArray *)findIntersectionsBetweenBezier:(CGPoint[4])bez1 andBezier:(CGPoint[4])bez2;
 
--(NSArray*) shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
+- (NSArray *)shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath *)scissorPath;
 
--(NSArray*) uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
+- (NSArray *)uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath *)scissorPath;
 
 
-+(CGPoint) fillCGPoints:(CGPoint*)bez withElement:(CGPathElement)element givenElementStartingPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartPoint;
++ (CGPoint)fillCGPoints:(CGPoint *)bez withElement:(CGPathElement)element givenElementStartingPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartPoint;
 
 #pragma mark - Bezier functions from git@github.com:erich666/GraphicsGems.git
 
-CGPoint NearestPointOnCurve(CGPoint P, CGPoint* V, double* t);
+CGPoint NearestPointOnCurve(CGPoint P, CGPoint *V, double *t);
 
 @end

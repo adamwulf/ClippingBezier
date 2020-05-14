@@ -10,8 +10,8 @@
 
 @interface NSObject (MMBackwardCompatible)
 
-+ (BOOL)mm_defineMethod:(SEL)origSel withMethod:(SEL)altSel error:(NSError**)error;
++ (BOOL)mm_defineMethod:(SEL)origSel withMethod:(SEL)altSel error:(NSError **)error;
 
-+ (BOOL)mm_defineOrSwizzleMethod:(SEL)origSel withMethod:(SEL)altSel error:(NSError**)error;
++ (BOOL)mm_defineOrSwizzleMethod:(SEL)origSel withMethod:(SEL)altSel error:(NSError **)error;
 
 @end

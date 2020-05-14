@@ -10,10 +10,10 @@
 
 @interface DKIntersectionOfPaths : NSObject
 
-@property (assign) BOOL doesIntersect;
-@property (assign) int elementNumberOfIntersection;
-@property (assign) float tValueOfIntersection;
-@property (assign) __unsafe_unretained UIBezierPath* start;
-@property (assign) __unsafe_unretained UIBezierPath* end;
+@property(assign) BOOL doesIntersect;
+@property(assign) int elementNumberOfIntersection;
+@property(assign) float tValueOfIntersection;
+@property(assign) __unsafe_unretained UIBezierPath *start;
+@property(assign) __unsafe_unretained UIBezierPath *end;
 
 @end

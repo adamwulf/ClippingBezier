@@ -20,14 +20,13 @@
 #include <math.h>
 
 
-
 @interface UIBezierPath (Ahmed)
 
-@property(nonatomic,readonly) UIBezierPath* bezierPathByFlatteningPath;
+@property(nonatomic, readonly) UIBezierPath *bezierPathByFlatteningPath;
 
-@property(nonatomic,assign) BOOL isFlat;
+@property(nonatomic, assign) BOOL isFlat;
 
--(UIBezierPath*) bezierPathByFlatteningPath;
--(UIBezierPath*) bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy;
+- (UIBezierPath *)bezierPathByFlatteningPath;
+- (UIBezierPath *)bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy;
 
 @end

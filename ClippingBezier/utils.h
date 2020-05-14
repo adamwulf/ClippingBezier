@@ -36,31 +36,52 @@
 #include <cmath>
 #include <vector>
 
-namespace Geom {
-
+namespace Geom
+{
 // proper logical xor
-inline bool logical_xor (bool a, bool b) { return (a || b) && !(a && b); }
+inline bool logical_xor(bool a, bool b)
+{
+    return (a || b) && !(a && b);
+}
 
 /** Sign function - indicates the sign of a numeric type.  -1 indicates negative, 1 indicates
  *  positive, and 0 indicates, well, 0.  Mathsy people will know this is basically the derivative
  *  of abs, except for the fact that it is defined on 0.
  */
-template <class T> inline int sgn(const T& x) {return (x < 0 ? -1 : (x > 0 ? 1 : 0) );}
+template <class T>
+inline int sgn(const T &x)
+{
+    return (x < 0 ? -1 : (x > 0 ? 1 : 0));
+}
 
-template <class T> inline T sqr(const T& x) {return x * x;}
-template <class T> inline T cube(const T& x) {return x * x * x;}
+template <class T>
+inline T sqr(const T &x)
+{
+    return x * x;
+}
+template <class T>
+inline T cube(const T &x)
+{
+    return x * x * x;
+}
 
 /** Between function - returns true if a number x is within a range. The values delimiting the
  *  range and the number must have the same type.
  */
-template <class T> inline const T& between (const T& min, const T& max, const T& x)
-    { return min < x && max > x; }
+template <class T>
+inline const T &between(const T &min, const T &max, const T &x)
+{
+    return min < x && max > x;
+}
 
 /** Returns x rounded to the nearest integer.  It is unspecified what happens
  *  if x is half way between two integers: we may in future use rint/round
  *  on platforms that have them.
  */
-inline double round(double const x) { return std::floor(x + .5); }
+inline double round(double const x)
+{
+    return std::floor(x + .5);
+}
 
 /** Returns x rounded to the nearest \a places decimal places.
 
@@ -73,15 +94,15 @@ inline double round(double const x) { return std::floor(x + .5); }
 
     places may be negative: e.g. places = -2 means rounding to a multiple of .01
 **/
-inline double decimal_round(double const x, int const places) {
+inline double decimal_round(double const x, int const places)
+{
     //TODO: possibly implement with modulus instead?
     double const multiplier = std::pow(10.0, places);
-    return round( x * multiplier ) / multiplier;
+    return round(x * multiplier) / multiplier;
 }
 
 
-void binomial_coefficients(std::vector<size_t>& bc, size_t n);
-
+void binomial_coefficients(std::vector<size_t> &bc, size_t n);
 }
 
 #endif

@@ -17,39 +17,39 @@
 @interface UIBezierPath (MMClipping)
 
 // boolean operations
--(NSArray<UIBezierPath *>*)intersectionWithPath:(UIBezierPath*)path;
+- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)path;
 
--(NSArray<UIBezierPath *>*)differenceWithPath:(UIBezierPath*)path;
+- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path;
 
 // shape clipping
 
--(NSArray<DKUIBezierPathIntersectionPoint*>*) findIntersectionsWithClosedPath:(UIBezierPath*)closedPath andBeginsInside:(BOOL*)beginsInside;
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside;
 
--(NSArray<DKUIBezierPathShape*>*) uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath*)scissorPath;
+- (NSArray<DKUIBezierPathShape *> *)uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath *)scissorPath;
 
-+(NSArray*) redAndGreenAndBlueSegmentsCreatedFrom:(UIBezierPath*)shapePath bySlicingWithPath:(UIBezierPath*)scissorPath andNumberOfBlueShellSegments:(NSUInteger*)numberOfBlueShellSegments;
++ (NSArray *)redAndGreenAndBlueSegmentsCreatedFrom:(UIBezierPath *)shapePath bySlicingWithPath:(UIBezierPath *)scissorPath andNumberOfBlueShellSegments:(NSUInteger *)numberOfBlueShellSegments;
 
-+(DKUIBezierPathClippedSegment*) getBestMatchSegmentForSegments:(NSArray*)shapeSegments
-                                                         forRed:(NSArray*)redSegments
-                                                        andBlue:(NSArray*)blueSegments
-                                                     lastWasRed:(BOOL)lastWasRed
-                                                           comp:(BOOL)gt;
++ (DKUIBezierPathClippedSegment *)getBestMatchSegmentForSegments:(NSArray *)shapeSegments
+                                                          forRed:(NSArray *)redSegments
+                                                         andBlue:(NSArray *)blueSegments
+                                                      lastWasRed:(BOOL)lastWasRed
+                                                            comp:(BOOL)gt;
 
--(DKTangentAtPoint*) tangentNearEnd;
+- (DKTangentAtPoint *)tangentNearEnd;
 
--(DKTangentAtPoint*) tangentNearStart;
+- (DKTangentAtPoint *)tangentNearStart;
 
--(UIBezierPath*) differenceOfPathTo:(UIBezierPath*)shapePath;
+- (UIBezierPath *)differenceOfPathTo:(UIBezierPath *)shapePath;
 
 #pragma mark - Segment Comparison
 
-+(void) resetSegmentTestCount;
++ (void)resetSegmentTestCount;
 
-+(NSInteger) segmentTestCount;
++ (NSInteger)segmentTestCount;
 
-+(void) resetSegmentCompareCount;
++ (void)resetSegmentCompareCount;
 
-+(NSInteger) segmentCompareCount;
++ (NSInteger)segmentCompareCount;
 
 
 @end

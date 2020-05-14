@@ -30,85 +30,87 @@
     [super tearDown];
 }
 
--(void) testIntersectionOfHorizontalPath{
-    
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+- (void)testIntersectionOfHorizontalPath
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(0, 50)];
     [scissorPath addLineToPoint:CGPointMake(200, 50)];
-    
+
     // this square starts halfway through the left side,
     // where it intersections with the line
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(50, 50)];
     [shapePath addLineToPoint:CGPointMake(50, 0)];
     [shapePath addLineToPoint:CGPointMake(150, 0)];
     [shapePath addLineToPoint:CGPointMake(150, 150)];
     [shapePath addLineToPoint:CGPointMake(50, 150)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
 
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testNonIntersectingPaths{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+- (void)testNonIntersectingPaths
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(0, 500)];
     [scissorPath addLineToPoint:CGPointMake(2000, 500)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(50, 50)];
     [shapePath addLineToPoint:CGPointMake(50, 0)];
     [shapePath addLineToPoint:CGPointMake(150, 0)];
     [shapePath addLineToPoint:CGPointMake(150, 150)];
     [shapePath addLineToPoint:CGPointMake(50, 150)];
     [shapePath closePath];
-    
+
     UIBezierPath *secondPath = [shapePath copy];
     [secondPath applyTransform:CGAffineTransformMakeTranslation(200, 0)];
     [shapePath appendPath:secondPath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testCircleThroughRectangleFirstSegmentTangent{
+- (void)testCircleThroughRectangleFirstSegmentTangent
+{
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
 
@@ -116,30 +118,31 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testSquaredCircleIntersections{
+- (void)testSquaredCircleIntersections
+{
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)8, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
@@ -148,100 +151,104 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:6] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:7] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)5, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testRectangleScissorsThroughCircleShape{
+- (void)testRectangleScissorsThroughCircleShape
+{
     // here, the scissor is a square that contains a circle shape
     // the square wraps around the outside of the circle
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 250, 400, 100)];
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 250, 400, 100)];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testClippingVerticalOvalThroughHorizontalRectangle{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+- (void)testClippingVerticalOvalThroughHorizontalRectangle
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testClippingVerticalOvalThroughReversedHorizontalRectangle{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
-    UIBezierPath* shapePath = [[UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)] bezierPathByReversingPath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+- (void)testClippingVerticalOvalThroughReversedHorizontalRectangle
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
+    UIBezierPath *shapePath = [[UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)] bezierPathByReversingPath];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
 //
 // https://github.com/adamwulf/loose-leaf/issues/296
 // the scissor begins slicing at its begin/end point
--(void) testRectangleThatSlicesThroughRectangleAtEndpoint{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+- (void)testRectangleThatSlicesThroughRectangleAtEndpoint
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(200, 300)];
     [scissorPath addLineToPoint:CGPointMake(600, 300)];
     [scissorPath addLineToPoint:CGPointMake(600, 800)];
@@ -249,419 +256,429 @@
     [scissorPath addLineToPoint:CGPointMake(100, 300)];
     [scissorPath addLineToPoint:CGPointMake(200, 300)];
     [scissorPath closePath];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(200, 250)];
     [shapePath addLineToPoint:CGPointMake(380, 250)];
     [shapePath addLineToPoint:CGPointMake(380, 350)];
     [shapePath addLineToPoint:CGPointMake(200, 350)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testStraightLineThroughNotchedRectangle{
+- (void)testStraightLineThroughNotchedRectangle
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection
-    [shapePath addLineToPoint:CGPointMake(200,200)];
-    [shapePath addLineToPoint:CGPointMake(250,350)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(250, 350)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
     // second vertical V through intersection
-    [shapePath addLineToPoint:CGPointMake(500,400)];
-    [shapePath addLineToPoint:CGPointMake(450,250)];
-    [shapePath addLineToPoint:CGPointMake(400,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(500, 400)];
+    [shapePath addLineToPoint:CGPointMake(450, 250)];
+    [shapePath addLineToPoint:CGPointMake(400, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTangentThroughNotchedRectangle{
+- (void)testTangentThroughNotchedRectangle
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection
-    [shapePath addLineToPoint:CGPointMake(200,200)];
-    [shapePath addLineToPoint:CGPointMake(250,300)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(250, 300)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
     // second vertical V through intersection
-    [shapePath addLineToPoint:CGPointMake(500,400)];
-    [shapePath addLineToPoint:CGPointMake(450,300)];
-    [shapePath addLineToPoint:CGPointMake(400,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(500, 400)];
+    [shapePath addLineToPoint:CGPointMake(450, 300)];
+    [shapePath addLineToPoint:CGPointMake(400, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)3, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTangentAcrossNotchedRectangle{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,200)];
-    [scissorPath addLineToPoint:CGPointMake(600,200)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+- (void)testTangentAcrossNotchedRectangle
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 200)];
+    [scissorPath addLineToPoint:CGPointMake(600, 200)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection
-    [shapePath addLineToPoint:CGPointMake(200,200)];
-    [shapePath addLineToPoint:CGPointMake(250,300)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(250, 300)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
     // second vertical V through intersection
-    [shapePath addLineToPoint:CGPointMake(500,400)];
-    [shapePath addLineToPoint:CGPointMake(450,300)];
-    [shapePath addLineToPoint:CGPointMake(400,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(500, 400)];
+    [shapePath addLineToPoint:CGPointMake(450, 300)];
+    [shapePath addLineToPoint:CGPointMake(400, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     // two red segments * 2 for 4 shapes.
     // two blue segments tangent to the red, for 2 more shapes
     // so 6 total.
     // but because they're tangents, 2 of the 3 segments per tangent
     // are removed, leaving just 1 segment per tangent.
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)1, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTangentAcrossNotchedRectangleWithTangentPoint{
+- (void)testTangentAcrossNotchedRectangleWithTangentPoint
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,200)];
-    [scissorPath addLineToPoint:CGPointMake(600,200)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 200)];
+    [scissorPath addLineToPoint:CGPointMake(600, 200)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection, creates point tangent
-    [shapePath addLineToPoint:CGPointMake(250,300)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(250, 300)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
     // second vertical V through intersection
-    [shapePath addLineToPoint:CGPointMake(500,400)];
-    [shapePath addLineToPoint:CGPointMake(450,300)];
-    [shapePath addLineToPoint:CGPointMake(400,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(500, 400)];
+    [shapePath addLineToPoint:CGPointMake(450, 300)];
+    [shapePath addLineToPoint:CGPointMake(400, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     // three shapes because 2 from the 1 red segment (forward and reversed),
     // and 1 from the blue segment that's tangent to the red segment and was unused
     // then, since all segments are tangent, 2 of the 3 are filtered out
     // so only 1 of them creates a shape
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)1, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLineThroughOval{
+- (void)testLineThroughOval
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,300)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 300)];
     [shapePath addCurveToPoint:CGPointMake(450, 300) controlPoint1:CGPointMake(150, 200) controlPoint2:CGPointMake(450, 200)];
     [shapePath addCurveToPoint:CGPointMake(150, 300) controlPoint1:CGPointMake(450, 400) controlPoint2:CGPointMake(150, 400)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLineThroughOffsetOval{
+- (void)testLineThroughOffsetOval
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,310)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 310)];
     [shapePath addCurveToPoint:CGPointMake(450, 310) controlPoint1:CGPointMake(150, 210) controlPoint2:CGPointMake(450, 210)];
     [shapePath addCurveToPoint:CGPointMake(150, 310) controlPoint1:CGPointMake(450, 410) controlPoint2:CGPointMake(150, 410)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testStraightLineThroughSingleNotchedRectangle{
+- (void)testStraightLineThroughSingleNotchedRectangle
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection
-    [shapePath addLineToPoint:CGPointMake(200,200)];
-    [shapePath addLineToPoint:CGPointMake(250,350)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(250, 350)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testComplexShapeWithInternalTangentLine{
+- (void)testComplexShapeWithInternalTangentLine
+{
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
-    UIBezierPath* shapePath = self.complexShape;
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(200,301.7455)];
-    [scissorPath addLineToPoint:CGPointMake(700,301.7455)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(200, 301.7455)];
+    [scissorPath addLineToPoint:CGPointMake(700, 301.7455)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)3, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
 - (void)testCurveDifferenceWithBounds
 {
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(100, 50)];
     [scissorPath addCurveToPoint:CGPointMake(100, 250)
                    controlPoint1:CGPointMake(170, 80)
                    controlPoint2:CGPointMake(170, 220)];
-    
-    
+
+
     // simple 100x100 box
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(100, 100)];
     [shapePath addLineToPoint:CGPointMake(200, 100)];
     [shapePath addLineToPoint:CGPointMake(200, 200)];
     [shapePath addLineToPoint:CGPointMake(100, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testStraightLineThroughComplexShapeAnomaly{
+- (void)testStraightLineThroughComplexShapeAnomaly
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(200, 1000)];
     [scissorPath addLineToPoint:CGPointMake(450, 710)];
-    
-    UIBezierPath* shapePath = self.complexShape;
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    UIBezierPath *shapePath = self.complexShape;
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLotsOfExternalTangents{
+- (void)testLotsOfExternalTangents
+{
     //
     // in this case, the scissor tangents the outside of the shape before it slices through it
     //
@@ -669,32 +686,32 @@
     // connect to a red line at one of their end points.
     //
     // this will need to be cleaned up during the segment phase
-    
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(300,100)];
-    [scissorPath addLineToPoint:CGPointMake(300,800)];
-    [scissorPath addLineToPoint:CGPointMake(200,800)];
-    [scissorPath addLineToPoint:CGPointMake(200,100)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(300, 100)];
+    [scissorPath addLineToPoint:CGPointMake(300, 800)];
+    [scissorPath addLineToPoint:CGPointMake(200, 800)];
+    [scissorPath addLineToPoint:CGPointMake(200, 100)];
     [scissorPath closePath];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(100,300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 300)];
     [shapePath addLineToPoint:CGPointMake(300, 300)];
     [shapePath addLineToPoint:CGPointMake(200, 500)];
     [shapePath addLineToPoint:CGPointMake(600, 500)];
     [shapePath addLineToPoint:CGPointMake(600, 800)];
     [shapePath addLineToPoint:CGPointMake(100, 800)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     // this has an odd number of shapes, because a red + blue segment overlap
     // so a that blue segment is left over. one additional shape is added for that
     // blue segment, but because it overlaps the red, the shape-builder finds that
     // believes the blue and red segments are equal, and adds another duplicate
     XCTAssertEqual([foundShapes count], (NSUInteger)7, @"found shapes");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:2] isClosed], @"shape is closed");
@@ -702,7 +719,7 @@
     XCTAssertTrue([[foundShapes objectAtIndex:4] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:5] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:6] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
@@ -710,16 +727,17 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:6] segments] count], (NSUInteger)3, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testSingleExternalTangents{
+- (void)testSingleExternalTangents
+{
     //
     // in this case, the scissor tangents the outside of the shape before it slices through it
     //
@@ -727,44 +745,44 @@
     // connect to a red line at one of their end points.
     //
     // this will need to be cleaned up during the segment phase
-    
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(300,100)];
-    [scissorPath addLineToPoint:CGPointMake(300,900)];
-    
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(100,300)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(300, 100)];
+    [scissorPath addLineToPoint:CGPointMake(300, 900)];
+
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 300)];
     [shapePath addLineToPoint:CGPointMake(300, 300)];
     [shapePath addLineToPoint:CGPointMake(200, 500)];
     [shapePath addLineToPoint:CGPointMake(600, 500)];
     [shapePath addLineToPoint:CGPointMake(600, 800)];
     [shapePath addLineToPoint:CGPointMake(100, 800)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testRemoveRedSegmentsEndingInsideShape{
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testRemoveRedSegmentsEndingInsideShape
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(434, 139)];
     [path addCurveToPoint:CGPointMake(334, 159) controlPoint1:CGPointMake(379.15393, 131.06366) controlPoint2:CGPointMake(353.60638, 143.34953)];
     [path addCurveToPoint:CGPointMake(268, 242) controlPoint1:CGPointMake(308.45203, 183.46036) controlPoint2:CGPointMake(283.20477, 209.47534)];
@@ -783,9 +801,9 @@
     [path addLineToPoint:CGPointMake(487, 159)];
     [path addLineToPoint:CGPointMake(434, 139)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
+
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(120, 276)];
     [path addCurveToPoint:CGPointMake(404, 261) controlPoint1:CGPointMake(213.64639, 261.60071) controlPoint2:CGPointMake(309.32291, 255.5038)];
@@ -794,32 +812,32 @@
     [path addCurveToPoint:CGPointMake(520, 442) controlPoint1:CGPointMake(511.24597, 379.80554) controlPoint2:CGPointMake(522.3692, 410.65625)];
     [path addLineToPoint:CGPointMake(520, 442)];
     [path addLineToPoint:CGPointMake(491, 484)];
-    
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    UIBezierPath *scissorPath = path;
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLineThroughNearTangent{
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testLineThroughNearTangent
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(434, 139)];
     [path addCurveToPoint:CGPointMake(405, 136) controlPoint1:CGPointMake(419.31439, 138.24297) controlPoint2:CGPointMake(412.20261, 136.55988)];
     [path addCurveToPoint:CGPointMake(334, 159) controlPoint1:CGPointMake(379.15393, 131.06366) controlPoint2:CGPointMake(353.60638, 143.34953)];
@@ -839,36 +857,37 @@
     [path addLineToPoint:CGPointMake(487, 159)];
     [path addLineToPoint:CGPointMake(434, 139)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
+
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(221, 167.833)];
     [path addLineToPoint:CGPointMake(662, 463.833)];
-    
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    UIBezierPath *scissorPath = path;
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLineThroughNearTangent2{
+- (void)testLineThroughNearTangent2
+{
     //
     // i think the issue here is that the tangent that i calculate
     // for the intersection point end up not being accurate to the tangent
@@ -878,7 +897,7 @@
     // to the lenght of the first control point?
     //
     // or average it over the first 20px or .1, whichever is shorter (?)
-    UIBezierPath* path = [UIBezierPath bezierPath];
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(508.5, 163)];
     [path addCurveToPoint:CGPointMake(488, 157) controlPoint1:CGPointMake(503.33316, 156.99994) controlPoint2:CGPointMake(495.66705, 157.00012)];
     [path addCurveToPoint:CGPointMake(299, 239) controlPoint1:CGPointMake(416.37802, 147.16136) controlPoint2:CGPointMake(344.33414, 185.12921)];
@@ -897,181 +916,186 @@
     [path addLineToPoint:CGPointMake(535, 201)];
     [path addLineToPoint:CGPointMake(508.5, 163)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
-    
+
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(236, 174)];
     [path addCurveToPoint:CGPointMake(272, 201) controlPoint1:CGPointMake(252.44324, 170.66141) controlPoint2:CGPointMake(258.57706, 200.40956)];
     [path addCurveToPoint:CGPointMake(559, 419) controlPoint1:CGPointMake(361.56906, 280.7829) controlPoint2:CGPointMake(453.51816, 360.66116)];
     [path addCurveToPoint:CGPointMake(688, 505) controlPoint1:CGPointMake(606.76227, 440.35507) controlPoint2:CGPointMake(643.33301, 478.82477)];
-    
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    UIBezierPath *scissorPath = path;
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testScissorBeginningInShape{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(300,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,600)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+- (void)testScissorBeginningInShape
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(300, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 600)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     // 1 shape from the blue segment leftover
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found shapes");
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)1, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testScissorBeginningInShape2{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,310)];
-    [scissorPath addLineToPoint:CGPointMake(300,310)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+- (void)testScissorBeginningInShape2
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 310)];
+    [scissorPath addLineToPoint:CGPointMake(300, 310)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testReversedScissorBeginningInShape2{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,310)];
-    [scissorPath addLineToPoint:CGPointMake(300,310)];
+- (void)testReversedScissorBeginningInShape2
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 310)];
+    [scissorPath addLineToPoint:CGPointMake(300, 310)];
     scissorPath = [scissorPath bezierPathByReversingPath];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testComplexShapeWithZigZagLine{
+- (void)testComplexShapeWithZigZagLine
+{
     // here, the scissor is a circle that is contained with in a square shape
     // the square wraps around the outside of the circle
-    UIBezierPath* shapePath = self.complexShape;
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(200,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    [scissorPath addLineToPoint:CGPointMake(450,450)];
-    [scissorPath addLineToPoint:CGPointMake(800,450)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(200, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+    [scissorPath addLineToPoint:CGPointMake(450, 450)];
+    [scissorPath addLineToPoint:CGPointMake(800, 450)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testScissorAtShapeBeginningWithComplexShape2{
-    UIBezierPath* shapePath = self.complexShape;
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(210.500000,386.000000)];
-    [scissorPath addLineToPoint:CGPointMake(218.500000,376.000000)];
-    [scissorPath addCurveToPoint:CGPointMake(229.500000,376.000000)
-                controlPoint1:CGPointMake(210.500000,376.000000)
-                controlPoint2:CGPointMake(229.500000,376.000000)];
+- (void)testScissorAtShapeBeginningWithComplexShape2
+{
+    UIBezierPath *shapePath = self.complexShape;
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(210.500000, 386.000000)];
+    [scissorPath addLineToPoint:CGPointMake(218.500000, 376.000000)];
+    [scissorPath addCurveToPoint:CGPointMake(229.500000, 376.000000)
+                   controlPoint1:CGPointMake(210.500000, 376.000000)
+                   controlPoint2:CGPointMake(229.500000, 376.000000)];
     [scissorPath addCurveToPoint:CGPointMake(290, 360)
-                controlPoint1:CGPointMake(229.500000,376.000000)
-                controlPoint2:CGPointMake(290, 360)];
+                   controlPoint1:CGPointMake(229.500000, 376.000000)
+                   controlPoint2:CGPointMake(290, 360)];
     [scissorPath addCurveToPoint:CGPointMake(500, 560)
-                controlPoint1:CGPointMake(290, 360)
-                controlPoint2:CGPointMake(500, 560)];
+                   controlPoint1:CGPointMake(290, 360)
+                   controlPoint2:CGPointMake(500, 560)];
     [scissorPath addCurveToPoint:CGPointMake(750, 750)
-                controlPoint1:CGPointMake(500, 560)
-                controlPoint2:CGPointMake(720, 750)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+                   controlPoint1:CGPointMake(500, 560)
+                   controlPoint2:CGPointMake(720, 750)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)8, @"found shapes");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
@@ -1080,156 +1104,161 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:6] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:7] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)5, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testFindingMultipleSubPathWithoutIntersection2{
+- (void)testFindingMultipleSubPathWithoutIntersection2
+{
     // if there is no intersection,
     // then return zero found shapes
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
+
     BOOL beginsInside = NO;
-    NSArray* intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
-    
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+
     XCTAssertEqual([intersections count], (NSUInteger)0, @"found 0 intersections");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     // found the two shapes that don't even have holes
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found shapes");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)1, @"found shapes");
-    DKUIBezierPathShape* shape = [uniqueShapes firstObject];
+    DKUIBezierPathShape *shape = [uniqueShapes firstObject];
     XCTAssertEqual([shape.segments count], (NSUInteger)1, @"found shapes");
     XCTAssertEqual([shape.holes count], (NSUInteger)1, @"found shapes");
 }
 
--(void) testOvalClippingInRectangleSubShapes{
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(300, 300) radius:120 startAngle:0 endAngle:2*M_PI clockwise:NO];
+- (void)testOvalClippingInRectangleSubShapes
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(300, 300) radius:120 startAngle:0 endAngle:2 * M_PI clockwise:NO];
     [scissorPath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testOvalClippingInRectangleSubShapes2{
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+- (void)testOvalClippingInRectangleSubShapes2
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(100, 200, 400, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 100, 200, 400)];
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testLineThroughNotchedRectangle{
+- (void)testLineThroughNotchedRectangle
+{
     // a simple straight line scissor
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(600,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(150,200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(600, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(150, 200)];
     // first V through intersection
-    [shapePath addLineToPoint:CGPointMake(200,200)];
-    [shapePath addLineToPoint:CGPointMake(250,350)];
-    [shapePath addLineToPoint:CGPointMake(300,200)];
+    [shapePath addLineToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(250, 350)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
     // continue top
-    [shapePath addLineToPoint:CGPointMake(550,200)];
-    [shapePath addLineToPoint:CGPointMake(550,400)];
+    [shapePath addLineToPoint:CGPointMake(550, 200)];
+    [shapePath addLineToPoint:CGPointMake(550, 400)];
     // second vertical V through intersection
-    [shapePath addLineToPoint:CGPointMake(500,400)];
-    [shapePath addLineToPoint:CGPointMake(450,250)];
-    [shapePath addLineToPoint:CGPointMake(400,400)];
-    [shapePath addLineToPoint:CGPointMake(150,400)];
-    [shapePath addLineToPoint:CGPointMake(150,200)];
+    [shapePath addLineToPoint:CGPointMake(500, 400)];
+    [shapePath addLineToPoint:CGPointMake(450, 250)];
+    [shapePath addLineToPoint:CGPointMake(400, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 400)];
+    [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTrickyLineNearCorner{
+- (void)testTrickyLineNearCorner
+{
     // this is a long unclosed scissor path that cuts first
     // through the exact start of the closed shape
     //
     // this is different than testScissorAtShapeBeginningWithComplexShape
     // in that the approach to the first intersection is not
     // near-tangent to the curve.
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(419.000000, 391.000000)];
     [scissorPath addLineToPoint:CGPointMake(419.000000, 391.000000)];
     [scissorPath addLineToPoint:CGPointMake(393.000000, 134.000000)];
     [scissorPath addLineToPoint:CGPointMake(393.000000, 134.000000)];
     [scissorPath addLineToPoint:CGPointMake(295.000000, 428.000000)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(324.500000, 214.500000)];
     [shapePath addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [shapePath addLineToPoint:CGPointMake(308.000000, 330.000000)];
@@ -1239,33 +1268,34 @@
     [shapePath addLineToPoint:CGPointMake(440.000000, 241.000000)];
     [shapePath addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [shapePath closePath];
-    
+
     XCTAssertTrue(![shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)3, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTangentLineVeryCloseToBottomLeftCorner{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
+- (void)testTangentLineVeryCloseToBottomLeftCorner
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
     [scissorPath moveToPoint:CGPointMake(583.000000, 507.000000)];
     [scissorPath addCurveToPoint:CGPointMake(345.000000, 416.000000) controlPoint1:CGPointMake(498.772095, 526.729858) controlPoint2:CGPointMake(381.666901, 504.214264)];
     [scissorPath addCurveToPoint:CGPointMake(339.000000, 391.000000) controlPoint1:CGPointMake(341.283173, 408.190948) controlPoint2:CGPointMake(339.255585, 399.625031)];
@@ -1275,9 +1305,9 @@
     [scissorPath addCurveToPoint:CGPointMake(512.000000, 208.000000) controlPoint1:CGPointMake(468.236786, 233.073502) controlPoint2:CGPointMake(487.736115, 216.092346)];
     [scissorPath addCurveToPoint:CGPointMake(583.000000, 182.000000) controlPoint1:CGPointMake(534.509277, 196.477371) controlPoint2:CGPointMake(558.653931, 188.569092)];
     [scissorPath addCurveToPoint:CGPointMake(866.000000, 157.000000) controlPoint1:CGPointMake(674.142639, 148.723312) controlPoint2:CGPointMake(771.588013, 163.587265)];
-    
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPath];
+
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
     [shapePath moveToPoint:CGPointMake(391.500000, 100.000000)];
     [shapePath addCurveToPoint:CGPointMake(385.000000, 126.000000) controlPoint1:CGPointMake(384.673950, 113.890152) controlPoint2:CGPointMake(384.343201, 119.999458)];
     [shapePath addCurveToPoint:CGPointMake(378.000000, 188.000000) controlPoint1:CGPointMake(384.629333, 146.855789) controlPoint2:CGPointMake(380.078888, 167.308807)];
@@ -1289,31 +1319,32 @@
     [shapePath addCurveToPoint:CGPointMake(689.000000, 148.000000) controlPoint1:CGPointMake(646.626648, 306.623993) controlPoint2:CGPointMake(696.822205, 227.174286)];
     [shapePath addCurveToPoint:CGPointMake(391.500000, 100.000000) controlPoint1:CGPointMake(594.519104, 121.932289) controlPoint2:CGPointMake(496.490753, 86.968353)];
     [shapePath closePath];
-    
+
     XCTAssertTrue(![shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testWackyShapeWithNearTwoTangents{
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testWackyShapeWithNearTwoTangents
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(279.000000, 514.500000)];
     [path addCurveToPoint:CGPointMake(390.000000, 182.000000) controlPoint1:CGPointMake(320.174255, 410.331085) controlPoint2:CGPointMake(366.746857, 298.407776)];
     [path addCurveToPoint:CGPointMake(394.000000, 208.000000) controlPoint1:CGPointMake(400.307831, 174.510330) controlPoint2:CGPointMake(389.365021, 209.911377)];
@@ -1343,10 +1374,10 @@
     [path addLineToPoint:CGPointMake(245.000000, 581.000000)];
     [path addLineToPoint:CGPointMake(279.000000, 514.500000)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
-    
+
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(215.000000, 641.000000)];
     [path addCurveToPoint:CGPointMake(414.000000, 141.000000) controlPoint1:CGPointMake(306.906647, 485.259827) controlPoint2:CGPointMake(328.464569, 297.898132)];
@@ -1359,20 +1390,20 @@
     [path addCurveToPoint:CGPointMake(592.000000, 282.000000) controlPoint1:CGPointMake(589.344788, 217.091721) controlPoint2:CGPointMake(587.914185, 249.773163)];
     [path addCurveToPoint:CGPointMake(615.000000, 416.000000) controlPoint1:CGPointMake(595.852600, 327.222931) controlPoint2:CGPointMake(604.317139, 371.934601)];
     [path addCurveToPoint:CGPointMake(678.000000, 577.000000) controlPoint1:CGPointMake(633.368164, 470.080719) controlPoint2:CGPointMake(647.075195, 527.999512)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue([shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)18, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)6, @"found closed shape");
@@ -1391,17 +1422,18 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:15] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:16] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:17] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)10, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testNearTangentLineToSloppyBox{
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testNearTangentLineToSloppyBox
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(324.500000, 214.500000)];
     [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [path addLineToPoint:CGPointMake(308.000000, 330.000000)];
@@ -1411,40 +1443,41 @@
     [path addLineToPoint:CGPointMake(440.000000, 241.000000)];
     [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
+
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(131.000000, 331.000000)];
     [path addLineToPoint:CGPointMake(131.000000, 331.000000)];
     [path addLineToPoint:CGPointMake(559.000000, 326.000000)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue(![shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testZigZagLineThroughSloppyBox{
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testZigZagLineThroughSloppyBox
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(324.500000, 214.500000)];
     [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [path addLineToPoint:CGPointMake(308.000000, 330.000000)];
@@ -1454,10 +1487,10 @@
     [path addLineToPoint:CGPointMake(440.000000, 241.000000)];
     [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
-    
+
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(421.000000, 370.000000)];
     [path addCurveToPoint:CGPointMake(387.000000, 169.000000) controlPoint1:CGPointMake(394.666168, 309.850830) controlPoint2:CGPointMake(452.226837, 150.381851)];
@@ -1469,37 +1502,38 @@
     [path addCurveToPoint:CGPointMake(321.000000, 156.000000) controlPoint1:CGPointMake(326.492584, 221.951874) controlPoint2:CGPointMake(320.427063, 189.185196)];
     [path addLineToPoint:CGPointMake(321.000000, 156.000000)];
     [path addLineToPoint:CGPointMake(328.000000, 142.000000)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue(![shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)4, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testSquiggleThroughLongRectangle{
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testSquiggleThroughLongRectangle
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(127.500000, 121.000000)];
     [path addCurveToPoint:CGPointMake(119.000000, 126.000000) controlPoint1:CGPointMake(111.740646, 111.826790) controlPoint2:CGPointMake(117.062279, 122.276443)];
     [path addCurveToPoint:CGPointMake(115.000000, 156.000000) controlPoint1:CGPointMake(117.584236, 135.994080) controlPoint2:CGPointMake(117.569023, 146.173431)];
@@ -1532,10 +1566,10 @@
     [path addCurveToPoint:CGPointMake(289.000000, 109.000000) controlPoint1:CGPointMake(337.000000, 109.000000) controlPoint2:CGPointMake(313.000000, 109.000000)];
     [path addCurveToPoint:CGPointMake(127.500000, 121.000000) controlPoint1:CGPointMake(236.254852, 109.084534) controlPoint2:CGPointMake(176.274368, 149.390594)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
-    
+
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(185.000000, 85.000000)];
     [path addLineToPoint:CGPointMake(185.000000, 85.000000)];
@@ -1563,20 +1597,20 @@
     [path addCurveToPoint:CGPointMake(921.000000, 210.000000) controlPoint1:CGPointMake(930.653442, 118.377151) controlPoint2:CGPointMake(891.765564, 177.428665)];
     [path addLineToPoint:CGPointMake(921.000000, 210.000000)];
     [path addLineToPoint:CGPointMake(972.000000, 255.000000)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue(![shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)18, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
@@ -1595,12 +1629,12 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:15] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:16] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:17] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)10, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
@@ -1608,174 +1642,176 @@
 #pragma mark - Shapes With SubShapes
 
 
-
--(void) testSimpleHoleInRectangle{
-    UIBezierPath* path;
+- (void)testSimpleHoleInRectangle
+{
+    UIBezierPath *path;
     path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 600, 400)];
     [path appendPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(150, 150, 200, 200)] bezierPathByReversingPath]];
-    UIBezierPath* shapePath = path;
-    
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(175, 800)];
     [path addLineToPoint:CGPointMake(175, 50)];
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray* redSegments = [redGreenBlueSegs firstObject];
-    NSArray* greenSegments = [redGreenBlueSegs objectAtIndex:1];
-    NSArray* blueSegments = [redGreenBlueSegs lastObject];
-    
+    UIBezierPath *scissorPath = path;
+
+    NSArray *redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray *redSegments = [redGreenBlueSegs firstObject];
+    NSArray *greenSegments = [redGreenBlueSegs objectAtIndex:1];
+    NSArray *blueSegments = [redGreenBlueSegs lastObject];
+
     XCTAssertEqual([redSegments count], (NSUInteger)2, @"correct number of segments");
     XCTAssertEqual([greenSegments count], (NSUInteger)3, @"correct number of segments");
     XCTAssertEqual([blueSegments count], (NSUInteger)4, @"correct number of segments");
-    
-    NSArray* redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+
+    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
     redSegments = [redBlueSegs firstObject];
     blueSegments = [redBlueSegs lastObject];
-    
+
     XCTAssertEqual([redSegments count], (NSUInteger)4, @"correct number of segments");
     XCTAssertEqual([blueSegments count], (NSUInteger)4, @"correct number of segments");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testTangentToHoleInRectangle{
-    UIBezierPath* path;
+- (void)testTangentToHoleInRectangle
+{
+    UIBezierPath *path;
     path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 600, 400)];
     [path appendPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(150, 150, 200, 200)] bezierPathByReversingPath]];
-    UIBezierPath* shapePath = path;
-    
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(150, 800)];
     [path addLineToPoint:CGPointMake(150, 50)];
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray* redSegments = [redGreenBlueSegs firstObject];
-    NSArray* greenSegments = [redGreenBlueSegs objectAtIndex:1];
-    NSArray* blueSegments = [redGreenBlueSegs lastObject];
-    
+    UIBezierPath *scissorPath = path;
+
+    NSArray *redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray *redSegments = [redGreenBlueSegs firstObject];
+    NSArray *greenSegments = [redGreenBlueSegs objectAtIndex:1];
+    NSArray *blueSegments = [redGreenBlueSegs lastObject];
+
     XCTAssertEqual([redSegments count], (NSUInteger)2, @"correct number of segments");
     XCTAssertEqual([greenSegments count], (NSUInteger)2, @"correct number of segments");
     XCTAssertEqual([blueSegments count], (NSUInteger)3, @"correct number of segments");
-    
-    NSArray* redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+
+    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
     redSegments = [redBlueSegs firstObject];
     blueSegments = [redBlueSegs lastObject];
-    
+
     XCTAssertEqual([redSegments count], (NSUInteger)4, @"correct number of segments");
     XCTAssertEqual([blueSegments count], (NSUInteger)3, @"correct number of segments");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)3, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
--(void) testTangentToSquareHoleInRectangle{
-    
-    UIBezierPath* path;
+- (void)testTangentToSquareHoleInRectangle
+{
+    UIBezierPath *path;
     path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 600, 400)];
     [path appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(150, 150, 200, 200)] bezierPathByReversingPath]];
-    UIBezierPath* shapePath = path;
-    
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(150, 800)];
     [path addLineToPoint:CGPointMake(150, 50)];
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    UIBezierPath *scissorPath = path;
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // three red segments * 2 + 1 blue (minus 1 red and 1 blue b/c it's tangent to the blue)
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 5, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)5, @"found shapes");
     // two red shapes
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 0, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)0, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 0, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)0, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
     }
 }
 
--(void) testScissorsThroughRectangleWithRectangleShapeWithHole{
+- (void)testScissorsThroughRectangleWithRectangleShapeWithHole
+{
     // this is a long unclosed scissor path that cuts first
     // through the exact start of the closed shape
     //
     // this is different than testScissorAtShapeBeginningWithComplexShape
     // in that the approach to the first intersection is not
     // near-tangent to the curve.
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(800,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(800, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)4, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     //
     // the issue with this test is that each subshape is being split separately
     // when instead all of the intersections and blue segments from cut subshapes should be
@@ -1784,34 +1820,35 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)4, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
 
--(void) testScissorsThroughMultipleShapeHoles{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(800,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 400, 200)];
+- (void)testScissorsThroughMultipleShapeHoles
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(800, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 400, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(450, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     //
     // the issue with this test is that each subshape is being split separately
     // when instead all of the intersections and blue segments from cut subshapes should be
@@ -1822,52 +1859,53 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)6, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)6, @"found closed shape");
-    
-    NSArray* uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *uniqueShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([uniqueShapes count], (NSUInteger)2, @"found shapes");
-    for(DKUIBezierPathShape* shape in uniqueShapes){
+    for (DKUIBezierPathShape *shape in uniqueShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
-        XCTAssertEqual([shape.holes count], (NSUInteger) 0, @"shape is closed");
+        XCTAssertEqual([shape.holes count], (NSUInteger)0, @"shape is closed");
     }
 }
 
--(void) testScissorsThroughHoleNotCreatingNewShape{
+- (void)testScissorsThroughHoleNotCreatingNewShape
+{
     // this creates shapes that we'll need to de-dup later
     //
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,300)];
-    [scissorPath addLineToPoint:CGPointMake(300,300)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 300)];
+    [scissorPath addLineToPoint:CGPointMake(300, 300)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     //
     // the issue with this test is that each subshape is being split separately
     // when instead all of the intersections and blue segments from cut subshapes should be
     // in the same bucket.
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
-    
+
     // de-duplicate
     foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found intersection");
-    for(DKUIBezierPathShape* shape in foundShapes){
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
 }
 
--(void) testDrawnScissorsCreatingHole{
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testDrawnScissorsCreatingHole
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(196.085602, 247.683899)];
     [path addCurveToPoint:CGPointMake(518.999939, 253.999939) controlPoint1:CGPointMake(270.145935, 282.188782) controlPoint2:CGPointMake(463.317017, 200.644287)];
     [path addCurveToPoint:CGPointMake(510.000000, 647.000000) controlPoint1:CGPointMake(496.792603, 382.674805) controlPoint2:CGPointMake(502.925476, 517.541626)];
@@ -1878,8 +1916,8 @@
     [path addCurveToPoint:CGPointMake(119.000008, 665.999939) controlPoint1:CGPointMake(104.217941, 707.529663) controlPoint2:CGPointMake(121.172516, 674.727112)];
     [path addCurveToPoint:CGPointMake(196.085602, 247.683899) controlPoint1:CGPointMake(158.682663, 528.713684) controlPoint2:CGPointMake(138.724899, 381.213013)];
     [path closePath];
-    UIBezierPath* shapePath = path;
-    
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(267.307678, 387.000000)];
     [path addLineToPoint:CGPointMake(267.307678, 387.000000)];
@@ -1894,28 +1932,28 @@
     [path addLineToPoint:CGPointMake(228.000000, 557.000000)];
     [path addLineToPoint:CGPointMake(267.307678, 387.000000)];
     [path closePath];
-    UIBezierPath* scissorPath = path;
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    UIBezierPath *scissorPath = path;
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 3, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)3, @"found shapes");
     // two red shapes,
     // one is a shape and one is a hole
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     //
     // the issue with this test is that each subshape is being split separately
     // when instead all of the intersections and blue segments from cut subshapes should be
@@ -1924,111 +1962,112 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)1, @"found closed shape");
-    
+
     XCTAssertEqual([[[[foundShapes objectAtIndex:0] fullPath] subPaths] count], (NSUInteger)1, @"correct subpaths");
     XCTAssertEqual([[[[foundShapes objectAtIndex:1] fullPath] subPaths] count], (NSUInteger)2, @"correct subpaths");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
     }
 }
 
--(void) testUniqueScissorsCreatingHole{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+- (void)testUniqueScissorsCreatingHole
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 3, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)3, @"found shapes");
     // two red shapes, but only 1 is reversed winding
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
 
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    for(DKUIBezierPathShape* shape in foundShapes){
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)1, @"found closed shape");
-    
+
     XCTAssertEqual([[[[foundShapes objectAtIndex:0] fullPath] subPaths] count], (NSUInteger)1, @"correct subpaths");
     XCTAssertEqual([[[[foundShapes objectAtIndex:1] fullPath] subPaths] count], (NSUInteger)2, @"correct subpaths");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
     }
 }
 
--(void) testScissorsThroughShapeWithHoleMissingHole{
-    
+- (void)testScissorsThroughShapeWithHoleMissingHole
+{
     // this is a long unclosed scissor path that cuts first
     // through the exact start of the closed shape
     //
     // this is different than testScissorAtShapeBeginningWithComplexShape
     // in that the approach to the first intersection is not
     // near-tangent to the curve.
-    UIBezierPath* scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(100,225)];
-    [scissorPath addLineToPoint:CGPointMake(800,225)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 225)];
+    [scissorPath addLineToPoint:CGPointMake(800, 225)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
     // two red shapes
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)0, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
@@ -2036,52 +2075,50 @@
 }
 
 
-
-
--(void) testScissorsMakingHoleLarger{
-    
+- (void)testScissorsMakingHoleLarger
+{
     // this is a long unclosed scissor path that cuts first
     // through the exact start of the closed shape
     //
     // this is different than testScissorAtShapeBeginningWithComplexShape
     // in that the approach to the first intersection is not
     // near-tangent to the curve.
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(220, 220, 60, 60)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(220, 220, 60, 60)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
     // two red shapes
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)1, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
@@ -2089,50 +2126,50 @@
 }
 
 
--(void) testScissorsMakingHoleLarger2{
-    
+- (void)testScissorsMakingHoleLarger2
+{
     // this is a long unclosed scissor path that cuts first
     // through the exact start of the closed shape
     //
     // this is different than testScissorAtShapeBeginningWithComplexShape
     // in that the approach to the first intersection is not
     // near-tangent to the curve.
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(220, 270, 60, 60)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(220, 270, 60, 60)];
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
     // two red shapes
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 1, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)1, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)1, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
@@ -2140,44 +2177,44 @@
 }
 
 
+- (void)testScissorsMakingSecondHole
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(450, 250, 100, 100)];
 
--(void) testScissorsMakingSecondHole{
-    UIBezierPath* scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(450, 250, 100, 100)];
-    
-    UIBezierPath* shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 400, 200)];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 400, 200)];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 3, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)3, @"found shapes");
     // one red hole, and one existing blue
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 2, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)2, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 2, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)2, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)2, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
@@ -2185,9 +2222,9 @@
 }
 
 
-
--(void) testDisappearingHole{
-    UIBezierPath* path = [UIBezierPath bezierPath];
+- (void)testDisappearingHole
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(175.500732, 230.421143)];
     [path addCurveToPoint:CGPointMake(702.527161, 166.170593) controlPoint1:CGPointMake(351.411133, 211.060486) controlPoint2:CGPointMake(529.177734, 201.082153)];
     [path addCurveToPoint:CGPointMake(697.320923, 187.583679) controlPoint1:CGPointMake(692.660156, 163.630676) controlPoint2:CGPointMake(689.748657, 184.496399)];
@@ -2252,8 +2289,8 @@
     [path addCurveToPoint:CGPointMake(509.083893, 259.560120) controlPoint1:CGPointMake(560.083740, 254.081116) controlPoint2:CGPointMake(527.261597, 253.633240)];
     [path addCurveToPoint:CGPointMake(468.012482, 282.769714) controlPoint1:CGPointMake(495.173828, 264.837097) controlPoint2:CGPointMake(477.637054, 261.404541)];
     [path closePath];
-    UIBezierPath* shapePath = path;
-    
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(243.253784, 374.253754)];
     [path addCurveToPoint:CGPointMake(341.000000, 358.999969) controlPoint1:CGPointMake(274.457886, 343.049652) controlPoint2:CGPointMake(318.220337, 336.220306)];
@@ -2261,41 +2298,40 @@
     [path addCurveToPoint:CGPointMake(228.000000, 472.000000) controlPoint1:CGPointMake(294.542114, 487.950317) controlPoint2:CGPointMake(250.779648, 494.779633)];
     [path addCurveToPoint:CGPointMake(243.253784, 374.253754) controlPoint1:CGPointMake(205.220337, 449.220337) controlPoint2:CGPointMake(212.049683, 405.457855)];
     [path closePath];
-    UIBezierPath* scissorPath = path;
-    
-    
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    UIBezierPath *scissorPath = path;
+
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 3, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)3, @"found shapes");
     // 5 existing from blue segments, 1 from red
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 6, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)6, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 2, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 6, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)2, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)6, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)2, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)0, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] holes] count], (NSUInteger)6, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
@@ -2303,68 +2339,65 @@
 }
 
 
-
-
--(void) testSingleScissorLineBetweenTwoHoles{
-    UIBezierPath* path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 400, 200)];
+- (void)testSingleScissorLineBetweenTwoHoles
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 400, 200)];
     [path appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(150, 150, 100, 100)] bezierPathByReversingPath]];
     [path appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(350, 150, 100, 100)] bezierPathByReversingPath]];
-    UIBezierPath* shapePath = path;
-    
-    
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(200,200)];
+    [path moveToPoint:CGPointMake(200, 200)];
     [path addLineToPoint:CGPointMake(400, 200)];
-    UIBezierPath* scissorPath = path;
-    
-    
-    NSArray* shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    UIBezierPath *scissorPath = path;
+
+
+    NSArray *shapesAndSubshapes = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     // two red and 1 blue shape
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 1, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)1, @"found shapes");
     // one red hole, and one existing blue
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 2, @"found holes");
-    
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)2, @"found holes");
+
     shapesAndSubshapes = [shapePath uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
-    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger) 1, @"found shapes");
-    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger) 2, @"found holes");
-    
-    NSArray* foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    
+
+    XCTAssertEqual([[shapesAndSubshapes firstObject] count], (NSUInteger)1, @"found shapes");
+    XCTAssertEqual([[shapesAndSubshapes lastObject] count], (NSUInteger)2, @"found holes");
+
+    NSArray *foundShapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)1, @"found intersection");
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
         XCTAssertTrue([shape isClosed], @"shape is closed");
     }
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)1, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:0] holes] count], (NSUInteger)2, @"found closed shape");
-    
-    
-    for(DKUIBezierPathShape* shape in foundShapes){
-        NSArray* subpaths = [shape.fullPath subPaths];
-        UIBezierPath* outerPath = [subpaths firstObject];
+
+
+    for (DKUIBezierPathShape *shape in foundShapes) {
+        NSArray *subpaths = [shape.fullPath subPaths];
+        UIBezierPath *outerPath = [subpaths firstObject];
         XCTAssertTrue([outerPath isClosed], @"subpath is closed");
-        for(int i=1;i<[subpaths count];i++){
-            UIBezierPath* subpath = [subpaths objectAtIndex:i];
+        for (int i = 1; i < [subpaths count]; i++) {
+            UIBezierPath *subpath = [subpaths objectAtIndex:i];
             XCTAssertTrue([outerPath isClockwise] == ![subpath isClockwise], @"subpath is reverse direction");
             XCTAssertTrue([subpath isClosed], @"subpath is closed");
         }
     }
 }
-
 
 
 #pragma mark - Shapes with Loops
 
 
-
--(void) testShapeWithLoop{
-    
+- (void)testShapeWithLoop
+{
     XCTAssertTrue(NO, @"functionality needs defining");
     return;
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
+
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(100, 100)];
     [path addLineToPoint:CGPointMake(250, 200)];
     [path addLineToPoint:CGPointMake(150, 200)];
@@ -2372,29 +2405,29 @@
     [path addLineToPoint:CGPointMake(300, 300)];
     [path addLineToPoint:CGPointMake(100, 300)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
+
+    UIBezierPath *shapePath = path;
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(50, 180)];
     [path addLineToPoint:CGPointMake(400, 180)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue([shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found intersection");
-    
+
     XCTAssertTrue(![[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:2] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:3] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:4] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:5] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)4, @"found closed shape");
@@ -2404,12 +2437,12 @@
 }
 
 
-
--(void) testCurveThroughKnottedBlob{
+- (void)testCurveThroughKnottedBlob
+{
     XCTAssertTrue(NO, @"functionality needs defining (same as loop)");
     return;
-    
-    UIBezierPath* path = [UIBezierPath bezierPath];
+
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(371.500000, 266.000000)];
     [path addCurveToPoint:CGPointMake(369.000000, 276.000000) controlPoint1:CGPointMake(371.637207, 295.950989) controlPoint2:CGPointMake(369.272766, 286.009338)];
     [path addCurveToPoint:CGPointMake(420.000000, 157.000000) controlPoint1:CGPointMake(371.004883, 232.057419) controlPoint2:CGPointMake(390.991333, 189.956833)];
@@ -2439,10 +2472,10 @@
     [path addLineToPoint:CGPointMake(314.000000, 254.000000)];
     [path addLineToPoint:CGPointMake(371.500000, 266.000000)];
     [path closePath];
-    
-    UIBezierPath* shapePath = path;
-    
-    
+
+    UIBezierPath *shapePath = path;
+
+
     path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(755.000000, 236.000000)];
     [path addCurveToPoint:CGPointMake(116.000000, 307.000000) controlPoint1:CGPointMake(543.220825, 192.273193) controlPoint2:CGPointMake(328.863098, 304.263763)];
@@ -2451,16 +2484,16 @@
     [path addCurveToPoint:CGPointMake(445.000000, 200.000000) controlPoint1:CGPointMake(330.876129, 223.224686) controlPoint2:CGPointMake(388.530731, 214.236267)];
     [path addCurveToPoint:CGPointMake(612.000000, 169.000000) controlPoint1:CGPointMake(499.946594, 185.988968) controlPoint2:CGPointMake(555.905518, 176.790924)];
     [path addCurveToPoint:CGPointMake(830.000000, 126.000000) controlPoint1:CGPointMake(683.244446, 153.338440) controlPoint2:CGPointMake(761.097961, 150.868408)];
-    
-    UIBezierPath* scissorPath = path;
-    
+
+    UIBezierPath *scissorPath = path;
+
     XCTAssertTrue([shapePath isClockwise], @"correct direction for shape");
-    
-    NSArray* subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray* foundShapes = [subShapePaths firstObject];
-    
+
+    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    NSArray *foundShapes = [subShapePaths firstObject];
+
     XCTAssertEqual([foundShapes count], (NSUInteger)8, @"found intersection");
-    
+
     XCTAssertTrue([[foundShapes objectAtIndex:0] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:1] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:2] isClosed], @"shape is closed");
@@ -2469,7 +2502,7 @@
     XCTAssertTrue([[foundShapes objectAtIndex:5] isClosed], @"shape is closed");
     XCTAssertTrue(![[foundShapes objectAtIndex:6] isClosed], @"shape is closed");
     XCTAssertTrue([[foundShapes objectAtIndex:7] isClosed], @"shape is closed");
-    
+
     XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)5, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)5, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)3, @"found closed shape");
@@ -2478,19 +2511,19 @@
     XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)2, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:6] segments] count], (NSUInteger)3, @"found closed shape");
     XCTAssertEqual([[[foundShapes objectAtIndex:7] segments] count], (NSUInteger)2, @"found closed shape");
-    
-    
+
+
     CGRect b = [[foundShapes objectAtIndex:5] fullPath].bounds;
     CGRect container = CGRectMake(b.origin.x, b.origin.y, 20, 20);
     XCTAssertTrue(CGRectContainsRect(container, b), @"shape is very small from the knot");
 }
 
--(void) testIntersectionCircles{
+- (void)testIntersectionCircles
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 10, 100, 100)];
 
-    UIBezierPath* path1 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, 100, 100)];
-    UIBezierPath* path2 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 10, 100, 100)];
-
-    UIBezierPath* intersection = [UIBezierPath bezierPath];
+    UIBezierPath *intersection = [UIBezierPath bezierPath];
     [intersection moveToPoint:CGPointMake(66.575819, 97.186932)];
     [intersection addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
     [intersection addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
@@ -2498,8 +2531,8 @@
     [intersection addLineToPoint:CGPointMake(100.000000, 50.000000)];
     [intersection addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
     [intersection closePath];
-    
-    UIBezierPath * difference = [UIBezierPath bezierPath];
+
+    UIBezierPath *difference = [UIBezierPath bezierPath];
     [difference moveToPoint:CGPointMake(66.575819, 97.186932)];
     [difference addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
     [difference addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
@@ -2507,9 +2540,9 @@
     [difference addLineToPoint:CGPointMake(100.000000, 50.000000)];
     [difference addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
     [difference closePath];
-    
-    UIBezierPath* calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
-    UIBezierPath* calcDifference = [[path1 intersectionWithPath:path2] firstObject];
+
+    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
+    UIBezierPath *calcDifference = [[path1 intersectionWithPath:path2] firstObject];
 
     XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection], @"shape is very small from the knot");
     XCTAssertTrue([difference isEqualToBezierPath:calcDifference], @"shape is very small from the knot");
