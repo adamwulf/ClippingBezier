@@ -35,11 +35,13 @@
     //    [NSThread sleepForTimeInterval:2];
     NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
 
-    for (int i = 0; i < 100; i++) {
-        @autoreleasepool {
-            [self performanceHelperIntersectionWithComplexShape];
+    [self measureBlock:^{
+        for (int i = 0; i < 100; i++) {
+            @autoreleasepool {
+                [self performanceHelperIntersectionWithComplexShape];
+            }
         }
-    }
+    }];
 
     NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
 }
