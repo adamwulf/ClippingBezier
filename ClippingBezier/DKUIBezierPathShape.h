@@ -31,4 +31,7 @@
 - (DKUIBezierPathShape *)flippedShape;
 - (DKUIBezierPathShape *)reversedShape;
 
+- (BOOL)canGlueToShape:(DKUIBezierPathShape *)otherShape;
+- (DKUIBezierPathShape *)glueToShape:(DKUIBezierPathShape *)otherShape;
+
 @end

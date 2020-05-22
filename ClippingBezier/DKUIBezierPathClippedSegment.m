@@ -53,6 +53,11 @@
     return self;
 }
 
+- (DKUIBezierPathClippedSegment *)flippedRedBlueSegment
+{
+    return [self flippedSegment];
+}
+
 - (DKUIBezierPathClippedSegment *)flippedSegment
 {
     DKUIBezierPathClippedSegment *flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment fromFullPath:fullPath];

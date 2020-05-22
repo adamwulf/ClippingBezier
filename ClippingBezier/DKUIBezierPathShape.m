@@ -158,4 +158,83 @@
     return flipped;
 }
 
+#pragma mark - Merge Shapes
+
+- (BOOL)canGlueToShape:(DKUIBezierPathShape *)otherShape
+{
+    return [self sharesSegmentWith:[otherShape reversedShape]];
+}
+
+
+- (DKUIBezierPathShape *)glueToShape:(DKUIBezierPathShape *)otherShape
+{
+    if (![self canGlueToShape:otherShape]) {
+        return nil;
+    }
+
+    NSMutableArray<DKUIBezierPathClippedSegment *> *mySegments = [[self segments] mutableCopy];
+    NSMutableArray<DKUIBezierPathClippedSegment *> *otherSegments = [[otherShape segments] mutableCopy];
+
+    NSInteger anyMatchedIndex = NSNotFound;
+
+    for (NSInteger i = 0; i < [mySegments count]; i++) {
+        DKUIBezierPathClippedSegment *mySegment = mySegments[i];
+        if ([otherSegments containsObject:[mySegment reversedSegment]]) {
+            anyMatchedIndex = i;
+            break;
+        }
+    }
+
+    if (anyMatchedIndex == NSNotFound) {
+        return nil;
+    }
+
+    NSInteger firstMatchedIndex = anyMatchedIndex;
+
+    for (NSInteger i = anyMatchedIndex + [mySegments count]; i > anyMatchedIndex; i--) {
+        NSInteger trueIndex = i % [mySegments count];
+        DKUIBezierPathClippedSegment *mySegment = mySegments[trueIndex];
+        if ([otherSegments containsObject:[mySegment reversedSegment]]) {
+            firstMatchedIndex = trueIndex;
+        } else {
+            break;
+        }
+    }
+
+    DKUIBezierPathClippedSegment *myFirstMatchedSeg = mySegments[firstMatchedIndex];
+    NSInteger otherIndex = [otherSegments indexOfObject:[myFirstMatchedSeg reversedSegment]];
+
+    NSMutableArray<DKUIBezierPathClippedSegment *> *nonMatchingOtherSegments = [NSMutableArray array];
+
+    for (NSInteger i = otherIndex; i < otherIndex + [otherSegments count]; i++) {
+        NSInteger trueIndex = i % [otherSegments count];
+        DKUIBezierPathClippedSegment *otherSegment = otherSegments[trueIndex];
+
+        if (![mySegments containsObject:[otherSegment reversedSegment]]) {
+            [nonMatchingOtherSegments addObject:otherSegment];
+        }
+    }
+
+    NSMutableArray *unionShapeSegments = [mySegments mutableCopy];
+
+    while (firstMatchedIndex < [unionShapeSegments count] && [otherSegments containsObject:[[unionShapeSegments objectAtIndex:firstMatchedIndex] reversedSegment]]) {
+        [unionShapeSegments removeObjectAtIndex:firstMatchedIndex];
+    }
+
+    NSMutableIndexSet *indexes = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(firstMatchedIndex, [nonMatchingOtherSegments count])];
+
+    [unionShapeSegments insertObjects:nonMatchingOtherSegments atIndexes:indexes];
+
+    // now find the first unmatched segment
+
+    DKUIBezierPathShape *unionShape = [[DKUIBezierPathShape alloc] init];
+
+    [[unionShape segments] addObjectsFromArray:unionShapeSegments];
+    [[unionShape holes] addObjectsFromArray:[self holes]];
+    [[unionShape holes] addObjectsFromArray:[otherShape holes]];
+
+    return unionShape;
+}
+
+
 @end

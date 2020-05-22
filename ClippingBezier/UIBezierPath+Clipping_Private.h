@@ -24,6 +24,9 @@
 
 - (NSArray *)uniqueShapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath *)scissorPath;
 
+- (NSArray<DKUIBezierPathShape *> *)allUniqueShapesWithPath:(UIBezierPath *)scissors;
+
+- (NSArray<DKUIBezierPathShape *> *)uniqueGluedShapesWithPath:(UIBezierPath *)scissors;
 
 + (CGPoint)fillCGPoints:(CGPoint *)bez withElement:(CGPathElement)element givenElementStartingPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartPoint;
 

@@ -21,7 +21,7 @@
 
 - (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path;
 
-- (UIBezierPath *)unionWithPath:(UIBezierPath *)scissors;
+- (NSMutableArray<UIBezierPath *> *)unionWithPath:(UIBezierPath *)scissors;
 
 // shape clipping
 

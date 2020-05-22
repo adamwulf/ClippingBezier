@@ -39,6 +39,9 @@
 
 - (DKUIBezierPathClippedSegment *)prependTo:(DKUIBezierPathClippedSegment *)otherSegment;
 
+- (DKUIBezierPathClippedSegment *)flippedRedBlueSegment __attribute__((deprecated("use flippedSegment instead.")));
+;
+
 /// Flips the intersections so that elementIndex1 <=> elementIndex2
 /// The direction of the segment remains unchanged
 - (DKUIBezierPathClippedSegment *)flippedSegment;

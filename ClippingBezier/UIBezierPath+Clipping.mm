@@ -1492,7 +1492,8 @@ static NSInteger segmentCompareCount = 0;
     return [self booleanWithPath:scissors calculateIntersection:NO];
 }
 
-- (UIBezierPath *)unionWithPath:(UIBezierPath *)scissors
+
+- (NSArray<DKUIBezierPathShape *> *)allUniqueShapesWithPath:(UIBezierPath *)scissors
 {
     // clip from both persepctives so that we get intersection shapes twice
     // and difference shapes from each path
@@ -1523,6 +1524,49 @@ static NSInteger segmentCompareCount = 0;
         }
     }
 
+    return finalShapes;
+}
+
+- (NSArray<DKUIBezierPathShape *> *)uniqueGluedShapesWithPath:(UIBezierPath *)scissors
+{
+    NSMutableArray<DKUIBezierPathShape *> *shapes = [[self allUniqueShapesWithPath:scissors] mutableCopy];
+
+    NSMutableArray *gluedShapes = [NSMutableArray array];
+
+    while ([shapes count]) {
+        DKUIBezierPathShape *shape = [shapes firstObject];
+        [shapes removeObjectAtIndex:0];
+
+        if ([gluedShapes count]) {
+            NSInteger index = [gluedShapes indexOfObjectPassingTest:^BOOL(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+                return [obj canGlueToShape:shape];
+            }];
+
+            if (index == NSNotFound) {
+                [gluedShapes addObject:shape];
+            } else {
+                DKUIBezierPathShape *gluedShape = [[gluedShapes objectAtIndex:index] glueToShape:shape];
+                [gluedShapes removeObjectAtIndex:index]; // remove the shape we just merged
+
+                // now we've merged two shapes together, which might affect other unglued shapes
+                // in gluedShapes array, so restart our algorithm with our new slightly smaller
+                // array of all shapes
+                [shapes addObject:gluedShape];
+                [shapes addObjectsFromArray:gluedShapes];
+                [gluedShapes removeAllObjects];
+            }
+        } else {
+            [gluedShapes addObject:shape];
+        }
+    }
+
+    return gluedShapes;
+}
+
+- (NSMutableArray<UIBezierPath *> *)unionWithPath:(UIBezierPath *)scissors
+{
+    NSArray<DKUIBezierPathShape *> *shapes = [self uniqueGluedShapesWithPath:scissors];
+
     // at this point, we have shapes all in the same clockwise direction and
     // we need to glue them together. we glue by finding segments in one shape
     // that are the reversed segments of the other shape and cancel them out.
@@ -1531,7 +1575,13 @@ static NSInteger segmentCompareCount = 0;
     //
     // we do this until we can't find any segments between any shapes that are reversed
 
-    return nil;
+    NSMutableArray<UIBezierPath *> *paths = [NSMutableArray array];
+
+    for (DKUIBezierPathShape *shape in shapes) {
+        [paths addObject:[shape fullPath]];
+    }
+
+    return paths;
 }
 
 

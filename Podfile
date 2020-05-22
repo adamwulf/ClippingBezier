@@ -6,7 +6,7 @@ target 'ClippingBezier' do
   # use_frameworks!
 
   # Pods for ClippingBezier
-  pod 'PerformanceBezier', '~> 1.0.5'
+  pod 'PerformanceBezier', '~> 1.0.6'
 
   target 'ClippingBezierTests' do
       

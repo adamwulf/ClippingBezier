@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = "8.0"
 
   s.framework = 'Foundation'
-  s.dependency 'PerformanceBezier', '~> 1.0.5'
+  s.dependency 'PerformanceBezier', '~> 1.0.6'
 
 end
