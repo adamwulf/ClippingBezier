@@ -1492,6 +1492,48 @@ static NSInteger segmentCompareCount = 0;
     return [self booleanWithPath:scissors calculateIntersection:NO];
 }
 
+- (UIBezierPath *)unionWithPath:(UIBezierPath *)scissors
+{
+    // clip from both persepctives so that we get intersection shapes twice
+    // and difference shapes from each path
+    NSArray<DKUIBezierPathShape *> *clippingResult1 = [self uniqueShapesCreatedFromSlicingWithUnclosedPath:scissors];
+    NSArray<DKUIBezierPathShape *> *clippingResult2 = [scissors uniqueShapesCreatedFromSlicingWithUnclosedPath:self];
+
+    // Cutting the scissors path with self will return shapes with flipped intersections,
+    // so flip them back so that the intersection element/tvalue order matches clippingResult1
+    NSMutableArray *flippedResult2 = [NSMutableArray array];
+    [clippingResult2 enumerateObjectsUsingBlock:^(DKUIBezierPathShape *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [flippedResult2 addObject:[obj flippedShape]];
+    }];
+
+    // We'll keep everything from one of the clips, and then we'll add in
+    // the difference shapes from the other clipping
+    NSMutableArray<DKUIBezierPathShape *> *finalShapes = [flippedResult2 mutableCopy];
+
+    for (DKUIBezierPathShape *firstShape in clippingResult1) {
+        BOOL didFind = NO;
+        for (DKUIBezierPathShape *secondShape in finalShapes) {
+            if ([firstShape isSameShapeAs:secondShape]) {
+                didFind = YES;
+                break;
+            }
+        }
+        if (!didFind) {
+            [finalShapes addObject:firstShape];
+        }
+    }
+
+    // at this point, we have shapes all in the same clockwise direction and
+    // we need to glue them together. we glue by finding segments in one shape
+    // that are the reversed segments of the other shape and cancel them out.
+    // what's left should be two endpoints on either end of a shape that match,
+    // and we can link those endpoints together into a larger shape.
+    //
+    // we do this until we can't find any segments between any shapes that are reversed
+
+    return nil;
+}
+
 
 /**
  * red segments are the segments of the scissors that intersect with the shape.
@@ -1529,7 +1571,7 @@ static NSInteger segmentCompareCount = 0;
     for (DKUIBezierPathClippedSegment *red in _redSegments) {
         BOOL shouldAdd = YES;
         for (DKUIBezierPathClippedSegment *blue in _blueSegments) {
-            DKUIBezierPathClippedSegment *flippedBlue = [blue flippedRedBlueSegment];
+            DKUIBezierPathClippedSegment *flippedBlue = [blue flippedSegment];
             if ([[red startIntersection] isEqualToIntersection:[flippedBlue startIntersection]] &&
                 [[red endIntersection] isEqualToIntersection:[flippedBlue endIntersection]]) {
                 CGFloat angleBetween = [[red reversedSegment] angleBetween:flippedBlue];
@@ -1565,7 +1607,7 @@ static NSInteger segmentCompareCount = 0;
     for (DKUIBezierPathClippedSegment *blue in _blueSegments) {
         BOOL shouldAdd = YES;
         for (DKUIBezierPathClippedSegment *red in _redSegments) {
-            DKUIBezierPathClippedSegment *flippedBlue = [blue flippedRedBlueSegment];
+            DKUIBezierPathClippedSegment *flippedBlue = [blue flippedSegment];
             if ([[red startIntersection] isEqualToIntersection:[flippedBlue startIntersection]] &&
                 [[red endIntersection] isEqualToIntersection:[flippedBlue endIntersection]]) {
                 CGFloat angleBetween = [[red reversedSegment] angleBetween:flippedBlue];
@@ -1614,7 +1656,7 @@ static NSInteger segmentCompareCount = 0;
         } else {
             startingSegment = [allUnusedBlueSegments firstObject];
             [allUnusedBlueSegments removeObject:startingSegment];
-            startingSegment = [startingSegment flippedRedBlueSegment];
+            startingSegment = [startingSegment flippedSegment];
             startedWithRed = NO;
         }
         NSMutableArray *usedBlueSegments = [NSMutableArray array];
@@ -1768,7 +1810,7 @@ static NSInteger segmentCompareCount = 0;
         // as a red segment, then the red segments here will never match, because the elementIndex1
         // would only ever match elementIndex1. We need to flip the last segment so that
         // it looks like a "blue", which would match a red segment
-        DKUIBezierPathClippedSegment *lastSegmentInShapeAsBlue = [segment flippedRedBlueSegment];
+        DKUIBezierPathClippedSegment *lastSegmentInShapeAsBlue = [segment flippedSegment];
         if ([redSeg.startIntersection crossMatchesIntersection:[lastSegmentInShapeAsBlue endIntersection]]) {
             if (!currentSegmentCandidate) {
                 DKVector *currSeg = [[segment pathSegment] tangentNearEnd].tangent;
@@ -1899,7 +1941,7 @@ static NSInteger segmentCompareCount = 0;
                 // it's a blue segment. redefine the segment in terms of red endpoints
                 // so that we can know if its closed or not
                 [usedBlueSegments addObject:currentSegmentCandidate];
-                [currentlyBuiltShape.segments addObject:[currentSegmentCandidate flippedRedBlueSegment]];
+                [currentlyBuiltShape.segments addObject:[currentSegmentCandidate flippedSegment]];
             }
             [redSegmentsLeftToUse removeObject:currentSegmentCandidate];
             [blueSegmentsLeftToUse removeObject:currentSegmentCandidate];

@@ -82,10 +82,11 @@
 		66AFAD1B1A8DDD8F00FD0263 /* DKTangentAtPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 668287A51A893DDD0038A1C4 /* DKTangentAtPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */; };
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
-		DD26B78DFD8510CCBB10B4D2 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */; };
 		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
+		DD26B78DFD8510CCBB10B4D2 /* libPods-ClippingBezier-ClippingBezierTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,14 +204,15 @@
 		C50DBB061E0B5C600006F58A /* scissor-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scissor-example.png"; sourceTree = "<group>"; };
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
+		C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierUnionTest.m; sourceTree = "<group>"; };
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
+		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 		D9EC2CF48A52BA019E4C6A1B /* Pods-ClippingBezier-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier-ClippingBezierTests/Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB82833120412A4ADC36E802 /* libPods-ClippingBezier-ClippingBezierTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingBezier-ClippingBezierTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54D47FDC17E86D7694F90AD /* Pods-ClippingBezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier/Pods-ClippingBezier.release.xcconfig"; sourceTree = "<group>"; };
 		FDF4BEF223EE094757130036 /* libPods-ClippingExampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClippingExampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
-		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 				66FD53151A894C7A00E7B486 /* MMClippingBezierAbstractTest.h */,
 				66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */,
 				66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */,
+				C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */,
 				66FD53181A894C7A00E7B486 /* MMClippingBezierSegmentTests.m */,
 				66FD53191A894C7A00E7B486 /* MMClippingBezierSegmentTangentTests.m */,
 				66FD531A1A894C7A00E7B486 /* MMClippingBezierPerformanceTests.m */,
@@ -802,6 +805,7 @@
 				666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */,
 				6696DEE51B2E318A00A2BC8E /* MMClippingBezierGeometryTest.m in Sources */,
 				665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */,
+				C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */,
 				666EEC2E1A8D8F7500B9F171 /* MMClippingBezierSubshapeTests.m in Sources */,
 				666EEC2F1A8D8F7500B9F171 /* MMClippingBezierReversePathTests.m in Sources */,
 				666EEC311A8D8F7500B9F171 /* MMClippingBezierFlatTests.m in Sources */,

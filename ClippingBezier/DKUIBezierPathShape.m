@@ -128,5 +128,34 @@
     return NO;
 }
 
+- (DKUIBezierPathShape *)flippedShape
+{
+    DKUIBezierPathShape *flipped = [[DKUIBezierPathShape alloc] init];
+
+    [[self segments] enumerateObjectsUsingBlock:^(DKUIBezierPathClippedSegment *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [[flipped segments] addObject:[obj flippedSegment]];
+    }];
+
+    [[self holes] enumerateObjectsUsingBlock:^(DKUIBezierPathShape *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [[flipped holes] addObject:[obj flippedShape]];
+    }];
+
+    return flipped;
+}
+
+- (DKUIBezierPathShape *)reversedShape
+{
+    DKUIBezierPathShape *flipped = [[DKUIBezierPathShape alloc] init];
+
+    [[self segments] enumerateObjectsUsingBlock:^(DKUIBezierPathClippedSegment *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [[flipped segments] insertObject:[obj reversedSegment] atIndex:0];
+    }];
+
+    [[self holes] enumerateObjectsUsingBlock:^(DKUIBezierPathShape *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [[flipped holes] addObject:[obj reversedShape]];
+    }];
+
+    return flipped;
+}
 
 @end

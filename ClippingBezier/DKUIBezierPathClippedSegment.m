@@ -53,7 +53,7 @@
     return self;
 }
 
-- (DKUIBezierPathClippedSegment *)flippedRedBlueSegment
+- (DKUIBezierPathClippedSegment *)flippedSegment
 {
     DKUIBezierPathClippedSegment *flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment fromFullPath:fullPath];
     [flippedSeg setIsReversed:self.isReversed];
@@ -105,7 +105,21 @@
 
 - (BOOL)isEqual:(id)object
 {
-    return object == self || ([object isKindOfClass:[DKUIBezierPathClippedSegment class]] && [object reversedSegment] == self);
+    if (object == self) {
+        return YES;
+    }
+    if (![object isKindOfClass:[DKUIBezierPathClippedSegment class]]) {
+        return NO;
+    }
+    if ([object reversedSegment] == self) {
+        return YES;
+    }
+    if (![[self startIntersection] isEqual:[object startIntersection]] || ![[self endIntersection] isEqual:[object endIntersection]]) {
+        return NO;
+    }
+
+    // at this point our intersections are the same, see if our paths are the same too
+    return [[self pathSegment] isEqualToBezierPath:[object pathSegment]];
 }
 
 - (BOOL)isEqualToSegment:(DKUIBezierPathClippedSegment *)otherSegment

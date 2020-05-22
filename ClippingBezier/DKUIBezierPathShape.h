@@ -28,4 +28,7 @@
 
 - (BOOL)sharesSegmentWith:(DKUIBezierPathShape *)otherShape;
 
+- (DKUIBezierPathShape *)flippedShape;
+- (DKUIBezierPathShape *)reversedShape;
+
 @end

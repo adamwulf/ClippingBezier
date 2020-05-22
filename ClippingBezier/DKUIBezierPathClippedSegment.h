@@ -39,9 +39,13 @@
 
 - (DKUIBezierPathClippedSegment *)prependTo:(DKUIBezierPathClippedSegment *)otherSegment;
 
-- (DKUIBezierPathClippedSegment *)reversedSegment;
+/// Flips the intersections so that elementIndex1 <=> elementIndex2
+/// The direction of the segment remains unchanged
+- (DKUIBezierPathClippedSegment *)flippedSegment;
 
-- (DKUIBezierPathClippedSegment *)flippedRedBlueSegment;
+/// Reverses the start/end intersections so that the direction of the segment changes.
+/// The intersections' elementIndex1/2 remain unchanged, the only switch from start <=> end
+- (DKUIBezierPathClippedSegment *)reversedSegment;
 
 - (CGFloat)angleBetween:(DKUIBezierPathClippedSegment *)otherInter;
 

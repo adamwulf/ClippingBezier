@@ -21,6 +21,8 @@
 
 - (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path;
 
+- (UIBezierPath *)unionWithPath:(UIBezierPath *)scissors;
+
 // shape clipping
 
 - (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside;
