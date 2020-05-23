@@ -150,4 +150,49 @@
     XCTAssert([unionPath isEqualToBezierPath:[finalShapes firstObject] withAccuracy:0.00001]);
 }
 
+- (void)testUnionToHole
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(100, 20)];
+    [path1 addLineToPoint:CGPointMake(50, 20)];
+    [path1 addLineToPoint:CGPointMake(50, 80)];
+    [path1 addLineToPoint:CGPointMake(100, 80)];
+    [path1 addLineToPoint:CGPointMake(100, 100)];
+    [path1 addLineToPoint:CGPointMake(0, 100)];
+    [path1 addLineToPoint:CGPointMake(0, 0)];
+    [path1 addLineToPoint:CGPointMake(100, 0)];
+    [path1 addLineToPoint:CGPointMake(100, 20)];
+    [path1 closePath];
+
+    UIBezierPath *path2 = [UIBezierPath bezierPath];
+    [path2 moveToPoint:CGPointMake(70, 10)];
+    [path2 addLineToPoint:CGPointMake(80, 10)];
+    [path2 addLineToPoint:CGPointMake(80, 90)];
+    [path2 addLineToPoint:CGPointMake(70, 90)];
+    [path2 addLineToPoint:CGPointMake(70, 10)];
+    [path2 closePath];
+
+    NSArray<UIBezierPath *> *finalShapes = [path1 unionWithPath:path2];
+
+    XCTAssertEqual([finalShapes count], 1);
+
+    UIBezierPath *unionPath = [UIBezierPath bezierPath];
+    [unionPath moveToPoint:CGPointMake(70.000000, 80.000000)];
+    [unionPath addLineToPoint:CGPointMake(70.000000, 20.000000)];
+    [unionPath addLineToPoint:CGPointMake(50.000000, 20.000000)];
+    [unionPath addLineToPoint:CGPointMake(50.000000, 80.000000)];
+    [unionPath addLineToPoint:CGPointMake(70.000000, 80.000000)];
+    [unionPath addLineToPoint:CGPointMake(100.000000, 80.000000)];
+    [unionPath addLineToPoint:CGPointMake(100.000000, 100.000000)];
+    [unionPath addLineToPoint:CGPointMake(0.000000, 100.000000)];
+    [unionPath addLineToPoint:CGPointMake(0.000000, 0.000000)];
+    [unionPath addLineToPoint:CGPointMake(100.000000, 0.000000)];
+    [unionPath addLineToPoint:CGPointMake(100.000000, 20.000000)];
+    [unionPath addLineToPoint:CGPointMake(100.000000, 20.000000)];
+    [unionPath addLineToPoint:CGPointMake(80.000000, 20.000000)];
+    [unionPath addLineToPoint:CGPointMake(80.000000, 80.000000)];
+
+    XCTAssert([unionPath isEqualToBezierPath:[finalShapes firstObject] withAccuracy:0.00001]);
+}
+
 @end

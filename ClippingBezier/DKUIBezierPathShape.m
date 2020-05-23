@@ -191,7 +191,7 @@
 
     NSInteger firstMatchedIndex = anyMatchedIndex;
 
-    for (NSInteger i = anyMatchedIndex + [mySegments count]; i > anyMatchedIndex; i--) {
+    for (NSInteger i = anyMatchedIndex + [mySegments count] - 1; i >= anyMatchedIndex; i--) {
         NSInteger trueIndex = i % [mySegments count];
         DKUIBezierPathClippedSegment *mySegment = mySegments[trueIndex];
         if ([otherSegments containsObject:[mySegment reversedSegment]]) {

@@ -43,56 +43,32 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 200, 100)];
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(100, 20)];
+    [path1 addLineToPoint:CGPointMake(50, 20)];
+    [path1 addLineToPoint:CGPointMake(50, 80)];
+    [path1 addLineToPoint:CGPointMake(100, 80)];
+    [path1 addLineToPoint:CGPointMake(100, 100)];
+    [path1 addLineToPoint:CGPointMake(0, 100)];
+    [path1 addLineToPoint:CGPointMake(0, 0)];
+    [path1 addLineToPoint:CGPointMake(100, 0)];
+    [path1 addLineToPoint:CGPointMake(100, 20)];
+    [path1 closePath];
 
-    shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(0, 0)];
-    [shapePath addLineToPoint:CGPointMake(100, 0)];
-    [shapePath addLineToPoint:CGPointMake(100, 100)];
-    [shapePath addLineToPoint:CGPointMake(0, 100)];
-    [shapePath addLineToPoint:CGPointMake(0, 0)];
-    [shapePath closePath];
+    UIBezierPath *path2 = [UIBezierPath bezierPath];
+    [path2 moveToPoint:CGPointMake(70, 10)];
+    [path2 addLineToPoint:CGPointMake(80, 10)];
+    [path2 addLineToPoint:CGPointMake(80, 90)];
+    [path2 addLineToPoint:CGPointMake(70, 90)];
+    [path2 addLineToPoint:CGPointMake(70, 10)];
+    [path2 closePath];
 
-    scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(0, 0)];
-    [scissorPath addLineToPoint:CGPointMake(200, 0)];
-    [scissorPath addLineToPoint:CGPointMake(200, 100)];
-    [scissorPath addLineToPoint:CGPointMake(0, 100)];
-    [scissorPath addLineToPoint:CGPointMake(0, 0)];
-    [scissorPath closePath];
+    NSArray<UIBezierPath *> *finalShapes = [path1 unionWithPath:path2];
 
-    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray<DKUIBezierPathClippedSegment *> *redSegments = [redBlueSegs firstObject];
-    NSArray<DKUIBezierPathClippedSegment *> *blueSegments = [redBlueSegs lastObject];
-
-    for (DKUIBezierPathClippedSegment *segment in redSegments) {
-        UIBezierPath *path = [[segment pathSegment] copy];
-        [path applyTransform:CGAffineTransformMakeTranslation(100, 100)];
-        [path setLineWidth:10];
-        [[UIColor redColor] setStroke];
-        [path stroke];
-    }
-
-    for (DKUIBezierPathClippedSegment *segment in blueSegments) {
-        UIBezierPath *path = [[segment pathSegment] copy];
-        [path applyTransform:CGAffineTransformMakeTranslation(100, 100)];
-        [path setLineWidth:5];
-        [[UIColor blueColor] setStroke];
-        [path stroke];
-    }
-
-
-    NSArray *colors = @[[UIColor redColor], [UIColor blueColor], [UIColor purpleColor], [UIColor orangeColor]];
-    NSArray *shapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-
-    for (NSInteger i = 0; i < [shapes count]; i++) {
-        UIBezierPath *path = [[shapes[i] fullPath] copy];
-        [path applyTransform:CGAffineTransformMakeTranslation(100, 300)];
-        [path setLineWidth:(i + 1) * 10 / [shapes count]];
-        [colors[i] setStroke];
-        [path stroke];
-    }
+    [[UIColor blueColor] setStroke];
+    [[finalShapes firstObject] setLineWidth:1];
+    [[finalShapes firstObject] applyTransform:CGAffineTransformMakeTranslation(100, 100)];
+    [[finalShapes firstObject] stroke];
 }
 
 + (UIColor *)randomColor

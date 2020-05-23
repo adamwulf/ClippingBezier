@@ -1566,7 +1566,8 @@ static NSInteger segmentCompareCount = 0;
             if (index == NSNotFound) {
                 [gluedShapes addObject:shape];
             } else {
-                DKUIBezierPathShape *gluedShape = [[gluedShapes objectAtIndex:index] glueToShape:shape];
+                DKUIBezierPathShape *toShape = [gluedShapes objectAtIndex:index];
+                DKUIBezierPathShape *gluedShape = [toShape glueToShape:shape];
                 [gluedShapes removeObjectAtIndex:index]; // remove the shape we just merged
 
                 // now we've merged two shapes together, which might affect other unglued shapes
