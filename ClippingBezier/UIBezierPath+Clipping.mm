@@ -1068,6 +1068,26 @@ static NSInteger segmentCompareCount = 0;
     NSMutableArray *correctedIntersectionSegments = [NSMutableArray array];
     NSMutableArray *correctedDifferenceSegments = [NSMutableArray array];
 
+    // It's possible for allSubpathToShapeIntersections to be offset from scissorToShapeIntersections
+    // if an intersection point maps to the very beginning of a closed path, it could be represented by
+    // the start of the moveTo, start of the element after the move to, end of the move to, or end
+    // of the closePath, or beginning of the close path if the path otherwise ended on the start point.
+    // to rectify this, align the indexes of allSubpathToShapeIntersections and scissorToShapeIntersections
+    for (NSInteger i = 0; i < [allSubpathToShapeIntersections count]; i++) {
+        DKUIBezierPathIntersectionPoint *inter = allSubpathToShapeIntersections[i];
+        NSInteger stsindex = [scissorToShapeIntersections indexOfObject:inter];
+        if (stsindex != NSNotFound && stsindex != i) {
+            // align the indexes
+            [allSubpathToShapeIntersections addObjectsFromArray:[allSubpathToShapeIntersections subarrayWithRange:NSMakeRange(0, i)]];
+            [allSubpathToShapeIntersections removeObjectsInRange:NSMakeRange(0, i)];
+
+            [scissorToShapeIntersections addObjectsFromArray:[scissorToShapeIntersections subarrayWithRange:NSMakeRange(0, stsindex)]];
+            [scissorToShapeIntersections removeObjectsInRange:NSMakeRange(0, stsindex)];
+
+            break;
+        }
+    }
+
     //
     // now, all of the intersectionSegments and differenceSegments are correct
     // for their respective subpaths. we need to create new segment objects
@@ -1253,8 +1273,8 @@ static NSInteger segmentCompareCount = 0;
 {
     NSArray *redGreenAndBlueSegments = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:numberOfBlueShellSegments];
 
-    NSMutableArray *redSegments = [NSMutableArray arrayWithArray:[redGreenAndBlueSegments firstObject]];
-    NSMutableArray *blueSegments = [NSMutableArray arrayWithArray:[redGreenAndBlueSegments lastObject]];
+    NSMutableArray<DKUIBezierPathClippedSegment *> *redSegments = [NSMutableArray arrayWithArray:[redGreenAndBlueSegments firstObject]];
+    NSMutableArray<DKUIBezierPathClippedSegment *> *blueSegments = [NSMutableArray arrayWithArray:[redGreenAndBlueSegments lastObject]];
 
     //
     // filter out any red segments that have unmatched endpoints.
@@ -1428,6 +1448,7 @@ static NSInteger segmentCompareCount = 0;
     NSArray *redSegments = [redBlueSegments firstObject];
     NSArray *blueSegments = [redBlueSegments lastObject];
 
+
     // now we have all of the red segments and all of the blue segments.
     // next we need to traverse this graph of segments, starting with each
     // red segment and proceeding along the left most path. this will
@@ -1495,7 +1516,7 @@ static NSInteger segmentCompareCount = 0;
 
 - (NSArray<DKUIBezierPathShape *> *)allUniqueShapesWithPath:(UIBezierPath *)scissors
 {
-    // clip from both persepctives so that we get intersection shapes twice
+    // clip from both perspectives so that we get intersection shapes twice
     // and difference shapes from each path
     NSArray<DKUIBezierPathShape *> *clippingResult1 = [self uniqueShapesCreatedFromSlicingWithUnclosedPath:scissors];
     NSArray<DKUIBezierPathShape *> *clippingResult2 = [scissors uniqueShapesCreatedFromSlicingWithUnclosedPath:self];
@@ -1514,7 +1535,7 @@ static NSInteger segmentCompareCount = 0;
     for (DKUIBezierPathShape *firstShape in clippingResult1) {
         BOOL didFind = NO;
         for (DKUIBezierPathShape *secondShape in finalShapes) {
-            if ([firstShape isSameShapeAs:secondShape]) {
+            if ([firstShape isSameShapeAs:secondShape] || [[firstShape fullPath] isEqualToBezierPath:[secondShape fullPath]]) {
                 didFind = YES;
                 break;
             }
@@ -1585,25 +1606,10 @@ static NSInteger segmentCompareCount = 0;
 }
 
 
-/**
- * red segments are the segments of the scissors that intersect with the shape.
- * blue segments are the segments of the shape that have been split up by the scissors
- *
- * to find subshapes, we start with a red shape, and the follow along the left-most path
- * until we arrive back at the other end of the red shape
- */
-+ (NSArray *)generateShapesFromRedSegments:(NSArray *)_redSegments andBlueSegments:(NSArray *)_blueSegments comp:(BOOL)gt shapeShellElementCount:(int)shapeShellElementCount
++ (NSArray *)removeIdenticalRedSegments:(NSArray *)_redSegments andBlueSegments:(NSArray *)_blueSegments
 {
     NSMutableArray *blueSegments = [NSMutableArray array];
     NSMutableArray *redSegments = [NSMutableArray array];
-
-    NSArray *blueSegmentsOfShell = [_blueSegments subarrayWithRange:NSMakeRange(0, shapeShellElementCount)];
-    NSMutableSet *intersectionsOfShell = [NSMutableSet set];
-    [blueSegmentsOfShell enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [intersectionsOfShell addObject:[obj startIntersection]];
-        [intersectionsOfShell addObject:[obj endIntersection]];
-    }];
-    NSMutableArray *output = [NSMutableArray array];
 
     //
     // tangent fixing:
@@ -1688,6 +1694,33 @@ static NSInteger segmentCompareCount = 0;
             [blueSegments addObject:blue];
         }
     }
+
+    return @[redSegments, blueSegments];
+}
+
+/**
+ * red segments are the segments of the scissors that intersect with the shape.
+ * blue segments are the segments of the shape that have been split up by the scissors
+ *
+ * to find subshapes, we start with a red shape, and the follow along the left-most path
+ * until we arrive back at the other end of the red shape
+ */
++ (NSArray *)generateShapesFromRedSegments:(NSArray *)_redSegments andBlueSegments:(NSArray *)_blueSegments comp:(BOOL)gt shapeShellElementCount:(int)shapeShellElementCount
+{
+    NSArray *deduppedSegments = [self removeIdenticalRedSegments:_redSegments andBlueSegments:_blueSegments];
+
+    NSArray *blueSegmentsOfShell = [_blueSegments subarrayWithRange:NSMakeRange(0, shapeShellElementCount)];
+    NSMutableSet *intersectionsOfShell = [NSMutableSet set];
+    [blueSegmentsOfShell enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [intersectionsOfShell addObject:[obj startIntersection]];
+        [intersectionsOfShell addObject:[obj endIntersection]];
+    }];
+    NSMutableArray *output = [NSMutableArray array];
+
+
+    NSMutableArray *redSegments = [[deduppedSegments firstObject] mutableCopy];
+    NSMutableArray *blueSegments = [[deduppedSegments lastObject] mutableCopy];
+
     NSMutableArray *allUnusedBlueSegments = [NSMutableArray arrayWithArray:blueSegments];
     NSMutableArray *redSegmentsToStartWith = [NSMutableArray arrayWithArray:redSegments];
 

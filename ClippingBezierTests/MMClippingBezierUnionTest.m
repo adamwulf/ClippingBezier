@@ -17,7 +17,7 @@
 
 @implementation MMClippingBezierUnionTest
 
-- (void)testUnionStep1
+- (void)testSimpleUnionStep1
 {
     UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
     UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(50, 20, 100, 60)];
@@ -48,7 +48,7 @@
     XCTAssert([unionPath isEqualToBezierPath:[unionShape fullPath] withAccuracy:0.00001]);
 }
 
-- (void)testUnionStep2
+- (void)testSimpleUnionStep2
 {
     UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
     UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(50, 20, 100, 60)];
@@ -74,7 +74,7 @@
     XCTAssert([unionPath isEqualToBezierPath:[unionShape fullPath] withAccuracy:0.00001]);
 }
 
-- (void)testUnionStep3
+- (void)testSimpleUnionStep3
 {
     UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
     UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(50, 20, 100, 60)];
@@ -98,6 +98,56 @@
     [unionPath closePath];
 
     XCTAssert([unionPath isEqualToBezierPath:unionShape withAccuracy:0.00001]);
+}
+
+- (void)testFullOverlapUnionStep1
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 200, 100)];
+
+    NSArray<DKUIBezierPathShape *> *finalShapes = [path1 allUniqueShapesWithPath:path2];
+
+    XCTAssertEqual([finalShapes count], 2);
+
+    XCTAssert([finalShapes[0] canGlueToShape:finalShapes[1]]);
+
+    DKUIBezierPathShape *unionShape = [finalShapes[0] glueToShape:finalShapes[1]];
+
+    XCTAssertNotNil(unionShape);
+
+    UIBezierPath *unionPath = [UIBezierPath bezierPath];
+    [unionPath moveToPoint:CGPointMake(0, 0)];
+    [unionPath addLineToPoint:CGPointMake(100, 0)];
+    [unionPath addLineToPoint:CGPointMake(200, 0)];
+    [unionPath addLineToPoint:CGPointMake(200, 100)];
+    [unionPath addLineToPoint:CGPointMake(100, 100)];
+    [unionPath addLineToPoint:CGPointMake(0, 100)];
+    [unionPath addLineToPoint:CGPointMake(0, 0)];
+    [unionPath closePath];
+
+    XCTAssert([unionPath isEqualToBezierPath:[unionShape fullPath] withAccuracy:0.00001]);
+}
+
+- (void)testFullOverlapUnion
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 200, 100)];
+
+    NSArray<UIBezierPath *> *finalShapes = [path1 unionWithPath:path2];
+
+    XCTAssertEqual([finalShapes count], 1);
+
+    UIBezierPath *unionPath = [UIBezierPath bezierPath];
+    [unionPath moveToPoint:CGPointMake(0, 0)];
+    [unionPath addLineToPoint:CGPointMake(100, 0)];
+    [unionPath addLineToPoint:CGPointMake(200, 0)];
+    [unionPath addLineToPoint:CGPointMake(200, 100)];
+    [unionPath addLineToPoint:CGPointMake(100, 100)];
+    [unionPath addLineToPoint:CGPointMake(0, 100)];
+    [unionPath addLineToPoint:CGPointMake(0, 0)];
+    [unionPath closePath];
+
+    XCTAssert([unionPath isEqualToBezierPath:[finalShapes firstObject] withAccuracy:0.00001]);
 }
 
 @end

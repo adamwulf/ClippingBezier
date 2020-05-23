@@ -9,6 +9,7 @@
 #import "MMClipView.h"
 #import "UIBezierPath+SamplePaths.h"
 #import <ClippingBezier/ClippingBezier.h>
+#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
 @interface UIBezierPath (Private)
 
@@ -42,71 +43,55 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (_displayTypeControl.selectedSegmentIndex == 0) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 200, 100)];
 
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+    shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(0, 0)];
+    [shapePath addLineToPoint:CGPointMake(100, 0)];
+    [shapePath addLineToPoint:CGPointMake(100, 100)];
+    [shapePath addLineToPoint:CGPointMake(0, 100)];
+    [shapePath addLineToPoint:CGPointMake(0, 0)];
+    [shapePath closePath];
 
-        NSArray *intersections = [shapePath1 findIntersectionsWithClosedPath:shapePath2 andBeginsInside:nil];
+    scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(0, 0)];
+    [scissorPath addLineToPoint:CGPointMake(200, 0)];
+    [scissorPath addLineToPoint:CGPointMake(200, 100)];
+    [scissorPath addLineToPoint:CGPointMake(0, 100)];
+    [scissorPath addLineToPoint:CGPointMake(0, 0)];
+    [scissorPath closePath];
 
-        for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
-            [[UIColor redColor] setFill];
-            CGPoint p = intersection.location1;
+    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray<DKUIBezierPathClippedSegment *> *redSegments = [redBlueSegs firstObject];
+    NSArray<DKUIBezierPathClippedSegment *> *blueSegments = [redBlueSegs lastObject];
 
-            NSLog(@"intersection at: %f %f", p.x, p.y);
+    for (DKUIBezierPathClippedSegment *segment in redSegments) {
+        UIBezierPath *path = [[segment pathSegment] copy];
+        [path applyTransform:CGAffineTransformMakeTranslation(100, 100)];
+        [path setLineWidth:10];
+        [[UIColor redColor] setStroke];
+        [path stroke];
+    }
 
-            [[UIBezierPath bezierPathWithArcCenter:p radius:7 startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
-        }
-    } else if (_displayTypeControl.selectedSegmentIndex == 1) {
-        NSArray<DKUIBezierPathShape *> *shapes = [shapePath1 uniqueShapesCreatedFromSlicingWithUnclosedPath:shapePath2];
+    for (DKUIBezierPathClippedSegment *segment in blueSegments) {
+        UIBezierPath *path = [[segment pathSegment] copy];
+        [path applyTransform:CGAffineTransformMakeTranslation(100, 100)];
+        [path setLineWidth:5];
+        [[UIColor blueColor] setStroke];
+        [path stroke];
+    }
 
-        for (DKUIBezierPathShape *shape in shapes) {
-            [[MMClipView randomColor] setFill];
 
-            [[shape fullPath] fill];
-        }
-    } else if (_displayTypeControl.selectedSegmentIndex == 2) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+    NSArray *colors = @[[UIColor redColor], [UIColor blueColor], [UIColor purpleColor], [UIColor orangeColor]];
+    NSArray *shapes = [shapePath uniqueShapesCreatedFromSlicingWithUnclosedPath:scissorPath];
 
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
-
-        NSArray<UIBezierPath *> *intersection = [shapePath1 intersectionWithPath:shapePath2];
-
-        for (UIBezierPath *path in intersection) {
-            [[MMClipView randomColor] setFill];
-            [path fill];
-        }
-    } else if (_displayTypeControl.selectedSegmentIndex == 3) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
-
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
-
-        NSArray<UIBezierPath *> *intersection = [shapePath1 differenceWithPath:shapePath2];
-
-        for (UIBezierPath *path in intersection) {
-            [[MMClipView randomColor] setFill];
-            [path fill];
-        }
-    } else if (_displayTypeControl.selectedSegmentIndex == 4) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
-    } else if (_displayTypeControl.selectedSegmentIndex == 5) {
-        [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+    for (NSInteger i = 0; i < [shapes count]; i++) {
+        UIBezierPath *path = [[shapes[i] fullPath] copy];
+        [path applyTransform:CGAffineTransformMakeTranslation(100, 300)];
+        [path setLineWidth:(i + 1) * 10 / [shapes count]];
+        [colors[i] setStroke];
+        [path stroke];
     }
 }
 

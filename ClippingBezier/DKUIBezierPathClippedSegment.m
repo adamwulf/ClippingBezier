@@ -27,6 +27,7 @@
 @synthesize pathSegment;
 @synthesize fullPath;
 @synthesize isReversed;
+@synthesize isFlipped;
 
 - (void)setIsReversed:(BOOL)r
 {
@@ -35,6 +36,10 @@
 - (void)setReversedFrom:(DKUIBezierPathClippedSegment *)r
 {
     reversedFrom = r;
+}
+- (void)setIsFlipped:(BOOL)f
+{
+    isFlipped = f;
 }
 
 + (DKUIBezierPathClippedSegment *)clippedPairWithStart:(DKUIBezierPathIntersectionPoint *)_tStart andEnd:(DKUIBezierPathIntersectionPoint *)_tEnd andPathSegment:(UIBezierPath *)segment fromFullPath:(UIBezierPath *)_fullPath
@@ -62,6 +67,7 @@
 {
     DKUIBezierPathClippedSegment *flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment fromFullPath:fullPath];
     [flippedSeg setIsReversed:self.isReversed];
+    [flippedSeg setIsFlipped:!self.isFlipped];
     return flippedSeg;
 }
 
@@ -103,6 +109,7 @@
     }
     DKUIBezierPathClippedSegment *ret = [DKUIBezierPathClippedSegment clippedPairWithStart:self.endIntersection andEnd:self.startIntersection andPathSegment:[self.pathSegment bezierPathByReversingPath] fromFullPath:self.fullPath];
     [ret setIsReversed:!isReversed];
+    [ret setIsFlipped:self.isFlipped];
     [ret setReversedFrom:self];
     [self setReversedFrom:ret];
     return ret;

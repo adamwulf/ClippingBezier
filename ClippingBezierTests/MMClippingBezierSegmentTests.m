@@ -2421,4 +2421,58 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)10, @"correct number of segments");
 }
 
+- (void)testIntersectingSquares
+{
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 100, 100)];
+
+    XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
+
+    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray *redSegments = [redBlueSegs firstObject];
+    NSArray *blueSegments = [redBlueSegs lastObject];
+
+    XCTAssertEqual([redSegments count], (NSUInteger)2, @"the curves do intersect");
+    XCTAssertEqual([blueSegments count], (NSUInteger)2, @"the curves do intersect");
+}
+
+- (void)testOverlappingSquares
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 200, 100)];
+
+    shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(0, 0)];
+    [shapePath addLineToPoint:CGPointMake(100, 0)];
+    [shapePath addLineToPoint:CGPointMake(100, 100)];
+    [shapePath addLineToPoint:CGPointMake(0, 100)];
+    [shapePath addLineToPoint:CGPointMake(0, 0)];
+    [shapePath closePath];
+
+    scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(0, 0)];
+    [scissorPath addLineToPoint:CGPointMake(200, 0)];
+    [scissorPath addLineToPoint:CGPointMake(200, 100)];
+    [scissorPath addLineToPoint:CGPointMake(0, 100)];
+    [scissorPath addLineToPoint:CGPointMake(0, 0)];
+    [scissorPath closePath];
+
+    XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
+
+    NSArray *redBlueSegs = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
+    NSArray *redSegments = [redBlueSegs firstObject];
+    NSArray *blueSegments = [redBlueSegs lastObject];
+
+    XCTAssertEqual([redSegments count], (NSUInteger)6, @"the curves do intersect");
+    XCTAssertEqual([blueSegments count], (NSUInteger)4, @"the curves do intersect");
+
+    NSArray *deduppedSegments = [UIBezierPath removeIdenticalRedSegments:redSegments andBlueSegments:blueSegments];
+
+    redSegments = [deduppedSegments firstObject];
+    blueSegments = [deduppedSegments lastObject];
+
+    XCTAssertEqual([redSegments count], (NSUInteger)3, @"the curves do intersect");
+    XCTAssertEqual([blueSegments count], (NSUInteger)1, @"the curves do intersect");
+}
+
 @end

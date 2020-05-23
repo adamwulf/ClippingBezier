@@ -255,7 +255,6 @@
     return ret;
 }
 
-
 - (BOOL)isEqualToIntersection:(id)object
 {
     if ([object isKindOfClass:[DKUIBezierPathIntersectionPoint class]]) {

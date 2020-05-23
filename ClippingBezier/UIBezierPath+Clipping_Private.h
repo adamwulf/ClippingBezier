@@ -14,6 +14,8 @@
 
 + (NSArray *)redAndBlueSegmentsForShapeBuildingCreatedFrom:(UIBezierPath *)shapePath bySlicingWithPath:(UIBezierPath *)scissorPath andNumberOfBlueShellSegments:(NSUInteger *)numberOfBlueShellSegments;
 
++ (NSArray *)removeIdenticalRedSegments:(NSArray *)redSegments andBlueSegments:(NSArray *)blueSegments;
+
 - (DKUIBezierPathClippingResult *)clipUnclosedPathToClosedPath:(UIBezierPath *)closedPath usingIntersectionPoints:(NSArray *)intersectionPoints andBeginsInside:(BOOL)beginsInside;
 
 + (CGFloat)maxDistForEndPointTangents;
