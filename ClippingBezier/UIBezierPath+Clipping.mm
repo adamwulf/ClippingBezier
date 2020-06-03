@@ -162,7 +162,7 @@ static NSInteger segmentCompareCount = 0;
             // this way our bez1 array will be filled with a valid
             // bezier curve
             if (path1Element.type != kCGPathElementMoveToPoint) {
-                path1EstimatedElementLength = [path1 lengthOfElement:path1ElementIndex withAcceptableError:kUIBezierClosenessPrecision];
+                path1EstimatedElementLength = [UIBezierPath estimateArcLengthOf:bez1 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
 
                 __block CGPoint lastPath2Point = CGPointNotFound;
 
@@ -184,7 +184,7 @@ static NSInteger segmentCompareCount = 0;
                                             andSubPathStartingPoint:path2StartingPoint];
                         CGFloat path2ElementLength = 0;
                         if (path2Element.type != kCGPathElementMoveToPoint) {
-                            path2ElementLength = [path2 lengthOfElement:path2ElementIndex withAcceptableError:kUIBezierClosenessPrecision];
+                            path2ElementLength = [UIBezierPath estimateArcLengthOf:bez2 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
                             if (CGRectIntersectsRect(path1ElementBounds, path2ElementBounds)) {
                                 // track the number of segment comparisons we have to do
                                 // this tracks our worst case of how many segment rects intersect
@@ -2242,6 +2242,48 @@ static NSInteger segmentCompareCount = 0;
     }
     return intersectionsOutput;
 }
+
+
+/**
+ *
+ * from http://stackoverflow.com/questions/15489520/calculate-the-arclength-curve-length-of-a-cubic-bezier-curve-why-is-not-workin
+ *
+ * this will return an estimated arc length for the input bezier, given
+ * the input number of steps to divide it into
+ */
++ (CGFloat)estimateArcLengthOf:(CGPoint *)bez1 withMaxSteps:(NSInteger)steps andAccuracy:(CGFloat)accuracy
+{
+    CGFloat dist1 = [UIBezierPath distance:bez1[0] p2:bez1[1]];
+    CGFloat dist2 = [UIBezierPath distance:bez1[1] p2:bez1[2]];
+    CGFloat dist3 = [UIBezierPath distance:bez1[2] p2:bez1[3]];
+    CGFloat total = dist1 + dist2 + dist3;
+
+    if (total < accuracy) {
+        return total;
+    }
+
+    CGFloat td = 1.0 / steps;
+    CGPoint b = bez1[0];
+    CGFloat dX = 0, dY = 0;
+    CGFloat dS = 0;
+    CGFloat sumArc = 0;
+    CGFloat t = 0;
+
+    for (int i = 0; i < steps; i++) {
+        t = t + td;
+        CGPoint a = [UIBezierPath pointAtT:t forBezier:bez1];
+        dX = a.x - b.x;
+        dY = a.y - b.y;
+        // deltaS. Pitagora
+        dS = sqrt((dX * dX) + (dY * dY));
+        sumArc = sumArc + dS;
+        b.x = a.x;
+        b.y = a.y;
+    }
+
+    return sumArc;
+}
+
 
 /**
  * this method will fill the input bezier curve with the contents of the
