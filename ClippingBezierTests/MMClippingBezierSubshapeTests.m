@@ -2524,28 +2524,29 @@
     UIBezierPath *path2 = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(50, 10, 100, 100)];
 
     UIBezierPath *intersection = [UIBezierPath bezierPath];
-    [intersection moveToPoint:CGPointMake(66.575819, 97.186932)];
-    [intersection addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
-    [intersection addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
-    [intersection addCurveToPoint:CGPointMake(100.000000, 50.000000) controlPoint1:CGPointMake(93.600590, 21.965776) controlPoint2:CGPointMake(100.000000, 35.235557)];
+    [intersection moveToPoint:CGPointMake(66.575805, 97.186919)];
+    [intersection addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399404, 88.034212) controlPoint2:CGPointMake(50.000000, 74.764436)];
+    [intersection addCurveToPoint:CGPointMake(83.424186, 12.813083) controlPoint1:CGPointMake(50.000000, 38.195752) controlPoint2:CGPointMake(63.956870, 19.651305)];
+    [intersection addCurveToPoint:CGPointMake(100.000000, 50.000000) controlPoint1:CGPointMake(93.600596, 21.965788) controlPoint2:CGPointMake(100.000000, 35.235564)];
     [intersection addLineToPoint:CGPointMake(100.000000, 50.000000)];
-    [intersection addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
+    [intersection addCurveToPoint:CGPointMake(66.575814, 97.186917) controlPoint1:CGPointMake(100.000000, 71.804248) controlPoint2:CGPointMake(86.043130, 90.348695)];
     [intersection closePath];
 
     UIBezierPath *difference = [UIBezierPath bezierPath];
-    [difference moveToPoint:CGPointMake(66.575819, 97.186932)];
-    [difference addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(56.399410, 88.034224) controlPoint2:CGPointMake(50.000000, 74.764443)];
-    [difference addCurveToPoint:CGPointMake(83.424197, 12.813079) controlPoint1:CGPointMake(50.000000, 38.195748) controlPoint2:CGPointMake(63.956875, 19.651298)];
-    [difference addCurveToPoint:CGPointMake(100.000000, 50.000000) controlPoint1:CGPointMake(93.600590, 21.965776) controlPoint2:CGPointMake(100.000000, 35.235557)];
-    [difference addLineToPoint:CGPointMake(100.000000, 50.000000)];
-    [difference addCurveToPoint:CGPointMake(66.575803, 97.186921) controlPoint1:CGPointMake(100.000000, 71.804252) controlPoint2:CGPointMake(86.043125, 90.348702)];
+    [difference moveToPoint:CGPointMake(83.424186, 12.813083)];
+    [difference addCurveToPoint:CGPointMake(50.000000, 60.000000) controlPoint1:CGPointMake(63.956870, 19.651305) controlPoint2:CGPointMake(50.000000, 38.195752)];
+    [difference addCurveToPoint:CGPointMake(66.575805, 97.186919) controlPoint1:CGPointMake(50.000000, 74.764436) controlPoint2:CGPointMake(56.399404, 88.034212)];
+    [difference addCurveToPoint:CGPointMake(50.000000, 100.000000) controlPoint1:CGPointMake(61.388527, 99.009039) controlPoint2:CGPointMake(55.809989, 100.000000)];
+    [difference addCurveToPoint:CGPointMake(0.000000, 50.000000) controlPoint1:CGPointMake(22.385763, 100.000000) controlPoint2:CGPointMake(0.000000, 77.614237)];
+    [difference addCurveToPoint:CGPointMake(50.000000, 0.000000) controlPoint1:CGPointMake(0.000000, 22.385763) controlPoint2:CGPointMake(22.385763, 0.000000)];
+    [difference addCurveToPoint:CGPointMake(83.424195, 12.813081) controlPoint1:CGPointMake(62.849801, 0.000000) controlPoint2:CGPointMake(74.567458, 4.847286)];
     [difference closePath];
 
     UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
-    UIBezierPath *calcDifference = [[path1 intersectionWithPath:path2] firstObject];
+    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2] firstObject];
 
-    XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection], @"shape is very small from the knot");
-    XCTAssertTrue([difference isEqualToBezierPath:calcDifference], @"shape is very small from the knot");
+    XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection withAccuracy:0.000001], @"shape is very small from the knot");
+    XCTAssertTrue([difference isEqualToBezierPath:calcDifference withAccuracy:0.000001], @"shape is very small from the knot");
 }
 
 @end
