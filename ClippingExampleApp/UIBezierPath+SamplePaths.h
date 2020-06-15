@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIBezierPath (SamplePaths)
 
-+ (UIBezierPath *)samplePath1;
-+ (UIBezierPath *)samplePath2;
++ (UIBezierPath *)splitterPath;
++ (UIBezierPath *)splittingPath;
 
 @end
 
