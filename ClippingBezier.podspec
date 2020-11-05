@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.public_header_files = ['ClippingBezier/UIBezierPath+*.h','ClippingBezier/DK*.h','ClippingBezier/ClippingBezier.h','ClippingBezier/MMBackwardCompatible.h']
 
   s.platform = :ios
-  s.ios.deployment_target   = "8.0"
+  s.ios.deployment_target   = "12.0"
 
   s.framework = 'Foundation'
   s.dependency 'PerformanceBezier', '~> 1.0.6'
