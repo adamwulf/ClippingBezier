@@ -25,16 +25,16 @@
 @end
 
 @implementation MMClipView {
-    UIBezierPath *shapePath1;
-    UIBezierPath *shapePath2;
+    UIBezierPath *splitterPath;
+    UIBezierPath *splittingPath;
 }
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
 
-    shapePath1 = [UIBezierPath samplePath1];
-    shapePath2 = [UIBezierPath samplePath2];
+    splitterPath = [UIBezierPath complexShape1];
+    splittingPath = [UIBezierPath complexShape2];
 }
 
 - (IBAction)changedPreviewType:(id)sender
@@ -46,14 +46,14 @@
 {
     if (_displayTypeControl.selectedSegmentIndex == 0) {
         [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+        [splitterPath setLineWidth:3];
+        [splitterPath stroke];
 
         [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+        [splittingPath setLineWidth:3];
+        [splittingPath stroke];
 
-        NSArray *intersections = [shapePath1 findIntersectionsWithClosedPath:shapePath2 andBeginsInside:nil];
+        NSArray *intersections = [splittingPath findIntersectionsWithClosedPath:splitterPath andBeginsInside:nil];
 
         for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
             [[UIColor redColor] setFill];
@@ -62,7 +62,7 @@
             [[UIBezierPath bezierPathWithArcCenter:p radius:7 startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 1) {
-        NSArray<DKUIBezierPathShape *> *shapes = [shapePath1 uniqueShapesCreatedFromSlicingWithUnclosedPath:shapePath2];
+        NSArray<DKUIBezierPathShape *> *shapes = [splittingPath uniqueShapesCreatedFromSlicingWithUnclosedPath:splitterPath];
 
         for (DKUIBezierPathShape *shape in shapes) {
             [[MMClipView randomColor] setFill];
@@ -71,16 +71,14 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 2) {
         [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+        [splitterPath setLineWidth:3];
+        [splitterPath stroke];
 
         [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+        [splittingPath setLineWidth:3];
+        [splittingPath stroke];
 
-        shapePath1 = [shapePath1 bezierPathByReversingPath];
-
-        NSArray<UIBezierPath *> *intersection = [shapePath1 intersectionWithPath:shapePath2];
+        NSArray<UIBezierPath *> *intersection = [splittingPath intersectionWithPath:splitterPath];
 
         for (UIBezierPath *path in intersection) {
             [[MMClipView randomColor] setFill];
@@ -88,27 +86,35 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 3) {
         [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+        [splitterPath setLineWidth:3];
+        [splitterPath stroke];
 
         [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+        [splittingPath setLineWidth:3];
+        [splittingPath stroke];
 
-        NSArray<UIBezierPath *> *difference = [shapePath1 differenceWithPath:shapePath2];
+        NSArray<UIBezierPath *> *difference = [splittingPath differenceWithPath:splitterPath];
 
         for (UIBezierPath *path in difference) {
             [[MMClipView randomColor] setFill];
             [path fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 4) {
-        [[UIColor purpleColor] setStroke];
-        [shapePath1 setLineWidth:3];
-        [shapePath1 stroke];
+        NSArray<UIBezierPath *> *paths = [splittingPath unionWithPath:splitterPath];
+
+        for (UIBezierPath *path in paths) {
+            [[MMClipView randomColor] setFill];
+
+            [path fill];
+        }
     } else if (_displayTypeControl.selectedSegmentIndex == 5) {
+        [[UIColor purpleColor] setStroke];
+        [splitterPath setLineWidth:3];
+        [splitterPath stroke];
+    } else if (_displayTypeControl.selectedSegmentIndex == 6) {
         [[UIColor greenColor] setStroke];
-        [shapePath2 setLineWidth:3];
-        [shapePath2 stroke];
+        [splittingPath setLineWidth:3];
+        [splittingPath stroke];
     }
 }
 

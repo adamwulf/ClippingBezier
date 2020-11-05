@@ -2549,4 +2549,41 @@
     XCTAssertTrue([difference isEqualToBezierPath:calcDifference withAccuracy:0.000001], @"shape is very small from the knot");
 }
 
+- (void)testShapesFromReversedPath
+{
+    UIBezierPath *splitterPath = [UIBezierPath bezierPath];
+    [splitterPath moveToPoint:CGPointMake(12.000000, 16.970563)];
+    [splitterPath addLineToPoint:CGPointMake(208.000000, 16.970563)];
+    [splitterPath addLineToPoint:CGPointMake(208.000000, 128.000000)];
+    [splitterPath addLineToPoint:CGPointMake(12.000000, 128.000000)];
+    [splitterPath closePath];
+
+    UIBezierPath *splittingPath = splittingPath = [UIBezierPath bezierPath];
+    [splittingPath moveToPoint:CGPointMake(12.000000, 32.000000)];
+    [splittingPath addCurveToPoint:CGPointMake(12.000000, 32.000000) controlPoint1:CGPointMake(12.000000, 32.000000) controlPoint2:CGPointMake(12.000000, 32.000000)];
+    [splittingPath addLineToPoint:CGPointMake(12.000000, 12.000000)];
+    [splittingPath addLineToPoint:CGPointMake(12.000000, 128.000000)];
+    [splittingPath addCurveToPoint:CGPointMake(12.000000, 128.000000) controlPoint1:CGPointMake(12.000000, 128.000000) controlPoint2:CGPointMake(12.000000, 128.000000)];
+    [splittingPath addLineToPoint:CGPointMake(208.000000, 128.000000)];
+    [splittingPath addLineToPoint:CGPointMake(208.000000, 128.000000)];
+    [splittingPath addCurveToPoint:CGPointMake(208.000000, 128.000000) controlPoint1:CGPointMake(208.000000, 128.000000) controlPoint2:CGPointMake(208.000000, 128.000000)];
+    [splittingPath addLineToPoint:CGPointMake(208.000000, 32.000000)];
+    [splittingPath addLineToPoint:CGPointMake(208.000000, 32.000000)];
+    [splittingPath addCurveToPoint:CGPointMake(208.000000, 32.000000) controlPoint1:CGPointMake(208.000000, 32.000000) controlPoint2:CGPointMake(208.000000, 32.000000)];
+    [splittingPath addLineToPoint:CGPointMake(220.000000, 32.000000)];
+    [splittingPath addLineToPoint:CGPointMake(220.000000, 32.000000)];
+    [splittingPath addCurveToPoint:CGPointMake(211.514719, 28.485281) controlPoint1:CGPointMake(216.817402, 32.000000) controlPoint2:CGPointMake(213.765155, 30.735718)];
+    [splittingPath addLineToPoint:CGPointMake(200.000000, 16.970563)];
+    [splittingPath addLineToPoint:CGPointMake(190.828427, 26.142136)];
+    [splittingPath addLineToPoint:CGPointMake(190.828427, 26.142136)];
+    [splittingPath addCurveToPoint:CGPointMake(176.686292, 32.000000) controlPoint1:CGPointMake(187.077700, 29.892863) controlPoint2:CGPointMake(181.990621, 32.000000)];
+    [splittingPath addLineToPoint:CGPointMake(12.000000, 32.000000)];
+    [splittingPath closePath];
+
+    NSArray *shapes1 = [splittingPath uniqueShapesCreatedFromSlicingWithUnclosedPath:splitterPath];
+    NSArray *shapes2 = [splittingPath uniqueShapesCreatedFromSlicingWithUnclosedPath:[splitterPath bezierPathByReversingPath]];
+
+    XCTAssertEqual([shapes1 count], [shapes2 count]);
+}
+
 @end
