@@ -8,7 +8,7 @@
 
 #import "UIBezierPath+Trimming.h"
 #import <PerformanceBezier/PerformanceBezier.h>
-#import "ClippingBezier.h"
+#import "UIBezierPath+Intersections.h"
 
 #pragma mark - Subdivide helpers by Alastair J. Houghton
 /*
