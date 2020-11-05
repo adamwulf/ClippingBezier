@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIBezierPath (SamplePaths)
 
++ (UIBezierPath *)complexShape1;
++ (UIBezierPath *)complexShape2;
+
 + (UIBezierPath *)splitterPath;
 + (UIBezierPath *)splittingPath;
 

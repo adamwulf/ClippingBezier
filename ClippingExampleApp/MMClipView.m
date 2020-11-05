@@ -33,8 +33,8 @@
 {
     [super awakeFromNib];
 
-    splitterPath = [UIBezierPath simpleBox1];
-    splittingPath = [UIBezierPath simpleBox2];
+    splitterPath = [UIBezierPath complexShape1];
+    splittingPath = [UIBezierPath complexShape2];
 }
 
 - (IBAction)changedPreviewType:(id)sender
