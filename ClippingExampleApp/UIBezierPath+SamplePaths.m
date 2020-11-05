@@ -11,7 +11,7 @@
 
 + (UIBezierPath *)splitterPath
 {
-    UIBezierPath *path = path = [UIBezierPath bezierPath];
+    UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(12.000000, 16.970563)];
     [path addLineToPoint:CGPointMake(208.000000, 16.970563)];
     [path addLineToPoint:CGPointMake(208.000000, 128.000000)];
@@ -46,6 +46,16 @@
     [path closePath];
 
     return path;
+}
+
++ (UIBezierPath *)simpleBox1
+{
+    return [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 200, 200)];
+}
+
++ (UIBezierPath *)simpleBox2
+{
+    return [UIBezierPath bezierPathWithRect:CGRectMake(150, 150, 200, 200)];
 }
 
 @end

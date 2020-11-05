@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIBezierPath *)splitterPath;
 + (UIBezierPath *)splittingPath;
 
++ (UIBezierPath *)simpleBox1;
++ (UIBezierPath *)simpleBox2;
+
 @end
 
 NS_ASSUME_NONNULL_END

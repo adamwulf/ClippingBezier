@@ -33,8 +33,8 @@
 {
     [super awakeFromNib];
 
-    splitterPath = [UIBezierPath splitterPath];
-    splittingPath = [UIBezierPath splittingPath];
+    splitterPath = [UIBezierPath simpleBox1];
+    splittingPath = [UIBezierPath simpleBox2];
 }
 
 - (IBAction)changedPreviewType:(id)sender
@@ -100,10 +100,18 @@
             [path fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 4) {
+        NSArray<UIBezierPath *> *paths = [splittingPath unionWithPath:splitterPath];
+
+        for (UIBezierPath *path in paths) {
+            [[MMClipView randomColor] setFill];
+
+            [path fill];
+        }
+    } else if (_displayTypeControl.selectedSegmentIndex == 5) {
         [[UIColor purpleColor] setStroke];
         [splitterPath setLineWidth:3];
         [splitterPath stroke];
-    } else if (_displayTypeControl.selectedSegmentIndex == 5) {
+    } else if (_displayTypeControl.selectedSegmentIndex == 6) {
         [[UIColor greenColor] setStroke];
         [splittingPath setLineWidth:3];
         [splittingPath stroke];
