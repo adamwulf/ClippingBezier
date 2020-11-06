@@ -95,7 +95,7 @@
     }];
 
 
-    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil shouldFlatten:NO];
 
 
     XCTAssertEqual(found, 8, @"the curves do intersect");

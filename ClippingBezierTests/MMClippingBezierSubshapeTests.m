@@ -1123,7 +1123,7 @@
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
 
     XCTAssertEqual([intersections count], (NSUInteger)0, @"found 0 intersections");
 
@@ -2542,8 +2542,8 @@
     [difference addCurveToPoint:CGPointMake(83.424195, 12.813081) controlPoint1:CGPointMake(62.849801, 0.000000) controlPoint2:CGPointMake(74.567458, 4.847286)];
     [difference closePath];
 
-    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
-    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2] firstObject];
+    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2 shouldFlatten:NO] firstObject];
+    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2 shouldFlatten:NO] firstObject];
 
     XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection withAccuracy:0.000001], @"shape is very small from the knot");
     XCTAssertTrue([difference isEqualToBezierPath:calcDifference withAccuracy:0.000001], @"shape is very small from the knot");
