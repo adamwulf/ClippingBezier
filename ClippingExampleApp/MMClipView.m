@@ -53,7 +53,7 @@
         [splittingPath setLineWidth:3];
         [splittingPath stroke];
 
-        NSArray *intersections = [splittingPath findIntersectionsWithClosedPath:splitterPath andBeginsInside:nil];
+        NSArray *intersections = [splittingPath findIntersectionsWithClosedPath:splitterPath andBeginsInside:nil shouldFlatten:NO];
 
         for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
             [[UIColor redColor] setFill];
@@ -78,7 +78,7 @@
         [splittingPath setLineWidth:3];
         [splittingPath stroke];
 
-        NSArray<UIBezierPath *> *intersection = [splittingPath intersectionWithPath:splitterPath];
+        NSArray<UIBezierPath *> *intersection = [splittingPath intersectionWithPath:splitterPath shouldFlatten:NO];
 
         for (UIBezierPath *path in intersection) {
             [[MMClipView randomColor] setFill];
@@ -93,7 +93,7 @@
         [splittingPath setLineWidth:3];
         [splittingPath stroke];
 
-        NSArray<UIBezierPath *> *difference = [splittingPath differenceWithPath:splitterPath];
+        NSArray<UIBezierPath *> *difference = [splittingPath differenceWithPath:splitterPath shouldFlatten:NO];
 
         for (UIBezierPath *path in difference) {
             [[MMClipView randomColor] setFill];

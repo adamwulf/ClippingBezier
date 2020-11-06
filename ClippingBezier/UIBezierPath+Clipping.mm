@@ -32,6 +32,26 @@
 #include "NearestPoint.h"
 #include "bezier-clipping.h"
 
+@interface Coeffs: NSObject
+
+@property(nonatomic) CGFloat p0;
+@property(nonatomic) CGFloat p1;
+@property(nonatomic) CGFloat p2;
+@property(nonatomic) CGFloat p3;
+
+@end
+
+@implementation Coeffs {
+    CGFloat p0;
+    CGFloat p1;
+    CGFloat p2;
+    CGFloat p3;
+}
+
+@synthesize p0, p1, p2, p3;
+
+@end
+
 using namespace Geom;
 
 #define kUIBezierClippingPrecision 0.0005
@@ -78,7 +98,7 @@ static NSInteger segmentCompareCount = 0;
  * this will return all intersections points between
  * the self path and the input closed path.
  */
-- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside shouldFlatten:(BOOL)shouldFlatten
 {
     // hold our bezier information for the curves we compare
     CGPoint bez1_[4];
@@ -210,10 +230,28 @@ static NSInteger segmentCompareCount = 0;
                                         }
                                     }
                                 } else {
-                                    // at least one of the curves is a proper bezier, so use our
-                                    // bezier intersection algorithm to find possibly multiple intersections
-                                    // between these curves
-                                    intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
+//                                     at least one of the curves is a proper bezier, so use our
+//                                     bezier intersection algorithm to find possibly multiple intersections
+//                                     between these curves
+                                    if (shouldFlatten && path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddCurveToPoint) {
+
+                                        FlattenedCurve *flat = [UIBezierPath linesForBezierCurve:bez2 flatnessThreshold:0.01];
+
+                                        for (int i = 0; i <= flat.points.count - 2; i++) {
+                                            NSDictionary *dict0 = flat.points[[@(i) stringValue]];
+                                            NSDictionary *dict1 = flat.points[[@(i + 1) stringValue]];
+                                            CGFloat p0Length = [dict0[@"length"] floatValue];
+                                            CGPoint p0 = CGPointMake([dict0[@"x"] floatValue], [dict0[@"y"] floatValue]);
+                                            CGPoint p1 = CGPointMake([dict1[@"x"] floatValue], [dict1[@"y"] floatValue]);
+                                            intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:p0 to:p1 currentLength:p0Length segmentLength:flat.length];
+                                            if (intersections.count > 0) {
+                                                break;
+                                            }
+                                        }
+
+                                    } else {
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
+                                    }
                                 }
                                 // loop through the intersections that we've found, and add in
                                 // some context that we can save for each one.
@@ -1028,7 +1066,7 @@ static NSInteger segmentCompareCount = 0;
     for (UIBezierPath *subScissors in [scissorPath subPaths]) {
         BOOL beginsInside1_alt = NO;
         // find intersections within only this subpath
-        NSMutableArray *subpathToShapeIntersections = [NSMutableArray arrayWithArray:[subScissors findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1_alt]];
+        NSMutableArray *subpathToShapeIntersections = [NSMutableArray arrayWithArray:[subScissors findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1_alt shouldFlatten:NO]];
         // find all segments for only this subpath
         DKUIBezierPathClippingResult *subpathClippingResult = [subScissors clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:subpathToShapeIntersections andBeginsInside:beginsInside1_alt];
 
@@ -1159,7 +1197,7 @@ static NSInteger segmentCompareCount = 0;
     // find the intersections between the two paths. these will be the definitive intersection points,
     // no matter which way we clip the paths later on. if we clip shape to scissors, or scissor to shape,
     // we'll use these same intersections (properly adjusted for each cut).
-    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
 
     // so our first step is to create arrays of both the red and blue segments.
     //
@@ -1184,7 +1222,7 @@ static NSInteger segmentCompareCount = 0;
     // because we're going to reuse and resort the tValuesOfIntersectionPoints1.
     // this solves rounding error that happens when intersections generate slightly differently
     // depending on the order of paths sent in
-    NSArray *intersectionsWithBoundaryInformation = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersectionsWithBoundaryInformation = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
     //
     // this array will be the intersections between the shape and the scissor.
     // we'll use the exact same intersection objects (flipped, b/c we're attacking from
@@ -1456,7 +1494,7 @@ static NSInteger segmentCompareCount = 0;
     return [UIBezierPath generateShapesFromRedSegments:redSegments andBlueSegments:blueSegments comp:[shapePath isClockwise] shapeShellElementCount:(int)numberOfBlueShellSegments];
 }
 
-- (NSArray<UIBezierPath *> *)booleanWithPath:(UIBezierPath *)scissors calculateIntersection:(BOOL)intersection
+- (NSArray<UIBezierPath *> *)booleanWithPath:(UIBezierPath *)scissors calculateIntersection:(BOOL)intersection shouldFlatten:(BOOL)shouldFlatten
 {
     if ([self isClosed]) {
         NSUInteger numberOfBlueShellSegments = 0;
@@ -1495,7 +1533,7 @@ static NSInteger segmentCompareCount = 0;
         return result;
     } else if ([scissors isClosed]) {
         BOOL beginsInside1 = NO;
-        NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
+        NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1 shouldFlatten: shouldFlatten]];
         DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
         return intersection ? @[clipped.entireIntersectionPath] : @[clipped.entireDifferencePath];
     } else {
@@ -1503,16 +1541,15 @@ static NSInteger segmentCompareCount = 0;
     }
 }
 
-- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)scissors
+- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)scissors shouldFlatten:(BOOL)shouldFlatten
 {
-    return [self booleanWithPath:scissors calculateIntersection:YES];
+    return [self booleanWithPath:scissors calculateIntersection:YES shouldFlatten:shouldFlatten];
 }
 
-- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)scissors
+- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)scissors shouldFlatten:(BOOL)shouldFlatten
 {
-    return [self booleanWithPath:scissors calculateIntersection:NO];
+    return [self booleanWithPath:scissors calculateIntersection:NO shouldFlatten:shouldFlatten];
 }
-
 
 - (NSArray<DKUIBezierPathShape *> *)allUniqueShapesWithPath:(UIBezierPath *)scissors
 {
@@ -1947,7 +1984,7 @@ static NSInteger segmentCompareCount = 0;
 - (UIBezierPath *)differenceOfPathTo:(UIBezierPath *)shapePath
 {
     BOOL beginsInside1 = NO;
-    NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1]];
+    NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1 shouldFlatten:NO]];
     DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
     return clipped.entireDifferencePath;
 }
@@ -2190,6 +2227,167 @@ static NSInteger segmentCompareCount = 0;
 + (CGFloat)maxDistForEndPointTangents
 {
     return 5;
+}
+
+
++ (NSArray<NSValue *> *)findIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)p1 to:(CGPoint)p2 currentLength:(CGFloat)currentLength segmentLength:(CGFloat)segmentLength
+{
+    if (CGPointEqualToPoint(p1, p2) || CGPointEqualToPoint(bez[0], bez[3])) {
+        // TODO julia we might still have to check if that point happens to be ON the curve?!
+        return [NSArray array];
+    }
+
+    NSMutableArray<NSValue *> *intersections = [NSMutableArray array];
+
+    CGFloat A = p2.y - p1.y;                                    //A=y2-y1
+    CGFloat B = p1.x - p2.x;                                    //B=x1-x2
+    CGFloat C = p1.x * (p1.y - p2.y) + p1.y * (p2.x - p1.x);    //C=x1*(y1-y2)+y1*(x2-x1)
+
+    CGFloat px[4] = { bez[0].x, bez[1].x, bez[2].x, bez[3].x };
+    CGFloat py[4] = { bez[0].y, bez[1].y, bez[2].y, bez[3].y };
+    Coeffs *bx = [self bezierCoeffs:px];
+    Coeffs *by = [self bezierCoeffs:py];
+
+    CGFloat P[4];
+    P[0] = A * bx.p0 + B * by.p0;        /*t^3*/
+    P[1] = A * bx.p1 + B * by.p1;        /*t^2*/
+    P[2] = A * bx.p2 + B * by.p2;        /*t*/
+    P[3] = A * bx.p3 + B * by.p3 + C;    /*1*/
+
+    NSArray<NSNumber*> *r = [self cubicRoots:P];
+
+    /*verify the roots are in bounds of the linear segment*/
+    for (int i = 0; i < 3; i++) {
+
+        CGFloat t = [r[i] floatValue];
+
+        CGPoint p;
+        p.x = bx.p0 * t * t * t + bx.p1 * t * t + bx.p2 * t + bx.p3;
+        p.y = by.p0 * t * t * t + by.p1 * t * t + by.p2 * t + by.p3;
+
+
+        /*above is intersection point assuming infinitely long line segment,
+          make sure we are also in bounds of the line*/
+        CGFloat s;
+        if ((p2.x - p1.x) != 0) {
+            /*if not vertical line*/
+            s = (p.x - p1.x) / (p2.x - p1.x);
+        }
+        else {
+            s = (p.y - p1.y) / (p2.y - p1.y);
+        }
+
+        // discard if not in bounds
+        if ( t < 0 || t > 1.0 || s < 0 || s > 1.0)
+        {
+            continue;
+        }
+
+        CGFloat tOnLine = (currentLength + sqrt(pow(p.x - p1.x, 2) + pow(p.y - p1.y, 2))) / segmentLength;
+        if (currentLength == segmentLength) {
+            t = 0.5; // TODO julia: curves that got flattened into only one line - should we take the middle t here??
+        }
+        [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tOnLine)]];
+//        NSLog(@"adding point %f, %f", p.x, p.y);
+    }
+
+    if (intersections.count >= 1) {
+//        NSLog(@"%i intersetions found", intersections.count);
+    }
+
+    return intersections;
+
+}
+
++ (NSArray<NSNumber*> *)cubicRoots:(CGFloat[4])p
+{
+    if (p[0] == 0) {
+        return [NSArray array];
+    }
+
+    CGFloat a = p[0];
+    CGFloat b = p[1];
+    CGFloat c = p[2];
+    CGFloat d = p[3];
+
+    CGFloat A = b / a;
+    CGFloat B = c / a;
+    CGFloat C = d / a;
+
+    CGFloat Q = (3 * B - pow(A, 2)) / 9;
+    CGFloat R = (9 * A * B - 27 * C - 2 * pow(A, 3)) / 54;
+    CGFloat D = pow(Q, 3) + pow(R, 2);    // polynomial discriminant
+
+    CGFloat t[3];
+
+    if (D >= 0)                                 // complex or duplicate roots
+    {
+        CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)),(1/3));
+        CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)),(1/3));
+
+        t[0] = -A/3 + (S + T);                    // real root
+        t[1] = -A/3 - (S + T)/2;                  // real part of complex root
+        t[2] = -A/3 - (S + T)/2;                  // real part of complex root
+        CGFloat Im = abs(sqrt(3) * (S - T) / 2);    // complex part of root pair
+
+        /*discard complex roots*/
+        if (Im != 0)
+        {
+            t[1] = -1;
+            t[2] = -1;
+        }
+
+    }
+    else                                          // distinct real roots
+    {
+        CGFloat th = acos(R / sqrt(-pow(Q, 3)));
+
+        t[0] = 2 * sqrt(-Q) * cos(th/3) - A / 3;
+        t[1] = 2 * sqrt(-Q) * cos((th + 2 * M_PI) / 3) - A / 3;
+        t[2] = 2 * sqrt(-Q) * cos((th + 4 * M_PI) / 3) - A / 3;
+    }
+
+    /*discard out of spec roots*/
+    for (int i = 0; i < 3; i++)
+    if (t[i] < 0 || t[i] > 1.0) {
+        t[i] = -1;
+    }
+
+    NSArray<NSNumber*> *retArray = @[
+        @(t[0]),
+        @(t[1]),
+        @(t[2])
+    ];
+    retArray = [retArray sortedArrayUsingComparator: ^(id obj1, id obj2) {
+        if ([obj1 floatValue] == -1) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([obj2 floatValue] == -1) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+
+        if ([obj1 floatValue] > [obj2 floatValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+
+        if ([obj1 floatValue] < [obj2 floatValue]) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+
+
+    return retArray;
+}
+
++ (Coeffs *)bezierCoeffs:(CGFloat[4])p
+{
+    Coeffs *c = [[Coeffs alloc] init];
+    c.p0 = -p[0] + 3 * p[1] + -3 * p[2] + p[3];
+    c.p1 = 3 * p[0] - 6 * p[1] + 3 * p[2];
+    c.p2 = -3 * p[0] + 3 * p[1];
+    c.p3 = p[0];
+    return c;
 }
 
 

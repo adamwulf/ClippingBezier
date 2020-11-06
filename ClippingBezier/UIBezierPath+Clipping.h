@@ -17,15 +17,15 @@
 @interface UIBezierPath (MMClipping)
 
 // boolean operations
-- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)path;
+- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)path shouldFlatten:(BOOL)shouldFlatten;
 
-- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path;
+- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path shouldFlatten:(BOOL)shouldFlatten;
 
 - (NSArray<UIBezierPath *> *)unionWithPath:(UIBezierPath *)scissors;
 
 // shape clipping
 
-- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside;
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside shouldFlatten:(BOOL)shouldFlatten;
 
 - (NSArray<DKUIBezierPathShape *> *)uniqueShapesCreatedFromSlicingWithUnclosedPath:(UIBezierPath *)scissorPath;
 
