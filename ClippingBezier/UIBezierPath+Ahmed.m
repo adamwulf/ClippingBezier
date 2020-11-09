@@ -92,6 +92,10 @@
 
     __block NSInteger flattenedElementCount = 0;
     UIBezierPath *newPath = [UIBezierPath bezierPath];
+    newPath.lineWidth = self.lineWidth;
+    newPath.lineCapStyle = self.lineCapStyle;
+    newPath.lineJoinStyle = self.lineJoinStyle;
+
     NSInteger elements = [self elementCount];
     NSInteger n;
     CGPoint pointForClose = CGPointMake(0.0, 0.0);
