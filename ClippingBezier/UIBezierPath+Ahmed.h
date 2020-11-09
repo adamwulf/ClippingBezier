@@ -19,22 +19,13 @@
 #import <UIKit/UIKit.h>
 #include <math.h>
 
-@interface FlattenedCurve : NSObject
-
-@property (nonatomic) CGFloat length;
-@property (nonatomic, strong) NSDictionary *points;
-
-@end
-
-
 @interface UIBezierPath (Ahmed)
 
 @property(nonatomic, readonly) UIBezierPath *bezierPathByFlatteningPath;
 
 @property(nonatomic, assign) BOOL isFlat;
 
-- (UIBezierPath *)bezierPathByFlatteningPath;
-- (UIBezierPath *)bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy;
-+ (FlattenedCurve *)linesForBezierCurve:(CGPoint[4])curve flatnessThreshold:(CGFloat)flatnessThreshold;
+- (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold;
+- (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold immutable:(BOOL)returnCopy;
 
 @end

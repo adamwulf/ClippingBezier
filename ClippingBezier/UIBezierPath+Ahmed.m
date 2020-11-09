@@ -10,21 +10,6 @@
 #import <objc/runtime.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
-
-static CGFloat idealFlatness = .01;
-
-@implementation FlattenedCurve {
-
-    CGFloat length;
-    NSDictionary *points;
-
-}
-
-@synthesize length, points;
-
-@end
-
-
 @implementation UIBezierPath (Ahmed)
 
 
@@ -76,9 +61,9 @@ static CGFloat idealFlatness = .01;
  *
  * TODO: add in Ahmed's optimizations
  */
-- (UIBezierPath *)bezierPathByFlatteningPath
+- (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold
 {
-    return [self bezierPathByFlatteningPathAndImmutable:NO];
+    return [self bezierPathByFlatteningPathWithFlatnessThreshold:flatnessThreshold immutable:NO];
 }
 /**
  * @param willBeImmutable YES if this function should return a distinct UIBezier, NO otherwise
@@ -90,7 +75,7 @@ static CGFloat idealFlatness = .01;
  * then shouldBeImmutable should be YES - this is considerably faster to not
  * return a copy if the value will be treated as immutable
  */
-- (UIBezierPath *)bezierPathByFlatteningPathAndImmutable:(BOOL)willBeImmutable
+- (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold immutable:(BOOL)willBeImmutable
 {
     UIBezierPathProperties *props = [self pathProperties];
     UIBezierPath *ret = props.bezierPathByFlatteningPath;
@@ -169,7 +154,7 @@ static CGFloat idealFlatness = .01;
                     // level of error, then just add a line,
                     //
                     // otherwise, split the curve in half and recur
-                    if (error <= idealFlatness) {
+                    if (error <= flatnessThreshold) {
                         [newPath addLineToPoint:bez[3]];
                         flattenedElementCount++;
                     } else {
@@ -208,69 +193,6 @@ static CGFloat idealFlatness = .01;
     props.bezierPathByFlatteningPath = newPath;
 
     return [self bezierPathByFlatteningPathAndImmutable:willBeImmutable];
-}
-
-+ (FlattenedCurve *)linesForBezierCurve:(CGPoint[4])curve flatnessThreshold:(CGFloat)flatnessThreshold {
-//    NSLog(@"find lines for [%f / %f,  %f / %f]", curve[0].x, curve[0].y, curve[3].x, curve[3].y);
-
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    __block CGFloat length = 0;
-    __block NSUInteger i = 0;
-
-    [dict setValue:@{
-        @"x": @(curve[0].x),
-        @"y": @(curve[0].y),
-        @"length": @(length)
-    } forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
-
-    //
-    // define our recursive function that will
-    // help us split the curve up as needed
-    //
-    // define our recursive function that will
-    // help us split the curve up as needed
-    __block __weak void (^weak_flattenCurve)(NSMutableDictionary *points, CGPoint startPoint, CGPoint bez[4]);
-    void (^flattenCurve)(NSMutableDictionary *points, CGPoint startPoint, CGPoint bez[4]);
-    weak_flattenCurve = flattenCurve = ^(NSMutableDictionary *points, CGPoint startPoint, CGPoint bez[4]) {
-        i++;
-        //
-        // first, calculate the error rate for
-        // a line segement between the start/end points
-        // vs the curve
-        CGPoint onCurve = [UIBezierPath pointAtT:.5 forBezier:bez];
-        CGFloat error = [UIBezierPath distanceOfPointToLine:onCurve start:startPoint end:bez[2]];
-
-        //
-        // if that error is less than our accepted
-        // level of error, then just add a line,
-        //
-        // otherwise, split the curve in half and recur
-        if (error <= idealFlatness) {
-            CGPoint endPoint = bez[3];
-            length += sqrt(pow(endPoint.x - startPoint.x, 2) + pow(endPoint.y - startPoint.y, 2));
-            [points setValue:@{
-                @"x": @(endPoint.x),
-                @"y": @(endPoint.y),
-                @"length": @(length)
-            } forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
-        } else {
-            CGPoint bez1[4], bez2[4];
-            [UIBezierPath subdivideBezierAtT:bez bez1:bez1 bez2:bez2 t:.5];
-            // now we've split the curve in half, and have
-            // two bezier curves bez1 and bez2. recur
-            // on these two halves
-            weak_flattenCurve(points, startPoint, bez1);
-            weak_flattenCurve(points, startPoint, bez2);
-        }
-    };
-
-    flattenCurve(dict, curve[0], curve);
-
-    FlattenedCurve *flattened = [[FlattenedCurve alloc] init];
-    flattened.points = dict;
-    flattened.length = length;
-
-    return flattened;
 }
 
 @end

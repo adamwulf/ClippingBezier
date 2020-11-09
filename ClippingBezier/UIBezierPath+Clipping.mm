@@ -233,22 +233,15 @@ static NSInteger segmentCompareCount = 0;
 //                                     at least one of the curves is a proper bezier, so use our
 //                                     bezier intersection algorithm to find possibly multiple intersections
 //                                     between these curves
-                                    if (shouldFlatten && path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddCurveToPoint) {
 
-                                        FlattenedCurve *flat = [UIBezierPath linesForBezierCurve:bez2 flatnessThreshold:0.01];
-
-                                        for (int i = 0; i <= flat.points.count - 2; i++) {
-                                            NSDictionary *dict0 = flat.points[[@(i) stringValue]];
-                                            NSDictionary *dict1 = flat.points[[@(i + 1) stringValue]];
-                                            CGFloat p0Length = [dict0[@"length"] floatValue];
-                                            CGPoint p0 = CGPointMake([dict0[@"x"] floatValue], [dict0[@"y"] floatValue]);
-                                            CGPoint p1 = CGPointMake([dict1[@"x"] floatValue], [dict1[@"y"] floatValue]);
-                                            intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:p0 to:p1 currentLength:p0Length segmentLength:flat.length];
-                                            if (intersections.count > 0) {
-                                                break;
-                                            }
-                                        }
-
+                                    if (path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddLineToPoint) {
+                                        CGPoint lineP1 = bez2[0];
+                                        CGPoint lineP2 = bez2[3];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2];
+                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint && path1Element.type == kCGPathElementAddLineToPoint) {
+                                        CGPoint lineP1 = bez1[0];
+                                        CGPoint lineP2 = bez1[3];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2];
                                     } else {
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
                                     }
@@ -2229,8 +2222,7 @@ static NSInteger segmentCompareCount = 0;
     return 5;
 }
 
-
-+ (NSArray<NSValue *> *)findIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)p1 to:(CGPoint)p2 currentLength:(CGFloat)currentLength segmentLength:(CGFloat)segmentLength
++ (NSArray<NSValue *> *)findIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)p1 to:(CGPoint)p2
 {
     if (CGPointEqualToPoint(p1, p2) || CGPointEqualToPoint(bez[0], bez[3])) {
         // TODO julia we might still have to check if that point happens to be ON the curve?!
@@ -2283,16 +2275,10 @@ static NSInteger segmentCompareCount = 0;
             continue;
         }
 
-        CGFloat tOnLine = (currentLength + sqrt(pow(p.x - p1.x, 2) + pow(p.y - p1.y, 2))) / segmentLength;
-        if (currentLength == segmentLength) {
-            t = 0.5; // TODO julia: curves that got flattened into only one line - should we take the middle t here??
-        }
-        [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tOnLine)]];
-//        NSLog(@"adding point %f, %f", p.x, p.y);
-    }
+        CGFloat lineLength = [UIBezierPath distance:p1 p2:p2];
+        CGFloat tLine = [UIBezierPath distance:p p2:p1] / lineLength;
 
-    if (intersections.count >= 1) {
-//        NSLog(@"%i intersetions found", intersections.count);
+        [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
     }
 
     return intersections;
@@ -2542,5 +2528,8 @@ static NSInteger segmentCompareCount = 0;
     return roundf(val * factor) / factor;
 }
 
++ (CGFloat)distance:(const CGPoint)p1 p2:(const CGPoint)p2 {
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+}
 
 @end
