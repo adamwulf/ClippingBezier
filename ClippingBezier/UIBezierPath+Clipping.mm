@@ -98,7 +98,7 @@ static NSInteger segmentCompareCount = 0;
  * this will return all intersections points between
  * the self path and the input closed path.
  */
-- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside shouldFlatten:(BOOL)shouldFlatten
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside
 {
     // hold our bezier information for the curves we compare
     CGPoint bez1_[4];
@@ -1059,7 +1059,7 @@ static NSInteger segmentCompareCount = 0;
     for (UIBezierPath *subScissors in [scissorPath subPaths]) {
         BOOL beginsInside1_alt = NO;
         // find intersections within only this subpath
-        NSMutableArray *subpathToShapeIntersections = [NSMutableArray arrayWithArray:[subScissors findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1_alt shouldFlatten:NO]];
+        NSMutableArray *subpathToShapeIntersections = [NSMutableArray arrayWithArray:[subScissors findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1_alt]];
         // find all segments for only this subpath
         DKUIBezierPathClippingResult *subpathClippingResult = [subScissors clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:subpathToShapeIntersections andBeginsInside:beginsInside1_alt];
 
@@ -1190,7 +1190,7 @@ static NSInteger segmentCompareCount = 0;
     // find the intersections between the two paths. these will be the definitive intersection points,
     // no matter which way we clip the paths later on. if we clip shape to scissors, or scissor to shape,
     // we'll use these same intersections (properly adjusted for each cut).
-    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     // so our first step is to create arrays of both the red and blue segments.
     //
@@ -1215,7 +1215,7 @@ static NSInteger segmentCompareCount = 0;
     // because we're going to reuse and resort the tValuesOfIntersectionPoints1.
     // this solves rounding error that happens when intersections generate slightly differently
     // depending on the order of paths sent in
-    NSArray *intersectionsWithBoundaryInformation = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersectionsWithBoundaryInformation = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
     //
     // this array will be the intersections between the shape and the scissor.
     // we'll use the exact same intersection objects (flipped, b/c we're attacking from
@@ -1487,7 +1487,7 @@ static NSInteger segmentCompareCount = 0;
     return [UIBezierPath generateShapesFromRedSegments:redSegments andBlueSegments:blueSegments comp:[shapePath isClockwise] shapeShellElementCount:(int)numberOfBlueShellSegments];
 }
 
-- (NSArray<UIBezierPath *> *)booleanWithPath:(UIBezierPath *)scissors calculateIntersection:(BOOL)intersection shouldFlatten:(BOOL)shouldFlatten
+- (NSArray<UIBezierPath *> *)booleanWithPath:(UIBezierPath *)scissors calculateIntersection:(BOOL)intersection
 {
     if ([self isClosed]) {
         NSUInteger numberOfBlueShellSegments = 0;
@@ -1526,7 +1526,7 @@ static NSInteger segmentCompareCount = 0;
         return result;
     } else if ([scissors isClosed]) {
         BOOL beginsInside1 = NO;
-        NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1 shouldFlatten: shouldFlatten]];
+        NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
         DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
         return intersection ? @[clipped.entireIntersectionPath] : @[clipped.entireDifferencePath];
     } else {
@@ -1534,14 +1534,14 @@ static NSInteger segmentCompareCount = 0;
     }
 }
 
-- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)scissors shouldFlatten:(BOOL)shouldFlatten
+- (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)scissors
 {
-    return [self booleanWithPath:scissors calculateIntersection:YES shouldFlatten:shouldFlatten];
+    return [self booleanWithPath:scissors calculateIntersection:YES];
 }
 
-- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)scissors shouldFlatten:(BOOL)shouldFlatten
+- (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)scissors
 {
-    return [self booleanWithPath:scissors calculateIntersection:NO shouldFlatten:shouldFlatten];
+    return [self booleanWithPath:scissors calculateIntersection:NO];
 }
 
 - (NSArray<DKUIBezierPathShape *> *)allUniqueShapesWithPath:(UIBezierPath *)scissors
@@ -1977,7 +1977,7 @@ static NSInteger segmentCompareCount = 0;
 - (UIBezierPath *)differenceOfPathTo:(UIBezierPath *)shapePath
 {
     BOOL beginsInside1 = NO;
-    NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1 shouldFlatten:NO]];
+    NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside1]];
     DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
     return clipped.entireDifferencePath;
 }
