@@ -17,6 +17,8 @@
 @interface UIBezierPath (MMClipping)
 
 // boolean operations
+- (NSArray<NSValue *> *)intersectionPointsWithPath:(UIBezierPath *)path;
+
 - (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)path;
 
 - (NSArray<UIBezierPath *> *)differenceWithPath:(UIBezierPath *)path;
