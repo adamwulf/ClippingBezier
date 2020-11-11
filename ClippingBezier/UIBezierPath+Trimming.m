@@ -174,6 +174,42 @@
     return newPath;
 }
 
+- (UIBezierPath *)bezierPathWithRange:(NSRange)range
+{
+    UIBezierPath *newPath = [UIBezierPath bezierPath];
+
+    CGPoint points[3];
+    CGPathElement element = [self elementAtIndex:range.location associatedPoints:points];
+    [newPath moveToPoint:points[0]];
+
+    for (long n = range.location + 1; n < range.length; n++) {
+
+        element = [self elementAtIndex:n associatedPoints:points];
+        switch (element.type) {
+            case kCGPathElementMoveToPoint:
+                [newPath moveToPoint:points[0]];
+                break;
+            case kCGPathElementAddLineToPoint:
+                [newPath addLineToPoint:points[0]];
+                break;
+            case kCGPathElementAddCurveToPoint:
+            case kCGPathElementAddQuadCurveToPoint: {
+                [newPath addCurveToPoint:points[2]
+                           controlPoint1:points[0]
+                           controlPoint2:points[1]];
+                break;
+            }
+
+            case kCGPathElementCloseSubpath: {
+                [newPath closePath];
+                break;
+            }
+        }
+    }
+
+    return newPath;
+}
+
 // Convenience method
 - (UIBezierPath *)bezierPathByTrimmingToLength:(CGFloat)trimLength
 {

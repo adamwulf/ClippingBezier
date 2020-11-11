@@ -94,6 +94,88 @@ static NSInteger segmentCompareCount = 0;
 #pragma mark - Intersection Finding
 
 
+- (NSArray<NSValue *> *)elementIndexWhereOverlapOccursWithClosedPath:(UIBezierPath *)closedPath
+{
+    UIBezierPath *path1;
+    UIBezierPath *path2;
+
+    BOOL didFlipPathNumbers = NO;
+    if (closedPath.elementCount < self.elementCount) {
+        path1 = closedPath;
+        path2 = self;
+        didFlipPathNumbers = YES;
+    } else {
+        path1 = self;
+        path2 = closedPath;
+    }
+
+    NSInteger elementCount1 = path1.elementCount;
+    NSInteger elementCount2 = path2.elementCount;
+
+    CGRect path1Bounds = [path1 bounds];
+    CGRect path2Bounds = [path2 bounds];
+    // expand the bounds by 1px, just so we're sure to see overlapping bounds for tangent paths
+    path1Bounds = CGRectInset(path1Bounds, -1, -1);
+    path2Bounds = CGRectInset(path2Bounds, -1, -1);
+
+    if (!CGRectIntersectsRect(path1Bounds, path2Bounds)) {
+        return @[];
+    }
+
+
+    __block CGPoint path1StartingPoint = path1.firstPoint;
+    __block CGPoint lastPath1Point = CGPointNotFound;
+    CGPoint bez1_[4];
+    CGPoint *bez1 = bez1_;
+
+    [path1 iteratePathWithBlock:^(CGPathElement path1Element, NSUInteger path1ElementIndex) {
+        NSLog(@"testing element %lu", path1ElementIndex);
+        CGRect path1ElementBounds = [UIBezierPath boundsForElement:path1Element withStartPoint:lastPath1Point andSubPathStartingPoint:path1StartingPoint];
+        // expand the bounds by 1px, just so we're sure to see overlapping bounds for tangent paths
+        path1ElementBounds = CGRectInset(path1ElementBounds, -1, -1);
+        lastPath1Point = [UIBezierPath fillCGPoints:bez1
+                                        withElement:path1Element
+                          givenElementStartingPoint:lastPath1Point
+                            andSubPathStartingPoint:path1StartingPoint];
+
+
+        NSRange currentSubPathRange = NSMakeRange(0, ceil(CGFloat(elementCount2) / 2));
+        UIBezierPath *currentSubPath = [path2 bezierPathWithRange:currentSubPathRange];
+
+        while (currentSubPathRange.length >= 1) {
+            NSLog(@"checking intersection for range (%lu, %lu)", currentSubPathRange.location, currentSubPathRange.length);
+
+            CGRect subPathBounds = CGRectInset(currentSubPath.bounds, -1, -1);
+            if (CGRectIntersectsRect(subPathBounds, path1ElementBounds)) {
+                NSLog(@"intersects!");
+                if (currentSubPath.length == 1) {
+                    NSLog(@"found intersection at range (%lu, %lu)", currentSubPathRange.location, currentSubPathRange.length);
+                    break;
+                }
+                currentSubPathRange = NSMakeRange(currentSubPathRange.location, ceil(currentSubPathRange.length / 2));
+            } else {
+                NSLog(@"doesn't intersect!");
+                if (currentSubPathRange.location + currentSubPathRange.length <= currentSubPathRange.length) {
+                    currentSubPathRange = NSMakeRange(currentSubPathRange.location + currentSubPathRange.length, currentSubPathRange.length);
+                } else {
+                    break;
+                }
+            }
+
+            currentSubPath = [path2 bezierPathWithRange:currentSubPathRange];
+        }
+
+        if (currentSubPathRange.length == 1) {
+            NSLog(@"found intersection at element with location %lu", currentSubPathRange.location);
+        } else {
+            NSLog(@"found no intersections for element %li", path1ElementIndex);
+        }
+    }];
+
+    return @[];
+}
+
+
 /**
  * this will return all intersections points between
  * the self path and the input closed path.
@@ -167,6 +249,7 @@ static NSInteger segmentCompareCount = 0;
         // to find intersections, we'll loop over our path first,
         // and for each element inside us, we'll loop over the closed shape
         // to see if we've moved in/out of the closed shape
+        
         [path1 iteratePathWithBlock:^(CGPathElement path1Element, NSUInteger path1ElementIndex) {
             // must call this before fillCGPoints, since our call to fillCGPoints will update lastPath1Point
             CGRect path1ElementBounds = [UIBezierPath boundsForElement:path1Element withStartPoint:lastPath1Point andSubPathStartingPoint:path1StartingPoint];
@@ -237,11 +320,11 @@ static NSInteger segmentCompareCount = 0;
                                     if (path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddLineToPoint) {
                                         CGPoint lineP1 = bez2[0];
                                         CGPoint lineP2 = bez2[3];
-                                        intersections = [UIBezierPath altFindIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2];
                                     } else if (path2Element.type == kCGPathElementAddCurveToPoint && path1Element.type == kCGPathElementAddLineToPoint) {
                                         CGPoint lineP1 = bez1[0];
                                         CGPoint lineP2 = bez1[3];
-                                        intersections = [UIBezierPath altFindIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2];
                                     } else {
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
                                     }
@@ -2485,7 +2568,6 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
         // discard if not in bounds
         if ( t < 0 || t > 1.0 || s < 0 || s > 1.0)
         {
-            NSLog(@"continue because t     is %f", t);
             continue;
         }
 
@@ -2494,12 +2576,8 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
         if ( tLine < 0 || tLine > 1.0)
         {
-            NSLog(@"continue because tLine is %f", tLine);
             continue;
         }
-
-        NSLog(@"t:     %f", t);
-        NSLog(@"tLine: %f", tLine);
 
         [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
     }
@@ -2510,56 +2588,89 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
 + (NSArray<NSNumber*> *)cubicRoots:(CGFloat[4])p
 {
-    if (p[0] == 0) {
-        return [NSArray array];
-    }
-
-    CGFloat a = p[0];
-    CGFloat b = p[1];
-    CGFloat c = p[2];
-    CGFloat d = p[3];
-
-    CGFloat A = b / a;
-    CGFloat B = c / a;
-    CGFloat C = d / a;
-
-    CGFloat Q = (3 * B - pow(A, 2)) / 9;
-    CGFloat R = (9 * A * B - 27 * C - 2 * pow(A, 3)) / 54;
-    CGFloat D = pow(Q, 3) + pow(R, 2);    // polynomial discriminant
 
     CGFloat t[3];
 
-    if (D >= 0)                                 // complex or duplicate roots
-    {
-        CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)),(1/3));
-        CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)),(1/3));
+    if (p[0] == 0) {
 
-        t[0] = -A/3 + (S + T);                    // real root
-        t[1] = -A/3 - (S + T)/2;                  // real part of complex root
-        t[2] = -A/3 - (S + T)/2;                  // real part of complex root
-        CGFloat Im = abs(sqrt(3) * (S - T) / 2);    // complex part of root pair
+          if( p[1] == 0 ) {
 
-        /*discard complex roots*/
-        if (Im != 0)
+              NSLog(@"Linear formula detected");
+
+              CGFloat t[3];
+              t[0] = -1 * ( p[3] / p[2] );
+              t[1] = -1;
+              t[2] = -1;
+
+              /*discard out of spec roots*/
+              for (int i = 0; i < 1; i++)
+              if (t[i] < 0 || t[i] > 1.0) {
+                  t[i] = -1;
+              }
+          }
+
+          NSLog(@"Quadratic formula detected");
+
+          CGFloat DQ = pow(p[2], 2) + 4 * p[1] * p[3]; // quadratic discriminant
+          if( DQ >= 0 )
+          {
+              DQ = sqrt(DQ);
+              t[0] = -1 * ( ( DQ + p[2] ) / ( 2 * p[1] ) );
+              t[1] = ( ( DQ - p[2] ) / ( 2 * p[1] ) );
+              t[2] = -1;
+
+              /*discard out of spec roots*/
+              for (int i = 0; i < 2; i++)
+              if (t[i] < 0 || t[i] > 1.0) {
+                  t[i] = -1;
+              }
+          }
+    } else {
+        CGFloat a = p[0];
+        CGFloat b = p[1];
+        CGFloat c = p[2];
+        CGFloat d = p[3];
+
+        CGFloat A = b / a;
+        CGFloat B = c / a;
+        CGFloat C = d / a;
+
+        CGFloat Q = (3 * B - pow(A, 2)) / 9;
+        CGFloat R = (9 * A * B - 27 * C - 2 * pow(A, 3)) / 54;
+        CGFloat D = pow(Q, 3) + pow(R, 2);    // polynomial discriminant
+
+        if (D >= 0)                                 // complex or duplicate roots
         {
-            t[1] = -1;
-            t[2] = -1;
+            CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)),(1.0 / 3.0));
+            CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)),(1.0 / 3.0));
+
+            t[0] = -A/3 + (S + T);                    // real root
+            t[1] = -A/3 - (S + T)/2;                  // real part of complex root
+            t[2] = -A/3 - (S + T)/2;                  // real part of complex root
+            CGFloat Im = abs(sqrt(3) * (S - T) / 2);    // complex part of root pair
+
+            /*discard complex roots*/
+            if (Im != 0)
+            {
+                t[1] = -1;
+                t[2] = -1;
+            }
+
+        }
+        else                                          // distinct real roots
+        {
+            CGFloat th = acos(R / sqrt(-pow(Q, 3)));
+
+            t[0] = 2 * sqrt(-Q) * cos(th/3) - A / 3;
+            t[1] = 2 * sqrt(-Q) * cos((th + 2 * M_PI) / 3) - A / 3;
+            t[2] = 2 * sqrt(-Q) * cos((th + 4 * M_PI) / 3) - A / 3;
         }
 
-    }
-    else                                          // distinct real roots
-    {
-        CGFloat th = acos(R / sqrt(-pow(Q, 3)));
-
-        t[0] = 2 * sqrt(-Q) * cos(th/3) - A / 3;
-        t[1] = 2 * sqrt(-Q) * cos((th + 2 * M_PI) / 3) - A / 3;
-        t[2] = 2 * sqrt(-Q) * cos((th + 4 * M_PI) / 3) - A / 3;
-    }
-
-    /*discard out of spec roots*/
-    for (int i = 0; i < 3; i++)
-    if (t[i] < 0 || t[i] > 1.0) {
-        t[i] = -1;
+        /*discard out of spec roots*/
+        for (int i = 0; i < 3; i++)
+        if (t[i] < 0 || t[i] > 1.0) {
+            t[i] = -1;
+        }
     }
 
     NSArray<NSNumber*> *retArray = @[
