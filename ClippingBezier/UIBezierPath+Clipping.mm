@@ -100,14 +100,14 @@ static NSInteger segmentCompareCount = 0;
     UIBezierPath *path2;
 
     BOOL didFlipPathNumbers = NO;
-    if (closedPath.elementCount < self.elementCount) {
-        path1 = closedPath;
-        path2 = self;
-        didFlipPathNumbers = YES;
-    } else {
+//    if (closedPath.elementCount < self.elementCount) {
+//        path1 = closedPath;
+//        path2 = self;
+//        didFlipPathNumbers = YES;
+//    } else {
         path1 = self;
         path2 = closedPath;
-    }
+//    }
 
     NSInteger elementCount1 = path1.elementCount;
     NSInteger elementCount2 = path2.elementCount;
@@ -139,23 +139,27 @@ static NSInteger segmentCompareCount = 0;
                             andSubPathStartingPoint:path1StartingPoint];
 
 
+        NSRange previousSubPathRange;
         NSRange currentSubPathRange = NSMakeRange(0, ceil(CGFloat(elementCount2) / 2));
         UIBezierPath *currentSubPath = [path2 bezierPathWithRange:currentSubPathRange];
+        bool intersectionFound = NO;
 
-        while (currentSubPathRange.length >= 1) {
+        while (currentSubPathRange.length >= 2) {
             NSLog(@"checking intersection for range (%lu, %lu)", currentSubPathRange.location, currentSubPathRange.length);
 
             CGRect subPathBounds = CGRectInset(currentSubPath.bounds, -1, -1);
             if (CGRectIntersectsRect(subPathBounds, path1ElementBounds)) {
                 NSLog(@"intersects!");
-                if (currentSubPath.length == 1) {
-                    NSLog(@"found intersection at range (%lu, %lu)", currentSubPathRange.location, currentSubPathRange.length);
+                if (currentSubPathRange.length == 2) {
+                    intersectionFound = YES;
                     break;
                 }
+                previousSubPathRange = currentSubPathRange;
                 currentSubPathRange = NSMakeRange(currentSubPathRange.location, ceil(currentSubPathRange.length / 2));
             } else {
                 NSLog(@"doesn't intersect!");
-                if (currentSubPathRange.location + currentSubPathRange.length <= currentSubPathRange.length) {
+                if (currentSubPathRange.location + currentSubPathRange.length <= previousSubPathRange.location + previousSubPathRange.length) {
+                    previousSubPathRange = currentSubPathRange;
                     currentSubPathRange = NSMakeRange(currentSubPathRange.location + currentSubPathRange.length, currentSubPathRange.length);
                 } else {
                     break;
@@ -165,8 +169,8 @@ static NSInteger segmentCompareCount = 0;
             currentSubPath = [path2 bezierPathWithRange:currentSubPathRange];
         }
 
-        if (currentSubPathRange.length == 1) {
-            NSLog(@"found intersection at element with location %lu", currentSubPathRange.location);
+        if (intersectionFound) {
+            NSLog(@"found intersection at range (%lu, %lu)", currentSubPathRange.location, currentSubPathRange.length);
         } else {
             NSLog(@"found no intersections for element %li", path1ElementIndex);
         }
