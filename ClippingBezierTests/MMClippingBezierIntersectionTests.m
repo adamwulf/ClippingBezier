@@ -125,8 +125,8 @@
         }
     }];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)8, @"the curves do intersect");
@@ -168,8 +168,8 @@
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
@@ -192,8 +192,8 @@
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:YES];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:YES];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
@@ -221,8 +221,8 @@
     [shapePath addLineToPoint:CGPointMake(300.0, 250.0)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
@@ -242,8 +242,8 @@
     [shapePath addLineToPoint:CGPointMake(600.0, 600.0)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
@@ -260,8 +260,8 @@
     [complexShape addCurveToPoint:CGPointMake(413.000000, 285.000000) controlPoint1:CGPointMake(401.931854, 294.629944) controlPoint2:CGPointMake(408.147980, 290.431854)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:complexShape andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)1, @"the curves do intersect");
@@ -282,8 +282,8 @@
     [complexShape addCurveToPoint:CGPointMake(413.000000, 285.000000) controlPoint1:CGPointMake(401.931854, 294.629944) controlPoint2:CGPointMake(408.147980, 290.431854)];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:complexShape andBeginsInside:nil shouldFlatten:YES];
-    NSArray *otherIntersections = [complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:YES];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)1, @"the curves do intersect");
@@ -302,8 +302,8 @@
 
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(110, 50, 50, 50)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
     int found = (int)[intersections count];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
@@ -337,8 +337,8 @@
     [shapePath addLineToPoint:CGPointMake(456.000000, 738.000000)];
     [shapePath addLineToPoint:CGPointMake(242.346939, 728.551025)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
     int found = (int)[intersections count];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
@@ -376,8 +376,8 @@
     [shapePath addCurveToPoint:CGPointMake(482.000000, 607.000000) controlPoint1:CGPointMake(583.930847, 615.116699) controlPoint2:CGPointMake(532.702637, 613.585693)];
     [shapePath addCurveToPoint:CGPointMake(255.457962, 575.995605) controlPoint1:CGPointMake(409.848999, 595.660767) controlPoint2:CGPointMake(337.250244, 587.611084)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)1, @"the curves do intersect");
@@ -397,8 +397,8 @@
 
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 100, 100)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
     int found = (int)[intersections count];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
@@ -436,8 +436,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
@@ -499,8 +499,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil shouldFlatten:YES];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:YES];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
@@ -557,8 +557,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)8, @"found intersections");
@@ -616,8 +616,8 @@
     [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)6, @"found intersections");
@@ -678,8 +678,8 @@
     [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)4, @"found intersections");
@@ -729,8 +729,8 @@
     [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)4, @"found intersections");
@@ -783,8 +783,8 @@
     [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
@@ -824,8 +824,8 @@
     [shapePath closePath];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"found intersections");
@@ -873,8 +873,8 @@
     [shapePath closePath];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:YES];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:YES];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"found intersections");
@@ -922,8 +922,8 @@
     [shapePath closePath];
 
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)2, @"found intersections");
@@ -980,8 +980,8 @@
     [shapePath addLineToPoint:CGPointMake(150, 200)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)4, @"found intersections");
@@ -1032,8 +1032,8 @@
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
     UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
@@ -1095,8 +1095,8 @@
 
     UIBezierPath *shapePath = self.complexShape;
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)4, @"found intersections");
@@ -1140,8 +1140,8 @@
 
     UIBezierPath *shapePath = self.complexShape;
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)6, @"found intersections");
@@ -1187,8 +1187,8 @@
     [shapePath addLineToPoint:CGPointMake(100, 800)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)6, @"found intersections");
@@ -1231,8 +1231,8 @@
     [shapePath addLineToPoint:CGPointMake(100, 800)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
@@ -1282,8 +1282,8 @@
     [shapePath addCurveToPoint:CGPointMake(404.00003, 852.5) controlPoint1:CGPointMake(539.55231, 889.62732) controlPoint2:CGPointMake(476.2829, 844.33203)];
     [shapePath closePath];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)1, @"found intersections");
@@ -1297,8 +1297,8 @@
 {
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
     UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
+    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)4, @"found intersections");
@@ -1311,8 +1311,8 @@
     [scissorPath moveToPoint:CGPointMake(200, 301.7455)];
     [scissorPath addLineToPoint:CGPointMake(700, 301.7455)];
 
-    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)5, @"5 intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)5, @"5 intersections so we can check for the tangent case");
@@ -1350,8 +1350,8 @@
 
     UIBezierPath *scissorPath = path;
 
-    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
@@ -1377,8 +1377,8 @@
 
     UIBezierPath *scissorPath = path;
 
-    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)4, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)4, @"intersections so we can check for the tangent case");
@@ -1414,8 +1414,8 @@
     [path addCurveToPoint:CGPointMake(487.000000, 732.000000) controlPoint1:CGPointMake(482.415894, 576.811340) controlPoint2:CGPointMake(481.856079, 654.491333)];
     UIBezierPath *scissorPath = path;
 
-    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
@@ -1434,8 +1434,8 @@
     UIBezierPath *scissorPath = path;
 
     BOOL beginsInside = NO;
-    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
-    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)4, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)4, @"intersections so we can check for the tangent case");
@@ -1453,8 +1453,8 @@
     [path addLineToPoint:CGPointMake(150, 50)];
     UIBezierPath *scissorPath = path;
 
-    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil shouldFlatten:NO];
-    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil shouldFlatten:NO];
+    NSArray *intersections1 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections2 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
@@ -1467,8 +1467,8 @@
     UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
-    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)0, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)0, @"intersections so we can check for the tangent case");
@@ -1507,8 +1507,8 @@
     UIBezierPath *scissorPath = path;
 
     BOOL beginsInside = NO;
-    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
-    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
 
     XCTAssertEqual([intersections1 count], (NSUInteger)0, @"intersections so we can check for the tangent case");
     XCTAssertEqual([intersections2 count], (NSUInteger)0, @"intersections so we can check for the tangent case");
@@ -1534,8 +1534,8 @@
 
 
     BOOL beginsInside = NO;
-    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
-    NSArray *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
 
     XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
     XCTAssertEqual([scissorToShapeIntersections count], (NSUInteger)2, @"count of intersections matches");

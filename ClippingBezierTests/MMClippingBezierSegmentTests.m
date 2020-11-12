@@ -1696,7 +1696,7 @@
     [scissorPath addLineToPoint:CGPointMake(340, 300)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
 
     DKUIBezierPathClippingResult *result = [scissorPath clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:intersections andBeginsInside:beginsInside];
     UIBezierPath *diff = [result entireDifferencePath];
@@ -1714,7 +1714,7 @@
     [scissorPath addLineToPoint:CGPointMake(540, 300)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
 
     DKUIBezierPathClippingResult *result = [scissorPath clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:intersections andBeginsInside:beginsInside];
     UIBezierPath *diff = [result entireDifferencePath];
@@ -1732,7 +1732,7 @@
     [scissorPath addLineToPoint:CGPointMake(400, 300)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
 
     DKUIBezierPathClippingResult *result = [scissorPath clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:intersections andBeginsInside:beginsInside];
     UIBezierPath *diff = [result entireDifferencePath];
@@ -1750,7 +1750,7 @@
     [scissorPath addLineToPoint:CGPointMake(500, 300)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
 
     DKUIBezierPathClippingResult *result = [scissorPath clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:intersections andBeginsInside:beginsInside];
     UIBezierPath *diff = [result entireDifferencePath];
@@ -1768,7 +1768,7 @@
     [scissorPath addLineToPoint:CGPointMake(500, 300)];
 
     BOOL beginsInside = NO;
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside shouldFlatten:NO];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
 
     DKUIBezierPathClippingResult *result = [scissorPath clipUnclosedPathToClosedPath:shapePath usingIntersectionPoints:intersections andBeginsInside:beginsInside];
     UIBezierPath *diff = [result entireDifferencePath];
