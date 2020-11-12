@@ -179,10 +179,14 @@
     UIBezierPath *newPath = [UIBezierPath bezierPath];
 
     CGPoint points[3];
-    CGPathElement element = [self elementAtIndex:range.location associatedPoints:points];
-    [newPath moveToPoint:points[0]];
+    CGPathElement element;
 
-    for (long n = range.location + 1; n < range.length; n++) {
+    CGPoint previousPoint = [self startPointForSubPathBeginningWithElementIndex:range.location];
+    if (!CGPointEqualToPoint(previousPoint, CGPointNotFound)) {
+        [newPath moveToPoint:previousPoint];
+    }
+
+    for (long n = range.location + 1; n < range.location + range.length && n < [self elementCount]; n++) {
 
         element = [self elementAtIndex:n associatedPoints:points];
         switch (element.type) {
@@ -193,21 +197,50 @@
                 [newPath addLineToPoint:points[0]];
                 break;
             case kCGPathElementAddCurveToPoint:
-            case kCGPathElementAddQuadCurveToPoint: {
+            case kCGPathElementAddQuadCurveToPoint:
                 [newPath addCurveToPoint:points[2]
                            controlPoint1:points[0]
                            controlPoint2:points[1]];
                 break;
-            }
-
-            case kCGPathElementCloseSubpath: {
+            case kCGPathElementCloseSubpath:
                 [newPath closePath];
                 break;
-            }
         }
     }
 
     return newPath;
+}
+
+- (CGPoint)startPointForSubPathBeginningWithElementIndex:(NSInteger)elementIndex {
+    CGPoint points[3];
+
+    if (elementIndex == 0) {
+        CGPathElement element = [self elementAtIndex:0 associatedPoints:points];
+        NSAssert(element.type == kCGPathElementMoveToPoint, @"First element of a path should be of type kCGPathElementMoveToPoint");
+        if (element.type == kCGPathElementMoveToPoint) {
+            return points[0];
+        } else {
+            return CGPointNotFound;
+        }
+    } else {
+        CGPathElement elementBefore = [self elementAtIndex:elementIndex - 1 associatedPoints:points];
+        switch (elementBefore.type) {
+            case kCGPathElementMoveToPoint:
+                return points[0];
+                break;
+            case kCGPathElementAddLineToPoint:
+                return points[0];
+                break;
+            case kCGPathElementAddCurveToPoint:
+            case kCGPathElementAddQuadCurveToPoint:
+                return points[2];
+                break;
+            case kCGPathElementCloseSubpath: {
+                return CGPointNotFound;
+                break;
+            }
+        }
+    }
 }
 
 // Convenience method
@@ -345,18 +378,29 @@
 
 - (CGFloat)length
 {
+    CGFloat const accuracy = .5;
+    NSInteger elementCount = [self elementCount];
+    if (elementCount > 1) {
+        CGFloat cachedLengthForLastPathElement = [[self pathProperties] cachedTotalLengthOfPathAfterElementIndex:elementCount - 1 acceptableError:accuracy];
+        if (cachedLengthForLastPathElement >= 0) {
+            return  cachedLengthForLastPathElement;
+        }
+    }
+
     __block CGFloat length = 0;
     __block CGPoint lastMoveToPoint = CGPointNotFound;
     __block CGPoint lastElementEndPoint = CGPointNotFound;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+
+        CGFloat lengthOfElement = 0;
         if (element.type == kCGPathElementMoveToPoint) {
             lastElementEndPoint = element.points[0];
             lastMoveToPoint = element.points[0];
         } else if (element.type == kCGPathElementCloseSubpath) {
-            length += [UIBezierPath distance:lastElementEndPoint p2:lastMoveToPoint];
+            lengthOfElement = [UIBezierPath distance:lastElementEndPoint p2:lastMoveToPoint];
             lastElementEndPoint = lastMoveToPoint;
         } else if (element.type == kCGPathElementAddLineToPoint) {
-            length += [UIBezierPath distance:lastElementEndPoint p2:element.points[0]];
+            lengthOfElement = [UIBezierPath distance:lastElementEndPoint p2:element.points[0]];
             lastElementEndPoint = element.points[0];
         } else if (element.type == kCGPathElementAddQuadCurveToPoint ||
                    element.type == kCGPathElementAddCurveToPoint) {
@@ -374,9 +418,12 @@
                 bez[3] = element.points[2];
                 lastElementEndPoint = element.points[2];
             }
-
-            length += [UIBezierPath lengthOfBezier:bez withAccuracy:.5];
+            lengthOfElement = [UIBezierPath lengthOfBezier:bez withAccuracy:accuracy];
         }
+
+        length += lengthOfElement;
+        [[self pathProperties] cacheLength:length forElementIndex:idx acceptableError:accuracy];
+        [[self pathProperties] cacheTotalLengthOfPath:length afterElementIndex:idx acceptableError:accuracy];
     }];
     return length;
 }
