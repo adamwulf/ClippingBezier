@@ -6,7 +6,7 @@ target 'ClippingBezier' do
   # use_frameworks!
 
   # Pods for ClippingBezier
-  #pod 'PerformanceBezier', :path => '../PerformanceBezier/PerformanceBezier.podspec'
+  pod 'PerformanceBezier', '~> 1.0.11'
 
   target 'ClippingBezierTests' do
       
