@@ -5,7 +5,7 @@ PODS:
 
 DEPENDENCIES:
   - ClippingBezier (from `.`)
-  - PerformanceBezier (~> 1.0.11)
+  - PerformanceBezier (~> 1.0)
 
 SPEC REPOS:
   trunk:
@@ -19,6 +19,6 @@ SPEC CHECKSUMS:
   ClippingBezier: 8dead7b1dda458e067308ec8d19486e2bc5f5142
   PerformanceBezier: 17402cec5b049b34331079b52d0e380bdaf2da60
 
-PODFILE CHECKSUM: 4fde843db7d0a07140cbde86125c03e5903f4c23
+PODFILE CHECKSUM: 0a4a9e992358239f10efc21bf58e74be000cba86
 
 COCOAPODS: 1.10.0
