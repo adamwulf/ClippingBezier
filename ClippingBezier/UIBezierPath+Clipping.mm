@@ -32,25 +32,12 @@
 #include "NearestPoint.h"
 #include "bezier-clipping.h"
 
-@interface Coeffs: NSObject
-
-@property(nonatomic) CGFloat p0;
-@property(nonatomic) CGFloat p1;
-@property(nonatomic) CGFloat p2;
-@property(nonatomic) CGFloat p3;
-
-@end
-
-@implementation Coeffs {
+typedef struct Coeffs {
     CGFloat p0;
     CGFloat p1;
     CGFloat p2;
     CGFloat p3;
-}
-
-@synthesize p0, p1, p2, p3;
-
-@end
+} Coeffs;
 
 using namespace Geom;
 
@@ -100,14 +87,14 @@ static NSInteger segmentCompareCount = 0;
     UIBezierPath *path2;
 
     BOOL didFlipPathNumbers = NO;
-//    if (closedPath.elementCount < self.elementCount) {
-//        path1 = closedPath;
-//        path2 = self;
-//        didFlipPathNumbers = YES;
-//    } else {
-        path1 = self;
-        path2 = closedPath;
-//    }
+    //    if (closedPath.elementCount < self.elementCount) {
+    //        path1 = closedPath;
+    //        path2 = self;
+    //        didFlipPathNumbers = YES;
+    //    } else {
+    path1 = self;
+    path2 = closedPath;
+    //    }
 
     NSInteger elementCount1 = path1.elementCount;
     NSInteger elementCount2 = path2.elementCount;
@@ -253,7 +240,7 @@ static NSInteger segmentCompareCount = 0;
         // to find intersections, we'll loop over our path first,
         // and for each element inside us, we'll loop over the closed shape
         // to see if we've moved in/out of the closed shape
-        
+
         [path1 iteratePathWithBlock:^(CGPathElement path1Element, NSUInteger path1ElementIndex) {
             // must call this before fillCGPoints, since our call to fillCGPoints will update lastPath1Point
             CGRect path1ElementBounds = [UIBezierPath boundsForElement:path1Element withStartPoint:lastPath1Point andSubPathStartingPoint:path1StartingPoint];
@@ -317,9 +304,9 @@ static NSInteger segmentCompareCount = 0;
                                         }
                                     }
                                 } else {
-//                                     at least one of the curves is a proper bezier, so use our
-//                                     bezier intersection algorithm to find possibly multiple intersections
-//                                     between these curves
+                                    //                                     at least one of the curves is a proper bezier, so use our
+                                    //                                     bezier intersection algorithm to find possibly multiple intersections
+                                    //                                     between these curves
 
                                     if (path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddLineToPoint) {
                                         CGPoint lineP1 = bez2[0];
@@ -2347,8 +2334,8 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
 + (NSArray<NSValue *> *)altFindIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)a1 to:(CGPoint)a2
 {
-    CGFloat ax, bx, cx, dx;       // temporary variables
-    CGFloat ay, by, cy, dy;       // temporary variables
+    CGFloat ax, bx, cx, dx; // temporary variables
+    CGFloat ay, by, cy, dy; // temporary variables
 
     CGFloat minX = MIN(a1.x, a2.x); // used to determine if point is on line segment
     CGFloat minY = MIN(a1.y, a2.y); // used to determine if point is on line segment
@@ -2356,8 +2343,8 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     CGFloat maxX = MAX(a1.x, a2.x); // used to determine if point is on line segment
     CGFloat maxY = MAX(a1.y, a2.y); // used to determine if point is on line segment
 
-    CGVector c3, c2, c1, c0;   // coefficients of cubic
-    CGVector n;                // normal for normal form of line
+    CGVector c3, c2, c1, c0; // coefficients of cubic
+    CGVector n; // normal for normal form of line
     NSMutableArray<NSValue *> *intersections = [NSMutableArray array];
 
     CGPoint p1 = bez[0];
@@ -2365,9 +2352,9 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     CGPoint p3 = bez[2];
     CGPoint p4 = bez[3];
 
-//    CGFloat min = MIN(a1, a2); // used to determine if point is on line segment
-//    CGFloat max = max(a1, a2); // used to determine if point is on line segment
-//    CGFloat result = new Intersection("No Intersection");
+    //    CGFloat min = MIN(a1, a2); // used to determine if point is on line segment
+    //    CGFloat max = max(a1, a2); // used to determine if point is on line segment
+    //    CGFloat result = new Intersection("No Intersection");
 
     // Start with Bezier using Bernstein polynomials for weighting functions:
     //     (1-t^3)P1 + 3t(1-t)^2P2 + 3t^2(1-t)P3 + t^3P4
@@ -2382,11 +2369,11 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     // Calculate the coefficients
 
 
-//    a = p1.multiply(-1);
-//    b = p2.multiply(3);
-//    c = p3.multiply(-3);
-//    d = a.add(b.add(c.add(p4)));
-//    c3 = new Vector2D(d.x, d.y);
+    //    a = p1.multiply(-1);
+    //    b = p2.multiply(3);
+    //    c = p3.multiply(-3);
+    //    d = a.add(b.add(c.add(p4)));
+    //    c3 = new Vector2D(d.x, d.y);
     ax = p1.x * -1;
     ay = p1.y * -1;
     bx = p2.x * 3;
@@ -2397,11 +2384,11 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     dy = ay + by + cy + p4.y;
     c3 = CGVectorMake(dx, dy);
 
-//    a = p1.multiply(3);
-//    b = p2.multiply(-6);
-//    c = p3.multiply(3);
-//    d = a.add(b.add(c));
-//    c2 = new Vector2D(d.x, d.y);
+    //    a = p1.multiply(3);
+    //    b = p2.multiply(-6);
+    //    c = p3.multiply(3);
+    //    d = a.add(b.add(c));
+    //    c2 = new Vector2D(d.x, d.y);
     ax = p1.x * 3;
     ay = p1.y * 3;
     bx = p2.x * -6;
@@ -2432,12 +2419,12 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
     // ?Rotate each cubic coefficient using line for new coordinate system?
     // Find roots of rotated cubic
-//    roots = new Polynomial(
-//        n.dot(c3),
-//        n.dot(c2),
-//        n.dot(c1),
-//        n.dot(c0) + cl
-//    ).getRoots();
+    //    roots = new Polynomial(
+    //        n.dot(c3),
+    //        n.dot(c2),
+    //        n.dot(c1),
+    //        n.dot(c0) + cl
+    //    ).getRoots();
 
     CGFloat P[4];
     P[0] = CGVectorDotProduct(n, c3);
@@ -2445,15 +2432,15 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     P[2] = CGVectorDotProduct(n, c1);
     P[3] = CGVectorDotProduct(n, c0) + cl;
 
-    NSArray<NSNumber*> *roots = [self cubicRoots:P];
+    NSArray<NSNumber *> *roots = [self cubicRoots:P];
 
     // Any roots in closed interval [0,1] are intersections on Bezier, but
     // might not be on the line segment.
     // Find intersections and calculate point coordinates
-    for (int i = 0; i < roots.count; i++ ) {
+    for (int i = 0; i < roots.count; i++) {
         CGFloat t = [roots[i] floatValue];
 
-        if ( 0 <= t && t <= 1 ) {
+        if (0 <= t && t <= 1) {
             // We're within the Bezier curve
             // Find point on Bezier
             CGPoint p5 = CGPointLerp(p1, p2, t);
@@ -2468,13 +2455,12 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
             // See if point is on line segment
             // Had to make special cases for vertical and horizontal lines due
             // to slight errors in calculation of p10
-            if ( a1.x == a2.x ) {
-                if ( minY <= p10.y && p10.y <= maxY ) {
+            if (a1.x == a2.x) {
+                if (minY <= p10.y && p10.y <= maxY) {
                     CGFloat lineLength = [UIBezierPath distance:a1 p2:a2];
                     CGFloat tLine = [UIBezierPath distance:p10 p2:a1] / lineLength;
 
-                    if ( tLine < 0 || tLine > 1.0)
-                    {
+                    if (tLine < 0 || tLine > 1.0) {
                         NSLog(@"continue because tLine is %f", tLine);
                         continue;
                     }
@@ -2484,13 +2470,12 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
                     [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
                 }
-            } else if ( a1.y == a2.y ) {
-                if ( minX <= p10.x && p10.x <= maxX ) {
+            } else if (a1.y == a2.y) {
+                if (minX <= p10.x && p10.x <= maxX) {
                     CGFloat lineLength = [UIBezierPath distance:a1 p2:a2];
                     CGFloat tLine = [UIBezierPath distance:p10 p2:a1] / lineLength;
 
-                    if ( tLine < 0 || tLine > 1.0)
-                    {
+                    if (tLine < 0 || tLine > 1.0) {
                         NSLog(@"continue because tLine is %f", tLine);
                         continue;
                     }
@@ -2500,12 +2485,11 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
                     [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
                 }
-            } else if ( p1.x >= minX && p10.y >= minY && p10.x <= maxX && p10.y <= maxY) {
+            } else if (p1.x >= minX && p10.y >= minY && p10.x <= maxX && p10.y <= maxY) {
                 CGFloat lineLength = [UIBezierPath distance:a1 p2:a2];
                 CGFloat tLine = [UIBezierPath distance:p10 p2:a1] / lineLength;
 
-                if ( tLine < 0 || tLine > 1.0)
-                {
+                if (tLine < 0 || tLine > 1.0) {
                     NSLog(@"continue because tLine is %f", tLine);
                     continue;
                 }
@@ -2531,26 +2515,25 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
     NSMutableArray<NSValue *> *intersections = [NSMutableArray array];
 
-    CGFloat A = p2.y - p1.y;                                    //A=y2-y1
-    CGFloat B = p1.x - p2.x;                                    //B=x1-x2
-    CGFloat C = p1.x * (p1.y - p2.y) + p1.y * (p2.x - p1.x);    //C=x1*(y1-y2)+y1*(x2-x1)
+    CGFloat A = p2.y - p1.y; //A=y2-y1
+    CGFloat B = p1.x - p2.x; //B=x1-x2
+    CGFloat C = p1.x * (p1.y - p2.y) + p1.y * (p2.x - p1.x); //C=x1*(y1-y2)+y1*(x2-x1)
 
-    CGFloat px[4] = { bez[0].x, bez[1].x, bez[2].x, bez[3].x };
-    CGFloat py[4] = { bez[0].y, bez[1].y, bez[2].y, bez[3].y };
-    Coeffs *bx = [self bezierCoeffs:px];
-    Coeffs *by = [self bezierCoeffs:py];
+    CGFloat px[4] = {bez[0].x, bez[1].x, bez[2].x, bez[3].x};
+    CGFloat py[4] = {bez[0].y, bez[1].y, bez[2].y, bez[3].y};
+    Coeffs bx = [self bezierCoeffs:px];
+    Coeffs by = [self bezierCoeffs:py];
 
     CGFloat P[4];
-    P[0] = A * bx.p0 + B * by.p0;        /*t^3*/
-    P[1] = A * bx.p1 + B * by.p1;        /*t^2*/
-    P[2] = A * bx.p2 + B * by.p2;        /*t*/
-    P[3] = A * bx.p3 + B * by.p3 + C;    /*1*/
+    P[0] = A * bx.p0 + B * by.p0; /*t^3*/
+    P[1] = A * bx.p1 + B * by.p1; /*t^2*/
+    P[2] = A * bx.p2 + B * by.p2; /*t*/
+    P[3] = A * bx.p3 + B * by.p3 + C; /*1*/
 
-    NSArray<NSNumber*> *r = [self cubicRoots:P];
+    NSArray<NSNumber *> *r = [self cubicRoots:P];
 
     /*verify the roots are in bounds of the linear segment*/
     for (int i = 0; i < 3; i++) {
-
         CGFloat t = [r[i] floatValue];
 
         CGPoint p;
@@ -2564,22 +2547,19 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
         if ((p2.x - p1.x) != 0) {
             /*if not vertical line*/
             s = (p.x - p1.x) / (p2.x - p1.x);
-        }
-        else {
+        } else {
             s = (p.y - p1.y) / (p2.y - p1.y);
         }
 
         // discard if not in bounds
-        if ( t < 0 || t > 1.0 || s < 0 || s > 1.0)
-        {
+        if (t < 0 || t > 1.0 || s < 0 || s > 1.0) {
             continue;
         }
 
         CGFloat lineLength = [UIBezierPath distance:p1 p2:p2];
         CGFloat tLine = [UIBezierPath distance:p p2:p1] / lineLength;
 
-        if ( tLine < 0 || tLine > 1.0)
-        {
+        if (tLine < 0 || tLine > 1.0) {
             continue;
         }
 
@@ -2587,48 +2567,43 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     }
 
     return intersections;
-
 }
 
-+ (NSArray<NSNumber*> *)cubicRoots:(CGFloat[4])p
++ (NSArray<NSNumber *> *)cubicRoots:(CGFloat[4])p
 {
-
     CGFloat t[3];
 
     if (p[0] == 0) {
+        if (p[1] == 0) {
+            NSLog(@"Linear formula detected");
 
-          if( p[1] == 0 ) {
+            CGFloat t[3];
+            t[0] = -1 * (p[3] / p[2]);
+            t[1] = -1;
+            t[2] = -1;
 
-              NSLog(@"Linear formula detected");
+            /*discard out of spec roots*/
+            for (int i = 0; i < 1; i++)
+                if (t[i] < 0 || t[i] > 1.0) {
+                    t[i] = -1;
+                }
+        }
 
-              CGFloat t[3];
-              t[0] = -1 * ( p[3] / p[2] );
-              t[1] = -1;
-              t[2] = -1;
+        NSLog(@"Quadratic formula detected");
 
-              /*discard out of spec roots*/
-              for (int i = 0; i < 1; i++)
-              if (t[i] < 0 || t[i] > 1.0) {
-                  t[i] = -1;
-              }
-          }
+        CGFloat DQ = pow(p[2], 2) + 4 * p[1] * p[3]; // quadratic discriminant
+        if (DQ >= 0) {
+            DQ = sqrt(DQ);
+            t[0] = -1 * ((DQ + p[2]) / (2 * p[1]));
+            t[1] = ((DQ - p[2]) / (2 * p[1]));
+            t[2] = -1;
 
-          NSLog(@"Quadratic formula detected");
-
-          CGFloat DQ = pow(p[2], 2) + 4 * p[1] * p[3]; // quadratic discriminant
-          if( DQ >= 0 )
-          {
-              DQ = sqrt(DQ);
-              t[0] = -1 * ( ( DQ + p[2] ) / ( 2 * p[1] ) );
-              t[1] = ( ( DQ - p[2] ) / ( 2 * p[1] ) );
-              t[2] = -1;
-
-              /*discard out of spec roots*/
-              for (int i = 0; i < 2; i++)
-              if (t[i] < 0 || t[i] > 1.0) {
-                  t[i] = -1;
-              }
-          }
+            /*discard out of spec roots*/
+            for (int i = 0; i < 2; i++)
+                if (t[i] < 0 || t[i] > 1.0) {
+                    t[i] = -1;
+                }
+        }
     } else {
         CGFloat a = p[0];
         CGFloat b = p[1];
@@ -2641,48 +2616,46 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
 
         CGFloat Q = (3 * B - pow(A, 2)) / 9;
         CGFloat R = (9 * A * B - 27 * C - 2 * pow(A, 3)) / 54;
-        CGFloat D = pow(Q, 3) + pow(R, 2);    // polynomial discriminant
+        CGFloat D = pow(Q, 3) + pow(R, 2); // polynomial discriminant
 
-        if (D >= 0)                                 // complex or duplicate roots
+        if (D >= 0) // complex or duplicate roots
         {
-            CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)),(1.0 / 3.0));
-            CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)),(1.0 / 3.0));
+            CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)), (1.0 / 3.0));
+            CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)), (1.0 / 3.0));
 
-            t[0] = -A/3 + (S + T);                    // real root
-            t[1] = -A/3 - (S + T)/2;                  // real part of complex root
-            t[2] = -A/3 - (S + T)/2;                  // real part of complex root
-            CGFloat Im = abs(sqrt(3) * (S - T) / 2);    // complex part of root pair
+            t[0] = -A / 3 + (S + T); // real root
+            t[1] = -A / 3 - (S + T) / 2; // real part of complex root
+            t[2] = -A / 3 - (S + T) / 2; // real part of complex root
+            CGFloat Im = abs(sqrt(3) * (S - T) / 2); // complex part of root pair
 
             /*discard complex roots*/
-            if (Im != 0)
-            {
+            if (Im != 0) {
                 t[1] = -1;
                 t[2] = -1;
             }
 
-        }
-        else                                          // distinct real roots
+        } else // distinct real roots
         {
             CGFloat th = acos(R / sqrt(-pow(Q, 3)));
 
-            t[0] = 2 * sqrt(-Q) * cos(th/3) - A / 3;
+            t[0] = 2 * sqrt(-Q) * cos(th / 3) - A / 3;
             t[1] = 2 * sqrt(-Q) * cos((th + 2 * M_PI) / 3) - A / 3;
             t[2] = 2 * sqrt(-Q) * cos((th + 4 * M_PI) / 3) - A / 3;
         }
 
         /*discard out of spec roots*/
         for (int i = 0; i < 3; i++)
-        if (t[i] < 0 || t[i] > 1.0) {
-            t[i] = -1;
-        }
+            if (t[i] < 0 || t[i] > 1.0) {
+                t[i] = -1;
+            }
     }
 
-    NSArray<NSNumber*> *retArray = @[
+    NSArray<NSNumber *> *retArray = @[
         @(t[0]),
         @(t[1]),
         @(t[2])
     ];
-    retArray = [retArray sortedArrayUsingComparator: ^(id obj1, id obj2) {
+    retArray = [retArray sortedArrayUsingComparator:^(id obj1, id obj2) {
         if ([obj1 floatValue] == -1) {
             return (NSComparisonResult)NSOrderedDescending;
         }
@@ -2704,9 +2677,9 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     return retArray;
 }
 
-+ (Coeffs *)bezierCoeffs:(CGFloat[4])p
++ (Coeffs)bezierCoeffs:(CGFloat[4])p
 {
-    Coeffs *c = [[Coeffs alloc] init];
+    Coeffs c;
     c.p0 = -p[0] + 3 * p[1] + -3 * p[2] + p[3];
     c.p1 = 3 * p[0] - 6 * p[1] + 3 * p[2];
     c.p2 = -3 * p[0] + 3 * p[1];
