@@ -103,22 +103,6 @@
 }
 
 
-- (void)testPerformanceTestOfIntersectionAndDifference2
-{
-    [NSThread sleepForTimeInterval:2];
-    NSLog(@"beginning test testPerformanceTestOfIntersectionAndDifference");
-
-    for (int i = 0; i < 100; i++) {
-        @autoreleasepool {
-            //            [self testClipUnclosedCurveToClosedBounds];
-        }
-    }
-    XCTAssertTrue(NO, @"fix performance test");
-
-    NSLog(@"done test testPerformanceTestOfIntersectionAndDifference");
-}
-
-
 - (void)testScissorsThroughMultipleShapeHoles
 {
     UIBezierPath *scissorPath = [UIBezierPath bezierPath];

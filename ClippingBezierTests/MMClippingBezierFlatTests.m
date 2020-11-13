@@ -199,48 +199,6 @@
     XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0, @"starts at the right place");
 }
 
-
-- (void)testCurveIntersectionInsideToOutsideRect
-{
-    // testPath is a curved line that starts
-    // inside bounds box, and ends outside
-    // below the box
-
-    UIBezierPath *testPath = [UIBezierPath bezierPath];
-    [testPath moveToPoint:CGPointMake(150, 150)];
-    [testPath addCurveToPoint:CGPointMake(150, 250)
-                controlPoint1:CGPointMake(170, 80)
-                controlPoint2:CGPointMake(170, 220)];
-
-
-    // simple 100x100 box
-    UIBezierPath *bounds = [UIBezierPath bezierPath];
-    [bounds moveToPoint:CGPointMake(100, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 100)];
-    [bounds closePath];
-
-    DKIntersectionOfPaths *firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPathAndImmutable:YES] andPath:bounds];
-
-    XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
-    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 1345, @"the curves do intersect");
-    XCTAssertEqual(floorf(100 * firstIntersection.tValueOfIntersection), 92.0, @"the curves do intersect");
-
-
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 162.0, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 200.0, @"ends at the right place");
-
-    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 162.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.firstPoint.y, 200.0, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.end.lastPoint.x), 150.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0, @"starts at the right place");
-}
-
-
 - (void)testCurveIntersectionInsideRect
 {
     // testPath is a curved line entirely contained
@@ -315,57 +273,5 @@
 
     XCTAssertEqual([firstIntersection.end elementCount], 0, @"end path is empty");
 }
-
-- (void)testCalculateUnclosedPathThroughClosedBoundsFast
-{
-    //
-    // testPath is a curved line that starts
-    // out above bounds, and curves through the
-    // bounds box until it ends outside on the
-    // other side
-
-    UIBezierPath *testPath = [UIBezierPath bezierPath];
-    [testPath moveToPoint:CGPointMake(100, 50)];
-    [testPath addCurveToPoint:CGPointMake(100, 250)
-                controlPoint1:CGPointMake(170, 80)
-                controlPoint2:CGPointMake(170, 220)];
-
-
-    // simple 100x100 box
-    UIBezierPath *bounds = [UIBezierPath bezierPath];
-    [bounds moveToPoint:CGPointMake(100, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 100)];
-    [bounds closePath];
-
-    NSArray *output = [UIBezierPath calculateIntersectionAndDifferenceBetween:testPath andPath:bounds];
-
-
-    //    NSLog(@"cropped path: %@", [[output firstObject] bezierPathByUnflatteningPath]);
-    //    NSLog(@"cropped path: %@", [[output lastObject] bezierPathByUnflatteningPath]);
-
-    UIBezierPath *inter = [output firstObject];
-    UIBezierPath *diff = [output lastObject];
-
-
-    XCTAssertEqual([inter elementCount], 1556, @"the curves do intersect");
-    XCTAssertEqual([diff elementCount], 1184, @"the curves do intersect");
-
-    XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
-    XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
-
-    XCTAssertEqual(inter.firstPoint.x, 100.0, @"starts at the right place");
-    XCTAssertEqual(inter.firstPoint.y, 50.0, @"starts at the right place");
-    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0, @"ends at the right place");
-    XCTAssertEqual(inter.lastPoint.y, 250.0, @"ends at the right place");
-
-    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0, @"starts at the right place");
-    XCTAssertEqual(diff.firstPoint.y, 100.0, @"starts at the right place");
-    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0, @"starts at the right place");
-    XCTAssertEqual(diff.lastPoint.y, 200.0, @"starts at the right place");
-}
-
 
 @end
