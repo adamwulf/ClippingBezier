@@ -25,16 +25,16 @@
 @end
 
 @implementation MMClipView {
-    UIBezierPath *splitterPath;
-    UIBezierPath *splittingPath;
+    UIBezierPath *path1;
+    UIBezierPath *path2;
 }
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
 
-    splitterPath = [UIBezierPath complexShape1];
-    splittingPath = [UIBezierPath complexShape2];
+    path1 = [UIBezierPath complexShape1];
+    path2 = [UIBezierPath complexShape2];
 }
 
 - (IBAction)changedPreviewType:(id)sender
@@ -46,14 +46,14 @@
 {
     if (_displayTypeControl.selectedSegmentIndex == 0) {
         [[UIColor purpleColor] setStroke];
-        [splitterPath setLineWidth:3];
-        [splitterPath stroke];
+        [path2 setLineWidth:3];
+        [path2 stroke];
 
         [[UIColor greenColor] setStroke];
-        [splittingPath setLineWidth:3];
-        [splittingPath stroke];
+        [path1 setLineWidth:3];
+        [path1 stroke];
 
-        NSArray *intersections = [splittingPath findIntersectionsWithClosedPath:splitterPath andBeginsInside:nil];
+        NSArray *intersections = [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:nil];
 
         for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
             [[UIColor redColor] setFill];
@@ -62,7 +62,7 @@
             [[UIBezierPath bezierPathWithArcCenter:p radius:7 startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 1) {
-        NSArray<DKUIBezierPathShape *> *shapes = [splittingPath uniqueShapesCreatedFromSlicingWithUnclosedPath:splitterPath];
+        NSArray<DKUIBezierPathShape *> *shapes = [path1 uniqueShapesCreatedFromSlicingWithUnclosedPath:path2];
 
         for (DKUIBezierPathShape *shape in shapes) {
             [[MMClipView randomColor] setFill];
@@ -71,14 +71,14 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 2) {
         [[UIColor purpleColor] setStroke];
-        [splitterPath setLineWidth:3];
-        [splitterPath stroke];
+        [path2 setLineWidth:3];
+        [path2 stroke];
 
         [[UIColor greenColor] setStroke];
-        [splittingPath setLineWidth:3];
-        [splittingPath stroke];
+        [path1 setLineWidth:3];
+        [path1 stroke];
 
-        NSArray<UIBezierPath *> *intersection = [splittingPath intersectionWithPath:splitterPath];
+        NSArray<UIBezierPath *> *intersection = [path1 intersectionWithPath:path2];
 
         for (UIBezierPath *path in intersection) {
             [[MMClipView randomColor] setFill];
@@ -86,21 +86,21 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 3) {
         [[UIColor purpleColor] setStroke];
-        [splitterPath setLineWidth:3];
-        [splitterPath stroke];
+        [path2 setLineWidth:3];
+        [path2 stroke];
 
         [[UIColor greenColor] setStroke];
-        [splittingPath setLineWidth:3];
-        [splittingPath stroke];
+        [path1 setLineWidth:3];
+        [path1 stroke];
 
-        NSArray<UIBezierPath *> *difference = [splittingPath differenceWithPath:splitterPath];
+        NSArray<UIBezierPath *> *difference = [path1 differenceWithPath:path2];
 
         for (UIBezierPath *path in difference) {
             [[MMClipView randomColor] setFill];
             [path fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 4) {
-        NSArray<UIBezierPath *> *paths = [splittingPath unionWithPath:splitterPath];
+        NSArray<UIBezierPath *> *paths = [path1 unionWithPath:path2];
 
         for (UIBezierPath *path in paths) {
             [[MMClipView randomColor] setFill];
@@ -109,12 +109,12 @@
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 5) {
         [[UIColor purpleColor] setStroke];
-        [splitterPath setLineWidth:3];
-        [splitterPath stroke];
+        [path2 setLineWidth:3];
+        [path2 stroke];
     } else if (_displayTypeControl.selectedSegmentIndex == 6) {
         [[UIColor greenColor] setStroke];
-        [splittingPath setLineWidth:3];
-        [splittingPath stroke];
+        [path1 setLineWidth:3];
+        [path1 stroke];
     }
 }
 

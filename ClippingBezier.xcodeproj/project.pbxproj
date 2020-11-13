@@ -86,6 +86,7 @@
 		C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */; };
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
+		C5A4575A255F0A78005BF9F4 /* MMClippingBezierTodoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */; };
 		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 /* End PBXBuildFile section */
 
@@ -208,6 +209,7 @@
 		C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierUnionTest.m; sourceTree = "<group>"; };
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTodoTests.m; sourceTree = "<group>"; };
 		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
 		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 		D9EC2CF48A52BA019E4C6A1B /* Pods-ClippingBezier-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier-ClippingBezierTests/Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				66FD531E1A894C7A00E7B486 /* MMClippingBezierFlatTests.m */,
 				665E8D4A1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m */,
 				6696DEE41B2E318A00A2BC8E /* MMClippingBezierGeometryTest.m */,
+				C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */,
 				662D40D01A8D862600A1CB63 /* Supporting Files */,
 			);
 			path = ClippingBezierTests;
@@ -801,6 +804,7 @@
 				666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */,
 				666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */,
 				666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */,
+				C5A4575A255F0A78005BF9F4 /* MMClippingBezierTodoTests.m in Sources */,
 				666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */,
 				6696DEE51B2E318A00A2BC8E /* MMClippingBezierGeometryTest.m in Sources */,
 				665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */,

@@ -1315,33 +1315,4 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)2, @"correct number of segments");
 }
 
-- (void)testLineNearBoundary2
-{
-    UIBezierPath *shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(0.000000, 0.000000)];
-    [shapePath addLineToPoint:CGPointMake(768.000000, 0.000000)];
-    [shapePath addLineToPoint:CGPointMake(768.000000, 1024.000000)];
-    [shapePath addLineToPoint:CGPointMake(0.000000, 1024.000000)];
-    [shapePath closePath];
-
-    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(478.500000, 1024.000000)];
-    [scissorPath addCurveToPoint:CGPointMake(484.000000, 1024.000000) controlPoint1:CGPointMake(480.562500, 1024.000000) controlPoint2:CGPointMake(481.937500, 1024.000000)];
-
-
-    XCTAssertTrue(NO, @"incorrect intersection count");
-
-    // This is an example where the two paths generate different intersection
-    // counts depending on which path is comparing to the other
-    NSArray *redGreenBlueSegs = [UIBezierPath redAndGreenAndBlueSegmentsCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-
-    NSArray *redSegments = [redGreenBlueSegs firstObject];
-    NSArray *greenSegments = [redGreenBlueSegs objectAtIndex:1];
-    NSArray *blueSegments = [redGreenBlueSegs lastObject];
-
-    XCTAssertEqual([redSegments count], (NSUInteger)3, @"correct number of segments");
-    XCTAssertEqual([greenSegments count], (NSUInteger)0, @"correct number of segments");
-    XCTAssertEqual([blueSegments count], (NSUInteger)2, @"correct number of segments");
-}
-
 @end

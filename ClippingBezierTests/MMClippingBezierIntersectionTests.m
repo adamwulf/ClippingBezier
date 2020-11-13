@@ -207,48 +207,6 @@
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
 }
 
-- (void)testFindingIntersectionsForVerticalTangentLines
-{
-    // there is a TODO in UIBezierPath+Clipping.m to handle tangent lines
-    XCTAssertTrue(NO, @"functionality needs defining");
-    return;
-    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(300.0, 100.0)];
-    [scissorPath addLineToPoint:CGPointMake(300.0, 200.0)];
-
-    UIBezierPath *shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(300.0, 50.0)];
-    [shapePath addLineToPoint:CGPointMake(300.0, 250.0)];
-
-
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-
-    XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
-}
-
-- (void)testFindingIntersectionsForDiagonalTangentLines
-{
-    // there is a TODO in UIBezierPath+Clipping.m to handle tangent lines
-    XCTAssertTrue(NO, @"functionality needs defining");
-    return;
-    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
-    [scissorPath moveToPoint:CGPointMake(300.0, 300.0)];
-    [scissorPath addLineToPoint:CGPointMake(500.0, 500.0)];
-
-    UIBezierPath *shapePath = [UIBezierPath bezierPath];
-    [shapePath moveToPoint:CGPointMake(50.0, 50.0)];
-    [shapePath addLineToPoint:CGPointMake(600.0, 600.0)];
-
-
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-
-    XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
-}
-
 - (void)testPossiblyImpreciseIntersectionWithPaths
 {
     UIBezierPath *scissorPath = [UIBezierPath bezierPath];
@@ -1024,53 +982,6 @@
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:2] location1] isNearTo:[[otherIntersections objectAtIndex:2] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:3] location1] isNearTo:[[otherIntersections objectAtIndex:3] location2]], @"locations match");
-}
-
-
-- (void)testCircleThroughRectangleCompareTangents2
-{
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-
-    XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
-
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], 1.0, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0, @"found correct intersection location");
-
-    XCTAssertEqual([[intersections objectAtIndex:1] elementIndex1], 3, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], 0.999997, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 1, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.499999, @"found correct intersection location");
-
-    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex1], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 0.999997, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0.999998, @"found correct intersection location");
-
-    DKUIBezierPathIntersectionPoint *intersection = [intersections objectAtIndex:0];
-    XCTAssertEqual(roundf([intersection location1].x), 200.0, @"intersects at the right place");
-    XCTAssertEqual(roundf([intersection location1].y), 300.0, @"intersects at the right place");
-
-    intersection = [intersections objectAtIndex:1];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");
-
-    intersection = [intersections objectAtIndex:2];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:0];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:1];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:2];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(200, 300)], @"correct location");
 }
 
 

@@ -133,19 +133,7 @@
     return shapePath2;
 }
 
-+ (UIBezierPath *)splitterPath
-{
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(12.000000, 16.970563)];
-    [path addLineToPoint:CGPointMake(208.000000, 16.970563)];
-    [path addLineToPoint:CGPointMake(208.000000, 128.000000)];
-    [path addLineToPoint:CGPointMake(12.000000, 128.000000)];
-    [path closePath];
-
-    return path;
-}
-
-+ (UIBezierPath *)splittingPath
++ (UIBezierPath *)debug1
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(12.000000, 32.000000)];
@@ -167,6 +155,18 @@
     [path addLineToPoint:CGPointMake(190.828427, 26.142136)];
     [path addCurveToPoint:CGPointMake(176.686292, 32.000000) controlPoint1:CGPointMake(187.077700, 29.892863) controlPoint2:CGPointMake(181.990621, 32.000000)];
     [path addLineToPoint:CGPointMake(12.000000, 32.000000)];
+    [path closePath];
+
+    return path;
+}
+
++ (UIBezierPath *)debug2
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(12.000000, 16.970563)];
+    [path addLineToPoint:CGPointMake(208.000000, 16.970563)];
+    [path addLineToPoint:CGPointMake(208.000000, 128.000000)];
+    [path addLineToPoint:CGPointMake(12.000000, 128.000000)];
     [path closePath];
 
     return path;
