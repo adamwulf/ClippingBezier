@@ -25,6 +25,9 @@
 
 @property(nonatomic, assign) BOOL isFlat;
 
+- (UIBezierPath *)bezierPathByFlatteningPath;
+- (UIBezierPath *)bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy;
+
 - (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold;
 - (UIBezierPath *)bezierPathByFlatteningPathWithFlatnessThreshold:(CGFloat)flatnessThreshold immutable:(BOOL)returnCopy;
 

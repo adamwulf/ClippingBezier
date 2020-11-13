@@ -10,6 +10,9 @@
 #import <objc/runtime.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 
+
+static const CGFloat kIdealFlatness = .01;
+
 @implementation UIBezierPath (Ahmed)
 
 
@@ -43,6 +46,15 @@
 
 #pragma mark - UIBezierPath
 
+- (UIBezierPath *)bezierPathByFlatteningPath
+{
+    return [self bezierPathByFlatteningPathWithFlatnessThreshold:kIdealFlatness];
+}
+
+- (UIBezierPath *)bezierPathByFlatteningPathAndImmutable:(BOOL)returnCopy
+{
+    return [self bezierPathByFlatteningPathWithFlatnessThreshold:kIdealFlatness immutable:returnCopy];
+}
 
 /**
  * call this method on a UIBezierPath to generate
@@ -200,4 +212,3 @@
 }
 
 @end
-
