@@ -18,8 +18,6 @@
 
 // boolean operations
 
-- (NSArray<NSValue *> *)elementIndexWhereOverlapOccursWithClosedPath:(UIBezierPath *)closedPath;
-
 - (NSArray<NSValue *> *)intersectionPointsWithPath:(UIBezierPath *)path;
 
 - (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)path;
