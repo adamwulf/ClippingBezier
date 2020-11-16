@@ -221,14 +221,14 @@ static NSInteger segmentCompareCount = 0;
                                     //                                     bezier intersection algorithm to find possibly multiple intersections
                                     //                                     between these curves
 
-                                    if (path1Element.type == kCGPathElementAddCurveToPoint && path2Element.type == kCGPathElementAddLineToPoint) {
+                                    if (path1Element.type == kCGPathElementAddCurveToPoint && (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
                                         CGPoint lineP1 = bez2[0];
                                         CGPoint lineP2 = bez2[3];
-                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2];
-                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint && path1Element.type == kCGPathElementAddLineToPoint) {
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2 flipped:false];
+                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint && (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath)) {
                                         CGPoint lineP1 = bez1[0];
                                         CGPoint lineP2 = bez1[3];
-                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2 flipped: true];
                                     } else {
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
                                     }
@@ -236,11 +236,16 @@ static NSInteger segmentCompareCount = 0;
                                 // loop through the intersections that we've found, and add in
                                 // some context that we can save for each one.
                                 for (NSValue *val in intersections) {
-                                    CGFloat tValue1 = [val CGPointValue].y;
-                                    CGFloat tValue2 = [val CGPointValue].x;
+                                    CGPoint i = [val CGPointValue];
+                                    CGFloat tValue1 = i.y;
+                                    CGFloat tValue2 = i.x;
                                     // estimated length along each curve until the intersection is hit
                                     CGFloat lenTillPath1Inter = path1EstimatedLength + tValue1 * path1EstimatedElementLength;
                                     CGFloat lenTillPath2Inter = path2EstimatedLength + tValue2 * path2ElementLength;
+
+                                    if (tValue2 == 1) {
+                                        NSLog(@"stop");
+                                    }
 
                                     DKUIBezierPathIntersectionPoint *inter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:path1ElementIndex
                                                                                                                                andTValue:tValue1
@@ -2418,8 +2423,31 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
     return intersections;
 };
 
+CG_INLINE CGFloat
+CGIsAboutEqual(CGFloat a, CGFloat b)
+{
+    NSInteger aInt = (NSInteger)(a * 1000000);
+    NSInteger bInt = (NSInteger)(b * 1000000);
+    return aInt == bInt;
+}
 
-+ (NSArray<NSValue *> *)findIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)p1 to:(CGPoint)p2
+CG_INLINE CGFloat
+CGIsAboutGreater(CGFloat a, CGFloat b)
+{
+    NSInteger aInt = (NSInteger)(a * 1000000);
+    NSInteger bInt = (NSInteger)(b * 1000000);
+    return aInt > bInt;
+}
+
+CG_INLINE CGFloat
+CGIsAboutLess(CGFloat a, CGFloat b)
+{
+    NSInteger aInt = (NSInteger)(a * 1000000);
+    NSInteger bInt = (NSInteger)(b * 1000000);
+    return aInt < bInt;
+}
+
++ (NSArray<NSValue *> *)findIntersectionsBetweenBezier:(CGPoint[4])bez andLineFrom:(CGPoint)p1 to:(CGPoint)p2 flipped:(bool)flipped
 {
     if (CGPointEqualToPoint(p1, p2) || CGPointEqualToPoint(bez[0], bez[3])) {
         // TODO julia we might still have to check if that point happens to be ON the curve?!
@@ -2457,7 +2485,7 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
         /*above is intersection point assuming infinitely long line segment,
           make sure we are also in bounds of the line*/
         CGFloat s;
-        if ((p2.x - p1.x) != 0) {
+        if (!CGIsAboutEqual((p2.x - p1.x), 0)) {
             /*if not vertical line*/
             s = (p.x - p1.x) / (p2.x - p1.x);
         } else {
@@ -2465,18 +2493,22 @@ CGPointLerp(CGPoint a, CGPoint b, CGFloat t)
         }
 
         // discard if not in bounds
-        if (t < 0 || t > 1.0 || s < 0 || s > 1.0) {
+        if (CGIsAboutLess(t, 0) || CGIsAboutGreater(t, 1) || CGIsAboutLess(s, 0) || CGIsAboutGreater(s, 1)) {
             continue;
         }
 
         CGFloat lineLength = [UIBezierPath distance:p1 p2:p2];
         CGFloat tLine = [UIBezierPath distance:p p2:p1] / lineLength;
 
-        if (tLine < 0 || tLine > 1.0) {
+        if (CGIsAboutLess(tLine, 0) || CGIsAboutGreater(tLine, 1)) {
             continue;
         }
 
-        [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
+        if (flipped) {
+            [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(tLine, t)]];
+        } else {
+            [intersections addObject:[NSValue valueWithCGPoint:CGPointMake(t, tLine)]];
+        }
     }
 
     return intersections;
