@@ -224,11 +224,11 @@ static NSInteger segmentCompareCount = 0;
                                     if (path1Element.type == kCGPathElementAddCurveToPoint && (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
                                         CGPoint lineP1 = bez2[0];
                                         CGPoint lineP2 = bez2[3];
-                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2 flipped:false];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2 flipped:true];
                                     } else if (path2Element.type == kCGPathElementAddCurveToPoint && (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath)) {
                                         CGPoint lineP1 = bez1[0];
                                         CGPoint lineP2 = bez1[3];
-                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2 flipped: true];
+                                        intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2 flipped:false];
                                     } else {
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
                                     }
