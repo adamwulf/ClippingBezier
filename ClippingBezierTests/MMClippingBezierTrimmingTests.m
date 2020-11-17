@@ -86,7 +86,67 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
 
     CGFloat tangent = [path1 tangentAtStart];
-    XCTAssertEqual([self round:tangent to:6], (CGFloat)3.926991, "tangent is correct");
+    XCTAssertEqual([self round:tangent to:6], (CGFloat)-2.356195, "tangent is correct");
+}
+
+- (void)testStartEndTangent1
+{
+    // This is an example of a functional test case.
+
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(10, 0)];
+
+    CGFloat tangent = [path1 tangentAtStart];
+    XCTAssertEqualWithAccuracy(tangent, M_PI, 0.000001);
+
+    tangent = [path1 tangentAtEnd];
+    XCTAssertEqualWithAccuracy(tangent, 0, 0.000001);
+}
+
+- (void)testStartEndTangent2
+{
+    // This is an example of a functional test case.
+
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(0, 10)];
+
+    CGFloat tangent = [path1 tangentAtStart];
+    XCTAssertEqualWithAccuracy(tangent, -M_PI_2, 0.000001);
+
+    tangent = [path1 tangentAtEnd];
+    XCTAssertEqualWithAccuracy(tangent, M_PI_2, 0.000001);
+}
+
+- (void)testStartEndTangent3
+{
+    // This is an example of a functional test case.
+
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(-10, 0)];
+
+    CGFloat tangent = [path1 tangentAtStart];
+    XCTAssertEqualWithAccuracy(tangent, 0, 0.000001);
+
+    tangent = [path1 tangentAtEnd];
+    XCTAssertEqualWithAccuracy(tangent, M_PI, 0.000001);
+}
+
+- (void)testStartEndTangent4
+{
+    // This is an example of a functional test case.
+
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointZero];
+    [path1 addLineToPoint:CGPointMake(0, -10)];
+
+    CGFloat tangent = [path1 tangentAtStart];
+    XCTAssertEqualWithAccuracy(tangent, M_PI_2, 0.000001);
+
+    tangent = [path1 tangentAtEnd];
+    XCTAssertEqualWithAccuracy(tangent, -M_PI_2, 0.000001);
 }
 
 - (void)testStartTangentOfSubpath
@@ -100,7 +160,7 @@
     [path1 addLineToPoint:CGPointMake(10, 10)];
 
     CGFloat tangent = [path1 tangentAtStartOfSubpath:1];
-    XCTAssertEqual([self round:tangent to:6], (CGFloat)3.926991, "tangent is correct");
+    XCTAssertEqual([self round:tangent to:6], (CGFloat)-2.356195, "tangent is correct");
 }
 
 - (void)testStartTangentOfSubpath2
