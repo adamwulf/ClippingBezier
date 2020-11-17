@@ -37,92 +37,78 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
  * the "all we've ever seen" will contain the first half + intersection, and teh output
  * array will contain the last half + intersection
  */
-- (NSArray *)pathsFromSelfIntersections
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)selfIntersections
 {
     NSMutableArray *intersections = [NSMutableArray array];
-
     __block UIBezierPath *seenSoFar = [UIBezierPath bezierPath];
-    NSMutableArray *output = [NSMutableArray array];
-    __block CGPoint lastMyPoint = CGPointZero;
+    __block CGPoint lastMoveTo = [self firstPoint];
+    __block CGPoint lastPoint = lastMoveTo;
 
-    //
-    // i think the crash that's happening here is because
-    // i'm nesting calls to CGPathApply() (from iteratePathWithBlock)
-    //
-    // as an alternative. i've unwrapped the first iteratePathWithBlock,
-    // storing each element in an array, and then looping over that array
-    int elementCount = (int)[self elementCount];
-    __block CGPathElement *selfElements = (CGPathElement *)malloc(sizeof(CGPathElement) * elementCount);
-    if (!selfElements) {
-        @throw [NSException exceptionWithName:@"Memory Exception" reason:@"can't malloc" userInfo:nil];
-    }
-    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger index) {
-        // need to copy the element so that we get
-        // a copy of the .points as well
-        CGPathElement *ptr = [UIBezierPath copyCGPathElement:&element];
-        selfElements[index] = *ptr;
+    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+        if (element.type == kCGPathElementMoveToPoint) {
+            [seenSoFar addPathElement:element];
+            lastMoveTo = element.points[0];
+            lastPoint = lastMoveTo;
+            return;
+        }
+        if ([seenSoFar length]) {
+            UIBezierPath *segment = [UIBezierPath bezierPath];
+            [segment moveToPoint:lastPoint];
+
+            if (element.type == kCGPathElementCloseSubpath) {
+                [segment addLineToPoint:lastMoveTo];
+                lastPoint = lastMoveTo;
+            } else {
+                [segment addPathElement:element];
+                lastPoint = element.points[[UIBezierPath numberOfPointsForElement:element] - 1];
+            }
+
+            NSArray<DKUIBezierPathIntersectionPoint *> *segmentIntersections = [seenSoFar findIntersectionsWithClosedPath:segment andBeginsInside:NULL];
+            for (DKUIBezierPathIntersectionPoint *intersection in segmentIntersections) {
+                if (([intersection elementIndex2] == 1 && [intersection tValue2] == 0) ||
+                    ([intersection elementIndex2] == 0 && [intersection tValue2] == 1)) {
+                    // skip
+                } else {
+                    DKUIBezierPathIntersectionPoint *adjustedInter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:intersection.elementIndex1
+                                                                                                                       andTValue:intersection.tValue1
+                                                                                                                withElementIndex:seenSoFar.elementCount + intersection.elementIndex2 - 1
+                                                                                                                       andTValue:intersection.tValue2
+                                                                                                                andElementCount1:self.elementCount
+                                                                                                                andElementCount2:self.elementCount
+                                                                                                          andLengthUntilPath1Loc:intersection.lenAtInter1
+                                                                                                          andLengthUntilPath2Loc:seenSoFar.length + intersection.lenAtInter2];
+                    adjustedInter.bez1[0] = intersection.bez1[0];
+                    adjustedInter.bez1[1] = intersection.bez1[1];
+                    adjustedInter.bez1[2] = intersection.bez1[2];
+                    adjustedInter.bez1[3] = intersection.bez1[3];
+                    adjustedInter.bez2[0] = intersection.bez2[0];
+                    adjustedInter.bez2[1] = intersection.bez2[1];
+                    adjustedInter.bez2[2] = intersection.bez2[2];
+                    adjustedInter.bez2[3] = intersection.bez2[3];
+                    adjustedInter.pathLength1 = self.length;
+                    adjustedInter.pathLength2 = adjustedInter.pathLength1;
+                    [intersections addObject:adjustedInter];
+                }
+            }
+        }
+
+        [seenSoFar addPathElement:element];
     }];
 
-
-    BOOL (^pointIsNearToPoint)(CGPoint p1, CGPoint p2) = ^BOOL(CGPoint p1, CGPoint p2) {
-        // when two segments start/end at the same point, they are sometimes found
-        // as *almost* the same point. this makes sure we take this rounding error
-        // into account when two segments intersect at endpoints
-        CGFloat close = .00001;
-        CGFloat xDiff = ABS(p2.x - p1.x);
-        CGFloat yDiff = ABS(p2.y - p1.y);
-        return xDiff < close && yDiff < close;
-    };
-
-    // at this point, the selfElements is an array of CGPathElements
-    // that I can loop over without needing to nest calls of CGPathApply
-    for (int index = 0; index < elementCount; index++) {
-        CGPathElement element = selfElements[index];
-        if (element.type == kCGPathElementAddLineToPoint) {
-            __block CGPoint lastSeenPoint = CGPointZero;
-            __block CGFloat distanceSoFar = 0;
-            __strong UIBezierPath *iterateOnThisPath = seenSoFar;
-            [iterateOnThisPath iteratePathWithBlock:^(CGPathElement seenElement, NSUInteger idx) {
-                if (seenElement.type == kCGPathElementAddLineToPoint) {
-                    CGPoint intersection = intersects2D(lastMyPoint, element.points[0], lastSeenPoint, seenElement.points[0]);
-                    if (!CGPointEqualToPoint(intersection, CGPointNotFound) &&
-                        !pointIsNearToPoint(intersection, lastMyPoint)) {
-                        [intersections addObject:[NSValue valueWithCGPoint:intersection]];
-
-                        // ok, we have an intersection
-                        UIBezierPath *outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
-                        if (![outPath elementCount]) {
-                            outPath = [seenSoFar bezierPathByTrimmingFromLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
-                        }
-                        [outPath addLineToPoint:intersection];
-                        [output addObject:outPath];
-
-                        seenSoFar = [seenSoFar bezierPathByTrimmingToLength:distanceSoFar + [UIBezierPath distance:lastSeenPoint p2:intersection]];
-                        lastSeenPoint = intersection;
-                    }
-                    distanceSoFar += [UIBezierPath distance:lastSeenPoint p2:seenElement.points[0]];
-                }
-                lastSeenPoint = seenElement.points[0];
-            }];
-            [seenSoFar addPathElement:element];
-        } else {
-            [seenSoFar addPathElement:element];
-        }
-        lastMyPoint = element.points[0];
-    }
-    // cleanup selfElements!
-    // making sure to free .points
-    // since we deep copied the element
-    for (int i = 0; i < elementCount; i++) {
-        free(selfElements[i].points);
-    }
-    free(selfElements);
-
-    [output addObject:seenSoFar];
-
-    return output;
+    return intersections;
 }
 
+- (UIBezierPath *)pathByRemovingSelfIntersections
+{
+    NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [self selfIntersections];
+
+    return [self copy];
+}
+
+- (NSArray<UIBezierPath *> *)pathsFromSelfIntersections
+{
+    return @[];
+}
 
 + (CGPoint)intersects2D:(CGPoint)p1 to:(CGPoint)p2 andLine:(CGPoint)p3 to:(CGPoint)p4
 {

@@ -1219,6 +1219,8 @@ static NSInteger segmentCompareCount = 0;
     }];
 
     if ([shapeToScissorIntersections count] != [intersectionsWithBoundaryInformation count]) {
+        NSLog(@"debug1: %@", [shapePath descriptionInSwift:NO]);
+        NSLog(@"debug2: %@", [scissorPath descriptionInSwift:NO]);
         @throw [NSException exceptionWithName:@"BezierPathIntersectionException" reason:@"mismatched intersection length" userInfo:nil];
     }
     // 3. fix mayCrossBoundary:

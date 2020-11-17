@@ -151,13 +151,42 @@
             [path fill];
         }
     } else if (_displayTypeControl.selectedSegmentIndex == 5) {
-        [[UIColor purpleColor] setStroke];
-        [path2 setLineWidth:3 / scale];
-        [path2 stroke];
-    } else if (_displayTypeControl.selectedSegmentIndex == 6) {
         [[UIColor greenColor] setStroke];
         [path1 setLineWidth:3 / scale];
         [path1 stroke];
+
+        NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [path1 selfIntersections];
+
+        for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
+            [[UIColor blueColor] setFill];
+            CGPoint p = intersection.location1;
+
+            [[UIBezierPath bezierPathWithArcCenter:p radius:radius / scale startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
+
+            [[UIColor redColor] setFill];
+            p = intersection.location2;
+
+            [[UIBezierPath bezierPathWithArcCenter:p radius:radius / scale startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
+        }
+    } else if (_displayTypeControl.selectedSegmentIndex == 6) {
+        [[UIColor purpleColor] setStroke];
+        [path2 setLineWidth:3 / scale];
+        [path2 stroke];
+
+        NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [path2 selfIntersections];
+
+        for (DKUIBezierPathIntersectionPoint *intersection in intersections) {
+            [[UIColor blueColor] setFill];
+            CGPoint p = intersection.location1;
+            CGPoint p2 = [path2 pointOnPathAtElement:intersection.elementIndex1 andTValue:intersection.tValue1];
+
+            [[UIBezierPath bezierPathWithArcCenter:p radius:radius / scale startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
+
+            [[UIColor redColor] setFill];
+            p = intersection.location2;
+
+            [[UIBezierPath bezierPathWithArcCenter:p radius:radius / scale startAngle:0 endAngle:2 * M_PI clockwise:YES] fill];
+        }
     }
     CGContextRestoreGState(context);
 }
