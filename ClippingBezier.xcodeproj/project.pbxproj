@@ -81,6 +81,7 @@
 		66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */; };
+		C53A995A256499CB00F5F214 /* MMClippingBezierSelfIntersectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C53A9959256499CB00F5F214 /* MMClippingBezierSelfIntersectionTests.m */; };
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
 		C5A4575A255F0A78005BF9F4 /* MMClippingBezierTodoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */; };
@@ -202,6 +203,7 @@
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
 		C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierUnionTest.m; sourceTree = "<group>"; };
+		C53A9959256499CB00F5F214 /* MMClippingBezierSelfIntersectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierSelfIntersectionTests.m; sourceTree = "<group>"; };
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTodoTests.m; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				66FD53151A894C7A00E7B486 /* MMClippingBezierAbstractTest.h */,
 				66FD53161A894C7A00E7B486 /* MMClippingBezierAbstractTest.m */,
 				66FD53171A894C7A00E7B486 /* MMClippingBezierIntersectionTests.m */,
+				C53A9959256499CB00F5F214 /* MMClippingBezierSelfIntersectionTests.m */,
 				C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */,
 				66FD53181A894C7A00E7B486 /* MMClippingBezierSegmentTests.m */,
 				66FD53191A894C7A00E7B486 /* MMClippingBezierSegmentTangentTests.m */,
@@ -792,6 +795,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C53A995A256499CB00F5F214 /* MMClippingBezierSelfIntersectionTests.m in Sources */,
 				666EEC271A8D8F7500B9F171 /* MMClippingBezierAOOTests.m in Sources */,
 				666EEC291A8D8F7500B9F171 /* MMClippingBezierAbstractTest.m in Sources */,
 				666EEC2A1A8D8F7500B9F171 /* MMClippingBezierIntersectionTests.m in Sources */,

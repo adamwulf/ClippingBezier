@@ -107,7 +107,35 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
 
 - (NSArray<UIBezierPath *> *)pathsFromSelfIntersections
 {
-    return @[];
+    NSMutableArray<DKUIBezierPathIntersectionPoint *> *intersections = [NSMutableArray array];
+
+    for (DKUIBezierPathIntersectionPoint *inter in [self selfIntersections]) {
+        [intersections addObject:inter];
+        [intersections addObject:[inter flipped]];
+    }
+
+    [intersections sortUsingComparator:^NSComparisonResult(DKUIBezierPathIntersectionPoint *obj1, DKUIBezierPathIntersectionPoint *obj2) {
+        if (obj1.elementIndex1 < obj2.elementIndex1) {
+            return NSOrderedAscending;
+        } else if (obj1.elementIndex1 == obj2.elementIndex1 && obj1.tValue1 < obj2.tValue2) {
+            return NSOrderedAscending;
+        }
+        return NSOrderedDescending;
+    }];
+
+    NSMutableArray<UIBezierPath *> *paths = [NSMutableArray array];
+    UIBezierPath *fullPath = self;
+
+    for (DKUIBezierPathIntersectionPoint *inter in [intersections reverseObjectEnumerator]) {
+        [paths addObject:[fullPath bezierPathByTrimmingFromElement:[inter elementIndex1] andTValue:[inter tValue1]]];
+        fullPath = [fullPath bezierPathByTrimmingToElement:[inter elementIndex1] andTValue:[inter tValue1]];
+    }
+
+    if ([fullPath length]) {
+        [paths addObject:fullPath];
+    }
+
+    return paths;
 }
 
 + (CGPoint)intersects2D:(CGPoint)p1 to:(CGPoint)p2 andLine:(CGPoint)p3 to:(CGPoint)p4

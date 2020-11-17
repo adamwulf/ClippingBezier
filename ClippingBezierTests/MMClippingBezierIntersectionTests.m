@@ -1527,40 +1527,4 @@
     XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue2], 0.5, 0.000001);
 }
 
-- (void)testSelfIntersections1
-{
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(100, 0)];
-    [path addLineToPoint:CGPointMake(50, 50)];
-    [path addLineToPoint:CGPointMake(50, -100)];
-
-    NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [path selfIntersections];
-
-    XCTAssertEqual([intersections count], 1);
-
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 1);
-    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:0] tValue1], 0.5, 0.000001);
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 3);
-    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:0] tValue2], 0.333333, 0.000001);
-}
-
-- (void)testSelfIntersections2
-{
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(0, 0)];
-    [path addLineToPoint:CGPointMake(100, 0)];
-    [path addLineToPoint:CGPointMake(50, 50)];
-    [path addLineToPoint:CGPointMake(50, -100)];
-
-    NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [path selfIntersections];
-
-    XCTAssertEqual([intersections count], 1);
-
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 1);
-    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:0] tValue1], 0.5, 0.000001);
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 3);
-    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:0] tValue2], 0.333333, 0.000001);
-}
-
 @end
