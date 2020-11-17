@@ -400,7 +400,7 @@
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)8, @"found 8 intersections");
+    XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
     XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
@@ -463,7 +463,7 @@
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)8, @"found 8 intersections");
+    XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
     XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
@@ -519,7 +519,7 @@
     NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)8, @"found intersections");
+    XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
     XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
