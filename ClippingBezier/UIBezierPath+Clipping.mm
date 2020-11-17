@@ -243,10 +243,6 @@ static NSInteger segmentCompareCount = 0;
                                     CGFloat lenTillPath1Inter = path1EstimatedLength + tValue1 * path1EstimatedElementLength;
                                     CGFloat lenTillPath2Inter = path2EstimatedLength + tValue2 * path2ElementLength;
 
-                                    if (tValue2 == 1) {
-                                        NSLog(@"stop");
-                                    }
-
                                     DKUIBezierPathIntersectionPoint *inter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:path1ElementIndex
                                                                                                                                andTValue:tValue1
                                                                                                                         withElementIndex:path2ElementIndex
@@ -2519,9 +2515,9 @@ CGIsAboutLess(CGFloat a, CGFloat b)
     CGFloat t[3];
 
     if (p[0] == 0) {
-        if (p[1] == 0) {
-            NSLog(@"Linear formula detected");
 
+        if (p[1] == 0) {
+            // linear formula
             CGFloat t[3];
             t[0] = -1 * (p[3] / p[2]);
             t[1] = -1;
@@ -2529,25 +2525,24 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
             /*discard out of spec roots*/
             for (int i = 0; i < 1; i++)
+            if (t[i] < 0 || t[i] > 1.0) {
+                t[i] = -1;
+            }
+        } else {
+            CGFloat DQ = pow(p[2], 2) - 4 * p[1] * p[3]; // quadratic discriminant
+            if (DQ >= 0) {
+                // quadratic formula
+                DQ = sqrt(DQ);
+                t[0] = -1 * ((DQ + p[2]) / (2 * p[1]));
+                t[1] = ((DQ - p[2]) / (2 * p[1]));
+                t[2] = -1;
+
+                /*discard out of spec roots*/
+                for (int i = 0; i < 2; i++)
                 if (t[i] < 0 || t[i] > 1.0) {
                     t[i] = -1;
                 }
-        }
-
-        NSLog(@"Quadratic formula detected");
-
-        CGFloat DQ = pow(p[2], 2) + 4 * p[1] * p[3]; // quadratic discriminant
-        if (DQ >= 0) {
-            DQ = sqrt(DQ);
-            t[0] = -1 * ((DQ + p[2]) / (2 * p[1]));
-            t[1] = ((DQ - p[2]) / (2 * p[1]));
-            t[2] = -1;
-
-            /*discard out of spec roots*/
-            for (int i = 0; i < 2; i++)
-                if (t[i] < 0 || t[i] > 1.0) {
-                    t[i] = -1;
-                }
+            }
         }
     } else {
         CGFloat a = p[0];
