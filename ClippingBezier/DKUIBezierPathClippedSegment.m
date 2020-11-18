@@ -135,9 +135,18 @@
     if (![object isKindOfClass:[DKUIBezierPathClippedSegment class]]) {
         return NO;
     }
-    if ([object reversedSegment] == self) {
+    // Don't call reversedSegment, as we don't want to generate a reversed segment if we don't need it.
+    DKUIBezierPathClippedSegment *asSeg = (DKUIBezierPathClippedSegment *)object;
+    if (reversedFrom == object) {
         return YES;
     }
+    if (asSeg->reversedFrom == self) {
+        return YES;
+    }
+    if (reversedFrom && asSeg->reversedFrom == reversedFrom) {
+        return YES;
+    }
+
     if (![[self startIntersection] isEqual:[object startIntersection]] || ![[self endIntersection] isEqual:[object endIntersection]]) {
         return NO;
     }
