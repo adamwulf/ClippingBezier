@@ -16,8 +16,8 @@
     CGFloat tValue1;
     NSInteger elementIndex2;
     CGFloat tValue2;
-    CGPoint *bez1;
-    CGPoint *bez2;
+    CGPoint bez1[4];
+    CGPoint bez2[4];
     BOOL mayCrossBoundary;
     NSInteger elementCount1;
     NSInteger elementCount2;
@@ -33,8 +33,6 @@
 @synthesize elementIndex2;
 @synthesize elementCount2;
 @synthesize tValue2;
-@synthesize bez1;
-@synthesize bez2;
 @synthesize mayCrossBoundary;
 @synthesize lenAtInter1;
 @synthesize lenAtInter2;
@@ -53,11 +51,14 @@
         tValue1 = _tValue1;
         elementIndex2 = index2;
         tValue2 = _tValue2;
-        bez1 = (CGPoint *)malloc(sizeof(CGPoint) * 4);
-        bez2 = (CGPoint *)malloc(sizeof(CGPoint) * 4);
-        if (!bez1 || !bez2) {
-            @throw [NSException exceptionWithName:@"Memory Exception" reason:@"can't malloc" userInfo:nil];
-        }
+        bez1[0] = CGPointZero;
+        bez1[1] = CGPointZero;
+        bez1[2] = CGPointZero;
+        bez1[3] = CGPointZero;
+        bez2[0] = CGPointZero;
+        bez2[1] = CGPointZero;
+        bez2[2] = CGPointZero;
+        bez2[3] = CGPointZero;
         elementCount1 = _elementCount1;
         elementCount2 = _elementCount2;
         lenAtInter1 = _lenAtInter1;
@@ -66,15 +67,19 @@
     return self;
 }
 
+- (CGPoint *)bez1
+{
+    return bez1;
+}
+
+- (CGPoint *)bez2
+{
+    return bez2;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"[Intersection (%d %f) (%d %f)]", (int)elementIndex1, tValue1, (int)elementIndex2, tValue2];
-}
-
-- (void)dealloc
-{
-    free(bez1);
-    free(bez2);
 }
 
 - (void)setMayCrossBoundary:(BOOL)_mayCrossBoundary
