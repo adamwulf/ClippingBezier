@@ -223,11 +223,8 @@
         UIBezierPath *path1 = [[self complexShape1] copy];
         UIBezierPath *path2 = [[self complexShape2] copy];
 
-        NSArray *intersections = [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
-        NSArray *shapes = [path1 allUniqueShapesWithPath:path2];
-
-        XCTAssertEqual([intersections count], 43);
-        XCTAssertEqual([shapes count], 32);
+        [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
+        [path1 allUniqueShapesWithPath:path2];
     }];
 }
 
