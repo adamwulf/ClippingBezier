@@ -42,6 +42,7 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     NSMutableArray *intersections = [NSMutableArray array];
     __block UIBezierPath *seenSoFar = [UIBezierPath bezierPath];
     __block CGPoint lastMoveTo = [self firstPoint];
+    __block NSInteger lastMoveToIndex = 0;
     __block CGPoint lastPoint = lastMoveTo;
 
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
@@ -49,6 +50,7 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
             [seenSoFar addPathElement:element];
             lastMoveTo = element.points[0];
             lastPoint = lastMoveTo;
+            lastMoveToIndex = idx;
             return;
         }
         if ([seenSoFar length]) {
@@ -68,6 +70,10 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
                 if (([intersection elementIndex2] == 1 && [intersection tValue2] == 0) ||
                     ([intersection elementIndex2] == 0 && [intersection tValue2] == 1)) {
                     // skip
+                } else if (element.type == kCGPathElementCloseSubpath &&
+                           (([intersection elementIndex1] == lastMoveToIndex && [intersection tValue1] == 1) ||
+                            ([intersection elementIndex1] == lastMoveToIndex + 1 && [intersection tValue1] == 0))) {
+                    // skip, it's the close path intersecting the start of the path
                 } else {
                     DKUIBezierPathIntersectionPoint *adjustedInter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:intersection.elementIndex1
                                                                                                                        andTValue:intersection.tValue1
@@ -127,8 +133,10 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     UIBezierPath *fullPath = self;
 
     for (DKUIBezierPathIntersectionPoint *inter in [intersections reverseObjectEnumerator]) {
+        // TODO: if intersections contains 2+ intersections within the same element, the tValues of 2+ intersections needs to be scaled
+        // to account for the clipped intersection.
         [paths addObject:[fullPath bezierPathByTrimmingFromElement:[inter elementIndex1] andTValue:[inter tValue1]]];
-        fullPath = [fullPath bezierPathByTrimmingToElement:[inter elementIndex1] andTValue:[inter tValue1]];
+        fullPath = [self bezierPathByTrimmingToElement:[inter elementIndex1] andTValue:[inter tValue1]];
     }
 
     if ([fullPath length]) {
