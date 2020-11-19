@@ -246,4 +246,40 @@
     return path;
 }
 
++ (UIBezierPath *)quad1
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 100)];
+    [path addQuadCurveToPoint:CGPointMake(200, 100) controlPoint:CGPointMake(150, 250)];
+
+    return path;
+}
+
++ (UIBezierPath *)quad2
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 200)];
+    [path addQuadCurveToPoint:CGPointMake(200, 50) controlPoint:CGPointMake(150, 50)];
+
+    return path;
+}
+
++ (UIBezierPath *)cubic1
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 100)];
+    [path addCurveToPoint:CGPointMake(200, 100) controlPoint1:CGPointMake(133.33333333333334, 200) controlPoint2:CGPointMake(166.66666666666666, 200)];
+
+    return path;
+}
+
++ (UIBezierPath *)cubic2
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 200)];
+    [path addCurveToPoint:CGPointMake(200, 200) controlPoint1:CGPointMake(133.33333333333334, 100) controlPoint2:CGPointMake(166.66666666666666, 100)];
+
+    return path;
+}
+
 @end

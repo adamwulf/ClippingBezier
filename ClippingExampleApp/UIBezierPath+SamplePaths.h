@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIBezierPath *)union1;
 + (UIBezierPath *)union2;
 
++ (UIBezierPath *)quad1;
++ (UIBezierPath *)quad2;
+
++ (UIBezierPath *)cubic1;
++ (UIBezierPath *)cubic2;
+
 @end
 
 NS_ASSUME_NONNULL_END
