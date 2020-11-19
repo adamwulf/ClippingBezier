@@ -1174,6 +1174,120 @@
     XCTAssertEqual([intersections2 count], (NSUInteger)3, @"intersections so we can check for the tangent case");
 }
 
+- (void)testZigZagLineThroughSloppyBox
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(324.500000, 214.500000)];
+    [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
+    [path addLineToPoint:CGPointMake(308.000000, 330.000000)];
+    [path addLineToPoint:CGPointMake(308.000000, 330.000000)];
+    [path addLineToPoint:CGPointMake(417.000000, 330.000000)];
+    [path addCurveToPoint:CGPointMake(440.000000, 241.000000) controlPoint1:CGPointMake(412.503845, 297.977478) controlPoint2:CGPointMake(427.308289, 269.161133)];
+    [path addLineToPoint:CGPointMake(440.000000, 241.000000)];
+    [path addLineToPoint:CGPointMake(324.500000, 214.500000)];
+    [path closePath];
+
+    UIBezierPath *shapePath = path;
+
+
+    path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(421.000000, 370.000000)];
+    [path addCurveToPoint:CGPointMake(387.000000, 169.000000) controlPoint1:CGPointMake(394.666168, 309.850830) controlPoint2:CGPointMake(452.226837, 150.381851)];
+    [path addCurveToPoint:CGPointMake(353.000000, 375.000000) controlPoint1:CGPointMake(320.444397, 187.997421) controlPoint2:CGPointMake(389.789246, 314.899323)];
+    [path addCurveToPoint:CGPointMake(346.000000, 381.000000) controlPoint1:CGPointMake(351.378052, 377.649658) controlPoint2:CGPointMake(348.693909, 379.487122)];
+    [path addCurveToPoint:CGPointMake(336.000000, 376.000000) controlPoint1:CGPointMake(342.446350, 379.722534) controlPoint2:CGPointMake(335.710663, 384.064972)];
+    [path addCurveToPoint:CGPointMake(334.000000, 319.000000) controlPoint1:CGPointMake(334.906860, 357.017212) controlPoint2:CGPointMake(332.773987, 338.058167)];
+    [path addCurveToPoint:CGPointMake(329.000000, 255.000000) controlPoint1:CGPointMake(334.787476, 297.469727) controlPoint2:CGPointMake(329.478668, 276.451782)];
+    [path addCurveToPoint:CGPointMake(321.000000, 156.000000) controlPoint1:CGPointMake(326.492584, 221.951874) controlPoint2:CGPointMake(320.427063, 189.185196)];
+    [path addLineToPoint:CGPointMake(321.000000, 156.000000)];
+    [path addLineToPoint:CGPointMake(328.000000, 142.000000)];
+
+    UIBezierPath *scissorPath = path;
+
+    BOOL beginsInside = NO;
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([intersections1 count], (NSUInteger)6, @"intersections so we can check for the tangent case");
+    XCTAssertEqual([intersections2 count], (NSUInteger)6, @"intersections so we can check for the tangent case");
+}
+
+- (void)testSquiggleThroughLongRectangle
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(127.500000, 121.000000)];
+    [path addCurveToPoint:CGPointMake(119.000000, 126.000000) controlPoint1:CGPointMake(111.740646, 111.826790) controlPoint2:CGPointMake(117.062279, 122.276443)];
+    [path addCurveToPoint:CGPointMake(115.000000, 156.000000) controlPoint1:CGPointMake(117.584236, 135.994080) controlPoint2:CGPointMake(117.569023, 146.173431)];
+    [path addCurveToPoint:CGPointMake(111.000000, 179.000000) controlPoint1:CGPointMake(112.933540, 163.542007) controlPoint2:CGPointMake(112.493446, 171.356430)];
+    [path addCurveToPoint:CGPointMake(110.000000, 189.000000) controlPoint1:CGPointMake(112.509949, 182.632477) controlPoint2:CGPointMake(108.890198, 185.432465)];
+    [path addCurveToPoint:CGPointMake(119.000000, 189.000000) controlPoint1:CGPointMake(112.999985, 188.999985) controlPoint2:CGPointMake(116.000008, 189.000015)];
+    [path addCurveToPoint:CGPointMake(147.000000, 189.000000) controlPoint1:CGPointMake(128.333328, 189.000000) controlPoint2:CGPointMake(137.666656, 189.000000)];
+    [path addCurveToPoint:CGPointMake(196.000000, 189.000000) controlPoint1:CGPointMake(163.333282, 188.999939) controlPoint2:CGPointMake(179.666687, 189.000031)];
+    [path addCurveToPoint:CGPointMake(264.000000, 189.000000) controlPoint1:CGPointMake(218.666733, 189.000061) controlPoint2:CGPointMake(241.333298, 188.999969)];
+    [path addCurveToPoint:CGPointMake(343.000000, 191.000000) controlPoint1:CGPointMake(290.302979, 191.183914) controlPoint2:CGPointMake(316.693359, 188.843384)];
+    [path addCurveToPoint:CGPointMake(441.000000, 192.000000) controlPoint1:CGPointMake(375.639862, 192.948700) controlPoint2:CGPointMake(408.334991, 191.561615)];
+    [path addCurveToPoint:CGPointMake(545.000000, 194.000000) controlPoint1:CGPointMake(475.642548, 194.206146) controlPoint2:CGPointMake(510.354370, 191.825272)];
+    [path addCurveToPoint:CGPointMake(644.000000, 197.000000) controlPoint1:CGPointMake(577.913574, 197.956650) controlPoint2:CGPointMake(611.022339, 194.519608)];
+    [path addCurveToPoint:CGPointMake(727.000000, 202.000000) controlPoint1:CGPointMake(671.580994, 200.227661) controlPoint2:CGPointMake(699.413574, 198.835251)];
+    [path addCurveToPoint:CGPointMake(907.000000, 201.000000) controlPoint1:CGPointMake(784.276306, 190.771973) controlPoint2:CGPointMake(852.270386, 222.807465)];
+    [path addCurveToPoint:CGPointMake(908.000000, 196.000000) controlPoint1:CGPointMake(908.796021, 200.284348) controlPoint2:CGPointMake(908.923218, 197.582565)];
+    [path addCurveToPoint:CGPointMake(910.000000, 175.000000) controlPoint1:CGPointMake(907.313416, 188.906937) controlPoint2:CGPointMake(910.008484, 182.067001)];
+    [path addCurveToPoint:CGPointMake(913.000000, 146.000000) controlPoint1:CGPointMake(910.472778, 165.276352) controlPoint2:CGPointMake(912.353943, 155.706558)];
+    [path addCurveToPoint:CGPointMake(916.000000, 127.000000) controlPoint1:CGPointMake(913.647400, 139.617294) controlPoint2:CGPointMake(914.649536, 133.271133)];
+    [path addCurveToPoint:CGPointMake(916.000000, 122.000000) controlPoint1:CGPointMake(916.000000, 125.333336) controlPoint2:CGPointMake(916.000000, 123.666664)];
+    [path addCurveToPoint:CGPointMake(904.000000, 120.000000) controlPoint1:CGPointMake(916.959106, 116.651031) controlPoint2:CGPointMake(904.744141, 124.911003)];
+    [path addCurveToPoint:CGPointMake(871.000000, 118.000000) controlPoint1:CGPointMake(893.073486, 118.518951) controlPoint2:CGPointMake(882.046326, 117.385658)];
+    [path addCurveToPoint:CGPointMake(817.000000, 116.000000) controlPoint1:CGPointMake(853.045105, 115.811974) controlPoint2:CGPointMake(834.960388, 118.160645)];
+    [path addCurveToPoint:CGPointMake(747.000000, 114.000000) controlPoint1:CGPointMake(793.654297, 115.632294) controlPoint2:CGPointMake(770.373535, 112.968056)];
+    [path addCurveToPoint:CGPointMake(671.000000, 112.000000) controlPoint1:CGPointMake(721.696838, 111.823479) controlPoint2:CGPointMake(696.303162, 114.176529)];
+    [path addCurveToPoint:CGPointMake(595.000000, 109.000000) controlPoint1:CGPointMake(645.780273, 108.040375) controlPoint2:CGPointMake(620.304993, 111.479752)];
+    [path addCurveToPoint:CGPointMake(519.000000, 108.000000) controlPoint1:CGPointMake(569.697021, 107.147278) controlPoint2:CGPointMake(544.332947, 108.353180)];
+    [path addCurveToPoint:CGPointMake(439.000000, 108.000000) controlPoint1:CGPointMake(492.333344, 108.000000) controlPoint2:CGPointMake(465.666687, 108.000000)];
+    [path addCurveToPoint:CGPointMake(361.000000, 109.000000) controlPoint1:CGPointMake(413.001434, 108.396584) controlPoint2:CGPointMake(386.966797, 107.074242)];
+    [path addCurveToPoint:CGPointMake(289.000000, 109.000000) controlPoint1:CGPointMake(337.000000, 109.000000) controlPoint2:CGPointMake(313.000000, 109.000000)];
+    [path addCurveToPoint:CGPointMake(127.500000, 121.000000) controlPoint1:CGPointMake(236.254852, 109.084534) controlPoint2:CGPointMake(176.274368, 149.390594)];
+    [path closePath];
+
+    UIBezierPath *shapePath = path;
+
+    path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(185.000000, 85.000000)];
+    [path addLineToPoint:CGPointMake(185.000000, 85.000000)];
+    [path addLineToPoint:CGPointMake(179.000000, 201.000000)];
+    [path addCurveToPoint:CGPointMake(199.000000, 208.000000) controlPoint1:CGPointMake(183.169250, 207.988388) controlPoint2:CGPointMake(191.811218, 210.232590)];
+    [path addCurveToPoint:CGPointMake(240.000000, 167.000000) controlPoint1:CGPointMake(218.260406, 201.410797) controlPoint2:CGPointMake(226.571762, 180.229294)];
+    [path addCurveToPoint:CGPointMake(281.000000, 110.000000) controlPoint1:CGPointMake(254.023346, 148.253647) controlPoint2:CGPointMake(266.453552, 128.362030)];
+    [path addCurveToPoint:CGPointMake(321.000000, 82.000000) controlPoint1:CGPointMake(289.584106, 98.633614) controlPoint2:CGPointMake(303.611298, 80.088783)];
+    [path addLineToPoint:CGPointMake(321.000000, 82.000000)];
+    [path addLineToPoint:CGPointMake(349.000000, 204.000000)];
+    [path addCurveToPoint:CGPointMake(379.000000, 219.000000) controlPoint1:CGPointMake(355.820831, 214.351547) controlPoint2:CGPointMake(367.497803, 219.492905)];
+    [path addCurveToPoint:CGPointMake(424.000000, 196.000000) controlPoint1:CGPointMake(397.342316, 222.437271) controlPoint2:CGPointMake(413.514099, 209.252762)];
+    [path addCurveToPoint:CGPointMake(471.000000, 126.000000) controlPoint1:CGPointMake(444.182159, 175.710922) controlPoint2:CGPointMake(453.117493, 147.947327)];
+    [path addCurveToPoint:CGPointMake(537.000000, 75.000000) controlPoint1:CGPointMake(486.431824, 107.937866) controlPoint2:CGPointMake(507.281738, 70.157906)];
+    [path addCurveToPoint:CGPointMake(545.000000, 88.000000) controlPoint1:CGPointMake(543.005005, 75.978416) controlPoint2:CGPointMake(545.940125, 82.543968)];
+    [path addCurveToPoint:CGPointMake(545.000000, 142.000000) controlPoint1:CGPointMake(546.712952, 105.950813) controlPoint2:CGPointMake(546.324829, 124.040375)];
+    [path addCurveToPoint:CGPointMake(560.000000, 217.000000) controlPoint1:CGPointMake(550.012024, 165.627167) controlPoint2:CGPointMake(532.225525, 199.793015)];
+    [path addCurveToPoint:CGPointMake(594.000000, 223.000000) controlPoint1:CGPointMake(570.120972, 223.270233) controlPoint2:CGPointMake(582.546997, 223.506073)];
+    [path addCurveToPoint:CGPointMake(661.000000, 157.000000) controlPoint1:CGPointMake(624.375000, 210.730530) controlPoint2:CGPointMake(642.187439, 182.167542)];
+    [path addCurveToPoint:CGPointMake(727.000000, 85.000000) controlPoint1:CGPointMake(683.615417, 135.833450) controlPoint2:CGPointMake(693.794373, 92.635178)];
+    [path addCurveToPoint:CGPointMake(749.000000, 93.000000) controlPoint1:CGPointMake(732.356323, 83.768387) controlPoint2:CGPointMake(752.187988, 77.657463)];
+    [path addCurveToPoint:CGPointMake(750.000000, 160.000000) controlPoint1:CGPointMake(750.542664, 115.286949) controlPoint2:CGPointMake(749.837524, 137.660080)];
+    [path addCurveToPoint:CGPointMake(767.000000, 218.000000) controlPoint1:CGPointMake(749.102722, 176.247742) controlPoint2:CGPointMake(744.132019, 214.832230)];
+    [path addCurveToPoint:CGPointMake(899.000000, 96.000000) controlPoint1:CGPointMake(834.042908, 227.287048) controlPoint2:CGPointMake(843.633057, 56.858723)];
+    [path addCurveToPoint:CGPointMake(921.000000, 210.000000) controlPoint1:CGPointMake(930.653442, 118.377151) controlPoint2:CGPointMake(891.765564, 177.428665)];
+    [path addLineToPoint:CGPointMake(921.000000, 210.000000)];
+    [path addLineToPoint:CGPointMake(972.000000, 255.000000)];
+
+    UIBezierPath *scissorPath = path;
+
+    BOOL beginsInside = NO;
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([intersections1 count], (NSUInteger)18, @"intersections so we can check for the tangent case");
+    XCTAssertEqual([intersections2 count], (NSUInteger)18, @"intersections so we can check for the tangent case");
+}
+
 - (void)testSimpleHoleInRectangle
 {
     UIBezierPath *path;
