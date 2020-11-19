@@ -308,6 +308,8 @@ static NSInteger segmentCompareCount = 0;
             CGPoint lastLoc = lastInter.location1;
             CGPoint interLoc2 = intersection.location2;
             CGPoint lastLoc2 = lastInter.location2;
+
+
             if (isDistinctIntersection) {
                 if ((ABS(interLoc.x - lastLoc.x) < kUIBezierClosenessPrecision &&
                      ABS(interLoc.y - lastLoc.y) < kUIBezierClosenessPrecision) ||
@@ -322,11 +324,20 @@ static NSInteger segmentCompareCount = 0;
                     BOOL closeLocation1 = [lastInter isCloseToIntersection:intersection withPrecision:kUIBezierClosenessPrecision];
                     BOOL closeLocation2 = [[lastInter flipped] isCloseToIntersection:[intersection flipped] withPrecision:kUIBezierClosenessPrecision];
 
-                    if (closeLocation1 != closeLocation2) {
-                        NSLog(@"gotcha");
-                    }
-
                     isDistinctIntersection = !closeLocation1 || !closeLocation2;
+                }
+                // if we still think it's distinct, then also compare the effective t-values
+                if (isDistinctIntersection) {
+                    CGFloat closeT = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
+                                                               andTValue:[lastInter tValue1]
+                                                               toElement:[intersection elementIndex1]
+                                                               andTValue:[intersection tValue1]];
+
+                    if (ABS(closeT) < kUIBezierClippingPrecision) {
+                        // The points are not actually very far apart at all in terms of t-distance. only bother to check
+                        // pixel closeness if our t-values are at all far apart.
+                        isDistinctIntersection = NO;
+                    }
                 }
             }
             if (isDistinctIntersection) {
