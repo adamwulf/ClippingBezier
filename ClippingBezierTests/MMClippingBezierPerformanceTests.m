@@ -242,14 +242,18 @@
 - (void)testIntersectionAndDifference
 {
     [self measureBlock:^{
-        [self performanceHelperIntersectionWithComplexShape];
+        for (int i = 0; i < 100; i++) {
+            [self performanceHelperIntersectionWithComplexShape];
+        }
     }];
 }
 
 - (void)testIntersectionAndDifference2
 {
     [self measureBlock:^{
-        [self testCalculateUnclosedPathThroughClosedBoundsFast];
+        for (int i = 0; i < 5; i++) {
+            [self testCalculateUnclosedPathThroughClosedBoundsFast];
+        }
     }];
 }
 
