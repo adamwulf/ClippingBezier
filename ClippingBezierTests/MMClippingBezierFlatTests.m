@@ -17,17 +17,6 @@
 
 @implementation MMClippingBezierFlatTests
 
-- (void)testSimpleFlatPath
-{
-    UIBezierPath *testPath = [UIBezierPath bezierPath];
-    [testPath moveToPoint:CGPointMake(0, 0)];
-    [testPath addCurveToPoint:CGPointMake(100, 0) controlPoint1:CGPointMake(50, -50) controlPoint2:CGPointMake(50, 50)];
-
-    UIBezierPath *flatPath = [testPath bezierPathByFlatteningPath];
-
-    XCTAssertTrue([self check:[flatPath length] isEqualTo:[testPath length] within:.5]);
-}
-
 - (void)testReverseSimplePath
 {
     UIBezierPath *testPath = [UIBezierPath bezierPath];
