@@ -217,6 +217,7 @@
     NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
 }
 
+
 - (void)testFindIntersectionPerformance
 {
     [self measureBlock:^{
@@ -225,6 +226,30 @@
 
         [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
         [path1 allUniqueShapesWithPath:path2];
+    }];
+}
+
+- (void)testFindOnlyIntersectionPerformance
+{
+    [self measureBlock:^{
+        UIBezierPath *path1 = [[self complexShape1] copy];
+        UIBezierPath *path2 = [[self complexShape2] copy];
+
+        [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
+    }];
+}
+
+- (void)testIntersectionAndDifference
+{
+    [self measureBlock:^{
+        [self performanceHelperIntersectionWithComplexShape];
+    }];
+}
+
+- (void)testIntersectionAndDifference2
+{
+    [self measureBlock:^{
+        [self testCalculateUnclosedPathThroughClosedBoundsFast];
     }];
 }
 
