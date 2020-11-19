@@ -2509,7 +2509,7 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
 + (NSArray<NSNumber *> *)cubicRoots:(CGFloat[4])p
 {
-    CGFloat t[3];
+    CGFloat t[3] = { 1, -1, -1 };
 
     if (p[0] == 0) {
         if (p[1] == 0) {
@@ -2520,10 +2520,12 @@ CGIsAboutLess(CGFloat a, CGFloat b)
             t[2] = -1;
 
             /*discard out of spec roots*/
-            for (int i = 0; i < 1; i++)
-                if (t[i] < 0 || t[i] > 1.0) {
-                    t[i] = -1;
-                }
+            if (t[0] < 0 || t[0] > 1.0) {
+                t[0] = -1;
+            }
+
+            return [UIBezierPath sortedCubicRootsFromCArray:t];
+
         } else {
             CGFloat DQ = pow(p[2], 2) - 4 * p[1] * p[3]; // quadratic discriminant
             if (DQ >= 0) {
@@ -2534,11 +2536,14 @@ CGIsAboutLess(CGFloat a, CGFloat b)
                 t[2] = -1;
 
                 /*discard out of spec roots*/
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++) {
                     if (t[i] < 0 || t[i] > 1.0) {
                         t[i] = -1;
                     }
+                }
             }
+
+            return [UIBezierPath sortedCubicRootsFromCArray:t];
         }
     } else {
         CGFloat a = p[0];
@@ -2570,8 +2575,7 @@ CGIsAboutLess(CGFloat a, CGFloat b)
                 t[2] = -1;
             }
 
-        } else // distinct real roots
-        {
+        } else { // distinct real roots
             CGFloat th = acos(R / sqrt(-pow(Q, 3)));
 
             t[0] = 2 * sqrt(-Q) * cos(th / 3) - A / 3;
@@ -2580,18 +2584,24 @@ CGIsAboutLess(CGFloat a, CGFloat b)
         }
 
         /*discard out of spec roots*/
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) {
             if (t[i] < 0 || t[i] > 1.0) {
                 t[i] = -1;
             }
-    }
+        }
 
+        return [UIBezierPath sortedCubicRootsFromCArray:t];
+    }
+}
+
++ (NSArray <NSNumber *> *)sortedCubicRootsFromCArray:(CGFloat[3])t {
     NSArray<NSNumber *> *retArray = @[
         @(t[0]),
         @(t[1]),
         @(t[2])
     ];
-    retArray = [retArray sortedArrayUsingComparator:^(id obj1, id obj2) {
+
+    return [retArray sortedArrayUsingComparator:^(id obj1, id obj2) {
         if ([obj1 floatValue] == -1) {
             return (NSComparisonResult)NSOrderedDescending;
         }
@@ -2608,9 +2618,6 @@ CGIsAboutLess(CGFloat a, CGFloat b)
         }
         return (NSComparisonResult)NSOrderedSame;
     }];
-
-
-    return retArray;
 }
 
 + (Coeffs)bezierCoeffs:(CGFloat[4])p
