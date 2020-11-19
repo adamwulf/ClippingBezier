@@ -145,6 +145,33 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)2, @"correct number of segments");
 }
 
+- (void)testLineNearBoundary3
+{
+    // path is tangent that is 2pts long
+    // intersections are allowed to be .5 distnace away
+    // from each other, so max of 4 intersections might
+    // happen
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(0.000000, 0.000000)];
+    [shapePath addLineToPoint:CGPointMake(768.000000, 0.000000)];
+    [shapePath addLineToPoint:CGPointMake(768.000000, 1024.000000)];
+    [shapePath addLineToPoint:CGPointMake(0.000000, 1024.000000)];
+    [shapePath closePath];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(478.500000, 1024.000000)];
+    [scissorPath addCurveToPoint:CGPointMake(484.000000, 1024.000000) controlPoint1:CGPointMake(480.562500, 1024.000000) controlPoint2:CGPointMake(481.937500, 1024.000000)];
+
+
+    BOOL beginsInside = NO;
+    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
+    XCTAssertEqual([scissorToShapeIntersections count], (NSUInteger)2, @"count of intersections matches");
+}
+
 #pragma mark - Segment Tests
 
 - (void)testReversedSquaredCircleIntersections

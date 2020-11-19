@@ -381,7 +381,13 @@
             break;
     }
 
-    return atan2f(point2.y - point1.y, point2.x - point1.x) + M_PI;
+    CGFloat ret = atan2f(point2.y - point1.y, point2.x - point1.x) + M_PI;
+
+    if (ret > M_PI) {
+        ret -= 2.0 * M_PI;
+    }
+
+    return ret;
 }
 
 - (CGFloat)tangentAtStartOfSubpath:(NSInteger)index
