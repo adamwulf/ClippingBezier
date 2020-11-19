@@ -1446,6 +1446,28 @@
     XCTAssertEqual([intersections2 count], (NSUInteger)18, @"intersections so we can check for the tangent case");
 }
 
+- (void)testLineIntersectsCubic
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(321, 82)];
+    [path addLineToPoint:CGPointMake(349, 204)];
+
+    UIBezierPath *shapePath = path;
+
+    path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(361, 109)];
+    [path addCurveToPoint:CGPointMake(289, 109) controlPoint1:CGPointMake(337, 109) controlPoint2:CGPointMake(313, 109)];
+
+    UIBezierPath *scissorPath = path;
+
+    BOOL beginsInside = NO;
+    NSArray *intersections1 = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *intersections2 = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([intersections1 count], (NSUInteger)1, @"intersections so we can check for the tangent case");
+    XCTAssertEqual([intersections2 count], (NSUInteger)1, @"intersections so we can check for the tangent case");
+}
+
 - (void)testSimpleHoleInRectangle
 {
     UIBezierPath *path;

@@ -190,6 +190,7 @@ static NSInteger segmentCompareCount = 0;
                                           givenElementStartingPoint:lastPath2Point
                                             andSubPathStartingPoint:path2StartingPoint];
                         CGFloat path2ElementLength = 0;
+
                         if (path2Element.type != kCGPathElementMoveToPoint) {
                             path2ElementLength = [UIBezierPath estimateArcLengthOf:bez2 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
                             if (CGRectIntersectsRect(path1ElementBounds, path2ElementBounds)) {
@@ -340,10 +341,6 @@ static NSInteger segmentCompareCount = 0;
 
                     BOOL closeLocation1 = [lastInter isCloseToIntersection:intersection withPrecision:kUIBezierClosenessPrecision];
                     BOOL closeLocation2 = [[lastInter flipped] isCloseToIntersection:[intersection flipped] withPrecision:kUIBezierClosenessPrecision];
-
-                    if (closeLocation1 != closeLocation2) {
-                        NSLog(@"gotcha");
-                    }
 
                     isDistinctIntersection = !closeLocation1 || !closeLocation2;
                 }
@@ -2515,7 +2512,6 @@ CGIsAboutLess(CGFloat a, CGFloat b)
     CGFloat t[3];
 
     if (p[0] == 0) {
-
         if (p[1] == 0) {
             // linear formula
             CGFloat t[3];
@@ -2525,9 +2521,9 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
             /*discard out of spec roots*/
             for (int i = 0; i < 1; i++)
-            if (t[i] < 0 || t[i] > 1.0) {
-                t[i] = -1;
-            }
+                if (t[i] < 0 || t[i] > 1.0) {
+                    t[i] = -1;
+                }
         } else {
             CGFloat DQ = pow(p[2], 2) - 4 * p[1] * p[3]; // quadratic discriminant
             if (DQ >= 0) {
@@ -2539,9 +2535,9 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
                 /*discard out of spec roots*/
                 for (int i = 0; i < 2; i++)
-                if (t[i] < 0 || t[i] > 1.0) {
-                    t[i] = -1;
-                }
+                    if (t[i] < 0 || t[i] > 1.0) {
+                        t[i] = -1;
+                    }
             }
         }
     } else {
