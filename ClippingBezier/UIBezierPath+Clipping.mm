@@ -2319,9 +2319,15 @@ static NSInteger segmentCompareCount = 0;
         bez[3] = element.points[0];
         return element.points[0];
     } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
+        CGPoint ctrlOrig = element.points[0];
+        CGPoint curveTo = element.points[1];
+        CGPoint ctrl1 = CGPointMake((startPoint.x + 2.0 * ctrlOrig.x) / 3.0, (startPoint.y + 2.0 * ctrlOrig.y) / 3.0);
+        CGPoint ctrl2 = CGPointMake((curveTo.x + 2.0 * ctrlOrig.x) / 3.0, (curveTo.y + 2.0 * ctrlOrig.y) / 3.0);
+        ;
+
         bez[0] = startPoint;
-        bez[1] = element.points[0];
-        bez[2] = element.points[0];
+        bez[1] = ctrl1;
+        bez[2] = ctrl2;
         bez[3] = element.points[1];
         return element.points[1];
     } else if (element.type == kCGPathElementAddCurveToPoint) {
