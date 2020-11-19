@@ -457,8 +457,8 @@
                    controlPoint1:CGPointMake(500, 560)
                    controlPoint2:CGPointMake(720, 750)];
 
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
-    NSArray *otherIntersections = [self.complexShape findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
+    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:self.complexShape1 andBeginsInside:nil];
+    NSArray *otherIntersections = [self.complexShape1 findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
 
     // we add 1 because the complex shape is being clipped to the unclosed shape,
     // which means it'll get an intersection at the start + end of it's paths.
