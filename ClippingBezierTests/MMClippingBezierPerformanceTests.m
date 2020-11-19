@@ -69,7 +69,7 @@
 
     NSMutableArray *output = [NSMutableArray array];
 
-    [self.complexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+    [self.complexShape1 iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
         if (element.type == kCGPathElementCloseSubpath) {
             // noop
         } else {
@@ -95,7 +95,7 @@
     }];
 
 
-    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape andBeginsInside:nil];
+    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape1 andBeginsInside:nil];
 
 
     XCTAssertEqual(found, 8, @"the curves do intersect");
@@ -215,6 +215,17 @@
     }
 
     NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
+}
+
+- (void)testFindIntersectionPerformance
+{
+    [self measureBlock:^{
+        UIBezierPath *path1 = [[self complexShape1] copy];
+        UIBezierPath *path2 = [[self complexShape2] copy];
+
+        [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
+        [path1 allUniqueShapesWithPath:path2];
+    }];
 }
 
 @end

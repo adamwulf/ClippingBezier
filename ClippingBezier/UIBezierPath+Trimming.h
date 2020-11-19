@@ -18,8 +18,6 @@
 
 - (NSInteger)subpathIndexForElement:(NSInteger)element;
 
-- (CGFloat)length;
-
 - (CGFloat)tangentAtStart;
 
 - (CGFloat)tangentAtStartOfSubpath:(NSInteger)index;
