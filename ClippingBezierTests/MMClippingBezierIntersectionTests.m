@@ -402,7 +402,7 @@
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
-    XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
+    XCTAssertFalse([[intersections objectAtIndex:0] mayCrossBoundary], @"doesn't cross boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:2] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:3] mayCrossBoundary], @"crosses boundary");
@@ -410,6 +410,7 @@
     XCTAssertTrue([[intersections objectAtIndex:5] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:6] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:7] mayCrossBoundary], @"crosses boundary");
+    XCTAssertTrue([[intersections objectAtIndex:8] mayCrossBoundary], @"crosses boundary");
 
     XCTAssertTrue([self point:[[intersections objectAtIndex:0] location1] isNearTo:[[intersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:1] location1] isNearTo:[[intersections objectAtIndex:1] location2]], @"locations match");
@@ -419,6 +420,7 @@
     XCTAssertTrue([self point:[[intersections objectAtIndex:5] location1] isNearTo:[[intersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:6] location1] isNearTo:[[intersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:7] location1] isNearTo:[[intersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[intersections objectAtIndex:8] location1] isNearTo:[[intersections objectAtIndex:8] location2]], @"locations match");
 
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:0] location1] isNearTo:[[otherIntersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
@@ -428,6 +430,7 @@
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:5] location1] isNearTo:[[otherIntersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:6] location1] isNearTo:[[otherIntersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:7] location1] isNearTo:[[otherIntersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[otherIntersections objectAtIndex:8] location1] isNearTo:[[otherIntersections objectAtIndex:8] location2]], @"locations match");
 }
 
 - (void)testScissorAtShapeBeginningWithComplexShapeFlattened
@@ -465,7 +468,7 @@
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
-    XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
+    XCTAssertFalse([[intersections objectAtIndex:0] mayCrossBoundary], @"doesn't cross boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:2] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:3] mayCrossBoundary], @"crosses boundary");
@@ -473,6 +476,7 @@
     XCTAssertTrue([[intersections objectAtIndex:5] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:6] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:7] mayCrossBoundary], @"crosses boundary");
+    XCTAssertTrue([[intersections objectAtIndex:8] mayCrossBoundary], @"crosses boundary");
 
     XCTAssertTrue([self point:[[intersections objectAtIndex:0] location1] isNearTo:[[intersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:1] location1] isNearTo:[[intersections objectAtIndex:1] location2]], @"locations match");
@@ -482,6 +486,7 @@
     XCTAssertTrue([self point:[[intersections objectAtIndex:5] location1] isNearTo:[[intersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:6] location1] isNearTo:[[intersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:7] location1] isNearTo:[[intersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[intersections objectAtIndex:8] location1] isNearTo:[[intersections objectAtIndex:8] location2]], @"locations match");
 
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:0] location1] isNearTo:[[otherIntersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
@@ -491,6 +496,7 @@
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:5] location1] isNearTo:[[otherIntersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:6] location1] isNearTo:[[otherIntersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:7] location1] isNearTo:[[otherIntersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[otherIntersections objectAtIndex:8] location1] isNearTo:[[otherIntersections objectAtIndex:8] location2]], @"locations match");
 }
 
 
@@ -521,7 +527,7 @@
     XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
     XCTAssertEqual([intersections count], (NSUInteger)9, @"found 9 intersections");
 
-    XCTAssertTrue([[intersections objectAtIndex:0] mayCrossBoundary], @"crosses boundary");
+    XCTAssertFalse([[intersections objectAtIndex:0] mayCrossBoundary], @"doesn't cross boundary");
     XCTAssertTrue([[intersections objectAtIndex:1] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:2] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:3] mayCrossBoundary], @"crosses boundary");
@@ -529,6 +535,7 @@
     XCTAssertTrue([[intersections objectAtIndex:5] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:6] mayCrossBoundary], @"crosses boundary");
     XCTAssertTrue([[intersections objectAtIndex:7] mayCrossBoundary], @"crosses boundary");
+    XCTAssertTrue([[intersections objectAtIndex:8] mayCrossBoundary], @"crosses boundary");
 
     XCTAssertTrue([self point:[[intersections objectAtIndex:0] location1] isNearTo:[[intersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:1] location1] isNearTo:[[intersections objectAtIndex:1] location2]], @"locations match");
@@ -538,6 +545,7 @@
     XCTAssertTrue([self point:[[intersections objectAtIndex:5] location1] isNearTo:[[intersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:6] location1] isNearTo:[[intersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[intersections objectAtIndex:7] location1] isNearTo:[[intersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[intersections objectAtIndex:8] location1] isNearTo:[[intersections objectAtIndex:8] location2]], @"locations match");
 
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:0] location1] isNearTo:[[otherIntersections objectAtIndex:0] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:1] location1] isNearTo:[[otherIntersections objectAtIndex:1] location2]], @"locations match");
@@ -547,6 +555,7 @@
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:5] location1] isNearTo:[[otherIntersections objectAtIndex:5] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:6] location1] isNearTo:[[otherIntersections objectAtIndex:6] location2]], @"locations match");
     XCTAssertTrue([self point:[[otherIntersections objectAtIndex:7] location1] isNearTo:[[otherIntersections objectAtIndex:7] location2]], @"locations match");
+    XCTAssertTrue([self point:[[otherIntersections objectAtIndex:8] location1] isNearTo:[[otherIntersections objectAtIndex:8] location2]], @"locations match");
 }
 
 
