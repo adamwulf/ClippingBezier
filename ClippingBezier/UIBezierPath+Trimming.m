@@ -133,8 +133,10 @@
                     bezier[3] = points[2];
                 } else {
                     bezier[0] = lastPoint;
-                    bezier[1] = points[0];
-                    bezier[2] = points[0];
+                    bezier[1] = CGPointMake((lastPoint.x + 2.0 * points[0].x) / 3.0,
+                                            (lastPoint.y + 2.0 * points[0].y) / 3.0);
+                    bezier[2] = CGPointMake((points[1].x + 2.0 * points[0].x) / 3.0,
+                                            (points[1].y + 2.0 * points[0].y) / 3.0);
                     bezier[3] = points[1];
                 }
                 elementLength = [UIBezierPath lengthOfBezier:bezier withAccuracy:maxError];
@@ -235,8 +237,10 @@
                     bezier[3] = points[2];
                 } else {
                     bezier[0] = lastPoint;
-                    bezier[1] = points[0];
-                    bezier[2] = points[0];
+                    bezier[1] = CGPointMake((lastPoint.x + 2.0 * points[0].x) / 3.0,
+                                            (lastPoint.y + 2.0 * points[0].y) / 3.0);
+                    bezier[2] = CGPointMake((points[1].x + 2.0 * points[0].x) / 3.0,
+                                            (points[1].y + 2.0 * points[0].y) / 3.0);
                     bezier[3] = points[1];
                 }
                 elementLength = [UIBezierPath lengthOfBezier:bezier withAccuracy:maxError];
@@ -328,8 +332,10 @@
             bez[0] = lastElementEndPoint;
 
             if (element.type == kCGPathElementAddQuadCurveToPoint) {
-                bez[1] = element.points[0];
-                bez[2] = element.points[0];
+                bez[1] = CGPointMake((lastElementEndPoint.x + 2.0 * element.points[0].x) / 3.0,
+                                     (lastElementEndPoint.y + 2.0 * element.points[0].y) / 3.0);
+                bez[2] = CGPointMake((element.points[1].x + 2.0 * element.points[0].x) / 3.0,
+                                     (element.points[1].y + 2.0 * element.points[0].y) / 3.0);
                 bez[3] = element.points[1];
                 lastElementEndPoint = element.points[1];
             } else if (element.type == kCGPathElementAddCurveToPoint) {

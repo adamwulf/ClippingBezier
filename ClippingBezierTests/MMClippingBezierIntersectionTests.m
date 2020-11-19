@@ -1454,4 +1454,77 @@
     XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(200, 300)], @"correct location");
 }
 
+- (void)testQuadraticIntersections1
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 100)];
+    [shapePath addQuadCurveToPoint:CGPointMake(200, 100) controlPoint:CGPointMake(150, 250)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 200)];
+    [scissorPath addQuadCurveToPoint:CGPointMake(200, 200) controlPoint:CGPointMake(150, 50)];
+
+    BOOL beginsInside = NO;
+    NSArray<DKUIBezierPathIntersectionPoint *> *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray<DKUIBezierPathIntersectionPoint *> *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
+    XCTAssertEqual([shapeToScissorIntersections count], (NSUInteger)2, @"count of intersections matches");
+
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex1], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue1], 0.211324864211, 0.000001);
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex2], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue2], 0.211324869337, 0.000001);
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:1] elementIndex1], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:1] tValue1], 0.788675135789, 0.000001);
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:1] elementIndex2], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:1] tValue2], 0.788675130663, 0.000001);
+}
+
+- (void)testQuadraticIntersections2
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 100)];
+    [shapePath addQuadCurveToPoint:CGPointMake(200, 100) controlPoint:CGPointMake(150, 250)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(80, 200)];
+    [scissorPath addQuadCurveToPoint:CGPointMake(200, 50) controlPoint:CGPointMake(150, 50)];
+
+    BOOL beginsInside = NO;
+    NSArray<DKUIBezierPathIntersectionPoint *> *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray<DKUIBezierPathIntersectionPoint *> *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
+    XCTAssertEqual([shapeToScissorIntersections count], (NSUInteger)1, @"count of intersections matches");
+
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex1], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue1], 0.247638207846, 0.000001);
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex2], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue2], 0.134428499067, 0.000001);
+}
+
+- (void)testQuadraticIntersections3
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 100)];
+    [shapePath addQuadCurveToPoint:CGPointMake(200, 100) controlPoint:CGPointMake(150, 200)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(100, 200)];
+    [scissorPath addQuadCurveToPoint:CGPointMake(200, 200) controlPoint:CGPointMake(150, 100)];
+
+    BOOL beginsInside = NO;
+    NSArray<DKUIBezierPathIntersectionPoint *> *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray<DKUIBezierPathIntersectionPoint *> *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
+    XCTAssertEqual([shapeToScissorIntersections count], (NSUInteger)1, @"count of intersections matches");
+
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex1], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue1], 0.5, 0.000001);
+    XCTAssertEqual([[scissorToShapeIntersections objectAtIndex:0] elementIndex2], 1);
+    XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue2], 0.5, 0.000001);
+}
+
 @end
