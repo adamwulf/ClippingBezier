@@ -297,4 +297,26 @@
     XCTAssertEqual([path length], (CGFloat)100.0, "path length is correct");
 }
 
+- (void)testTrimmingFromLengthWithMultipleSubpaths
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
+
+    UIBezierPath *trimmedPath = [path bezierPathByTrimmingFromLength:50];
+
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:110 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
+}
+
+- (void)testTrimmingToLengthWithMultipleSubpaths
+{
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
+    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
+
+    UIBezierPath *trimmedPath = [path bezierPathByTrimmingToLength:120];
+
+    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:120 within:.5], @"length is correct");
+    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
+}
+
 @end
