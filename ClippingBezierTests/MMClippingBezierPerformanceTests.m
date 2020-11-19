@@ -185,8 +185,8 @@
     UIBezierPath *diff = [output lastObject];
 
 
-    XCTAssertEqual([inter elementCount], 1556, @"the curves do intersect");
-    XCTAssertEqual([diff elementCount], 1183, @"the curves do intersect");
+    XCTAssertEqual([inter elementCount], 4944, @"the curves do intersect");
+    XCTAssertEqual([diff elementCount], 3333, @"the curves do intersect");
 
     XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
     XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");

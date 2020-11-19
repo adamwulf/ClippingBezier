@@ -173,8 +173,8 @@
 
 
     XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
-    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 337, @"the curves do intersect");
-    XCTAssertEqual(floorf(100 * firstIntersection.tValueOfIntersection), 57.0, @"the curves do intersect");
+    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 979, @"the curves do intersect");
+    XCTAssertEqual(floorf(100 * firstIntersection.tValueOfIntersection), 31.0, @"the curves do intersect");
 
 
     XCTAssertEqual(firstIntersection.start.firstPoint.x, 100.0, @"starts at the right place");
