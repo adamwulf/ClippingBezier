@@ -16,6 +16,7 @@
     DKUIBezierPathIntersectionPoint *startIntersection;
     DKUIBezierPathIntersectionPoint *endIntersection;
     UIBezierPath *pathSegment;
+    UIBezierPath *reversedPathSegment;
     UIBezierPath *fullPath;
 
     __weak DKUIBezierPathClippedSegment *reversedFrom;
@@ -56,6 +57,17 @@
         fullPath = _fullPath;
     }
     return self;
+}
+
+- (UIBezierPath *)pathSegment
+{
+    if ([self isReversed]) {
+        if (!reversedPathSegment) {
+            reversedPathSegment = [pathSegment bezierPathByReversingPath];
+        }
+        return reversedPathSegment;
+    }
+    return pathSegment;
 }
 
 - (DKUIBezierPathClippedSegment *)flippedRedBlueSegment
@@ -107,7 +119,7 @@
     if (reversedFrom) {
         return reversedFrom;
     }
-    DKUIBezierPathClippedSegment *ret = [DKUIBezierPathClippedSegment clippedPairWithStart:self.endIntersection andEnd:self.startIntersection andPathSegment:[self.pathSegment bezierPathByReversingPath] fromFullPath:self.fullPath];
+    DKUIBezierPathClippedSegment *ret = [DKUIBezierPathClippedSegment clippedPairWithStart:self.endIntersection andEnd:self.startIntersection andPathSegment:pathSegment fromFullPath:self.fullPath];
     [ret setIsReversed:!isReversed];
     [ret setIsFlipped:self.isFlipped];
     [ret setReversedFrom:self];
@@ -123,9 +135,18 @@
     if (![object isKindOfClass:[DKUIBezierPathClippedSegment class]]) {
         return NO;
     }
-    if ([object reversedSegment] == self) {
+    // Don't call reversedSegment, as we don't want to generate a reversed segment if we don't need it.
+    DKUIBezierPathClippedSegment *asSeg = (DKUIBezierPathClippedSegment *)object;
+    if (reversedFrom == object) {
         return YES;
     }
+    if (asSeg->reversedFrom == self) {
+        return YES;
+    }
+    if (reversedFrom && asSeg->reversedFrom == reversedFrom) {
+        return YES;
+    }
+
     if (![[self startIntersection] isEqual:[object startIntersection]] || ![[self endIntersection] isEqual:[object endIntersection]]) {
         return NO;
     }
