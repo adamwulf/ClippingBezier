@@ -1425,7 +1425,7 @@
     XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0, @"found correct intersection location");
 
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex1], 3, @"found correct intersection location");
-    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:1] tValue1], 1.0, 0.000001);
+    XCTAssertEqualWithAccuracy([[intersections objectAtIndex:1] tValue1], 1.0, 0.000003);
     XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 1, @"found correct intersection location");
     XCTAssertEqualWithAccuracy([[intersections objectAtIndex:1] tValue2], 0.5, 0.000002);
 

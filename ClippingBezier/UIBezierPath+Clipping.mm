@@ -123,10 +123,6 @@ static NSInteger segmentCompareCount = 0;
 
 
     __block CGPoint path1StartingPoint = path1.firstPoint;
-    // the lengths along the paths that we calculate are
-    // estimates only, and not exact
-    __block CGFloat path1EstimatedLength = 0;
-    __block CGFloat path2EstimatedLength = 0;
 
     // first, confirm that the paths have a possibility of intersecting
     // at all by comparing their bounds
@@ -147,130 +143,159 @@ static NSInteger segmentCompareCount = 0;
         // to find intersections, we'll loop over our path first,
         // and for each element inside us, we'll loop over the closed shape
         // to see if we've moved in/out of the closed shape
-        [path1 iteratePathWithBlock:^(CGPathElement path1Element, NSUInteger path1ElementIndex) {
-            // must call this before fillCGPoints, since our call to fillCGPoints will update lastPath1Point
-            CGRect path1ElementBounds = [UIBezierPath boundsForElement:path1Element withStartPoint:lastPath1Point andSubPathStartingPoint:path1StartingPoint];
-            // expand the bounds by 1px, just so we're sure to see overlapping bounds for tangent paths
-            path1ElementBounds = CGRectInset(path1ElementBounds, -1, -1);
-            lastPath1Point = [UIBezierPath fillCGPoints:bez1
-                                            withElement:path1Element
-                              givenElementStartingPoint:lastPath1Point
-                                andSubPathStartingPoint:path1StartingPoint];
-            CGFloat path1EstimatedElementLength = 0;
+        NSArray<DKUIBezierPathIntersectionPoint *> * (^intersectionFor)(NSInteger, NSInteger) = ^NSArray<DKUIBezierPathIntersectionPoint *> *(NSInteger path1ElementIndex, NSInteger path2ElementIndex)
+        {
+            CGPathElement path1Element = [path1 elementAtIndex:path1ElementIndex];
+            CGPathElement path2Element = [path2 elementAtIndex:path2ElementIndex];
 
             // only look for intersections if it's not a moveto point.
             // this way our bez1 array will be filled with a valid
             // bezier curve
-            if (path1Element.type != kCGPathElementMoveToPoint) {
-                path1EstimatedElementLength = [UIBezierPath estimateArcLengthOf:bez1 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
+            if (path1Element.type != kCGPathElementMoveToPoint && path2Element.type != kCGPathElementMoveToPoint) {
+                // track the number of segment comparisons we have to do
+                // this tracks our worst case of how many segment rects intersect
+                segmentCompareCount++;
 
-                __block CGPoint lastPath2Point = CGPointNotFound;
+                [path1 fillBezier:bez1 forElement:path1ElementIndex];
+                [path2 fillBezier:bez2 forElement:path2ElementIndex];
 
-                if (CGRectIntersectsRect(path1ElementBounds, path2Bounds)) {
-                    // at this point, we know that path1's element intersections somewhere within
-                    // all of path 2, so we'll iterate over path2 and find as many intersections
-                    // as we can
-                    __block CGPoint path2StartingPoint = path2.firstPoint;
-                    path2EstimatedLength = 0;
-                    // big iterating over path2 to find all intersections with this element from path1
-                    [path2 iteratePathWithBlock:^(CGPathElement path2Element, NSUInteger path2ElementIndex) {
-                        // must call this before fillCGPoints, since that will update lastPath1Point
-                        CGRect path2ElementBounds = [UIBezierPath boundsForElement:path2Element withStartPoint:lastPath2Point andSubPathStartingPoint:path2StartingPoint];
-                        // expand the bounds by 1px, just so we're sure to see overlapping bounds for tangent paths
-                        path2ElementBounds = CGRectInset(path2ElementBounds, -1, -1);
-                        lastPath2Point = [UIBezierPath fillCGPoints:bez2
-                                                        withElement:path2Element
-                                          givenElementStartingPoint:lastPath2Point
-                                            andSubPathStartingPoint:path2StartingPoint];
-                        CGFloat path2ElementLength = 0;
-                        if (path2Element.type != kCGPathElementMoveToPoint) {
-                            path2ElementLength = [UIBezierPath estimateArcLengthOf:bez2 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
-                            if (CGRectIntersectsRect(path1ElementBounds, path2ElementBounds)) {
-                                // track the number of segment comparisons we have to do
-                                // this tracks our worst case of how many segment rects intersect
-                                segmentCompareCount++;
-
-                                // at this point, we have two valid bezier arrays populated
-                                // into bez1 and bez2. calculate if they intersect at all
-                                NSArray *intersections;
-                                if ((path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath) &&
-                                    (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
-                                    // in this case, the two elements are both lines, so they can intersect at
-                                    // only 1 place.
-                                    // TODO: should i return two intersections if they're tangent?
-                                    CGPoint intersection = [UIBezierPath intersects2D:bez1[0] to:bez1[3] andLine:bez2[0] to:bez2[3]];
-                                    if (!CGPointEqualToPoint(intersection, CGPointNotFound)) {
-                                        CGFloat path1TValue = [UIBezierPath distance:bez1[0] p2:intersection] / [UIBezierPath distance:bez1[0] p2:bez1[3]];
-                                        CGFloat path2TValue = [UIBezierPath distance:bez2[0] p2:intersection] / [UIBezierPath distance:bez2[0] p2:bez2[3]];
-                                        if (path1TValue >= 0 && path1TValue <= 1 &&
-                                            path2TValue >= 0 && path2TValue <= 1) {
-                                            intersections = [NSArray arrayWithObject:[NSValue valueWithCGPoint:CGPointMake(path2TValue, path1TValue)]];
-                                        } else {
-                                            // doesn't intersect within allowed T values
-                                        }
-                                    }
-                                } else {
-                                    // at least one of the curves is a proper bezier, so use our
-                                    // bezier intersection algorithm to find possibly multiple intersections
-                                    // between these curves
-                                    intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
-                                }
-                                // loop through the intersections that we've found, and add in
-                                // some context that we can save for each one.
-                                for (NSValue *val in intersections) {
-                                    CGFloat tValue1 = [val CGPointValue].y;
-                                    CGFloat tValue2 = [val CGPointValue].x;
-                                    // estimated length along each curve until the intersection is hit
-                                    CGFloat lenTillPath1Inter = path1EstimatedLength + tValue1 * path1EstimatedElementLength;
-                                    CGFloat lenTillPath2Inter = path2EstimatedLength + tValue2 * path2ElementLength;
-
-                                    DKUIBezierPathIntersectionPoint *inter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:path1ElementIndex
-                                                                                                                               andTValue:tValue1
-                                                                                                                        withElementIndex:path2ElementIndex
-                                                                                                                               andTValue:tValue2
-                                                                                                                        andElementCount1:elementCount1
-                                                                                                                        andElementCount2:elementCount2
-                                                                                                                  andLengthUntilPath1Loc:lenTillPath1Inter
-                                                                                                                  andLengthUntilPath2Loc:lenTillPath2Inter];
-                                    // store the two paths that the intersection relates to. these are
-                                    // the paths that match each of the CGPathElements that we used to
-                                    // find the intersection
-                                    inter.bez1[0] = bez1[0];
-                                    inter.bez1[1] = bez1[1];
-                                    inter.bez1[2] = bez1[2];
-                                    inter.bez1[3] = bez1[3];
-                                    inter.bez2[0] = bez2[0];
-                                    inter.bez2[1] = bez2[1];
-                                    inter.bez2[2] = bez2[2];
-                                    inter.bez2[3] = bez2[3];
-
-                                    if (didFlipPathNumbers) {
-                                        // we flipped the order that we're looking through paths,
-                                        // so we need to flip the intersection indexes so that
-                                        // bez1 is always the unclosed path and bez2 is always closed
-                                        inter = [inter flipped];
-                                    }
-
-                                    // add to our output!
-                                    [foundIntersections addObject:inter];
-                                }
-                            }
-                            // track our full path length
-                            path2EstimatedLength += path2ElementLength;
+                // at this point, we have two valid bezier arrays populated
+                // into bez1 and bez2. calculate if they intersect at all
+                NSArray *intersections;
+                if ((path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath) &&
+                    (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
+                    // in this case, the two elements are both lines, so they can intersect at
+                    // only 1 place.
+                    // TODO: should i return two intersections if they're tangent?
+                    CGPoint intersection = [UIBezierPath intersects2D:bez1[0] to:bez1[3] andLine:bez2[0] to:bez2[3]];
+                    if (!CGPointEqualToPoint(intersection, CGPointNotFound)) {
+                        CGFloat path1TValue = [UIBezierPath distance:bez1[0] p2:intersection] / [UIBezierPath distance:bez1[0] p2:bez1[3]];
+                        CGFloat path2TValue = [UIBezierPath distance:bez2[0] p2:intersection] / [UIBezierPath distance:bez2[0] p2:bez2[3]];
+                        if (path1TValue >= 0 && path1TValue <= 1 &&
+                            path2TValue >= 0 && path2TValue <= 1) {
+                            intersections = [NSArray arrayWithObject:[NSValue valueWithCGPoint:CGPointMake(path2TValue, path1TValue)]];
                         } else {
-                            // it's a moveto element, so update our starting
-                            // point for this subpath within the full path
-                            path2StartingPoint = path2Element.points[0];
+                            // doesn't intersect within allowed T values
                         }
-                    }];
+                    }
+                } else {
+                    // at least one of the curves is a proper bezier, so use our
+                    // bezier intersection algorithm to find possibly multiple intersections
+                    // between these curves
+                    intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
                 }
-                path1EstimatedLength += path1EstimatedElementLength;
-            } else {
-                // it's a moveto element, so update our starting
-                // point for this subpath within the full path
-                path1StartingPoint = path1Element.points[0];
+                NSMutableArray<DKUIBezierPathIntersectionPoint *> *ret = [NSMutableArray array];
+                // loop through the intersections that we've found, and add in
+                // some context that we can save for each one.
+                for (NSValue *val in intersections) {
+                    CGFloat tValue1 = [val CGPointValue].y;
+                    CGFloat tValue2 = [val CGPointValue].x;
+                    // estimated length along each curve until the intersection is hit
+
+                    CGFloat lenTillPath1Inter = [path1 lengthOfPathThroughElement:path1ElementIndex tValue:tValue1 withAcceptableError:kUIBezierClosenessPrecision];
+                    CGFloat lenTillPath2Inter = [path2 lengthOfPathThroughElement:path2ElementIndex tValue:tValue2 withAcceptableError:kUIBezierClosenessPrecision];
+
+                    DKUIBezierPathIntersectionPoint *inter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:path1ElementIndex
+                                                                                                               andTValue:tValue1
+                                                                                                        withElementIndex:path2ElementIndex
+                                                                                                               andTValue:tValue2
+                                                                                                        andElementCount1:elementCount1
+                                                                                                        andElementCount2:elementCount2
+                                                                                                  andLengthUntilPath1Loc:lenTillPath1Inter
+                                                                                                  andLengthUntilPath2Loc:lenTillPath2Inter];
+                    // store the two paths that the intersection relates to. these are
+                    // the paths that match each of the CGPathElements that we used to
+                    // find the intersection
+                    inter.bez1[0] = bez1[0];
+                    inter.bez1[1] = bez1[1];
+                    inter.bez1[2] = bez1[2];
+                    inter.bez1[3] = bez1[3];
+                    inter.bez2[0] = bez2[0];
+                    inter.bez2[1] = bez2[1];
+                    inter.bez2[2] = bez2[2];
+                    inter.bez2[3] = bez2[3];
+
+                    if (didFlipPathNumbers) {
+                        // we flipped the order that we're looking through paths,
+                        // so we need to flip the intersection indexes so that
+                        // bez1 is always the unclosed path and bez2 is always closed
+                        inter = [inter flipped];
+                    }
+
+                    // add to our output!
+                    [ret addObject:inter];
+                }
+                return ret;
             }
-        }];
+            return @[];
+        };
+
+
+        NSMutableDictionary<NSValue *, NSValue *> *path1BoundsForRange = [NSMutableDictionary dictionary];
+        NSMutableDictionary<NSValue *, NSValue *> *path2BoundsForRange = [NSMutableDictionary dictionary];
+
+        CGRect (^boundsForRange)(UIBezierPath *, NSRange, NSMutableDictionary<NSValue *, NSValue *> *) = ^(UIBezierPath *path, NSRange range, NSMutableDictionary<NSValue *, NSValue *> *cache) {
+            NSValue *key = [NSValue valueWithRange:range];
+            NSValue *val = [cache objectForKey:key];
+            if (val) {
+                return [val CGRectValue];
+            }
+
+            CGRect rect = CGRectNull;
+
+            for (NSInteger index = range.location; index < NSMaxRange(range); index++) {
+                CGPoint ele1[4];
+                [path fillBezier:ele1 forElement:index];
+                for (NSInteger pindex = 0; pindex < 4; pindex++) {
+                    CGPoint p = ele1[pindex];
+                    rect = CGRectUnion(rect, CGRectMake(p.x, p.y, 0, 0));
+                }
+            }
+
+            rect = CGRectInset(rect, -1, -1);
+
+            cache[key] = [NSValue valueWithCGRect:rect];
+
+            return rect;
+        };
+
+        NSArray<DKUIBezierPathIntersectionPoint *> * (^intersectionsBetween)(NSRange, NSRange);
+        __block NSArray<DKUIBezierPathIntersectionPoint *> * (^recurIntersectionsBetween)(NSRange, NSRange);
+        recurIntersectionsBetween = intersectionsBetween = ^(NSRange path1Range, NSRange path2Range) {
+            CGRect b1 = boundsForRange(path1, path1Range, path1BoundsForRange);
+            CGRect b2 = boundsForRange(path2, path2Range, path2BoundsForRange);
+            CGFloat b1Area = b1.size.width * b1.size.height;
+            CGFloat b2Area = b2.size.width * b2.size.height;
+
+            if (CGRectIntersectsRect(b1, b2)) {
+                if (path1Range.length > 1 && (b1Area >= b2Area || path2Range.length == 1)) {
+                    NSRange path1RangeStart = NSMakeRange(path1Range.location, path1Range.length / 2);
+                    NSRange path1RangeEnd = NSMakeRange(NSMaxRange(path1RangeStart), path1Range.length - path1RangeStart.length);
+                    NSArray<DKUIBezierPathIntersectionPoint *> *ret1 = recurIntersectionsBetween(path1RangeStart, path2Range);
+                    NSArray<DKUIBezierPathIntersectionPoint *> *ret2 = recurIntersectionsBetween(path1RangeEnd, path2Range);
+
+                    return [ret1 arrayByAddingObjectsFromArray:ret2];
+                } else if (path2Range.length > 1 && (b2Area >= b1Area || path1Range.length == 1)) {
+                    NSRange path2RangeStart = NSMakeRange(path2Range.location, path2Range.length / 2);
+                    NSRange path2RangeEnd = NSMakeRange(NSMaxRange(path2RangeStart), path2Range.length - path2RangeStart.length);
+                    NSArray<DKUIBezierPathIntersectionPoint *> *ret1 = recurIntersectionsBetween(path1Range, path2RangeStart);
+                    NSArray<DKUIBezierPathIntersectionPoint *> *ret2 = recurIntersectionsBetween(path1Range, path2RangeEnd);
+
+                    return [ret1 arrayByAddingObjectsFromArray:ret2];
+                } else if (path1Range.length == 1 && path2Range.length == 1) {
+                    // both ranges are equal to 1
+
+                    return intersectionFor(path1Range.location, path2Range.location);
+                } else {
+                    assert("shouldn't get here");
+                    return (NSArray<DKUIBezierPathIntersectionPoint *> *)@[];
+                }
+            }
+
+            return (NSArray<DKUIBezierPathIntersectionPoint *> *)@[];
+        };
+
+        [foundIntersections addObjectsFromArray:intersectionsBetween(NSMakeRange(0, path1.elementCount), NSMakeRange(0, path2.elementCount))];
 
         // make sure we have the points sorted by the intersection location
         // inside of self instead of inside the closed curve
@@ -287,11 +312,11 @@ static NSInteger segmentCompareCount = 0;
         [foundIntersections enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             DKUIBezierPathIntersectionPoint *intersection = obj;
             if (!didFlipPathNumbers) {
-                intersection.pathLength1 = path1EstimatedLength;
-                intersection.pathLength2 = path2EstimatedLength;
+                intersection.pathLength1 = [path1 length];
+                intersection.pathLength2 = [path2 length];
             } else {
-                intersection.pathLength1 = path2EstimatedLength;
-                intersection.pathLength2 = path1EstimatedLength;
+                intersection.pathLength1 = [path2 length];
+                intersection.pathLength2 = [path1 length];
             }
         }];
 

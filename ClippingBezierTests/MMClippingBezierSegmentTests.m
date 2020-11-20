@@ -2365,10 +2365,10 @@
     XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqualWithAccuracy(redSegment.endIntersection.tValue1, 1.0, 0.000001);
+    XCTAssertEqualWithAccuracy(redSegment.endIntersection.tValue1, 1.0, 0.000003);
 
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqualWithAccuracy(currentSegmentCandidate.startIntersection.tValue1, 1.0, 0.000001);
+    XCTAssertEqualWithAccuracy(currentSegmentCandidate.startIntersection.tValue1, 1.0, 0.000003);
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
 }
