@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DKIntersectionOfPaths.h"
+#import "DKUIBezierPathIntersectionPoint.h"
 
 @interface UIBezierPath (Intersections)
 
 // boolean operations for an unclosed path on a closed path
-- (NSArray *)pathsFromSelfIntersections;
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)selfIntersections;
+- (NSArray<UIBezierPath *> *)pathsFromSelfIntersections;
+
 - (void)addPathElement:(CGPathElement)element;
 
 + (CGPoint)endPointForPathElement:(CGPathElement)element;
