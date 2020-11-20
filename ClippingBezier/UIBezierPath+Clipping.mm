@@ -333,6 +333,8 @@ static NSInteger segmentCompareCount = 0;
             CGPoint lastLoc = lastInter.location1;
             CGPoint interLoc2 = intersection.location2;
             CGPoint lastLoc2 = lastInter.location2;
+
+
             if (isDistinctIntersection) {
                 if ((ABS(interLoc.x - lastLoc.x) < kUIBezierClosenessPrecision &&
                      ABS(interLoc.y - lastLoc.y) < kUIBezierClosenessPrecision) ||
@@ -347,11 +349,20 @@ static NSInteger segmentCompareCount = 0;
                     BOOL closeLocation1 = [lastInter isCloseToIntersection:intersection withPrecision:kUIBezierClosenessPrecision];
                     BOOL closeLocation2 = [[lastInter flipped] isCloseToIntersection:[intersection flipped] withPrecision:kUIBezierClosenessPrecision];
 
-                    if (closeLocation1 != closeLocation2) {
-                        NSLog(@"gotcha");
-                    }
-
                     isDistinctIntersection = !closeLocation1 || !closeLocation2;
+                }
+                // if we still think it's distinct, then also compare the effective t-values
+                if (isDistinctIntersection) {
+                    CGFloat closeT = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
+                                                               andTValue:[lastInter tValue1]
+                                                               toElement:[intersection elementIndex1]
+                                                               andTValue:[intersection tValue1]];
+
+                    if (ABS(closeT) < kUIBezierClippingPrecision) {
+                        // The points are not actually very far apart at all in terms of t-distance. only bother to check
+                        // pixel closeness if our t-values are at all far apart.
+                        isDistinctIntersection = NO;
+                    }
                 }
             }
             if (isDistinctIntersection) {
@@ -477,7 +488,7 @@ static NSInteger segmentCompareCount = 0;
                                     p = ele.points[0];
                                 } else if (ele.type == kCGPathElementAddQuadCurveToPoint) {
                                     p = ele.points[1];
-                                } else if (ele.type == kCGPathElementAddQuadCurveToPoint) {
+                                } else if (ele.type == kCGPathElementAddCurveToPoint) {
                                     p = ele.points[2];
                                 }
                                 bezToUseForNextPoint[0] = p;
@@ -2182,8 +2193,12 @@ static NSInteger segmentCompareCount = 0;
                 bez[2] = CGPointMake(lastPoint.x + width / 3.0 * 2.0, lastPoint.y + height / 3.0 * 2.0);
             } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
                 bez[0] = lastPoint;
-                bez[1] = element.points[0];
-                bez[2] = element.points[0];
+
+                bez[1] = CGPointMake((lastPoint.x + 2.0 * element.points[0].x) / 3.0,
+                                     (lastPoint.y + 2.0 * element.points[0].y) / 3.0);
+                bez[2] = CGPointMake((element.points[1].x + 2.0 * element.points[0].x) / 3.0,
+                                     (element.points[1].y + 2.0 * element.points[0].y) / 3.0);
+
                 bez[3] = element.points[1];
             } else if (element.type == kCGPathElementAddCurveToPoint) {
                 bez[0] = lastPoint;
@@ -2348,7 +2363,6 @@ static NSInteger segmentCompareCount = 0;
         CGPoint curveTo = element.points[1];
         CGPoint ctrl1 = CGPointMake((startPoint.x + 2.0 * ctrlOrig.x) / 3.0, (startPoint.y + 2.0 * ctrlOrig.y) / 3.0);
         CGPoint ctrl2 = CGPointMake((curveTo.x + 2.0 * ctrlOrig.x) / 3.0, (curveTo.y + 2.0 * ctrlOrig.y) / 3.0);
-        ;
 
         bez[0] = startPoint;
         bez[1] = ctrl1;
