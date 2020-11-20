@@ -121,9 +121,9 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     }
 
     [intersections sortUsingComparator:^NSComparisonResult(DKUIBezierPathIntersectionPoint *obj1, DKUIBezierPathIntersectionPoint *obj2) {
-        if (obj1.elementIndex1 < obj2.elementIndex1) {
+        if (obj1.elementIndex1 > obj2.elementIndex1) {
             return NSOrderedAscending;
-        } else if (obj1.elementIndex1 == obj2.elementIndex1 && obj1.tValue1 < obj2.tValue2) {
+        } else if (obj1.elementIndex1 == obj2.elementIndex1 && obj1.tValue1 > obj2.tValue2) {
             return NSOrderedAscending;
         }
         return NSOrderedDescending;
@@ -132,18 +132,42 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     NSMutableArray<UIBezierPath *> *paths = [NSMutableArray array];
     UIBezierPath *fullPath = self;
 
-    for (DKUIBezierPathIntersectionPoint *inter in [intersections reverseObjectEnumerator]) {
+    NSInteger elementIndexes[intersections.count];
+    CGFloat tValues[intersections.count];
+
+    for (NSInteger index = 0; index < [intersections count]; index++) {
+        DKUIBezierPathIntersectionPoint *inter = intersections[index];
+
+        elementIndexes[index] = inter.elementIndex1;
+        tValues[index] = inter.tValue1;
+    }
+
+    for (NSInteger index = 0; index < [intersections count]; index++) {
+        NSInteger elementIndex = elementIndexes[index];
+        CGFloat tValue = tValues[index];
+
         // TODO: if intersections contains 2+ intersections within the same element, the tValues of 2+ intersections needs to be scaled
         // to account for the clipped intersection.
-        [paths addObject:[fullPath bezierPathByTrimmingFromElement:[inter elementIndex1] andTValue:[inter tValue1]]];
-        fullPath = [self bezierPathByTrimmingToElement:[inter elementIndex1] andTValue:[inter tValue1]];
+        [paths addObject:[fullPath bezierPathByTrimmingFromElement:elementIndex andTValue:tValue]];
+        fullPath = [fullPath bezierPathByTrimmingToElement:elementIndex andTValue:tValue];
+
+        for (NSInteger next = index + 1; next < [intersections count]; next++) {
+            NSInteger nextElementIndex = elementIndexes[next];
+            CGFloat nextTValue = tValues[next];
+
+            if (elementIndex == nextElementIndex) {
+                tValues[next] = nextTValue / tValue;
+            } else {
+                break;
+            }
+        }
     }
 
     if ([fullPath length]) {
         [paths addObject:fullPath];
     }
 
-    return paths;
+    return [[paths reverseObjectEnumerator] allObjects];
 }
 
 + (CGPoint)intersects2D:(CGPoint)p1 to:(CGPoint)p2 andLine:(CGPoint)p3 to:(CGPoint)p4
