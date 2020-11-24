@@ -129,10 +129,6 @@ static NSInteger segmentCompareCount = 0;
 
 
     __block CGPoint path1StartingPoint = path1.firstPoint;
-    // the lengths along the paths that we calculate are
-    // estimates only, and not exact
-    __block CGFloat path1EstimatedLength = 0;
-    __block CGFloat path2EstimatedLength = 0;
 
     // first, confirm that the paths have a possibility of intersecting
     // at all by comparing their bounds
@@ -163,14 +159,10 @@ static NSInteger segmentCompareCount = 0;
                                             withElement:path1Element
                               givenElementStartingPoint:lastPath1Point
                                 andSubPathStartingPoint:path1StartingPoint];
-            CGFloat path1EstimatedElementLength = 0;
-
             // only look for intersections if it's not a moveto point.
             // this way our bez1 array will be filled with a valid
             // bezier curve
             if (path1Element.type != kCGPathElementMoveToPoint) {
-                path1EstimatedElementLength = [UIBezierPath estimateArcLengthOf:bez1 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
-
                 __block CGPoint lastPath2Point = CGPointNotFound;
 
                 if (CGRectIntersectsRect(path1ElementBounds, path2Bounds)) {
@@ -178,7 +170,6 @@ static NSInteger segmentCompareCount = 0;
                     // all of path 2, so we'll iterate over path2 and find as many intersections
                     // as we can
                     __block CGPoint path2StartingPoint = path2.firstPoint;
-                    path2EstimatedLength = 0;
                     // big iterating over path2 to find all intersections with this element from path1
                     [path2 iteratePathWithBlock:^(CGPathElement path2Element, NSUInteger path2ElementIndex) {
                         // must call this before fillCGPoints, since that will update lastPath1Point
@@ -189,10 +180,7 @@ static NSInteger segmentCompareCount = 0;
                                                         withElement:path2Element
                                           givenElementStartingPoint:lastPath2Point
                                             andSubPathStartingPoint:path2StartingPoint];
-                        CGFloat path2ElementLength = 0;
-
                         if (path2Element.type != kCGPathElementMoveToPoint) {
-                            path2ElementLength = [UIBezierPath estimateArcLengthOf:bez2 withMaxSteps:10 andAccuracy:kUIBezierClosenessPrecision];
                             if (CGRectIntersectsRect(path1ElementBounds, path2ElementBounds)) {
                                 // track the number of segment comparisons we have to do
                                 // this tracks our worst case of how many segment rects intersect
@@ -240,8 +228,8 @@ static NSInteger segmentCompareCount = 0;
                                     CGFloat tValue1 = i.y;
                                     CGFloat tValue2 = i.x;
                                     // estimated length along each curve until the intersection is hit
-                                    CGFloat lenTillPath1Inter = path1EstimatedLength + tValue1 * path1EstimatedElementLength;
-                                    CGFloat lenTillPath2Inter = path2EstimatedLength + tValue2 * path2ElementLength;
+                                    CGFloat lenTillPath1Inter = [path1 lengthOfPathThroughElement:path1ElementIndex tValue:tValue1 withAcceptableError:kUIBezierClosenessPrecision];
+                                    CGFloat lenTillPath2Inter = [path2 lengthOfPathThroughElement:path2ElementIndex tValue:tValue2 withAcceptableError:kUIBezierClosenessPrecision];
 
                                     DKUIBezierPathIntersectionPoint *inter = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:path1ElementIndex
                                                                                                                                andTValue:tValue1
@@ -274,8 +262,6 @@ static NSInteger segmentCompareCount = 0;
                                     [foundIntersections addObject:inter];
                                 }
                             }
-                            // track our full path length
-                            path2EstimatedLength += path2ElementLength;
                         } else {
                             // it's a moveto element, so update our starting
                             // point for this subpath within the full path
@@ -283,7 +269,6 @@ static NSInteger segmentCompareCount = 0;
                         }
                     }];
                 }
-                path1EstimatedLength += path1EstimatedElementLength;
             } else {
                 // it's a moveto element, so update our starting
                 // point for this subpath within the full path
@@ -306,11 +291,11 @@ static NSInteger segmentCompareCount = 0;
         [foundIntersections enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             DKUIBezierPathIntersectionPoint *intersection = obj;
             if (!didFlipPathNumbers) {
-                intersection.pathLength1 = path1EstimatedLength;
-                intersection.pathLength2 = path2EstimatedLength;
+                intersection.pathLength1 = [path1 length];
+                intersection.pathLength2 = [path2 length];
             } else {
-                intersection.pathLength1 = path2EstimatedLength;
-                intersection.pathLength2 = path1EstimatedLength;
+                intersection.pathLength1 = [path2 length];
+                intersection.pathLength2 = [path1 length];
             }
         }];
 
