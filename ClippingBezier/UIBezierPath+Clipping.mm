@@ -80,6 +80,19 @@ static NSInteger segmentCompareCount = 0;
 
 #pragma mark - Intersection Finding
 
++ (BOOL)isBezierColinear:(CGPoint *)bezier
+{
+    CGFloat dist1 = [UIBezierPath distanceOfPointToLine:bezier[1] start:bezier[0] end:bezier[3]];
+
+    if (dist1 != 0) {
+        return NO;
+    }
+
+    CGFloat dist2 = [UIBezierPath distanceOfPointToLine:bezier[2] start:bezier[0] end:bezier[3]];
+
+    return dist2 == 0;
+}
+
 /**
  * this will return all intersections points between
  * the self path and the input closed path.
@@ -209,11 +222,15 @@ static NSInteger segmentCompareCount = 0;
                                     // at least one of the curves is a proper bezier, so use our
                                     // bezier intersection algorithm to find possibly multiple intersections
                                     // between these curves
-                                    if (path1Element.type == kCGPathElementAddCurveToPoint && (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
+                                    if (path1Element.type == kCGPathElementAddCurveToPoint &&
+                                        (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath) &&
+                                        ![UIBezierPath isBezierColinear:bez1]) {
                                         CGPoint lineP1 = bez2[0];
                                         CGPoint lineP2 = bez2[3];
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2 flipped:true];
-                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint && (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath)) {
+                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint &&
+                                               (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath) &&
+                                               ![UIBezierPath isBezierColinear:bez2]) {
                                         CGPoint lineP1 = bez1[0];
                                         CGPoint lineP2 = bez1[3];
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2 flipped:false];
