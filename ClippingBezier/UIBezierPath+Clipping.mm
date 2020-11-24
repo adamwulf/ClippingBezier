@@ -328,6 +328,8 @@ static NSInteger segmentCompareCount = 0;
             CGPoint lastLoc = lastInter.location1;
             CGPoint interLoc2 = intersection.location2;
             CGPoint lastLoc2 = lastInter.location2;
+
+
             if (isDistinctIntersection) {
                 if ((ABS(interLoc.x - lastLoc.x) < kUIBezierClosenessPrecision &&
                      ABS(interLoc.y - lastLoc.y) < kUIBezierClosenessPrecision) ||
@@ -343,6 +345,19 @@ static NSInteger segmentCompareCount = 0;
                     BOOL closeLocation2 = [[lastInter flipped] isCloseToIntersection:[intersection flipped] withPrecision:kUIBezierClosenessPrecision];
 
                     isDistinctIntersection = !closeLocation1 || !closeLocation2;
+                }
+                // if we still think it's distinct, then also compare the effective t-values
+                if (isDistinctIntersection) {
+                    CGFloat closeT = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
+                                                               andTValue:[lastInter tValue1]
+                                                               toElement:[intersection elementIndex1]
+                                                               andTValue:[intersection tValue1]];
+
+                    if (ABS(closeT) < kUIBezierClippingPrecision) {
+                        // The points are not actually very far apart at all in terms of t-distance. only bother to check
+                        // pixel closeness if our t-values are at all far apart.
+                        isDistinctIntersection = NO;
+                    }
                 }
             }
             if (isDistinctIntersection) {
@@ -468,7 +483,7 @@ static NSInteger segmentCompareCount = 0;
                                     p = ele.points[0];
                                 } else if (ele.type == kCGPathElementAddQuadCurveToPoint) {
                                     p = ele.points[1];
-                                } else if (ele.type == kCGPathElementAddQuadCurveToPoint) {
+                                } else if (ele.type == kCGPathElementAddCurveToPoint) {
                                     p = ele.points[2];
                                 }
                                 bezToUseForNextPoint[0] = p;
@@ -526,7 +541,7 @@ static NSInteger segmentCompareCount = 0;
  */
 - (DKUIBezierPathClippingResult *)clipUnclosedPathToClosedPath:(UIBezierPath *)closedPath usingIntersectionPoints:(NSArray *)intersectionPoints andBeginsInside:(BOOL)beginsInside
 {
-    __block UIBezierPath *currentIntersectionSegment = [UIBezierPath bezierPath];
+    __block UIBezierPath *currentIntersectionSegment = [self buildEmptyPath];
 
     //
     // first, the base case:
@@ -540,8 +555,8 @@ static NSInteger segmentCompareCount = 0;
             // goal here is to split the path in half, at the intersection point.
             // portionOfBezierPathStartingAtT0 is from t=0 to t=intersection
             // portionOfBezierPathStartingAtIntersectionPoint is t=intersection to t=end
-            UIBezierPath *portionOfBezierPathStartingAtT0 = [UIBezierPath bezierPath];
-            UIBezierPath *portionOfBezierPathStartingAtIntersectionPoint = [UIBezierPath bezierPath];
+            UIBezierPath *portionOfBezierPathStartingAtT0 = [self buildEmptyPath];
+            UIBezierPath *portionOfBezierPathStartingAtIntersectionPoint = [self buildEmptyPath];
             // as we iterate over the path, we'll add path elements to this path
             __block UIBezierPath *actingPathToAddTo = portionOfBezierPathStartingAtT0;
 
@@ -610,7 +625,7 @@ static NSInteger segmentCompareCount = 0;
                                                                                                                andEnd:onlyIntersection
                                                                                                        andPathSegment:portionOfBezierPathStartingAtIntersectionPoint
                                                                                                          fromFullPath:self]];
-            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[UIBezierPath bezierPath]
+            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[self buildEmptyPath]
                                                                  andSegments:[NSArray array]
                                                                andDifference:[portionOfBezierPathStartingAtIntersectionPoint copy]
                                                                  andSegments:differenceSegments
@@ -626,7 +641,7 @@ static NSInteger segmentCompareCount = 0;
                                                                                                                andEnd:endOfBlue
                                                                                                        andPathSegment:[self copy]
                                                                                                          fromFullPath:self]];
-            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[UIBezierPath bezierPath]
+            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[self buildEmptyPath]
                                                                  andSegments:[NSArray array]
                                                                andDifference:[self copy]
                                                                  andSegments:differenceSegments
@@ -802,7 +817,7 @@ static NSInteger segmentCompareCount = 0;
                 if (hasRight || currentElementIndex != self.elementCount - 1) {
                     // don't add the trailing moveTo if there won't
                     // be any more segments to add to it
-                    currentIntersectionSegment = [UIBezierPath bezierPath];
+                    currentIntersectionSegment = [self buildEmptyPath];
                     [currentIntersectionSegment moveToPoint:left[3]];
                 }
 
@@ -915,8 +930,8 @@ static NSInteger segmentCompareCount = 0;
     }
 
     // now calculate the full intersection and difference paths
-    UIBezierPath *intersection = [UIBezierPath bezierPath];
-    UIBezierPath *difference = [UIBezierPath bezierPath];
+    UIBezierPath *intersection = [self buildEmptyPath];
+    UIBezierPath *difference = [self buildEmptyPath];
     for (DKUIBezierPathClippedSegment *seg in intersectionSegments) {
         if ([seg.pathSegment elementCount] > 1) {
             [intersection appendPath:seg.pathSegment];
@@ -954,8 +969,8 @@ static NSInteger segmentCompareCount = 0;
     // these will track the full intersection and difference
     // objects used to generate a full DKUIBezierPathClippingResult
     // over the entire scissor path, not just each subpath
-    UIBezierPath *entireScissorIntersection = [UIBezierPath bezierPath];
-    UIBezierPath *entireScissorDifference = [UIBezierPath bezierPath];
+    UIBezierPath *entireScissorIntersection = [scissorPath buildEmptyPath];
+    UIBezierPath *entireScissorDifference = [scissorPath buildEmptyPath];
     NSMutableArray *intersectionSegments = [NSMutableArray array];
     NSMutableArray *differenceSegments = [NSMutableArray array];
 
@@ -2184,8 +2199,12 @@ static NSInteger segmentCompareCount = 0;
                 bez[2] = CGPointMake(lastPoint.x + width / 3.0 * 2.0, lastPoint.y + height / 3.0 * 2.0);
             } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
                 bez[0] = lastPoint;
-                bez[1] = element.points[0];
-                bez[2] = element.points[0];
+
+                bez[1] = CGPointMake((lastPoint.x + 2.0 * element.points[0].x) / 3.0,
+                                     (lastPoint.y + 2.0 * element.points[0].y) / 3.0);
+                bez[2] = CGPointMake((element.points[1].x + 2.0 * element.points[0].x) / 3.0,
+                                     (element.points[1].y + 2.0 * element.points[0].y) / 3.0);
+
                 bez[3] = element.points[1];
             } else if (element.type == kCGPathElementAddCurveToPoint) {
                 bez[0] = lastPoint;
@@ -2509,7 +2528,7 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
 + (NSArray<NSNumber *> *)cubicRoots:(CGFloat[4])p
 {
-    CGFloat t[3] = { 1, -1, -1 };
+    CGFloat t[3] = {1, -1, -1};
 
     if (p[0] == 0) {
         if (p[1] == 0) {
@@ -2594,7 +2613,8 @@ CGIsAboutLess(CGFloat a, CGFloat b)
     }
 }
 
-+ (NSArray <NSNumber *> *)sortedCubicRootsFromCArray:(CGFloat[3])t {
++ (NSArray<NSNumber *> *)sortedCubicRootsFromCArray:(CGFloat[3])t
+{
     NSArray<NSNumber *> *retArray = @[
         @(t[0]),
         @(t[1]),
@@ -2757,9 +2777,14 @@ CGIsAboutLess(CGFloat a, CGFloat b)
         bez[3] = element.points[0];
         return element.points[0];
     } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
+        CGPoint ctrlOrig = element.points[0];
+        CGPoint curveTo = element.points[1];
+        CGPoint ctrl1 = CGPointMake((startPoint.x + 2.0 * ctrlOrig.x) / 3.0, (startPoint.y + 2.0 * ctrlOrig.y) / 3.0);
+        CGPoint ctrl2 = CGPointMake((curveTo.x + 2.0 * ctrlOrig.x) / 3.0, (curveTo.y + 2.0 * ctrlOrig.y) / 3.0);
+
         bez[0] = startPoint;
-        bez[1] = element.points[0];
-        bez[2] = element.points[0];
+        bez[1] = ctrl1;
+        bez[2] = ctrl2;
         bez[3] = element.points[1];
         return element.points[1];
     } else if (element.type == kCGPathElementAddCurveToPoint) {

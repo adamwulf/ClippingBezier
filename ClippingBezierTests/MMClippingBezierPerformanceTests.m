@@ -185,8 +185,8 @@
     UIBezierPath *diff = [output lastObject];
 
 
-    XCTAssertEqual([inter elementCount], 1556, @"the curves do intersect");
-    XCTAssertEqual([diff elementCount], 1183, @"the curves do intersect");
+    XCTAssertEqual([inter elementCount], 4944, @"the curves do intersect");
+    XCTAssertEqual([diff elementCount], 3333, @"the curves do intersect");
 
     XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
     XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
@@ -217,6 +217,7 @@
     NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
 }
 
+
 - (void)testFindIntersectionPerformance
 {
     [self measureBlock:^{
@@ -225,6 +226,34 @@
 
         [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
         [path1 allUniqueShapesWithPath:path2];
+    }];
+}
+
+- (void)testFindOnlyIntersectionPerformance
+{
+    [self measureBlock:^{
+        UIBezierPath *path1 = [[self complexShape1] copy];
+        UIBezierPath *path2 = [[self complexShape2] copy];
+
+        [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
+    }];
+}
+
+- (void)testIntersectionAndDifference
+{
+    [self measureBlock:^{
+        for (int i = 0; i < 100; i++) {
+            [self performanceHelperIntersectionWithComplexShape];
+        }
+    }];
+}
+
+- (void)testIntersectionAndDifference2
+{
+    [self measureBlock:^{
+        for (int i = 0; i < 5; i++) {
+            [self testCalculateUnclosedPathThroughClosedBoundsFast];
+        }
     }];
 }
 

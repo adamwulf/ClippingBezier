@@ -19,46 +19,6 @@
 
 #pragma mark - Flat Tests
 
-- (void)testCurveIntersectionInsideToOutsideRect
-{
-    // testPath is a curved line that starts
-    // inside bounds box, and ends outside
-    // below the box
-
-    UIBezierPath *testPath = [UIBezierPath bezierPath];
-    [testPath moveToPoint:CGPointMake(150, 150)];
-    [testPath addCurveToPoint:CGPointMake(150, 250)
-                controlPoint1:CGPointMake(170, 80)
-                controlPoint2:CGPointMake(170, 220)];
-
-
-    // simple 100x100 box
-    UIBezierPath *bounds = [UIBezierPath bezierPath];
-    [bounds moveToPoint:CGPointMake(100, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 100)];
-    [bounds addLineToPoint:CGPointMake(200, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 200)];
-    [bounds addLineToPoint:CGPointMake(100, 100)];
-    [bounds closePath];
-
-    DKIntersectionOfPaths *firstIntersection = [UIBezierPath firstIntersectionBetween:[testPath bezierPathByFlatteningPathAndImmutable:YES] andPath:bounds];
-
-    XCTAssertEqual(firstIntersection.doesIntersect, YES, @"the curves do intersect");
-    XCTAssertEqual(firstIntersection.elementNumberOfIntersection, 1345, @"the curves do intersect");
-    XCTAssertEqual(floorf(100 * firstIntersection.tValueOfIntersection), 92.0, @"the curves do intersect");
-
-
-    XCTAssertEqual(firstIntersection.start.firstPoint.x, 150.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.start.firstPoint.y, 150.0, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.start.lastPoint.x), 162.0, @"ends at the right place");
-    XCTAssertEqual(firstIntersection.start.lastPoint.y, 200.0, @"ends at the right place");
-
-    XCTAssertEqual(floorf(firstIntersection.end.firstPoint.x), 162.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.firstPoint.y, 200.0, @"starts at the right place");
-    XCTAssertEqual(floorf(firstIntersection.end.lastPoint.x), 150.0, @"starts at the right place");
-    XCTAssertEqual(firstIntersection.end.lastPoint.y, 250.0, @"starts at the right place");
-}
-
 - (void)testCalculateUnclosedPathThroughClosedBoundsFast
 {
     //
@@ -154,52 +114,6 @@
     XCTAssertEqual([intersections count], (NSUInteger)2, @"the curves do intersect");
 }
 
-- (void)testCircleThroughRectangleCompareTangents2
-{
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-
-    NSArray *intersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:nil];
-    NSArray *otherIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:nil];
-
-    XCTAssertEqual([intersections count], [otherIntersections count], @"found intersections");
-    XCTAssertEqual([intersections count], (NSUInteger)3, @"found intersections");
-
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex1], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue1] to:6], 1.0, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:0] elementIndex2], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:0] tValue2] to:6], 0.0, @"found correct intersection location");
-
-    XCTAssertEqual([[intersections objectAtIndex:1] elementIndex1], 3, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue1] to:6], 0.999997, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:1] elementIndex2], 1, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:1] tValue2] to:6], 0.499999, @"found correct intersection location");
-
-    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex1], 4, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 0.999997, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 2, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0.999998, @"found correct intersection location");
-
-    DKUIBezierPathIntersectionPoint *intersection = [intersections objectAtIndex:0];
-    XCTAssertEqual(roundf([intersection location1].x), 200.0, @"intersects at the right place");
-    XCTAssertEqual(roundf([intersection location1].y), 300.0, @"intersects at the right place");
-
-    intersection = [intersections objectAtIndex:1];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");
-
-    intersection = [intersections objectAtIndex:2];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:0];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(300, 200)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:1];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(400, 300)], @"correct location");
-
-    intersection = [otherIntersections objectAtIndex:2];
-    XCTAssertTrue([self point:intersection.location1 isNearTo:CGPointMake(200, 300)], @"correct location");
-}
-
 #pragma mark - Segment Tangent Tests
 
 - (void)testLineNearBoundary2
@@ -231,77 +145,34 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)2, @"correct number of segments");
 }
 
+- (void)testLineNearBoundary3
+{
+    // path is tangent that is 2pts long
+    // intersections are allowed to be .5 distnace away
+    // from each other, so max of 4 intersections might
+    // happen
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(0.000000, 0.000000)];
+    [shapePath addLineToPoint:CGPointMake(768.000000, 0.000000)];
+    [shapePath addLineToPoint:CGPointMake(768.000000, 1024.000000)];
+    [shapePath addLineToPoint:CGPointMake(0.000000, 1024.000000)];
+    [shapePath closePath];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(478.500000, 1024.000000)];
+    [scissorPath addCurveToPoint:CGPointMake(484.000000, 1024.000000) controlPoint1:CGPointMake(480.562500, 1024.000000) controlPoint2:CGPointMake(481.937500, 1024.000000)];
+
+
+    BOOL beginsInside = NO;
+    NSArray *scissorToShapeIntersections = [scissorPath findIntersectionsWithClosedPath:shapePath andBeginsInside:&beginsInside];
+    NSArray *shapeToScissorIntersections = [shapePath findIntersectionsWithClosedPath:scissorPath andBeginsInside:&beginsInside];
+
+    XCTAssertEqual([scissorToShapeIntersections count], [shapeToScissorIntersections count], @"count of intersections matches");
+    XCTAssertEqual([scissorToShapeIntersections count], (NSUInteger)2, @"count of intersections matches");
+}
+
 #pragma mark - Segment Tests
-
-- (void)testCircleThroughRectangleFirstSegmentTangent
-{
-    // here, the scissor is a circle that is contained with in a square shape
-    // the square wraps around the outside of the circle
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
-
-    XCTAssertTrue([shapePath isClockwise], @"default rectangle path is clockwise");
-
-    NSArray *allSegments = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray *redSegments = [allSegments firstObject];
-    NSArray *blueSegments = [allSegments lastObject];
-
-    XCTAssertEqual([redSegments count], (NSUInteger)4, @"correct number of segments");
-    XCTAssertEqual([blueSegments count], (NSUInteger)3, @"correct number of segments");
-
-    DKUIBezierPathClippedSegment *redSegment = [redSegments objectAtIndex:0];
-    DKUIBezierPathClippedSegment *correctSegment = [redSegments objectAtIndex:1];
-    DKUIBezierPathClippedSegment *currentSegmentCandidate = [UIBezierPath getBestMatchSegmentForSegments:[NSArray arrayWithObject:redSegment]
-                                                                                                  forRed:redSegments
-                                                                                                 andBlue:blueSegments
-                                                                                              lastWasRed:YES
-                                                                                                    comp:[shapePath isClockwise]];
-    XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
-
-    XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0, @"correct intersection");
-    XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], .999997, @"correct intersection");
-
-    XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-    XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-}
-
-- (void)testSquaredCircleIntersections
-{
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 200)];
-
-    XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
-
-    NSArray *allSegments = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray *redSegments = [allSegments firstObject];
-    NSArray *blueSegments = [allSegments lastObject];
-
-    XCTAssertEqual([redSegments count], (NSUInteger)8, @"correct number of segments");
-    XCTAssertEqual([blueSegments count], (NSUInteger)4, @"correct number of segments");
-
-    DKUIBezierPathClippedSegment *redSegment = [redSegments objectAtIndex:0];
-    DKUIBezierPathClippedSegment *correctSegment = [redSegments objectAtIndex:1];
-    DKUIBezierPathClippedSegment *currentSegmentCandidate = [UIBezierPath getBestMatchSegmentForSegments:[NSArray arrayWithObject:redSegment]
-                                                                                                  forRed:redSegments
-                                                                                                 andBlue:blueSegments
-                                                                                              lastWasRed:YES
-                                                                                                    comp:[shapePath isClockwise]];
-    XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
-
-    XCTAssertEqual(redSegment.startIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-    XCTAssertEqual(redSegment.endIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.999999, @"correct intersection");
-
-    XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999999, @"correct intersection");
-    XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-}
 
 - (void)testReversedSquaredCircleIntersections
 {
@@ -335,42 +206,6 @@
     XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.500001, @"correct intersection");
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
     XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.500002, @"correct intersection");
-}
-
-- (void)testCircleThroughRectangle
-{
-    // here, the scissor is a circle that is contained with in a square shape
-    // the square wraps around the outside of the circle
-    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 200, 100)];
-    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(200, 200, 200, 200)];
-
-    XCTAssertTrue([shapePath isClockwise], @"shape is correct direction");
-
-    NSArray *allSegments = [UIBezierPath redAndBlueSegmentsForShapeBuildingCreatedFrom:shapePath bySlicingWithPath:scissorPath andNumberOfBlueShellSegments:nil];
-    NSArray *redSegments = [allSegments firstObject];
-    NSArray *blueSegments = [allSegments lastObject];
-
-    XCTAssertEqual([redSegments count], (NSUInteger)4, @"correct number of segments");
-    XCTAssertEqual([blueSegments count], (NSUInteger)3, @"correct number of segments");
-
-    DKUIBezierPathClippedSegment *redSegment = [redSegments objectAtIndex:0];
-    DKUIBezierPathClippedSegment *correctSegment = [redSegments objectAtIndex:1];
-    DKUIBezierPathClippedSegment *currentSegmentCandidate = [UIBezierPath getBestMatchSegmentForSegments:[NSArray arrayWithObject:redSegment]
-                                                                                                  forRed:redSegments
-                                                                                                 andBlue:blueSegments
-                                                                                              lastWasRed:YES
-                                                                                                    comp:[shapePath isClockwise]];
-    XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
-
-    XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], 1.0, @"correct intersection");
-    XCTAssertEqual(redSegment.endIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-
-    XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.startIntersection.tValue1 to:6], 0.999997, @"correct intersection");
-    XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
 }
 
 - (void)testRedBlueSegmentsFromLooseLeafCrash
@@ -567,31 +402,6 @@
     NSArray *shapes2 = [splittingPath uniqueShapesCreatedFromSlicingWithUnclosedPath:[splitterPath bezierPathByReversingPath]];
 
     XCTAssertEqual([shapes1 count], [shapes2 count]);
-}
-
-#pragma mark - Trimming Tests
-
-
-- (void)testTrimmingFromLengthWithMultipleSubpaths
-{
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
-    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
-
-    UIBezierPath *trimmedPath = [path bezierPathByTrimmingFromLength:50];
-
-    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:110 within:.5], @"length is correct");
-    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
-}
-
-- (void)testTrimmingToLengthWithMultipleSubpaths
-{
-    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 40, 10)];
-    [path appendPath:[UIBezierPath bezierPathWithRect:CGRectMake(10, 10, 20, 10)]];
-
-    UIBezierPath *trimmedPath = [path bezierPathByTrimmingToLength:120];
-
-    XCTAssertTrue([self check:[trimmedPath length] isEqualTo:120 within:.5], @"length is correct");
-    XCTAssertEqual([trimmedPath countSubPaths], 2, @"subpath count is correct");
 }
 
 @end

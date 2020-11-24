@@ -9,6 +9,7 @@
 #import "UIBezierPath+GeometryExtras.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/ClippingBezier.h>
+#import "UIBezierPath+Clipping_Private.h"
 #import "UIBezierPath+Ahmed.h"
 #import "UIBezierPath+Clipping.h"
 #import "UIBezierPath+Trimming.h"
@@ -175,7 +176,7 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
  */
 - (UIBezierPath *)bezierPathByTrimmingFromClosestPointOnPathFrom:(CGPoint)pointNearTheCurve to:(CGPoint)toPoint
 {
-    UIBezierPath *outputPath = [UIBezierPath bezierPath];
+    UIBezierPath *outputPath = [self buildEmptyPath];
     NSInteger startIndex, endIndex;
     double startTValue, endTValue;
 
@@ -254,5 +255,61 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
     return left[3];
 }
 
+/// The method calculates the effective distance between two offsets in a path. MoveTo and Close path elements are coalesced when possible.
+/// Refer to the MMClippingBezierGeometryTests for detailed example behavior.
+- (CGFloat)effectiveTDistanceFromElement:(NSInteger)elementIndex1 andTValue:(CGFloat)tVal1 toElement:(NSInteger)elementIndex2 andTValue:(CGFloat)tVal2
+{
+    NSRange rng1 = [self subpathRangeForElement:elementIndex1];
+    NSRange rng2 = [self subpathRangeForElement:elementIndex2];
+
+    if (!NSEqualRanges(rng1, rng2)) {
+        return CGFLOAT_MAX;
+    }
+
+    CGFloat maxPossibleT = [self helperTDistanceFromElement:rng1.location andTValue:0 toElement:NSMaxRange(rng1) - 1 andTValue:1];
+    CGFloat actualT = [self helperTDistanceFromElement:elementIndex1 andTValue:tVal1 toElement:elementIndex2 andTValue:tVal2];
+
+    if ([self isClosed]) {
+        BOOL isNeg = signbit(actualT);
+        // calculate how far it would be to travel backwards
+        CGFloat backwardDist = (maxPossibleT - ABS(actualT));
+        backwardDist = isNeg ? backwardDist : -backwardDist;
+        // swap the distance if going backwards would be faster
+        return ABS(backwardDist) >= ABS(actualT) ? actualT : backwardDist;
+    } else {
+        return actualT;
+    }
+}
+
+- (CGFloat)helperTDistanceFromElement:(NSInteger)elementIndex1 andTValue:(CGFloat)tVal1 toElement:(NSInteger)elementIndex2 andTValue:(CGFloat)tVal2
+{
+    NSRange rng1 = [self subpathRangeForElement:elementIndex1];
+    NSRange rng2 = [self subpathRangeForElement:elementIndex2];
+
+    if (!NSEqualRanges(rng1, rng2)) {
+        return CGFLOAT_MAX;
+    }
+
+    if (elementIndex1 > elementIndex2 || (elementIndex1 == elementIndex2 && tVal1 > tVal2)) {
+        return -[self helperTDistanceFromElement:elementIndex2 andTValue:tVal2 toElement:elementIndex1 andTValue:tVal1];
+    }
+
+    if (![self changesPositionDuringElement:elementIndex1]) {
+        tVal1 = 0.0;
+    }
+    if (![self changesPositionDuringElement:elementIndex2]) {
+        tVal2 = 0.0;
+    }
+
+    CGFloat diff = tVal2 - tVal1;
+
+    for (NSInteger index = elementIndex1; index < elementIndex2; index++) {
+        if ([self changesPositionDuringElement:index]) {
+            diff += 1;
+        }
+    }
+
+    return diff;
+}
 
 @end

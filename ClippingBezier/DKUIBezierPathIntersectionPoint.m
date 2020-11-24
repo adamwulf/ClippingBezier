@@ -12,12 +12,16 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 
 @implementation DKUIBezierPathIntersectionPoint {
+    DKUIBezierPathIntersectionPoint *_flipped;
+
     NSInteger elementIndex1;
     CGFloat tValue1;
+    CGFloat tValue1Rounded;
     NSInteger elementIndex2;
     CGFloat tValue2;
-    CGPoint *bez1;
-    CGPoint *bez2;
+    CGFloat tValue2Rounded;
+    CGPoint bez1[4];
+    CGPoint bez2[4];
     BOOL mayCrossBoundary;
     NSInteger elementCount1;
     NSInteger elementCount2;
@@ -33,8 +37,6 @@
 @synthesize elementIndex2;
 @synthesize elementCount2;
 @synthesize tValue2;
-@synthesize bez1;
-@synthesize bez2;
 @synthesize mayCrossBoundary;
 @synthesize lenAtInter1;
 @synthesize lenAtInter2;
@@ -49,15 +51,21 @@
 - (id)initWithElementIndex:(NSInteger)index1 andTValue:(CGFloat)_tValue1 withElementIndex:(NSInteger)index2 andTValue:(CGFloat)_tValue2 andElementCount1:(NSInteger)_elementCount1 andElementCount2:(NSInteger)_elementCount2 andLengthUntilPath1Loc:(CGFloat)_lenAtInter1 andLengthUntilPath2Loc:(CGFloat)_lenAtInter2
 {
     if (self = [super init]) {
+        _flipped = nil;
         elementIndex1 = index1;
         tValue1 = _tValue1;
+        tValue1Rounded = [self roundedTValue:_tValue1];
         elementIndex2 = index2;
         tValue2 = _tValue2;
-        bez1 = (CGPoint *)malloc(sizeof(CGPoint) * 4);
-        bez2 = (CGPoint *)malloc(sizeof(CGPoint) * 4);
-        if (!bez1 || !bez2) {
-            @throw [NSException exceptionWithName:@"Memory Exception" reason:@"can't malloc" userInfo:nil];
-        }
+        tValue2Rounded = [self roundedTValue:_tValue2];
+        bez1[0] = CGPointZero;
+        bez1[1] = bez1[0];
+        bez1[2] = bez1[0];
+        bez1[3] = bez1[0];
+        bez2[0] = bez1[0];
+        bez2[1] = bez1[0];
+        bez2[2] = bez1[0];
+        bez2[3] = bez1[0];
         elementCount1 = _elementCount1;
         elementCount2 = _elementCount2;
         lenAtInter1 = _lenAtInter1;
@@ -66,15 +74,19 @@
     return self;
 }
 
+- (CGPoint *)bez1
+{
+    return bez1;
+}
+
+- (CGPoint *)bez2
+{
+    return bez2;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"[Intersection (%d %f) (%d %f)]", (int)elementIndex1, tValue1, (int)elementIndex2, tValue2];
-}
-
-- (void)dealloc
-{
-    free(bez1);
-    free(bez2);
 }
 
 - (void)setMayCrossBoundary:(BOOL)_mayCrossBoundary
@@ -84,26 +96,31 @@
 
 - (DKUIBezierPathIntersectionPoint *)flipped
 {
-    DKUIBezierPathIntersectionPoint *ret = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:self.elementIndex2
-                                                                                             andTValue:self.tValue2
-                                                                                      withElementIndex:self.elementIndex1
-                                                                                             andTValue:self.tValue1
-                                                                                      andElementCount1:elementCount2
-                                                                                      andElementCount2:elementCount1
-                                                                                andLengthUntilPath1Loc:lenAtInter2
-                                                                                andLengthUntilPath2Loc:lenAtInter1];
-    ret.bez1[0] = self.bez2[0];
-    ret.bez1[1] = self.bez2[1];
-    ret.bez1[2] = self.bez2[2];
-    ret.bez1[3] = self.bez2[3];
-    ret.bez2[0] = self.bez1[0];
-    ret.bez2[1] = self.bez1[1];
-    ret.bez2[2] = self.bez1[2];
-    ret.bez2[3] = self.bez1[3];
-    ret.mayCrossBoundary = self.mayCrossBoundary;
-    ret.pathLength1 = self.pathLength2;
-    ret.pathLength2 = self.pathLength1;
-    return ret;
+    if (!_flipped) {
+        DKUIBezierPathIntersectionPoint *ret = [DKUIBezierPathIntersectionPoint intersectionAtElementIndex:self.elementIndex2
+                                                                                                 andTValue:self.tValue2
+                                                                                          withElementIndex:self.elementIndex1
+                                                                                                 andTValue:self.tValue1
+                                                                                          andElementCount1:elementCount2
+                                                                                          andElementCount2:elementCount1
+                                                                                    andLengthUntilPath1Loc:lenAtInter2
+                                                                                    andLengthUntilPath2Loc:lenAtInter1];
+        ret.bez1[0] = self.bez2[0];
+        ret.bez1[1] = self.bez2[1];
+        ret.bez1[2] = self.bez2[2];
+        ret.bez1[3] = self.bez2[3];
+        ret.bez2[0] = self.bez1[0];
+        ret.bez2[1] = self.bez1[1];
+        ret.bez2[2] = self.bez1[2];
+        ret.bez2[3] = self.bez1[3];
+        ret.mayCrossBoundary = self.mayCrossBoundary;
+        ret.pathLength1 = self.pathLength2;
+        ret.pathLength2 = self.pathLength1;
+
+        _flipped = ret;
+    }
+
+    return _flipped;
 }
 
 /**
@@ -260,9 +277,9 @@
     if ([object isKindOfClass:[DKUIBezierPathIntersectionPoint class]]) {
         DKUIBezierPathIntersectionPoint *other = (DKUIBezierPathIntersectionPoint *)object;
         if (self.elementIndex1 == other.elementIndex1 &&
-            [self roundedTValue:self.tValue1] == [self roundedTValue:other.tValue1] &&
             self.elementIndex2 == other.elementIndex2 &&
-            [self roundedTValue:self.tValue2] == [self roundedTValue:other.tValue2]) {
+            tValue1Rounded == other->tValue1Rounded &&
+            tValue2Rounded == other->tValue2Rounded) {
             return YES;
         }
     }

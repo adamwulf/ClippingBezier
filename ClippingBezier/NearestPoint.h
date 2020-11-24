@@ -17,6 +17,7 @@ extern "C" {
 #include <stdio.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+// Bezier functions from git@github.com:erich666/GraphicsGems.git
 CGPoint NearestPointOnCurve(const CGPoint P, const CGPoint *V, double *t);
 
 int FindRoots(CGPoint *w, int degree, double *t, int depth);

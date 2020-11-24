@@ -17,7 +17,6 @@
 #import <ClippingBezier/UIBezierPath+GeometryExtras.h>
 #import <ClippingBezier/UIBezierPath+DKOSX.h>
 #import <ClippingBezier/UIBezierPath+Trimming.h>
-#import <ClippingBezier/UIBezierPath+Ahmed.h>
 #import <ClippingBezier/DKUIBezierPathClippedSegment.h>
 #import <ClippingBezier/DKUIBezierPathClippingResult.h>
 #import <ClippingBezier/DKUIBezierPathIntersectionPoint.h>
