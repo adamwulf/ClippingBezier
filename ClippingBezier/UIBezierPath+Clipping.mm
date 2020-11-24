@@ -33,10 +33,10 @@
 #include "bezier-clipping.h"
 
 typedef struct Coeffs {
-    CGFloat p0;
-    CGFloat p1;
-    CGFloat p2;
-    CGFloat p3;
+    CGFloat a3; // t^3
+    CGFloat a2; // t^2
+    CGFloat a1; // t
+    CGFloat a0; // constant
 } Coeffs;
 
 using namespace Geom;
@@ -1534,18 +1534,6 @@ static NSInteger segmentCompareCount = 0;
     }
 }
 
-- (NSArray<NSValue *> *)intersectionPointsWithPath:(UIBezierPath *)path
-{
-    BOOL beginsInside1 = NO;
-    NSMutableArray<NSValue *> *points = [NSMutableArray array];
-    NSArray<DKUIBezierPathIntersectionPoint *> *intersections = [self findIntersectionsWithClosedPath:path andBeginsInside:&beginsInside1];
-    for (DKUIBezierPathIntersectionPoint *inter in intersections) {
-        [points addObject:[NSValue valueWithCGPoint:[inter location2]]];
-    }
-
-    return points.copy;
-}
-
 - (NSArray<UIBezierPath *> *)intersectionWithPath:(UIBezierPath *)scissors
 {
     return [self booleanWithPath:scissors calculateIntersection:YES];
@@ -2478,10 +2466,10 @@ CGIsAboutLess(CGFloat a, CGFloat b)
     Coeffs by = [self bezierCoeffs:py];
 
     CGFloat P[4];
-    P[0] = A * bx.p0 + B * by.p0; /*t^3*/
-    P[1] = A * bx.p1 + B * by.p1; /*t^2*/
-    P[2] = A * bx.p2 + B * by.p2; /*t*/
-    P[3] = A * bx.p3 + B * by.p3 + C; /*1*/
+    P[0] = A * bx.a3 + B * by.a3; /*t^3*/
+    P[1] = A * bx.a2 + B * by.a2; /*t^2*/
+    P[2] = A * bx.a1 + B * by.a1; /*t*/
+    P[3] = A * bx.a0 + B * by.a0 + C; /*1*/
 
     NSArray<NSNumber *> *r = [self cubicRoots:P];
 
@@ -2490,8 +2478,8 @@ CGIsAboutLess(CGFloat a, CGFloat b)
         CGFloat t = [r[i] floatValue];
 
         CGPoint p;
-        p.x = bx.p0 * t * t * t + bx.p1 * t * t + bx.p2 * t + bx.p3;
-        p.y = by.p0 * t * t * t + by.p1 * t * t + by.p2 * t + by.p3;
+        p.x = bx.a3 * t * t * t + bx.a2 * t * t + bx.a1 * t + bx.a0;
+        p.y = by.a3 * t * t * t + by.a2 * t * t + by.a1 * t + by.a0;
 
 
         /*above is intersection point assuming infinitely long line segment,
@@ -2643,10 +2631,10 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 + (Coeffs)bezierCoeffs:(CGFloat[4])p
 {
     Coeffs c;
-    c.p0 = -p[0] + 3 * p[1] + -3 * p[2] + p[3];
-    c.p1 = 3 * p[0] - 6 * p[1] + 3 * p[2];
-    c.p2 = -3 * p[0] + 3 * p[1];
-    c.p3 = p[0];
+    c.a3 = -p[0] + 3 * p[1] + -3 * p[2] + p[3];
+    c.a2 = 3 * p[0] - 6 * p[1] + 3 * p[2];
+    c.a1 = -3 * p[0] + 3 * p[1];
+    c.a0 = p[0];
     return c;
 }
 
