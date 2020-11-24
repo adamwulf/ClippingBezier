@@ -312,46 +312,6 @@
     return subpathIndex;
 }
 
-- (CGFloat)length
-{
-    __block CGFloat length = 0;
-    __block CGPoint lastMoveToPoint = CGPointNotFound;
-    __block CGPoint lastElementEndPoint = CGPointNotFound;
-    [self iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
-        if (element.type == kCGPathElementMoveToPoint) {
-            lastElementEndPoint = element.points[0];
-            lastMoveToPoint = element.points[0];
-        } else if (element.type == kCGPathElementCloseSubpath) {
-            length += [UIBezierPath distance:lastElementEndPoint p2:lastMoveToPoint];
-            lastElementEndPoint = lastMoveToPoint;
-        } else if (element.type == kCGPathElementAddLineToPoint) {
-            length += [UIBezierPath distance:lastElementEndPoint p2:element.points[0]];
-            lastElementEndPoint = element.points[0];
-        } else if (element.type == kCGPathElementAddQuadCurveToPoint ||
-                   element.type == kCGPathElementAddCurveToPoint) {
-            CGPoint bez[4];
-            bez[0] = lastElementEndPoint;
-
-            if (element.type == kCGPathElementAddQuadCurveToPoint) {
-                bez[1] = CGPointMake((lastElementEndPoint.x + 2.0 * element.points[0].x) / 3.0,
-                                     (lastElementEndPoint.y + 2.0 * element.points[0].y) / 3.0);
-                bez[2] = CGPointMake((element.points[1].x + 2.0 * element.points[0].x) / 3.0,
-                                     (element.points[1].y + 2.0 * element.points[0].y) / 3.0);
-                bez[3] = element.points[1];
-                lastElementEndPoint = element.points[1];
-            } else if (element.type == kCGPathElementAddCurveToPoint) {
-                bez[1] = element.points[0];
-                bez[2] = element.points[1];
-                bez[3] = element.points[2];
-                lastElementEndPoint = element.points[2];
-            }
-
-            length += [UIBezierPath lengthOfBezier:bez withAccuracy:.5];
-        }
-    }];
-    return length;
-}
-
 - (CGFloat)tangentAtStart
 {
     if ([self elementCount] < 2) {
