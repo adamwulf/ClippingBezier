@@ -9,6 +9,7 @@
 #import "UIBezierPath+GeometryExtras.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <ClippingBezier/ClippingBezier.h>
+#import "UIBezierPath+Clipping_Private.h"
 #import "UIBezierPath+Ahmed.h"
 #import "UIBezierPath+Clipping.h"
 #import "UIBezierPath+Trimming.h"
@@ -175,7 +176,7 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
  */
 - (UIBezierPath *)bezierPathByTrimmingFromClosestPointOnPathFrom:(CGPoint)pointNearTheCurve to:(CGPoint)toPoint
 {
-    UIBezierPath *outputPath = [UIBezierPath bezierPath];
+    UIBezierPath *outputPath = [self buildEmptyPath];
     NSInteger startIndex, endIndex;
     double startTValue, endTValue;
 

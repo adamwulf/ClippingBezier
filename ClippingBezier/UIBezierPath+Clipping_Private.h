@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DKUIBezierPathClippingResult.h"
+#import "DKUIBezierPathShape.h"
 
 @interface UIBezierPath (MMClipping_Private)
 
@@ -31,9 +33,5 @@
 - (NSArray<DKUIBezierPathShape *> *)uniqueGluedShapesWithPath:(UIBezierPath *)scissors;
 
 + (CGPoint)fillCGPoints:(CGPoint *)bez withElement:(CGPathElement)element givenElementStartingPoint:(CGPoint)startPoint andSubPathStartingPoint:(CGPoint)pathStartPoint;
-
-#pragma mark - Bezier functions from git@github.com:erich666/GraphicsGems.git
-
-CGPoint NearestPointOnCurve(CGPoint P, CGPoint *V, double *t);
 
 @end

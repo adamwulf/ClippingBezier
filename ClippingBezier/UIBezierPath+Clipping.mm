@@ -521,7 +521,7 @@ static NSInteger segmentCompareCount = 0;
  */
 - (DKUIBezierPathClippingResult *)clipUnclosedPathToClosedPath:(UIBezierPath *)closedPath usingIntersectionPoints:(NSArray *)intersectionPoints andBeginsInside:(BOOL)beginsInside
 {
-    __block UIBezierPath *currentIntersectionSegment = [UIBezierPath bezierPath];
+    __block UIBezierPath *currentIntersectionSegment = [self buildEmptyPath];
 
     //
     // first, the base case:
@@ -535,8 +535,8 @@ static NSInteger segmentCompareCount = 0;
             // goal here is to split the path in half, at the intersection point.
             // portionOfBezierPathStartingAtT0 is from t=0 to t=intersection
             // portionOfBezierPathStartingAtIntersectionPoint is t=intersection to t=end
-            UIBezierPath *portionOfBezierPathStartingAtT0 = [UIBezierPath bezierPath];
-            UIBezierPath *portionOfBezierPathStartingAtIntersectionPoint = [UIBezierPath bezierPath];
+            UIBezierPath *portionOfBezierPathStartingAtT0 = [self buildEmptyPath];
+            UIBezierPath *portionOfBezierPathStartingAtIntersectionPoint = [self buildEmptyPath];
             // as we iterate over the path, we'll add path elements to this path
             __block UIBezierPath *actingPathToAddTo = portionOfBezierPathStartingAtT0;
 
@@ -605,7 +605,7 @@ static NSInteger segmentCompareCount = 0;
                                                                                                                andEnd:onlyIntersection
                                                                                                        andPathSegment:portionOfBezierPathStartingAtIntersectionPoint
                                                                                                          fromFullPath:self]];
-            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[UIBezierPath bezierPath]
+            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[self buildEmptyPath]
                                                                  andSegments:[NSArray array]
                                                                andDifference:[portionOfBezierPathStartingAtIntersectionPoint copy]
                                                                  andSegments:differenceSegments
@@ -621,7 +621,7 @@ static NSInteger segmentCompareCount = 0;
                                                                                                                andEnd:endOfBlue
                                                                                                        andPathSegment:[self copy]
                                                                                                          fromFullPath:self]];
-            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[UIBezierPath bezierPath]
+            ret = [[DKUIBezierPathClippingResult alloc] initWithIntersection:[self buildEmptyPath]
                                                                  andSegments:[NSArray array]
                                                                andDifference:[self copy]
                                                                  andSegments:differenceSegments
@@ -797,7 +797,7 @@ static NSInteger segmentCompareCount = 0;
                 if (hasRight || currentElementIndex != self.elementCount - 1) {
                     // don't add the trailing moveTo if there won't
                     // be any more segments to add to it
-                    currentIntersectionSegment = [UIBezierPath bezierPath];
+                    currentIntersectionSegment = [self buildEmptyPath];
                     [currentIntersectionSegment moveToPoint:left[3]];
                 }
 
@@ -910,8 +910,8 @@ static NSInteger segmentCompareCount = 0;
     }
 
     // now calculate the full intersection and difference paths
-    UIBezierPath *intersection = [UIBezierPath bezierPath];
-    UIBezierPath *difference = [UIBezierPath bezierPath];
+    UIBezierPath *intersection = [self buildEmptyPath];
+    UIBezierPath *difference = [self buildEmptyPath];
     for (DKUIBezierPathClippedSegment *seg in intersectionSegments) {
         if ([seg.pathSegment elementCount] > 1) {
             [intersection appendPath:seg.pathSegment];
@@ -949,8 +949,8 @@ static NSInteger segmentCompareCount = 0;
     // these will track the full intersection and difference
     // objects used to generate a full DKUIBezierPathClippingResult
     // over the entire scissor path, not just each subpath
-    UIBezierPath *entireScissorIntersection = [UIBezierPath bezierPath];
-    UIBezierPath *entireScissorDifference = [UIBezierPath bezierPath];
+    UIBezierPath *entireScissorIntersection = [scissorPath buildEmptyPath];
+    UIBezierPath *entireScissorDifference = [scissorPath buildEmptyPath];
     NSMutableArray *intersectionSegments = [NSMutableArray array];
     NSMutableArray *differenceSegments = [NSMutableArray array];
 

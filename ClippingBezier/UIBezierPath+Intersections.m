@@ -8,6 +8,7 @@
 
 #import "UIBezierPath+Intersections.h"
 #import <PerformanceBezier/PerformanceBezier.h>
+#import "UIBezierPath+Clipping_Private.h"
 #import "DKIntersectionOfPaths.h"
 #import "UIBezierPath+Clipping.h"
 #import "UIBezierPath+Trimming.h"
@@ -41,7 +42,7 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
 {
     NSMutableArray *intersections = [NSMutableArray array];
 
-    __block UIBezierPath *seenSoFar = [UIBezierPath bezierPath];
+    __block UIBezierPath *seenSoFar = [self buildEmptyPath];
     NSMutableArray *output = [NSMutableArray array];
     __block CGPoint lastMyPoint = CGPointZero;
 
@@ -168,8 +169,8 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     ret.end = nil;
 
     // setup our output
-    UIBezierPath *pathToFirstIntersection = [UIBezierPath bezierPath];
-    UIBezierPath *restOfPath = [UIBezierPath bezierPath];
+    UIBezierPath *pathToFirstIntersection = [myFlatPath buildEmptyPath];
+    UIBezierPath *restOfPath = [myFlatPath buildEmptyPath];
 
     //
     // flat if we've seen the intersection yet,
@@ -353,15 +354,15 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
  */
 + (NSArray *)calculateIntersectionAndDifferenceBetween:(UIBezierPath *)myUnclosedPath andPath:(UIBezierPath *)otherClosedPath
 {
-    __block UIBezierPath *intersectionPath = [UIBezierPath bezierPath];
-    __block UIBezierPath *differencePath = [UIBezierPath bezierPath];
+    __block UIBezierPath *intersectionPath = [myUnclosedPath buildEmptyPath];
+    __block UIBezierPath *differencePath = [myUnclosedPath buildEmptyPath];
 
 
     __block CGPoint myLastPoint = CGPointZero;
     [myUnclosedPath iteratePathWithBlock:^(CGPathElement myElement, NSUInteger idx) {
         //
         // convert the single element into a path of 1 element
-        UIBezierPath *pathForElement = [UIBezierPath bezierPath];
+        UIBezierPath *pathForElement = [myUnclosedPath buildEmptyPath];
         [pathForElement moveToPoint:myLastPoint];
         [pathForElement addPathElement:myElement];
 
@@ -389,7 +390,7 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
                     // later if we need to check intersections w/ one of these
                     // elements later
                     UIBezierPath *myFlattedElement = [pathForElement bezierPathByFlatteningPathAndImmutable:YES]; // flattened myElement
-                    UIBezierPath *otherFlattedElement = [UIBezierPath bezierPath]; // flattened otherElement
+                    UIBezierPath *otherFlattedElement = [myUnclosedPath buildEmptyPath]; // flattened otherElement
                     [otherFlattedElement moveToPoint:otherLastPoint];
                     [otherFlattedElement addPathElement:otherElement];
                     otherFlattedElement = [otherFlattedElement bezierPathByFlatteningPathAndImmutable:YES];

@@ -9,6 +9,7 @@
 #import "UIBezierPath+Trimming.h"
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "UIBezierPath+Intersections.h"
+#import "UIBezierPath+Clipping_Private.h"
 
 #pragma mark - Subdivide helpers by Alastair J. Houghton
 /*
@@ -64,7 +65,7 @@
         if (element.type == kCGPathElementMoveToPoint) {
             if (subpath && [subpath elementCount] > 1)
                 [output addObject:subpath];
-            subpath = [UIBezierPath bezierPath];
+            subpath = [self buildEmptyPath];
         }
         [subpath addPathElement:element];
     }];
@@ -83,7 +84,7 @@
 - (UIBezierPath *)bezierPathByTrimmingToLength:(CGFloat)trimLength
                               withMaximumError:(CGFloat)maxError
 {
-    UIBezierPath *newPath = [UIBezierPath bezierPath];
+    UIBezierPath *newPath = [self buildEmptyPath];
     NSInteger elements = [self elementCount];
     int n;
     double length = 0.0;
@@ -187,7 +188,7 @@
 - (UIBezierPath *)bezierPathByTrimmingFromLength:(CGFloat)trimLength
                                 withMaximumError:(CGFloat)maxError
 {
-    UIBezierPath *newPath = [UIBezierPath bezierPath];
+    UIBezierPath *newPath = [self buildEmptyPath];
     NSInteger elements = [self elementCount];
     int n;
     double length = 0.0;

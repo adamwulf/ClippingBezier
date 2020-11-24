@@ -11,6 +11,7 @@
 #import <PerformanceBezier/PerformanceBezier.h>
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+Trimming.h"
+#import "UIBezierPath+Clipping_Private.h"
 
 @implementation UIBezierPath (DKOSX)
 
@@ -20,7 +21,7 @@
  */
 - (UIBezierPath *)nsosx_backwardcompatible_bezierPathByReversingPath
 {
-    UIBezierPath *output = [UIBezierPath bezierPath];
+    UIBezierPath *output = [self buildEmptyPath];
     for (UIBezierPath *subPath in [self subPaths]) {
         [output appendPath:[subPath nsosx_backwardcompatible_bezierPathByReversingPath_helper]];
     }
@@ -30,7 +31,7 @@
 - (UIBezierPath *)nsosx_backwardcompatible_bezierPathByReversingPath_helper
 {
     int eleCount = (int)[self elementCount];
-    UIBezierPath *output = [UIBezierPath bezierPath];
+    UIBezierPath *output = [self buildEmptyPath];
     [output moveToPoint:[self lastPoint]];
 
     for (int i = eleCount - 1; i >= 1; i--) {
