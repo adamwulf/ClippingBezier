@@ -10,11 +10,9 @@
 #import <ClippingBezier/ClippingBezier.h>
 #import <PerformanceBezier/PerformanceBezier.h>
 #import <XCTest/XCTest.h>
+#import "UIBezierPath+SamplePaths.h"
 
 @interface MMClippingBezierAbstractTest : XCTestCase
-
-@property(nonatomic, readonly) UIBezierPath *complexShape1;
-@property(nonatomic, readonly) UIBezierPath *complexShape2;
 
 - (CGFloat)round:(CGFloat)val to:(int)digits;
 

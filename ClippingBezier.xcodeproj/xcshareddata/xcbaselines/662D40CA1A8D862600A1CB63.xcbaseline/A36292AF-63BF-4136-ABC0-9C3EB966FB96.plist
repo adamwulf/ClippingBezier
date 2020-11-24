@@ -6,14 +6,24 @@
 	<dict>
 		<key>MMClippingBezierPerformanceTests</key>
 		<dict>
+			<key>testCalculateUnclosedPathThroughClosedBoundsFast</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.57774</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Nov 24, 2020 at 2:23:33 PM</string>
+				</dict>
+			</dict>
 			<key>testFindIntersectionPerformance</key>
 			<dict>
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.247</real>
+					<real>2.8464</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Local Baseline</string>
+					<string>Nov 24, 2020 at 2:23:33 PM</string>
 				</dict>
 			</dict>
 			<key>testFindOnlyIntersectionPerformance</key>
@@ -21,9 +31,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.0111</real>
+					<real>0.21486</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Local Baseline</string>
+					<string>Nov 24, 2020 at 2:23:33 PM</string>
 				</dict>
 			</dict>
 			<key>testIntersectionAndDifference</key>
@@ -31,9 +41,9 @@
 				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>0.33057</real>
+					<real>0.40282</real>
 					<key>baselineIntegrationDisplayName</key>
-					<string>Local Baseline</string>
+					<string>Nov 24, 2020 at 2:23:33 PM</string>
 				</dict>
 			</dict>
 			<key>testIntersectionAndDifference2</key>
@@ -44,6 +54,16 @@
 					<real>0.66532</real>
 					<key>baselineIntegrationDisplayName</key>
 					<string>Local Baseline</string>
+				</dict>
+			</dict>
+			<key>testScissorsThroughMultipleShapeHoles</key>
+			<dict>
+				<key>com.apple.XCTPerformanceMetric_WallClockTime</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.0028633</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>Nov 24, 2020 at 2:23:33 PM</string>
 				</dict>
 			</dict>
 		</dict>

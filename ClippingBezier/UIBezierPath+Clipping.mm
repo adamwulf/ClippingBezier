@@ -80,6 +80,19 @@ static NSInteger segmentCompareCount = 0;
 
 #pragma mark - Intersection Finding
 
++ (BOOL)isBezierColinear:(CGPoint *)bezier
+{
+    CGFloat dist1 = [UIBezierPath distanceOfPointToLine:bezier[1] start:bezier[0] end:bezier[3]];
+
+    if (dist1 != 0) {
+        return NO;
+    }
+
+    CGFloat dist2 = [UIBezierPath distanceOfPointToLine:bezier[2] start:bezier[0] end:bezier[3]];
+
+    return dist2 == 0;
+}
+
 /**
  * this will return all intersections points between
  * the self path and the input closed path.
@@ -209,11 +222,15 @@ static NSInteger segmentCompareCount = 0;
                                     // at least one of the curves is a proper bezier, so use our
                                     // bezier intersection algorithm to find possibly multiple intersections
                                     // between these curves
-                                    if (path1Element.type == kCGPathElementAddCurveToPoint && (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath)) {
+                                    if (path1Element.type == kCGPathElementAddCurveToPoint &&
+                                        (path2Element.type == kCGPathElementAddLineToPoint || path2Element.type == kCGPathElementCloseSubpath) &&
+                                        ![UIBezierPath isBezierColinear:bez1]) {
                                         CGPoint lineP1 = bez2[0];
                                         CGPoint lineP2 = bez2[3];
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andLineFrom:lineP1 to:lineP2 flipped:true];
-                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint && (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath)) {
+                                    } else if (path2Element.type == kCGPathElementAddCurveToPoint &&
+                                               (path1Element.type == kCGPathElementAddLineToPoint || path1Element.type == kCGPathElementCloseSubpath) &&
+                                               ![UIBezierPath isBezierColinear:bez2]) {
                                         CGPoint lineP1 = bez1[0];
                                         CGPoint lineP2 = bez1[3];
                                         intersections = [UIBezierPath findIntersectionsBetweenBezier:bez2 andLineFrom:lineP1 to:lineP2 flipped:false];
@@ -332,12 +349,17 @@ static NSInteger segmentCompareCount = 0;
                 }
                 // if we still think it's distinct, then also compare the effective t-values
                 if (isDistinctIntersection) {
-                    CGFloat closeT = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
-                                                               andTValue:[lastInter tValue1]
-                                                               toElement:[intersection elementIndex1]
-                                                               andTValue:[intersection tValue1]];
+                    CGFloat closeT1 = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
+                                                                andTValue:[lastInter tValue1]
+                                                                toElement:[intersection elementIndex1]
+                                                                andTValue:[intersection tValue1]];
 
-                    if (ABS(closeT) < kUIBezierClippingPrecision) {
+                    CGFloat closeT2 = [closedPath effectiveTDistanceFromElement:[lastInter elementIndex2]
+                                                                      andTValue:[lastInter tValue2]
+                                                                      toElement:[intersection elementIndex2]
+                                                                      andTValue:[intersection tValue2]];
+
+                    if (ABS(closeT1) < kUIBezierClippingPrecision && ABS(closeT2) < kUIBezierClippingPrecision) {
                         // The points are not actually very far apart at all in terms of t-distance. only bother to check
                         // pixel closeness if our t-values are at all far apart.
                         isDistinctIntersection = NO;

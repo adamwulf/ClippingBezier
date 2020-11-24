@@ -31,7 +31,7 @@
 {
     // This is an example of a functional test case.
 
-    CGPoint p = [self.complexShape1 closestPointOnPathTo:CGPointZero];
+    CGPoint p = [[UIBezierPath complexShape1] closestPointOnPathTo:CGPointZero];
 
     XCTAssertEqual([self round:p.x to:6], 183.165312, @"point is correct");
     XCTAssertEqual([self round:p.y to:6], 146.622688, @"point is correct");
@@ -155,17 +155,8 @@
 
     NSRange rng = [path subpathRangeForElement:0];
 
+    XCTAssertEqual([path elementCount], 1);
     XCTAssertEqual(rng.location, 0);
-    XCTAssertEqual(rng.length, 1);
-
-    rng = [path subpathRangeForElement:1];
-
-    XCTAssertEqual(rng.location, 1);
-    XCTAssertEqual(rng.length, 1);
-
-    rng = [path subpathRangeForElement:2];
-
-    XCTAssertEqual(rng.location, 2);
     XCTAssertEqual(rng.length, 1);
 }
 

@@ -20,6 +20,7 @@
     UIBezierPath *fullPath;
 
     __weak DKUIBezierPathClippedSegment *reversedFrom;
+    __weak DKUIBezierPathClippedSegment *flippedFrom;
     BOOL isReversed;
 }
 
@@ -37,6 +38,10 @@
 - (void)setReversedFrom:(DKUIBezierPathClippedSegment *)r
 {
     reversedFrom = r;
+}
+- (void)setFlippedFrom:(DKUIBezierPathClippedSegment *)r
+{
+    flippedFrom = r;
 }
 - (void)setIsFlipped:(BOOL)f
 {
@@ -77,9 +82,14 @@
 
 - (DKUIBezierPathClippedSegment *)flippedSegment
 {
+    if (flippedFrom) {
+        return flippedFrom;
+    }
     DKUIBezierPathClippedSegment *flippedSeg = [DKUIBezierPathClippedSegment clippedPairWithStart:[startIntersection flipped] andEnd:[endIntersection flipped] andPathSegment:pathSegment fromFullPath:fullPath];
     [flippedSeg setIsReversed:self.isReversed];
     [flippedSeg setIsFlipped:!self.isFlipped];
+    [flippedSeg setFlippedFrom:self];
+    [self setFlippedFrom:flippedFrom];
     return flippedSeg;
 }
 
