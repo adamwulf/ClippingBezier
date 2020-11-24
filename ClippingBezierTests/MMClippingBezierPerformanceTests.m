@@ -16,11 +16,14 @@
 
 @end
 
-@implementation MMClippingBezierPerformanceTests
+@implementation MMClippingBezierPerformanceTests {
+    UIBezierPath *_cachedComplexShape;
+}
 
 - (void)setUp
 {
     [super setUp];
+    _cachedComplexShape = [UIBezierPath complexShape1];
     // Put setup code here; it will be run once, before the first test case.
 }
 
@@ -69,7 +72,7 @@
 
     NSMutableArray *output = [NSMutableArray array];
 
-    [self.complexShape1 iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+    [_cachedComplexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
         if (element.type == kCGPathElementCloseSubpath) {
             // noop
         } else {
@@ -95,7 +98,7 @@
     }];
 
 
-    NSArray *intersections = [line findIntersectionsWithClosedPath:self.complexShape1 andBeginsInside:nil];
+    NSArray *intersections = [line findIntersectionsWithClosedPath:_cachedComplexShape andBeginsInside:nil];
 
 
     XCTAssertEqual(found, 8, @"the curves do intersect");
@@ -113,25 +116,9 @@
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(250, 250, 100, 100)] bezierPathByReversingPath]];
     [shapePath appendPath:[[UIBezierPath bezierPathWithRect:CGRectMake(450, 250, 100, 100)] bezierPathByReversingPath]];
 
-    NSArray *subShapePaths = [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
-    NSArray *foundShapes = [subShapePaths firstObject];
-
-    XCTAssertEqual([foundShapes count], (NSUInteger)6, @"found intersection");
-
-    for (DKUIBezierPathShape *shape in foundShapes) {
-        XCTAssertTrue([shape isClosed], @"shape is closed");
-    }
-
-    //
-    // the issue with this test is that each subshape is being split separately
-    // when instead all of the intersections and blue segments from cut subshapes should be
-    // in the same bucket.
-    XCTAssertEqual([[[foundShapes objectAtIndex:0] segments] count], (NSUInteger)6, @"found closed shape");
-    XCTAssertEqual([[[foundShapes objectAtIndex:1] segments] count], (NSUInteger)6, @"found closed shape");
-    XCTAssertEqual([[[foundShapes objectAtIndex:2] segments] count], (NSUInteger)6, @"found closed shape");
-    XCTAssertEqual([[[foundShapes objectAtIndex:3] segments] count], (NSUInteger)6, @"found closed shape");
-    XCTAssertEqual([[[foundShapes objectAtIndex:4] segments] count], (NSUInteger)6, @"found closed shape");
-    XCTAssertEqual([[[foundShapes objectAtIndex:5] segments] count], (NSUInteger)6, @"found closed shape");
+    [self measureBlock:^{
+        [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
+    }];
 }
 
 
@@ -139,11 +126,13 @@
 {
     NSLog(@"beginning test testPerformanceTestOfIntersectionAndDifference");
 
-    for (int i = 0; i < 100; i++) {
-        @autoreleasepool {
-            [self testScissorsThroughMultipleShapeHoles];
+    [self measureBlock:^{
+        for (int i = 0; i < 10; i++) {
+            @autoreleasepool {
+                [self testScissorsThroughMultipleShapeHoles];
+            }
         }
-    }
+    }];
 
     NSLog(@"done test testPerformanceTestOfIntersectionAndDifference");
 }
@@ -175,54 +164,34 @@
     [bounds addLineToPoint:CGPointMake(100, 100)];
     [bounds closePath];
 
-    NSArray *output = [UIBezierPath calculateIntersectionAndDifferenceBetween:testPath andPath:bounds];
-
-
-    //    NSLog(@"cropped path: %@", [[output firstObject] bezierPathByUnflatteningPath]);
-    //    NSLog(@"cropped path: %@", [[output lastObject] bezierPathByUnflatteningPath]);
-
-    UIBezierPath *inter = [output firstObject];
-    UIBezierPath *diff = [output lastObject];
-
-
-    XCTAssertEqual([inter elementCount], 4944, @"the curves do intersect");
-    XCTAssertEqual([diff elementCount], 3333, @"the curves do intersect");
-
-    XCTAssertEqual([[inter subPaths] count], (NSUInteger)2, @"the curves do intersect");
-    XCTAssertEqual([[diff subPaths] count], (NSUInteger)1, @"the curves do intersect");
-
-    XCTAssertEqual(inter.firstPoint.x, 100.0, @"starts at the right place");
-    XCTAssertEqual(inter.firstPoint.y, 50.0, @"starts at the right place");
-    XCTAssertEqual(floorf(inter.lastPoint.x), 100.0, @"ends at the right place");
-    XCTAssertEqual(inter.lastPoint.y, 250.0, @"ends at the right place");
-
-    XCTAssertEqual(floorf(diff.firstPoint.x), 143.0, @"starts at the right place");
-    XCTAssertEqual(diff.firstPoint.y, 100.0, @"starts at the right place");
-    XCTAssertEqual(floorf(diff.lastPoint.x), 143.0, @"starts at the right place");
-    XCTAssertEqual(diff.lastPoint.y, 200.0, @"starts at the right place");
+    [self measureBlock:^{
+        for (int i = 0; i < 5; i++) {
+            [UIBezierPath calculateIntersectionAndDifferenceBetween:testPath andPath:bounds];
+        }
+    }];
 }
 
 
 - (void)testPerformanceCalculateUnclosedPathThroughClosedBoundsFast
 {
-    [NSThread sleepForTimeInterval:2];
-    NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
-
-    for (int i = 0; i < 100; i++) {
-        @autoreleasepool {
-            [self testCalculateUnclosedPathThroughClosedBoundsFast];
+    [self measureBlock:^{
+        for (int i = 0; i < 10; i++) {
+            @autoreleasepool {
+                [self testCalculateUnclosedPathThroughClosedBoundsFast];
+            }
         }
-    }
-
-    NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
+    }];
 }
 
 
 - (void)testFindIntersectionPerformance
 {
+    UIBezierPath *complex1 = [UIBezierPath complexShape1];
+    UIBezierPath *complex2 = [UIBezierPath complexShape1];
+
     [self measureBlock:^{
-        UIBezierPath *path1 = [[self complexShape1] copy];
-        UIBezierPath *path2 = [[self complexShape2] copy];
+        UIBezierPath *path1 = [complex1 copy];
+        UIBezierPath *path2 = [complex2 copy];
 
         [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
         [path1 allUniqueShapesWithPath:path2];
@@ -231,9 +200,12 @@
 
 - (void)testFindOnlyIntersectionPerformance
 {
+    UIBezierPath *complex1 = [UIBezierPath complexShape1];
+    UIBezierPath *complex2 = [UIBezierPath complexShape1];
+
     [self measureBlock:^{
-        UIBezierPath *path1 = [[self complexShape1] copy];
-        UIBezierPath *path2 = [[self complexShape2] copy];
+        UIBezierPath *path1 = [complex1 copy];
+        UIBezierPath *path2 = [complex2 copy];
 
         [path1 findIntersectionsWithClosedPath:path2 andBeginsInside:NULL];
     }];
@@ -244,15 +216,6 @@
     [self measureBlock:^{
         for (int i = 0; i < 100; i++) {
             [self performanceHelperIntersectionWithComplexShape];
-        }
-    }];
-}
-
-- (void)testIntersectionAndDifference2
-{
-    [self measureBlock:^{
-        for (int i = 0; i < 5; i++) {
-            [self testCalculateUnclosedPathThroughClosedBoundsFast];
         }
     }];
 }

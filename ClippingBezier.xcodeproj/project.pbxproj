@@ -84,6 +84,7 @@
 		C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */; };
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
+		C5790914256D84A80064F08E /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 		C5A4575A255F0A78005BF9F4 /* MMClippingBezierTodoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */; };
 		C5F904AF2465DD11003D153D /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
 /* End PBXBuildFile section */
@@ -798,6 +799,7 @@
 				666EEC2B1A8D8F7500B9F171 /* MMClippingBezierSegmentTests.m in Sources */,
 				666EEC2C1A8D8F7500B9F171 /* MMClippingBezierSegmentTangentTests.m in Sources */,
 				C5A4575A255F0A78005BF9F4 /* MMClippingBezierTodoTests.m in Sources */,
+				C5790914256D84A80064F08E /* UIBezierPath+SamplePaths.m in Sources */,
 				666EEC2D1A8D8F7500B9F171 /* MMClippingBezierPerformanceTests.m in Sources */,
 				6696DEE51B2E318A00A2BC8E /* MMClippingBezierGeometryTest.m in Sources */,
 				665E8D4B1B0D2688009E32FC /* MMClippingBezierTrimmingTests.m in Sources */,
