@@ -33,78 +33,8 @@
     [super tearDown];
 }
 
-- (void)testPerformanceTestOfIntersectionAndDifference
-{
-    //    [NSThread sleepForTimeInterval:2];
-    NSLog(@"beginning test testCalculateUnclosedPathThroughClosedBoundsFast");
-
-    for (int i = 0; i < 100; i++) {
-        @autoreleasepool {
-            [self performanceHelperIntersectionWithComplexShape];
-        }
-    }
-
-    NSLog(@"done test testCalculateUnclosedPathThroughClosedBoundsFast");
-}
-
 
 #pragma mark - Helpers
-
-- (void)performanceHelperIntersectionWithComplexShape
-{
-    CGPoint bez1_[4], bez2_[4];
-
-    bez1_[0] = CGPointMake(100.0, 50.0);
-    bez1_[1] = CGPointMake(370.0, 80.0);
-    bez1_[2] = CGPointMake(570.0, 520.0);
-    bez1_[3] = CGPointMake(600.0, 850.0);
-
-
-    UIBezierPath *line = [UIBezierPath bezierPath];
-    [line moveToPoint:bez1_[0]];
-    [line addCurveToPoint:bez1_[3] controlPoint1:bez1_[1] controlPoint2:bez1_[2]];
-
-    CGPoint *bez1 = bez1_;
-    CGPoint *bez2 = bez2_;
-
-    __block int found = 0;
-    __block CGPoint lastPoint;
-
-    NSMutableArray *output = [NSMutableArray array];
-
-    [_cachedComplexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
-        if (element.type == kCGPathElementCloseSubpath) {
-            // noop
-        } else {
-            if (element.type == kCGPathElementAddCurveToPoint) {
-                bez2[0] = lastPoint;
-                bez2[1] = element.points[0];
-                bez2[2] = element.points[1];
-                bez2[3] = element.points[2];
-            } else if (element.type == kCGPathElementAddLineToPoint) {
-                bez2[0] = lastPoint;
-                bez2[1] = lastPoint;
-                bez2[2] = element.points[0];
-                bez2[3] = element.points[0];
-            }
-            lastPoint = element.points[[UIBezierPath numberOfPointsForElement:element] - 1];
-
-            if (element.type != kCGPathElementMoveToPoint) {
-                NSArray *intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
-                found += [intersections count];
-                [output addObjectsFromArray:intersections];
-            }
-        }
-    }];
-
-
-    NSArray *intersections = [line findIntersectionsWithClosedPath:_cachedComplexShape andBeginsInside:nil];
-
-
-    XCTAssertEqual(found, 8, @"the curves do intersect");
-    XCTAssertEqual([intersections count], (NSUInteger)8, @"the curves do intersect");
-}
-
 
 - (void)testScissorsThroughMultipleShapeHoles
 {
@@ -120,23 +50,6 @@
         [shapePath shapeShellsAndSubshapesCreatedFromSlicingWithUnclosedPath:scissorPath];
     }];
 }
-
-
-- (void)testPerformanceTestOfFindingSubshapesWithScissors
-{
-    NSLog(@"beginning test testPerformanceTestOfIntersectionAndDifference");
-
-    [self measureBlock:^{
-        for (int i = 0; i < 10; i++) {
-            @autoreleasepool {
-                [self testScissorsThroughMultipleShapeHoles];
-            }
-        }
-    }];
-
-    NSLog(@"done test testPerformanceTestOfIntersectionAndDifference");
-}
-
 
 #pragma mark - Performance for Flat
 
@@ -171,19 +84,6 @@
     }];
 }
 
-
-- (void)testPerformanceCalculateUnclosedPathThroughClosedBoundsFast
-{
-    [self measureBlock:^{
-        for (int i = 0; i < 10; i++) {
-            @autoreleasepool {
-                [self testCalculateUnclosedPathThroughClosedBoundsFast];
-            }
-        }
-    }];
-}
-
-
 - (void)testFindIntersectionPerformance
 {
     UIBezierPath *complex1 = [UIBezierPath complexShape1];
@@ -215,7 +115,53 @@
 {
     [self measureBlock:^{
         for (int i = 0; i < 100; i++) {
-            [self performanceHelperIntersectionWithComplexShape];
+            CGPoint bez1_[4], bez2_[4];
+
+            bez1_[0] = CGPointMake(100.0, 50.0);
+            bez1_[1] = CGPointMake(370.0, 80.0);
+            bez1_[2] = CGPointMake(570.0, 520.0);
+            bez1_[3] = CGPointMake(600.0, 850.0);
+
+
+            UIBezierPath *line = [UIBezierPath bezierPath];
+            [line moveToPoint:bez1_[0]];
+            [line addCurveToPoint:bez1_[3] controlPoint1:bez1_[1] controlPoint2:bez1_[2]];
+
+            CGPoint *bez1 = bez1_;
+            CGPoint *bez2 = bez2_;
+
+            __block int found = 0;
+            __block CGPoint lastPoint;
+
+            NSMutableArray *output = [NSMutableArray array];
+
+            [_cachedComplexShape iteratePathWithBlock:^(CGPathElement element, NSUInteger idx) {
+                if (element.type == kCGPathElementCloseSubpath) {
+                    // noop
+                } else {
+                    if (element.type == kCGPathElementAddCurveToPoint) {
+                        bez2[0] = lastPoint;
+                        bez2[1] = element.points[0];
+                        bez2[2] = element.points[1];
+                        bez2[3] = element.points[2];
+                    } else if (element.type == kCGPathElementAddLineToPoint) {
+                        bez2[0] = lastPoint;
+                        bez2[1] = lastPoint;
+                        bez2[2] = element.points[0];
+                        bez2[3] = element.points[0];
+                    }
+                    lastPoint = element.points[[UIBezierPath numberOfPointsForElement:element] - 1];
+
+                    if (element.type != kCGPathElementMoveToPoint) {
+                        NSArray *intersections = [UIBezierPath findIntersectionsBetweenBezier:bez1 andBezier:bez2];
+                        found += [intersections count];
+                        [output addObjectsFromArray:intersections];
+                    }
+                }
+            }];
+
+
+            [line findIntersectionsWithClosedPath:_cachedComplexShape andBeginsInside:nil];
         }
     }];
 }

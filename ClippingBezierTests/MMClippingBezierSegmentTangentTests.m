@@ -312,7 +312,7 @@
                                                                    andBlue:blueSegments
                                                                 lastWasRed:YES
                                                                       comp:[shapePath isClockwise]];
-    XCTAssertTrue([redSegment.endVector angleBetween:currentSegmentCandidate.startVector] < 0, @"angle is left turn");
+    XCTAssertTrue([redSegment.endVector angleBetween:currentSegmentCandidate.startVector] > 0, @"angle is left turn");
 }
 
 - (void)testIntersectionSplittingLineElement
@@ -1348,7 +1348,7 @@
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
     XCTAssertEqualWithAccuracy(currentSegmentCandidate.startIntersection.tValue1, 1.0, 0.000001);
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0, @"correct intersection");
 }
 
 @end

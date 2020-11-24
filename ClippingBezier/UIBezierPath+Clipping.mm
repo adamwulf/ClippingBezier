@@ -349,12 +349,17 @@ static NSInteger segmentCompareCount = 0;
                 }
                 // if we still think it's distinct, then also compare the effective t-values
                 if (isDistinctIntersection) {
-                    CGFloat closeT = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
-                                                               andTValue:[lastInter tValue1]
-                                                               toElement:[intersection elementIndex1]
-                                                               andTValue:[intersection tValue1]];
+                    CGFloat closeT1 = [self effectiveTDistanceFromElement:[lastInter elementIndex1]
+                                                                andTValue:[lastInter tValue1]
+                                                                toElement:[intersection elementIndex1]
+                                                                andTValue:[intersection tValue1]];
 
-                    if (ABS(closeT) < kUIBezierClippingPrecision) {
+                    CGFloat closeT2 = [closedPath effectiveTDistanceFromElement:[lastInter elementIndex2]
+                                                                      andTValue:[lastInter tValue2]
+                                                                      toElement:[intersection elementIndex2]
+                                                                      andTValue:[intersection tValue2]];
+
+                    if (ABS(closeT1) < kUIBezierClippingPrecision && ABS(closeT2) < kUIBezierClippingPrecision) {
                         // The points are not actually very far apart at all in terms of t-distance. only bother to check
                         // pixel closeness if our t-values are at all far apart.
                         isDistinctIntersection = NO;

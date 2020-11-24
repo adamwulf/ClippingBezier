@@ -254,7 +254,7 @@
     XCTAssertEqual([blueSegments count], (NSUInteger)8, @"correct number of segments");
 
     DKUIBezierPathClippedSegment *redSegment = [redSegments objectAtIndex:0];
-    DKUIBezierPathClippedSegment *correctSegment = [blueSegments lastObject];
+    DKUIBezierPathClippedSegment *correctSegment = [blueSegments objectAtIndex:6];
     DKUIBezierPathClippedSegment *currentSegmentCandidate = [UIBezierPath getBestMatchSegmentForSegments:[NSArray arrayWithObject:redSegment]
                                                                                                   forRed:redSegments
                                                                                                  andBlue:blueSegments
@@ -262,8 +262,8 @@
                                                                                                     comp:[shapePath isClockwise]];
     XCTAssertTrue(currentSegmentCandidate == correctSegment, @"found correct segment");
 
-    XCTAssertEqual(redSegment.startIntersection.elementIndex1, 1, @"correct intersection");
-    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)1.0, @"correct intersection");
+    XCTAssertEqual(redSegment.startIntersection.elementIndex1, 2, @"correct intersection");
+    XCTAssertEqual([self round:redSegment.startIntersection.tValue1 to:6], (CGFloat)0.37702, @"correct intersection");
     XCTAssertEqual(redSegment.endIntersection.elementIndex1, 4, @"correct intersection");
     XCTAssertEqual([self round:redSegment.endIntersection.tValue1 to:6], (CGFloat)0.170317, @"correct intersection");
 
@@ -2334,7 +2334,7 @@
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 1, @"correct intersection");
     XCTAssertEqualWithAccuracy(currentSegmentCandidate.startIntersection.tValue1, 1.0, 0.000005);
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 2, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0, @"correct intersection");
 }
 
 - (void)testCircleThroughRectangle
@@ -2370,7 +2370,7 @@
     XCTAssertEqual(currentSegmentCandidate.startIntersection.elementIndex1, 3, @"correct intersection");
     XCTAssertEqualWithAccuracy(currentSegmentCandidate.startIntersection.tValue1, 1.0, 0.000001);
     XCTAssertEqual(currentSegmentCandidate.endIntersection.elementIndex1, 4, @"correct intersection");
-    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 0.999997, @"correct intersection");
+    XCTAssertEqual([self round:currentSegmentCandidate.endIntersection.tValue1 to:6], 1.0, @"correct intersection");
 }
 
 @end
