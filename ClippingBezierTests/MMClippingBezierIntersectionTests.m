@@ -1716,4 +1716,71 @@
     XCTAssertEqualWithAccuracy([[scissorToShapeIntersections objectAtIndex:0] tValue2], 0.5, 0.000001);
 }
 
+- (void)testNonIntersectionBothClosed
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 200, 100, 100)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], 0);
+}
+
+- (void)testNonIntersectionShapeClosed
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(200, 200)];
+    [scissorPath addLineToPoint:CGPointMake(300, 200)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], 0);
+}
+
+- (void)testNonIntersectionScissorClosed
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], 0);
+}
+
+- (void)testNonIntersectionBothUnclosed
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(200, 200)];
+    [shapePath addLineToPoint:CGPointMake(300, 200)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(0, 0)];
+    [scissorPath addLineToPoint:CGPointMake(100, 100)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], 0);
+}
+
+- (void)testNonIntersectionScissorClosed2
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(100, 100)];
+    [shapePath addLineToPoint:CGPointMake(300, 100)];
+    [shapePath addLineToPoint:CGPointMake(300, 110)];
+    [shapePath addLineToPoint:CGPointMake(100, 110)];
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(200, 0, 10, 300)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], 2);
+}
+
 @end
