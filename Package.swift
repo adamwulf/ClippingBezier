@@ -20,7 +20,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "ClippingBezier",
-            dependencies: [],
+            dependencies: [
+                .package(url: "git@github.com:adamwulf/PerformanceBezier.git", from: "1.2.0"),
+            ],
             path: "ClippingBezier",
             exclude: ["Info.plist", "ClippingBezier-Info.plist"],
             publicHeadersPath: "."),
