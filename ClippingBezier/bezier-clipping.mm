@@ -48,7 +48,6 @@
 #include "point.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
-#import "PerformanceBezier.h"
 #import "NearestPoint.h"
 #include "bezier-clipping.h"
 
@@ -90,6 +89,36 @@ const Interval H2_INTERVAL(0.5 + MAX_PRECISION, 1.0);
 
 
 #pragma mark - bezier curve routines
+
+/**
+* calculate the point on a bezier at time t
+* where 0 < t < 1
+*/
+CGPoint bc_pointAtTforBezier(CGFloat t, CGPoint *bez)
+{
+    CGPoint q;
+    CGFloat mt = 1 - t;
+
+    CGPoint bez1[4];
+    CGPoint bez2[4];
+
+    q.x = mt * bez[1].x + t * bez[2].x;
+    q.y = mt * bez[1].y + t * bez[2].y;
+    bez1[1].x = mt * bez[0].x + t * bez[1].x;
+    bez1[1].y = mt * bez[0].y + t * bez[1].y;
+    bez2[2].x = mt * bez[2].x + t * bez[3].x;
+    bez2[2].y = mt * bez[2].y + t * bez[3].y;
+
+    bez1[2].x = mt * bez1[1].x + t * q.x;
+    bez1[2].y = mt * bez1[1].y + t * q.y;
+    bez2[1].x = mt * q.x + t * bez2[2].x;
+    bez2[1].y = mt * q.y + t * bez2[2].y;
+
+    bez1[3].x = bez2[0].x = mt * bez1[2].x + t * bez2[1].x;
+    bez1[3].y = bez2[0].y = mt * bez1[2].y + t * bez2[1].y;
+
+    return CGPointMake(bez1[3].x, bez1[3].y);
+}
 
 /*
      * Return true if all the Bezier curve control points are near,
@@ -421,7 +450,7 @@ void iterate(std::vector<Interval> &domsA,
             Abez[3] = CGPointMake(A[3][X], A[3][Y]);
             double currWidth = domB[1] - domB[0];
             midT = (midT - domB[0]) / currWidth;
-            CGPoint pointAtT = [UIBezierPath pointAtT:midT forBezier:Bbez];
+            CGPoint pointAtT = bc_pointAtTforBezier(midT, Bbez);
             double currTValue;
             CGPoint otherPointAtT = NearestPointOnCurve(pointAtT, Abez, &currTValue);
 
@@ -456,7 +485,7 @@ void iterate(std::vector<Interval> &domsA,
             Bbez[3] = CGPointMake(B[3][X], B[3][Y]);
             double currWidth = domA[1] - domA[0];
             midT = (midT - domA[0]) / currWidth;
-            CGPoint pointAtT = [UIBezierPath pointAtT:midT forBezier:Abez];
+            CGPoint pointAtT = bc_pointAtTforBezier(midT, Abez);
             double currTValue;
             // domB could be (0.0-0.5)
             // tvalue would be between 0 and 1.

@@ -1,7 +1,7 @@
 PODS:
-  - ClippingBezier (1.1.8):
+  - ClippingBezier (1.1.9):
     - PerformanceBezier (~> 1.1)
-  - PerformanceBezier (1.1.1)
+  - PerformanceBezier (1.2.2)
 
 DEPENDENCIES:
   - ClippingBezier (from `.`)
@@ -16,8 +16,8 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  ClippingBezier: 9ec8bfebb1bd26889505c1c61878302219e57b75
-  PerformanceBezier: 1b3f782c0126dacd710c6df4b9fcfeca24c85368
+  ClippingBezier: 03d95b9a6be11e9b4ac4d718f50aaa4ba6c325eb
+  PerformanceBezier: 63c260aa4cfd4a3d3ba602f5751395f0d6c7133c
 
 PODFILE CHECKSUM: a9378e03d081284a33fc07dec462c79ee1c882ce
 
