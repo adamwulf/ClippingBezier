@@ -60,7 +60,7 @@
 		66AFAD031A8DDD5C00FD0263 /* UIBezierPath+Intersections.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288581A893F7E0038A1C4 /* UIBezierPath+Intersections.m */; };
 		66AFAD041A8DDD5E00FD0263 /* UIBezierPath+DKOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288561A893F7E0038A1C4 /* UIBezierPath+DKOSX.m */; };
 		66AFAD051A8DDD5F00FD0263 /* UIBezierPath+GeometryExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288541A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.m */; };
-		66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.mm */; };
+		66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.m */; };
 		66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 668288161A893F200038A1C4 /* bezierclip.cxx */; };
 		66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 668288181A893F200038A1C4 /* convexhull.cxx */; };
 		66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */ = {isa = PBXBuildFile; fileRef = 668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */; };
@@ -82,6 +82,7 @@
 		66AFAD1D1A8DDD9200FD0263 /* DKIntersectionOfPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 66FD53301A89546A00E7B486 /* DKIntersectionOfPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66AFAD4A1A8DE13F00FD0263 /* DKVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 668288111A893F060038A1C4 /* DKVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C51D49D62477521F002BECC8 /* MMClippingBezierUnionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */; };
+		C555A8C4261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C555A8C2261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm */; };
 		C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = C5692F632457874000BD0D8F /* JRSwizzle.m */; };
 		C5692F662457874000BD0D8F /* JRSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = C5692F642457874000BD0D8F /* JRSwizzle.h */; };
 		C5790914256D84A80064F08E /* UIBezierPath+SamplePaths.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */; };
@@ -171,7 +172,7 @@
 		668288471A893F5A0038A1C4 /* MMBackwardCompatible.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMBackwardCompatible.m; sourceTree = "<group>"; };
 		668288501A893F7E0038A1C4 /* UIBezierPath+Clipping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Clipping.h"; sourceTree = "<group>"; };
 		668288511A893F7E0038A1C4 /* UIBezierPath+Clipping_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+Clipping_Private.h"; sourceTree = "<group>"; };
-		668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+Clipping.mm"; sourceTree = "<group>"; };
+		668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "UIBezierPath+Clipping.m"; sourceTree = "<group>"; };
 		668288531A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+GeometryExtras.h"; sourceTree = "<group>"; };
 		668288541A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+GeometryExtras.m"; sourceTree = "<group>"; };
 		668288551A893F7E0038A1C4 /* UIBezierPath+DKOSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+DKOSX.h"; sourceTree = "<group>"; };
@@ -204,6 +205,8 @@
 		C50DBB071E0B5C650006F58A /* intersection-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intersection-example.png"; sourceTree = "<group>"; };
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
 		C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierUnionTest.m; sourceTree = "<group>"; };
+		C555A8C2261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+ClippingCPP.mm"; sourceTree = "<group>"; };
+		C555A9B4261C00800017E1B4 /* ClippingBezier.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ClippingBezier.podspec; sourceTree = "<group>"; };
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTodoTests.m; sourceTree = "<group>"; };
@@ -380,6 +383,7 @@
 				C50DBB061E0B5C600006F58A /* scissor-example.png */,
 				C50DBB071E0B5C650006F58A /* intersection-example.png */,
 				C5EBA81D261AC416000E29D3 /* Package.swift */,
+				C555A9B4261C00800017E1B4 /* ClippingBezier.podspec */,
 				6605F6E61B1125020092991F /* Licenses */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,
@@ -487,7 +491,8 @@
 			children = (
 				668288501A893F7E0038A1C4 /* UIBezierPath+Clipping.h */,
 				668288511A893F7E0038A1C4 /* UIBezierPath+Clipping_Private.h */,
-				668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.mm */,
+				668288521A893F7E0038A1C4 /* UIBezierPath+Clipping.m */,
+				C555A8C2261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm */,
 				668288531A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.h */,
 				668288541A893F7E0038A1C4 /* UIBezierPath+GeometryExtras.m */,
 				668288551A893F7E0038A1C4 /* UIBezierPath+DKOSX.h */,
@@ -612,7 +617,7 @@
 		668287791A893CC70038A1C4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6605FA001B1159640092991F = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -822,12 +827,13 @@
 				66AFACFD1A8DDD5000FD0263 /* DKUIBezierUnmatchedPathIntersectionPoint.m in Sources */,
 				66AFACFF1A8DDD5400FD0263 /* DKTangentAtPoint.m in Sources */,
 				66AFACFB1A8DDD4500FD0263 /* DKUIBezierPathClippingResult.m in Sources */,
+				C555A8C4261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm in Sources */,
 				66AFAD041A8DDD5E00FD0263 /* UIBezierPath+DKOSX.m in Sources */,
 				66AFAD071A8DDD6400FD0263 /* bezierclip.cxx in Sources */,
 				66AFAD0B1A8DDD6C00FD0263 /* DKVector.m in Sources */,
 				66767CB31AFED58200443B03 /* UIBezierPath+Trimming.m in Sources */,
 				66AFAD0A1A8DDD6900FD0263 /* MMBackwardCompatible.m in Sources */,
-				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.mm in Sources */,
+				66AFAD061A8DDD6100FD0263 /* UIBezierPath+Clipping.m in Sources */,
 				66AFAD081A8DDD6500FD0263 /* convexhull.cxx in Sources */,
 				66AFAD051A8DDD5F00FD0263 /* UIBezierPath+GeometryExtras.m in Sources */,
 				C5692F652457874000BD0D8F /* JRSwizzle.m in Sources */,
@@ -1073,6 +1079,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1092,6 +1099,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fmodules",
+					"-fcxx-modules",
+				);
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -1116,6 +1128,7 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1133,6 +1146,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fmodules",
+					"-fcxx-modules",
+				);
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
@@ -1177,6 +1195,11 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				ONLY_ACTIVE_PLATFORM = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fmodules",
+					"-fcxx-modules",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1217,6 +1240,11 @@
 				MARKETING_VERSION = 1.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_PLATFORM = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fmodules",
+					"-fcxx-modules",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.milestonemade.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

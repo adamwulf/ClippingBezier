@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#if COCOAPODS
 #import <ClippingBezier/DKIntersectionOfPaths.h>
 #import <ClippingBezier/DKIntersectionOfPaths.h>
 #import <ClippingBezier/DKUIBezierPathShape.h>
@@ -25,4 +26,23 @@
 #import <ClippingBezier/DKTangentAtPoint.h>
 #import <ClippingBezier/DKVector.h>
 #import <ClippingBezier/MMBackwardCompatible.h>
+#else
+#import "DKIntersectionOfPaths.h"
+#import "DKIntersectionOfPaths.h"
+#import "DKUIBezierPathShape.h"
+#import "DKUIBezierPathClippedSegment.h"
+#import "UIBezierPath+Clipping.h"
+#import "UIBezierPath+Intersections.h"
+#import "UIBezierPath+GeometryExtras.h"
+#import "UIBezierPath+DKOSX.h"
+#import "UIBezierPath+Trimming.h"
+#import "DKUIBezierPathClippedSegment.h"
+#import "DKUIBezierPathClippingResult.h"
+#import "DKUIBezierPathIntersectionPoint.h"
+#import "DKUIBezierUnmatchedPathIntersectionPoint.h"
+#import "DKUIBezierPathShape.h"
+#import "DKTangentAtPoint.h"
+#import "DKVector.h"
+#import "MMBackwardCompatible.h"
+#endif
 //#include "bezierclip.hxx"

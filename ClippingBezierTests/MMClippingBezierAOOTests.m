@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ClippingBezier.h"
-#import "PerformanceBezier.h"
+@import PerformanceBezier;
 
 @interface MMClippingBezierAOOTests : XCTestCase {
     UIBezierPath *complexShape;

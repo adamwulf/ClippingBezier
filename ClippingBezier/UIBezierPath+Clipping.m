@@ -14,23 +14,19 @@
 #pragma mark - UIBezier Clipping
 
 #import "UIBezierPath+Clipping.h"
-#include "interval.h"
-#include <vector>
+#import "UIBezierPath+Clipping_Private.h"
 #import "DKUIBezierPathClippingResult.h"
 #import "DKUIBezierPathIntersectionPoint.h"
 #import "DKUIBezierPathClippedSegment.h"
 #import "DKUIBezierPathIntersectionPoint+Private.h"
 #import "DKUIBezierUnmatchedPathIntersectionPoint.h"
-#include "bezierclip.hxx"
 #import "DKUIBezierPathShape.h"
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+Trimming.h"
 #import "UIBezierPath+Ahmed.h"
-#import "PerformanceBezier.h"
+#import "UIBezierPath+Util.h"
+@import PerformanceBezier;
 #import "ClippingBezier.h"
-#include "point.h"
-#include "NearestPoint.h"
-#include "bezier-clipping.h"
 
 typedef struct Coeffs {
     CGFloat a3; // t^3
@@ -39,10 +35,12 @@ typedef struct Coeffs {
     CGFloat a0; // constant
 } Coeffs;
 
-using namespace Geom;
+//using namespace Geom;
 
-#define kUIBezierClippingPrecision 0.0005
-#define kUIBezierClosenessPrecision 0.5
+static int mm_sgn(CGFloat num)
+{
+    return num > 0 ? 1 : num < 0 ? -1 : 0;
+}
 
 @implementation UIBezierPath (Clipping)
 
@@ -2377,13 +2375,13 @@ CGIsAboutLess(CGFloat a, CGFloat b)
 
         if (D >= 0) // complex or duplicate roots
         {
-            CGFloat S = sgn(R + sqrt(D)) * pow(abs(R + sqrt(D)), (1.0 / 3.0));
-            CGFloat T = sgn(R - sqrt(D)) * pow(abs(R - sqrt(D)), (1.0 / 3.0));
+            CGFloat S = mm_sgn(R + sqrt(D)) * pow(ABS(R + sqrt(D)), (1.0 / 3.0));
+            CGFloat T = mm_sgn(R - sqrt(D)) * pow(ABS(R - sqrt(D)), (1.0 / 3.0));
 
             t[0] = -A / 3 + (S + T); // real root
             t[1] = -A / 3 - (S + T) / 2; // real part of complex root
             t[2] = -A / 3 - (S + T) / 2; // real part of complex root
-            CGFloat Im = abs(sqrt(3) * (S - T) / 2); // complex part of root pair
+            CGFloat Im = ABS(sqrt(3) * (S - T) / 2); // complex part of root pair
 
             /*discard complex roots*/
             if (Im != 0) {
@@ -2445,57 +2443,6 @@ CGIsAboutLess(CGFloat a, CGFloat b)
     c.a1 = -3 * p[0] + 3 * p[1];
     c.a0 = p[0];
     return c;
-}
-
-
-/**
- * this will return an unfiltered array of intersections between
- * the two input bezier curves. it will also blindly try to find
- * intersections, even if the two input curves do not share
- * any overlapping bounds (though it would still return quickly)
- */
-+ (NSArray *)findIntersectionsBetweenBezier:(CGPoint[4])bez1 andBezier:(CGPoint[4])bez2
-{
-    NSMutableArray *intersectionsOutput = [NSMutableArray array];
-    NSMutableArray *altIntersectionsOutput = [NSMutableArray array];
-
-    std::vector<Geom::Point> A((int)4);
-    A[0] = Geom::Point(bez1[0].x, bez1[0].y);
-    A[1] = Geom::Point(bez1[1].x, bez1[1].y);
-    A[2] = Geom::Point(bez1[2].x, bez1[2].y);
-    A[3] = Geom::Point(bez1[3].x, bez1[3].y);
-
-
-    std::vector<Geom::Point> B((int)4);
-    B[0] = Geom::Point(bez2[0].x, bez2[0].y);
-    B[1] = Geom::Point(bez2[1].x, bez2[1].y);
-    B[2] = Geom::Point(bez2[2].x, bez2[2].y);
-    B[3] = Geom::Point(bez2[3].x, bez2[3].y);
-
-    get_solutions(intersectionsOutput, B, A, kUIBezierClippingPrecision, Geom::intersections_clip);
-    get_solutions(altIntersectionsOutput, A, B, kUIBezierClippingPrecision, Geom::intersections_clip);
-
-    //
-    // This is a bit of a shame, but we'll get different answers out of libgeom
-    // depending on the order of the beziers that we send in.
-    //
-    // As a work around, we'll trust the solution with more found intersections.
-    //
-    // there is a small chance that the output will be of equal size, but will
-    // have found different intersections, but we're going to ignore that edge
-    // case
-    if ([altIntersectionsOutput count] > [intersectionsOutput count]) {
-        NSMutableArray *altRet = [NSMutableArray array];
-        [altIntersectionsOutput enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            CGPoint p = [obj CGPointValue];
-            CGFloat swap = p.y;
-            p.y = p.x;
-            p.x = swap;
-            [altRet addObject:[NSValue valueWithCGPoint:p]];
-        }];
-        intersectionsOutput = altRet;
-    }
-    return intersectionsOutput;
 }
 
 

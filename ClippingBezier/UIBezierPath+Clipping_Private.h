@@ -10,6 +10,9 @@
 #import "DKUIBezierPathClippingResult.h"
 #import "DKUIBezierPathShape.h"
 
+#define kUIBezierClippingPrecision 0.0005
+#define kUIBezierClosenessPrecision 0.5
+
 @interface UIBezierPath (MMClipping_Private)
 
 // for tests

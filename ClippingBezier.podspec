@@ -17,5 +17,6 @@ Pod::Spec.new do |s|
 
   s.framework = 'Foundation'
   s.dependency 'PerformanceBezier', '~> 1.1'
+  s.xcconfig = { "DEFINES_MODULE" => "YES", "OTHER_CPLUSPLUSFLAGS" => "$(OTHER_CFLAGS) -fmodules -fcxx-modules" }
 
 end

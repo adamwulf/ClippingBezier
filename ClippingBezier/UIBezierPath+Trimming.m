@@ -7,7 +7,7 @@
 //
 
 #import "UIBezierPath+Trimming.h"
-#import "PerformanceBezier.h"
+@import PerformanceBezier;
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+Clipping_Private.h"
 

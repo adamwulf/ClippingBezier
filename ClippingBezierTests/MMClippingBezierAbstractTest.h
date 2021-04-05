@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ClippingBezier.h"
-#import "PerformanceBezier.h"
+@import PerformanceBezier;
 #import <XCTest/XCTest.h>
 #import "UIBezierPath+SamplePaths.h"
 

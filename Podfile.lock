@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  ClippingBezier: 03d95b9a6be11e9b4ac4d718f50aaa4ba6c325eb
+  ClippingBezier: af48c388d57c85a1d0f2164d9171093e15447b29
   PerformanceBezier: 63c260aa4cfd4a3d3ba602f5751395f0d6c7133c
 
 PODFILE CHECKSUM: a9378e03d081284a33fc07dec462c79ee1c882ce
