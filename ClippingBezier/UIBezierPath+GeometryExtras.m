@@ -7,8 +7,8 @@
 //
 
 #import "UIBezierPath+GeometryExtras.h"
-#import <PerformanceBezier/PerformanceBezier.h>
-#import <ClippingBezier/ClippingBezier.h>
+#import "PerformanceBezier.h"
+#import "ClippingBezier.h"
 #import "UIBezierPath+Clipping_Private.h"
 #import "UIBezierPath+Ahmed.h"
 #import "UIBezierPath+Clipping.h"

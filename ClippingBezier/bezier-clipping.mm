@@ -48,7 +48,7 @@
 #include "point.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
-#import <PerformanceBezier/PerformanceBezier.h>
+#import "PerformanceBezier.h"
 #import "NearestPoint.h"
 #include "bezier-clipping.h"
 

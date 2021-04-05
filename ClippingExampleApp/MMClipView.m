@@ -8,8 +8,8 @@
 
 #import "MMClipView.h"
 #import "UIBezierPath+SamplePaths.h"
-#import <PerformanceBezier/PerformanceBezier.h>
-#import <ClippingBezier/ClippingBezier.h>
+#import "PerformanceBezier.h"
+#import "ClippingBezier.h"
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
 @interface UIBezierPath (Private)

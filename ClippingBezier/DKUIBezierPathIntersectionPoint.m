@@ -9,7 +9,7 @@
 #import "DKUIBezierPathIntersectionPoint.h"
 #import "DKVector.h"
 #import "DKUIBezierPathIntersectionPoint+Private.h"
-#import <PerformanceBezier/PerformanceBezier.h>
+#import "PerformanceBezier.h"
 
 @implementation DKUIBezierPathIntersectionPoint {
     DKUIBezierPathIntersectionPoint *_flipped;

@@ -26,8 +26,8 @@
 #import "UIBezierPath+Intersections.h"
 #import "UIBezierPath+Trimming.h"
 #import "UIBezierPath+Ahmed.h"
-#import <PerformanceBezier/PerformanceBezier.h>
-#import <ClippingBezier/ClippingBezier.h>
+#import "PerformanceBezier.h"
+#import "ClippingBezier.h"
 #include "point.h"
 #include "NearestPoint.h"
 #include "bezier-clipping.h"

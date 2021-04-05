@@ -7,7 +7,7 @@
 //
 
 #import "UIBezierPath+Intersections.h"
-#import <PerformanceBezier/PerformanceBezier.h>
+#import "PerformanceBezier.h"
 #import "UIBezierPath+Clipping_Private.h"
 #import "DKIntersectionOfPaths.h"
 #import "UIBezierPath+Clipping.h"

@@ -8,8 +8,8 @@
 
 #import <XCTest/XCTest.h>
 #import "MMClippingBezierAbstractTest.h"
-#import <ClippingBezier/ClippingBezier.h>
-#import <PerformanceBezier/PerformanceBezier.h>
+#import "ClippingBezier.h"
+#import "PerformanceBezier.h"
 #import <ClippingBezier/UIBezierPath+Clipping_Private.h>
 
 @interface MMClippingBezierPerformanceTests : MMClippingBezierAbstractTest
