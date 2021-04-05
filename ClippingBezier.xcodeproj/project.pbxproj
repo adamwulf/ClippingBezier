@@ -207,6 +207,7 @@
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTodoTests.m; sourceTree = "<group>"; };
+		C5EBA81D261AC416000E29D3 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		C5F904AD2465DD11003D153D /* UIBezierPath+SamplePaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+SamplePaths.h"; sourceTree = "<group>"; };
 		C5F904AE2465DD11003D153D /* UIBezierPath+SamplePaths.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+SamplePaths.m"; sourceTree = "<group>"; };
 		D9EC2CF48A52BA019E4C6A1B /* Pods-ClippingBezier-ClippingBezierTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClippingBezier-ClippingBezierTests/Pods-ClippingBezier-ClippingBezierTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +379,7 @@
 				C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */,
 				C50DBB061E0B5C600006F58A /* scissor-example.png */,
 				C50DBB071E0B5C650006F58A /* intersection-example.png */,
+				C5EBA81D261AC416000E29D3 /* Package.swift */,
 				6605F6E61B1125020092991F /* Licenses */,
 				6682878A1A893CE50038A1C4 /* ClippingBezier */,
 				662D40CF1A8D862600A1CB63 /* ClippingBezierTests */,

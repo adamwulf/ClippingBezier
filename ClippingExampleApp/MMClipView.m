@@ -36,7 +36,7 @@
     [super awakeFromNib];
 
     tapPoint = CGPointNotFound;
-    path1 = [UIBezierPath complexShape1];
+    path1 = [UIBezierPath debug1];
     path2 = [UIBezierPath debug2];
 
     [self refreshColors];

@@ -186,10 +186,9 @@
 + (UIBezierPath *)debug1
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(100, 100)];
-    [path addLineToPoint:CGPointMake(300, 100)];
-    [path addLineToPoint:CGPointMake(300, 110)];
-    [path addLineToPoint:CGPointMake(100, 110)];
+    [path moveToPoint:CGPointMake(18.15872846694959, 19.07368524135686)];
+    [path addCurveToPoint:CGPointMake(27.41825676300719, 0.5285894513395597) controlPoint1:CGPointMake(22.14524621507534, 11.14921669149394) controlPoint2:CGPointMake(25.65266758275752, 4.160833689352405)];
+    [path addCurveToPoint:CGPointMake(27.67478196509949, -5.83990100722076e-09) controlPoint1:CGPointMake(27.50632258242994, 0.3474168288894397) controlPoint2:CGPointMake(27.59179677038865, 0.1712918485833725)];
 
     return path;
 }
