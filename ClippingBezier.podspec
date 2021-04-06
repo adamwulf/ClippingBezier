@@ -9,14 +9,14 @@ Pod::Spec.new do |s|
   s.license         = {:type => 'CC BY', :file => 'LICENSE' }
 
   s.source          = { :git => "https://github.com/adamwulf/ClippingBezier.git", :tag => s.version}
-  s.source_files    = ['ClippingBezier/*.{h,m,mm,cpp,cxx,hxx,c}']
-  s.public_header_files = ['ClippingBezier/UIBezierPath+*.h','ClippingBezier/DK*.h','ClippingBezier/ClippingBezier.h','ClippingBezier/MMBackwardCompatible.h']
+  s.source_files    = ['ClippingBezier/*.{h,m,mm,cpp,cxx,hxx,c}','ClippingBezier/PublicHeaders/*.{h,m,mm,cpp,cxx,hxx,c}']
+  s.public_header_files = ['ClippingBezier/PublicHeaders/*.h']
 
   s.platform = :ios
   s.ios.deployment_target   = "12.0"
 
   s.framework = 'Foundation'
-  s.dependency 'PerformanceBezier', '~> 1.1'
+  s.dependency 'PerformanceBezier', '~> 1.3'
   s.xcconfig = { "DEFINES_MODULE" => "YES", "OTHER_CPLUSPLUSFLAGS" => "$(OTHER_CFLAGS) -fmodules -fcxx-modules" }
 
 end

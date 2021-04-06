@@ -22,10 +22,17 @@ let package = Package(
             name: "ClippingBezier",
             dependencies: [ "PerformanceBezier" ],
             path: "ClippingBezier",
-            exclude: ["Info.plist", "ClippingBezier-Info.plist"],
-            publicHeadersPath: "."),
+            exclude: ["Info.plist",
+                      "ClippingBezier-Info.plist",
+                      "BezierUtilsLicense",
+                      "bezierclip.hxx",
+                      "gauss.hxx",],
+            sources: ["."],
+            publicHeadersPath: "PublicHeaders"),
         .testTarget(
             name: "ClippingBezierTests",
             dependencies: ["ClippingBezier"]),
-    ]
+    ],
+    cLanguageStandard: .gnu99,
+    cxxLanguageStandard: .gnucxx11
 )

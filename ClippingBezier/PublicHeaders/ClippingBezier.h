@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+// SwiftPackageManager needs imports to be "", while frameworks generally want <>
+// It's unfortunately not enough to `#if SWIFT_PACKAGE`, as if ClippingBezier
+// is a dependency of another SPM package, then the SWIFT_PACKAGE seems to not be
+// set when building that dependency. So instead, we'll choose based off of Cocoapods
+
 #if COCOAPODS
 #import <ClippingBezier/DKIntersectionOfPaths.h>
 #import <ClippingBezier/DKIntersectionOfPaths.h>
