@@ -11,6 +11,10 @@ for drawing to be clipped to any imported image scraps.
 
 ![clipped-pen-example.png](clipped-pen-example.png)
 
+## Available as a Swift Package!
+
+Install ClippingBezier in your project through Swift Package Manager as of v1.2.0!
+
 ## Building the framework
 
 This library will generate a proper static framework bundle that can be used in any iOS7+ project.
