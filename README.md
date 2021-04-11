@@ -60,3 +60,4 @@ The ClippingBezier framework and sample code are provided under the MIT License.
 ## Support This Project
 - Download [Loose Leaf](https://itunes.apple.com/us/app/loose-leaf/id625659452?mt=8&uo=4&at=10lNUI)
 - Follow [@adamwulf](http://twitter.com/adamwulf) on twitter.
+- Become a [Github Sponsor](https://github.com/sponsors/adamwulf) to buy me some coffee ☕️ 😄
