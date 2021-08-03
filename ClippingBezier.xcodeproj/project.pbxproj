@@ -203,7 +203,7 @@
 		C50DBB081E0B9AEC0006F58A /* clipped-pen-example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clipped-pen-example.png"; sourceTree = "<group>"; };
 		C51D49D52477521F002BECC8 /* MMClippingBezierUnionTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierUnionTest.m; sourceTree = "<group>"; };
 		C555A8C2261BD4860017E1B4 /* UIBezierPath+ClippingCPP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+ClippingCPP.mm"; sourceTree = "<group>"; };
-		C555A9B4261C00800017E1B4 /* ClippingBezier.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ClippingBezier.podspec; sourceTree = "<group>"; };
+		C555A9B4261C00800017E1B4 /* ClippingBezier.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ClippingBezier.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C5692F632457874000BD0D8F /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		C5692F642457874000BD0D8F /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		C5A45759255F0A78005BF9F4 /* MMClippingBezierTodoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMClippingBezierTodoTests.m; sourceTree = "<group>"; };
