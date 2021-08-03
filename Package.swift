@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "git@github.com:adamwulf/PerformanceBezier.git", from: "1.2.0"),
+        .package(url: "https://github.com/adamwulf/PerformanceBezier.git", from: "1.2.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -31,7 +31,9 @@ let package = Package(
             publicHeadersPath: "PublicHeaders"),
         .testTarget(
             name: "ClippingBezierTests",
-            dependencies: ["ClippingBezier"]),
+            dependencies: ["ClippingBezier"],
+            path: "ClippingBezierTests",
+            exclude: ["Info.plist"]),
     ],
     cLanguageStandard: .gnu99,
     cxxLanguageStandard: .gnucxx11

@@ -2423,4 +2423,36 @@
     XCTAssertTrue([difference isEqualToBezierPath:calcDifference withAccuracy:0.000001], @"shape is very small from the knot");
 }
 
+- (void)testIntersectionEncompassingRect
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(25, 25)];
+    [path1 addLineToPoint:CGPointMake(75, 75)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+
+    UIBezierPath *intersection = [path1 copy];
+
+    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
+    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2] firstObject];
+
+    XCTAssertTrue([intersection isEqualToBezierPath:calcIntersection withAccuracy:0.000001]);
+    XCTAssertNil(calcDifference);
+}
+
+- (void)testIntersectionOutsideOfRect
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(25, 25)];
+    [path1 addLineToPoint:CGPointMake(75, 75)];
+    UIBezierPath *path2 = [UIBezierPath bezierPathWithRect:CGRectMake(100, 100, 100, 100)];
+
+    UIBezierPath *difference = [path1 copy];
+
+    UIBezierPath *calcIntersection = [[path1 intersectionWithPath:path2] firstObject];
+    UIBezierPath *calcDifference = [[path1 differenceWithPath:path2] firstObject];
+
+    XCTAssertTrue([difference isEqualToBezierPath:calcDifference withAccuracy:0.000001]);
+    XCTAssertNil(calcIntersection);
+}
+
 @end

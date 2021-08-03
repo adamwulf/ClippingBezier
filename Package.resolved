@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PerformanceBezier",
+        "repositoryURL": "https://github.com/adamwulf/PerformanceBezier.git",
+        "state": {
+          "branch": null,
+          "revision": "5737bfcfe7b69ea79a02853f75ae838892f5db51",
+          "version": "1.3.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1531,8 +1531,16 @@ static NSInteger segmentCompareCount = 0;
     } else if ([scissors isClosed]) {
         BOOL beginsInside1 = NO;
         NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
-        DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
-        return intersection ? clipped.entireIntersectionPath.subPaths : clipped.entireDifferencePath.subPaths;
+        if ([tValuesOfIntersectionPoints count] == 0) {
+            if ([scissors containsPoint:self.firstPoint]) {
+                return intersection ? self.subPaths : nil;
+            } else {
+                return intersection ? nil : self.subPaths;
+            }
+        } else {
+            DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
+            return intersection ? clipped.entireIntersectionPath.subPaths : clipped.entireDifferencePath.subPaths;
+        }
     } else {
         return nil;
     }
