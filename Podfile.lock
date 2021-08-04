@@ -1,5 +1,5 @@
 PODS:
-  - ClippingBezier (1.2.0):
+  - ClippingBezier (1.2.1):
     - PerformanceBezier (~> 1.3)
   - PerformanceBezier (1.3.0)
 
@@ -16,9 +16,9 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  ClippingBezier: 06e466a803bdab2de34347e39eda43aa2b4edff8
+  ClippingBezier: 569c90e49bcdcf0a4295fb09efc85f6c9990e5a5
   PerformanceBezier: ecb6f0cb8257b6794a0d5ab53a6ff7437d6dca3c
 
 PODFILE CHECKSUM: a9378e03d081284a33fc07dec462c79ee1c882ce
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

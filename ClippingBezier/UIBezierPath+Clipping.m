@@ -1533,16 +1533,16 @@ static NSInteger segmentCompareCount = 0;
         NSMutableArray *tValuesOfIntersectionPoints = [NSMutableArray arrayWithArray:[self findIntersectionsWithClosedPath:scissors andBeginsInside:&beginsInside1]];
         if ([tValuesOfIntersectionPoints count] == 0) {
             if ([scissors containsPoint:self.firstPoint]) {
-                return intersection ? self.subPaths : nil;
+                return intersection ? self.subPaths : @[];
             } else {
-                return intersection ? nil : self.subPaths;
+                return intersection ? @[] : self.subPaths;
             }
         } else {
             DKUIBezierPathClippingResult *clipped = [self clipUnclosedPathToClosedPath:scissors usingIntersectionPoints:tValuesOfIntersectionPoints andBeginsInside:beginsInside1];
             return intersection ? clipped.entireIntersectionPath.subPaths : clipped.entireDifferencePath.subPaths;
         }
     } else {
-        return nil;
+        return @[];
     }
 }
 
