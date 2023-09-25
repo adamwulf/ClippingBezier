@@ -9,13 +9,13 @@
 #ifndef __ClippingBezier__NearestPoint__
 #define __ClippingBezier__NearestPoint__
 
+#import <CoreGraphics/CoreGraphics.h>
+
 #if defined __cplusplus
 extern "C" {
 #endif
 
-
 #include <stdio.h>
-#import <CoreGraphics/CoreGraphics.h>
 
 // Bezier functions from git@github.com:erich666/GraphicsGems.git
 CGPoint NearestPointOnCurve(const CGPoint P, const CGPoint *V, double *t);
