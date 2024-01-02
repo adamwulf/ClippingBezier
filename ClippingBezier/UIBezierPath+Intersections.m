@@ -325,6 +325,12 @@ CGRect boundsForElement(CGPoint startPoint, CGPathElement element, CGPoint pathS
         CGFloat maxX = MAX(MAX(MAX(startPoint.x, element.points[0].x), element.points[1].x), element.points[2].x);
         CGFloat maxY = MAX(MAX(MAX(startPoint.y, element.points[0].y), element.points[1].y), element.points[2].y);
         return CGRectMake(minX, minY, maxX - minX, maxY - minY);
+    } else if (element.type == kCGPathElementAddQuadCurveToPoint) {
+        CGFloat minX = MIN(MIN(startPoint.x, element.points[0].x), element.points[1].x);
+        CGFloat minY = MIN(MIN(startPoint.y, element.points[0].y), element.points[1].y);
+        CGFloat maxX = MAX(MAX(startPoint.x, element.points[0].x), element.points[1].x);
+        CGFloat maxY = MAX(MAX(startPoint.y, element.points[0].y), element.points[1].y);
+        return CGRectMake(minX, minY, maxX - minX, maxY - minY);
     } else if (element.type == kCGPathElementMoveToPoint) {
         return CGRectMake(element.points[0].x, element.points[0].y, 0, 0);
     } else if (element.type == kCGPathElementCloseSubpath) {
