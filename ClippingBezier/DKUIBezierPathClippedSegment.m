@@ -89,7 +89,7 @@
     [flippedSeg setIsReversed:self.isReversed];
     [flippedSeg setIsFlipped:!self.isFlipped];
     [flippedSeg setFlippedFrom:self];
-    [self setFlippedFrom:flippedFrom];
+    [self setFlippedFrom:flippedSeg];
     return flippedSeg;
 }
 
