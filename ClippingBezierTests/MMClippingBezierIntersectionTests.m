@@ -10,7 +10,7 @@
 #import "MMClippingBezierAbstractTest.h"
 #import "ClippingBezier.h"
 @import PerformanceBezier;
-#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
+#import "UIBezierPath+Clipping_Private.h"
 
 @interface MMClippingBezierIntersectionTests : MMClippingBezierAbstractTest
 
@@ -1620,8 +1620,8 @@
 
     XCTAssertEqual([[intersections objectAtIndex:2] elementIndex1], 4, @"found correct intersection location");
     XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue1] to:6], 1, @"found correct intersection location");
-    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 3, @"found correct intersection location");
-    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 0, @"found correct intersection location");
+    XCTAssertEqual([[intersections objectAtIndex:2] elementIndex2], 2, @"found correct intersection location");
+    XCTAssertEqual([self round:[[intersections objectAtIndex:2] tValue2] to:6], 1, @"found correct intersection location");
 
     DKUIBezierPathIntersectionPoint *intersection = [intersections objectAtIndex:0];
     XCTAssertEqual(roundf([intersection location1].x), 200.0, @"intersects at the right place");

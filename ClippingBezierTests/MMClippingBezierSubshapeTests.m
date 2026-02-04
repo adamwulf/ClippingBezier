@@ -10,7 +10,7 @@
 #import "MMClippingBezierAbstractTest.h"
 #import "ClippingBezier.h"
 @import PerformanceBezier;
-#import <ClippingBezier/UIBezierPath+Clipping_Private.h>
+#import "UIBezierPath+Clipping_Private.h"
 
 @interface MMClippingBezierSubshapeTests : MMClippingBezierAbstractTest
 
