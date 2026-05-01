@@ -5,9 +5,9 @@
         "package": "PerformanceBezier",
         "repositoryURL": "https://github.com/adamwulf/PerformanceBezier.git",
         "state": {
-          "branch": null,
-          "revision": "5737bfcfe7b69ea79a02853f75ae838892f5db51",
-          "version": "1.3.0"
+          "branch": "main",
+          "revision": "2b15a68bd2837f8636501985e60e3399a2d15a86",
+          "version": null
         }
       }
     ]

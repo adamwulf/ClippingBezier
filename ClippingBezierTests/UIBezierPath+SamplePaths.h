@@ -1,0 +1,1 @@
+../ClippingExampleApp/UIBezierPath+SamplePaths.h

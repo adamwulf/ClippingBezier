@@ -13,7 +13,7 @@
 @property(assign) BOOL doesIntersect;
 @property(assign) int elementNumberOfIntersection;
 @property(assign) float tValueOfIntersection;
-@property(assign) __unsafe_unretained UIBezierPath *start;
-@property(assign) __unsafe_unretained UIBezierPath *end;
+@property(strong) UIBezierPath *start;
+@property(strong) UIBezierPath *end;
 
 @end
