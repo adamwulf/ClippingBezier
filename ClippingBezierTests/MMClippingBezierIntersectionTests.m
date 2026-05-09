@@ -1783,4 +1783,23 @@
     XCTAssertEqual([clip count], 2);
 }
 
+- (void)testFailingIntersection
+{
+    UIBezierPath *path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(167.96, 100)];
+    [path1 addLineToPoint:CGPointMake(300, 100)];
+    [path1 addLineToPoint:CGPointMake(300, 200)];
+    [path1 addLineToPoint:CGPointMake(194.45, 200)];
+    [path1 closePath];
+
+    UIBezierPath *path2 = [UIBezierPath bezierPath];
+    [path2 moveToPoint:CGPointMake(100, 100)];
+    [path2 addLineToPoint:CGPointMake(400, 100)];
+    [path2 addLineToPoint:CGPointMake(400, 200)];
+    [path2 addLineToPoint:CGPointMake(100, 200)];
+    [path2 closePath];
+
+    NSArray<UIBezierPath *> *clip __unused = [path1 intersectionWithPath:path2];
+}
+
 @end
