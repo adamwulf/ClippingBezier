@@ -97,6 +97,16 @@ static NSInteger segmentCompareCount = 0;
  */
 - (NSArray<DKUIBezierPathIntersectionPoint *> *)findIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside
 {
+    // finding intersections generates a large volume of transient objects
+    // while comparing the paths' elements. drain them as soon as the search
+    // completes instead of waiting for the caller's autorelease pool to pop
+    @autoreleasepool {
+        return [self helperFindIntersectionsWithClosedPath:closedPath andBeginsInside:beginsInside];
+    }
+}
+
+- (NSArray<DKUIBezierPathIntersectionPoint *> *)helperFindIntersectionsWithClosedPath:(UIBezierPath *)closedPath andBeginsInside:(BOOL *)beginsInside
+{
     // hold our bezier information for the curves we compare
     CGPoint bez1_[4];
     CGPoint bez2_[4];

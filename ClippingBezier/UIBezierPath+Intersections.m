@@ -45,6 +45,9 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
     __block UIBezierPath *seenSoFar = [self buildEmptyPath];
     NSMutableArray *output = [NSMutableArray array];
     __block CGPoint lastMyPoint = CGPointZero;
+    // the start point of the current subpath. close elements have no
+    // associated points, so this is where the pen lands after a close
+    CGPoint myMostRecentMoveTo = CGPointZero;
 
     //
     // i think the crash that's happening here is because
@@ -81,9 +84,13 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
         CGPathElement element = selfElements[index];
         if (element.type == kCGPathElementAddLineToPoint) {
             __block CGPoint lastSeenPoint = CGPointZero;
+            __block CGPoint seenSubpathStart = CGPointZero;
             __block CGFloat distanceSoFar = 0;
             __strong UIBezierPath *iterateOnThisPath = seenSoFar;
             [iterateOnThisPath iteratePathWithBlock:^(CGPathElement seenElement, NSUInteger idx) {
+                if (seenElement.type == kCGPathElementMoveToPoint) {
+                    seenSubpathStart = seenElement.points[0];
+                }
                 if (seenElement.type == kCGPathElementAddLineToPoint) {
                     CGPoint intersection = intersects2D(lastMyPoint, element.points[0], lastSeenPoint, seenElement.points[0]);
                     if (!CGPointEqualToPoint(intersection, CGPointNotFound) &&
@@ -103,13 +110,29 @@ static inline CGPoint intersects2D(CGPoint p1, CGPoint p2, CGPoint p3, CGPoint p
                     }
                     distanceSoFar += [UIBezierPath distance:lastSeenPoint p2:seenElement.points[0]];
                 }
-                lastSeenPoint = seenElement.points[0];
+                if (seenElement.type == kCGPathElementCloseSubpath) {
+                    // close elements have no associated points to read;
+                    // the pen returns to the start of the subpath
+                    lastSeenPoint = seenSubpathStart;
+                } else {
+                    lastSeenPoint = [UIBezierPath endPointForPathElement:seenElement];
+                }
             }];
             [seenSoFar addPathElement:element];
         } else {
             [seenSoFar addPathElement:element];
         }
-        lastMyPoint = element.points[0];
+        if (element.type == kCGPathElementMoveToPoint) {
+            myMostRecentMoveTo = element.points[0];
+        }
+        if (element.type == kCGPathElementCloseSubpath) {
+            // close elements have a NULL points array in our deep copy,
+            // so we can't read points[0]. the pen returns to the start
+            // of the subpath instead
+            lastMyPoint = myMostRecentMoveTo;
+        } else {
+            lastMyPoint = [UIBezierPath endPointForPathElement:element];
+        }
     }
     // cleanup selfElements!
     // making sure to free .points

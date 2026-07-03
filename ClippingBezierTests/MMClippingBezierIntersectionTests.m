@@ -1783,4 +1783,48 @@
     XCTAssertEqual([clip count], 2);
 }
 
+- (void)testPathsFromSelfIntersectionsWithClosedPath
+{
+    // a self-intersecting bowtie that ends with a close element.
+    // close elements have no associated points, so this guards against
+    // reading the close element's NULL points array while tracking
+    // the pen location
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(100, 100)];
+    [path addLineToPoint:CGPointMake(100, 0)];
+    [path addLineToPoint:CGPointMake(0, 100)];
+    [path closePath];
+
+    NSArray *split = [path pathsFromSelfIntersections];
+
+    // the third line crosses the first at (50, 50), splitting the path in two
+    XCTAssertEqual([split count], (NSUInteger)2);
+    for (UIBezierPath *piece in split) {
+        XCTAssertGreaterThan([piece elementCount], (NSInteger)0);
+    }
+}
+
+- (void)testPathsFromSelfIntersectionsWithClosedSubpath
+{
+    // a closed triangle subpath followed by a line that crosses it.
+    // the iteration over the already-seen path walks through the
+    // triangle's close element, which has no associated points
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(100, 0)];
+    [path addLineToPoint:CGPointMake(50, 100)];
+    [path closePath];
+    [path moveToPoint:CGPointMake(-10, 50)];
+    [path addLineToPoint:CGPointMake(110, 50)];
+
+    NSArray *split = [path pathsFromSelfIntersections];
+
+    // the horizontal line crosses the triangle's second edge at (75, 50)
+    XCTAssertEqual([split count], (NSUInteger)2);
+    for (UIBezierPath *piece in split) {
+        XCTAssertGreaterThan([piece elementCount], (NSInteger)0);
+    }
+}
+
 @end
