@@ -404,4 +404,62 @@
     XCTAssertEqual([shapes1 count], [shapes2 count]);
 }
 
+#pragma mark - Boolean Tests
+
+- (void)testClosedPathInsideClosedPathIntersection
+{
+    // the shape is entirely inside the scissors and never crosses it,
+    // so the intersection should be the entire shape. currently returns no paths.
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(-500, -500, 1000, 1000)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath intersectionWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], (NSUInteger)1);
+    if ([clip count] == 1) {
+        XCTAssertTrue(CGRectEqualToRect([[clip firstObject] bounds], [shapePath bounds]));
+    }
+}
+
+- (void)testClosedPathOutsideClosedPathDifference
+{
+    // the shape is entirely outside the scissors and never crosses it,
+    // so the difference should be the entire shape. currently returns no paths.
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(500, 500, 10, 10)];
+
+    NSArray<UIBezierPath *> *clip = [shapePath differenceWithPath:scissorPath];
+
+    XCTAssertEqual([clip count], (NSUInteger)1);
+    if ([clip count] == 1) {
+        XCTAssertTrue(CGRectEqualToRect([[clip firstObject] bounds], [shapePath bounds]));
+    }
+}
+
+- (void)testUnionKeepsProperties
+{
+    // unionWithPath: and DKUIBezierPathShape.fullPath copy the properties (userInfo, lineWidth, etc)
+    // of the shape's first segment, which is often a piece of the scissors. a union is built from
+    // both paths, so decide which path's properties the result should keep. the assertions below
+    // use the receiver, to match intersectionWithPath: and differenceWithPath:
+    XCTAssertTrue(NO, @"functionality needs defining");
+    return;
+
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    [[shapePath userInfo] setObject:@"shape" forKey:@"source"];
+    shapePath.lineWidth = 7;
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 100, 100)];
+    [[scissorPath userInfo] setObject:@"scissors" forKey:@"source"];
+    scissorPath.lineWidth = 3;
+
+    NSArray<UIBezierPath *> *unionPaths = [shapePath unionWithPath:scissorPath];
+
+    XCTAssertEqual([unionPaths count], (NSUInteger)1);
+    for (UIBezierPath *path in unionPaths) {
+        XCTAssertEqualObjects([[path userInfo] objectForKey:@"source"], @"shape");
+        XCTAssertEqual([path lineWidth], 7);
+    }
+}
+
 @end

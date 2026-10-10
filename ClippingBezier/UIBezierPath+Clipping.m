@@ -1533,7 +1533,12 @@ static NSInteger segmentCompareCount = 0;
             // this is because the first segment is a red segment, and non-reversed
             // means its part of the original scissor path
             if (containsRedSegment(shape)) {
-                [result addObject:[shape fullPath]];
+                // the shape's path is copied from its first segment, which is usually
+                // a piece of the scissors. build the output from self instead so that
+                // it keeps self's lineWidth, userInfo, etc, same as the unclosed branch below
+                UIBezierPath *shapePath = [self buildEmptyPath];
+                [shapePath appendPath:[shape fullPath]];
+                [result addObject:shapePath];
             }
         }
 
