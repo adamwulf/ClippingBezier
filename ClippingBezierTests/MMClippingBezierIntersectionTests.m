@@ -1827,4 +1827,59 @@
     }
 }
 
+- (void)assertPaths:(NSArray<UIBezierPath *> *)paths matchPropertiesOf:(UIBezierPath *)sourcePath
+{
+    XCTAssertGreaterThan([paths count], (NSUInteger)0);
+    for (UIBezierPath *path in paths) {
+        XCTAssertEqualObjects([[path userInfo] objectForKey:@"source"], [[sourcePath userInfo] objectForKey:@"source"]);
+        XCTAssertEqual([path lineWidth], [sourcePath lineWidth]);
+    }
+}
+
+- (void)testClosedPathClippedByClosedPathKeepsProperties
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    [[shapePath userInfo] setObject:@"shape" forKey:@"source"];
+    shapePath.lineWidth = 7;
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(50, 50, 100, 100)];
+    [[scissorPath userInfo] setObject:@"scissors" forKey:@"source"];
+    scissorPath.lineWidth = 3;
+
+    [self assertPaths:[shapePath intersectionWithPath:scissorPath] matchPropertiesOf:shapePath];
+    [self assertPaths:[shapePath differenceWithPath:scissorPath] matchPropertiesOf:shapePath];
+}
+
+- (void)testClosedPathClippedByUnclosedPathKeepsProperties
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    [[shapePath userInfo] setObject:@"shape" forKey:@"source"];
+    shapePath.lineWidth = 7;
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPath];
+    [scissorPath moveToPoint:CGPointMake(-50, 50)];
+    [scissorPath addLineToPoint:CGPointMake(150, 50)];
+    [[scissorPath userInfo] setObject:@"scissors" forKey:@"source"];
+    scissorPath.lineWidth = 3;
+
+    [self assertPaths:[shapePath intersectionWithPath:scissorPath] matchPropertiesOf:shapePath];
+    [self assertPaths:[shapePath differenceWithPath:scissorPath] matchPropertiesOf:shapePath];
+}
+
+- (void)testUnclosedPathClippedByClosedPathKeepsProperties
+{
+    UIBezierPath *shapePath = [UIBezierPath bezierPath];
+    [shapePath moveToPoint:CGPointMake(-50, 50)];
+    [shapePath addLineToPoint:CGPointMake(150, 50)];
+    [[shapePath userInfo] setObject:@"shape" forKey:@"source"];
+    shapePath.lineWidth = 7;
+
+    UIBezierPath *scissorPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 100, 100)];
+    [[scissorPath userInfo] setObject:@"scissors" forKey:@"source"];
+    scissorPath.lineWidth = 3;
+
+    [self assertPaths:[shapePath intersectionWithPath:scissorPath] matchPropertiesOf:shapePath];
+    [self assertPaths:[shapePath differenceWithPath:scissorPath] matchPropertiesOf:shapePath];
+}
+
 @end
