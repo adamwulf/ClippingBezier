@@ -103,15 +103,15 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
 {
     __block double winningTValue = 0;
     __block NSInteger winningIndex = -1;
-    __block CGPoint winningPoint = CGPointZero;
+    __block CGPoint winningPoint = CGPointNotFound;
     __block CGPoint previousEndpoint;
 
 
-    __block CGPoint winningEndPoint = CGPointZero;
+    __block CGPoint winningEndPoint = CGPointNotFound;
     __block NSInteger winningEndIndex = -1;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger currentIndex) {
-        CGPoint np1 = CGPointZero;
-        CGPoint np2 = CGPointZero;
+        CGPoint np1 = CGPointNotFound;
+        CGPoint np2 = CGPointNotFound;
         double currTValue = 0.0;
         if (element.type == kCGPathElementAddCurveToPoint) {
             // curve
@@ -136,9 +136,9 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
             previousEndpoint = element.points[0];
         }
 
-        if (!CGPointEqualToPoint(np1, CGPointZero)) {
+        if (!CGPointEqualToPoint(np1, CGPointNotFound)) {
             // check start
-            if (CGPointEqualToPoint(winningPoint, CGPointZero)) {
+            if (CGPointEqualToPoint(winningPoint, CGPointNotFound)) {
                 winningPoint = np1;
                 winningIndex = currentIndex;
                 winningTValue = currTValue;
@@ -149,9 +149,9 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
                 winningTValue = currTValue;
             }
         }
-        if (!CGPointEqualToPoint(np2, CGPointZero)) {
+        if (!CGPointEqualToPoint(np2, CGPointNotFound)) {
             // check end
-            if (CGPointEqualToPoint(winningEndPoint, CGPointZero)) {
+            if (CGPointEqualToPoint(winningEndPoint, CGPointNotFound)) {
                 winningEndPoint = np2;
                 winningEndIndex = currentIndex;
             } else if ([UIBezierPath distance:endPoint p2:np2] < [UIBezierPath distance:endPoint p2:winningEndPoint]) {
