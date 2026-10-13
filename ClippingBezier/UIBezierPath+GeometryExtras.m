@@ -103,15 +103,15 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
 {
     __block double winningTValue = 0;
     __block NSInteger winningIndex = -1;
-    __block CGPoint winningPoint = CGPointZero;
+    __block CGPoint winningPoint = CGPointNotFound;
     __block CGPoint previousEndpoint;
 
 
-    __block CGPoint winningEndPoint = CGPointZero;
+    __block CGPoint winningEndPoint = CGPointNotFound;
     __block NSInteger winningEndIndex = -1;
     [self iteratePathWithBlock:^(CGPathElement element, NSUInteger currentIndex) {
-        CGPoint np1;
-        CGPoint np2;
+        CGPoint np1 = CGPointNotFound;
+        CGPoint np2 = CGPointNotFound;
         double currTValue = 0.0;
         if (element.type == kCGPathElementAddCurveToPoint) {
             // curve
@@ -134,21 +134,30 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
             np2 = NearestPointOnLine(endPoint, previousEndpoint, element.points[0]);
             currTValue = tValOfPointOnLine(np1, previousEndpoint, element.points[0]);
             previousEndpoint = element.points[0];
-        } else {
-            // quad curve and close path elements are not considered yet
-            return;
         }
 
-        // check start. a negative index means no winner yet, since (0, 0) is a valid nearest point
-        if (winningIndex < 0 || [UIBezierPath distance:pointNearTheCurve p2:np1] < [UIBezierPath distance:pointNearTheCurve p2:winningPoint]) {
-            winningPoint = np1;
-            winningIndex = currentIndex;
-            winningTValue = currTValue;
+        if (!CGPointEqualToPoint(np1, CGPointNotFound)) {
+            // check start
+            if (CGPointEqualToPoint(winningPoint, CGPointNotFound)) {
+                winningPoint = np1;
+                winningIndex = currentIndex;
+                winningTValue = currTValue;
+
+            } else if ([UIBezierPath distance:pointNearTheCurve p2:np1] < [UIBezierPath distance:pointNearTheCurve p2:winningPoint]) {
+                winningPoint = np1;
+                winningIndex = currentIndex;
+                winningTValue = currTValue;
+            }
         }
-        // check end
-        if (winningEndIndex < 0 || [UIBezierPath distance:endPoint p2:np2] < [UIBezierPath distance:endPoint p2:winningEndPoint]) {
-            winningEndPoint = np2;
-            winningEndIndex = currentIndex;
+        if (!CGPointEqualToPoint(np2, CGPointNotFound)) {
+            // check end
+            if (CGPointEqualToPoint(winningEndPoint, CGPointNotFound)) {
+                winningEndPoint = np2;
+                winningEndIndex = currentIndex;
+            } else if ([UIBezierPath distance:endPoint p2:np2] < [UIBezierPath distance:endPoint p2:winningEndPoint]) {
+                winningEndPoint = np2;
+                winningEndIndex = currentIndex;
+            }
         }
     }];
     tValue[0] = winningTValue;
