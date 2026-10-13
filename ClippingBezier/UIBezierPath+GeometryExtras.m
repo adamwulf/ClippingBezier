@@ -135,7 +135,7 @@ CGPoint NearestPointOnLine(CGPoint p, CGPoint a, CGPoint b)
             currTValue = tValOfPointOnLine(np1, previousEndpoint, element.points[0]);
             previousEndpoint = element.points[0];
         } else {
-            // other element types have no nearest point to compare
+            // quad curve and close path elements are not considered yet
             return;
         }
 
