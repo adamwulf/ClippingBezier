@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MMClippingBezierAbstractTest.h"
 
+@interface UIBezierPath (GeometryExtras_Private)
+
+// for tests
+
+- (CGPoint)closestPointOnPathTo:(CGPoint)pointNearTheCurve atIndex:(NSInteger *)elementIndex andElementTValue:(double *)tValue hopefulEndPoint:(CGPoint)endPoint startIndexBeforeEndIndex:(BOOL *)happensBefore;
+
+@end
+
 @interface MMClippingBezierGeometryTest : MMClippingBezierAbstractTest
 
 @end
@@ -47,6 +55,124 @@
 
     XCTAssertEqual([self round:p.x to:6], 287.945664, @"point is correct");
     XCTAssertEqual([self round:p.y to:6], 287.768800, @"point is correct");
+}
+
+- (void)testClosestPointAtOriginInsideLine
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(-100, 0)];
+    [path addLineToPoint:CGPointMake(100, 0)];
+
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(0, 50)];
+
+    XCTAssertEqual(p.x, 0);
+    XCTAssertEqual(p.y, 0);
+
+    NSInteger index;
+    double tValue;
+    [path closestPointOnPathTo:CGPointMake(0, 50) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+
+    XCTAssertEqual(index, 1);
+    XCTAssertEqual(tValue, 0.5);
+}
+
+- (void)testClosestPointAtOriginLineEndpoint
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(-100, 100)];
+    [path addLineToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(100, 100)];
+
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(0, -50)];
+
+    XCTAssertEqual(p.x, 0);
+    XCTAssertEqual(p.y, 0);
+
+    NSInteger index;
+    double tValue;
+    [path closestPointOnPathTo:CGPointMake(0, -50) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+
+    XCTAssertEqual(index, 1);
+    XCTAssertEqual(tValue, 1);
+}
+
+- (void)testClosestPointAtOriginPathStart
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(100, 100)];
+
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(-50, -10)];
+
+    XCTAssertEqual(p.x, 0);
+    XCTAssertEqual(p.y, 0);
+
+    NSInteger index;
+    double tValue;
+    [path closestPointOnPathTo:CGPointMake(-50, -10) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+
+    // the same as for a path that starts away from the origin: the moveTo wins the tie with the line
+    XCTAssertEqual(index, 0);
+    XCTAssertEqual(tValue, 1);
+}
+
+- (void)testClosestPointAtOriginCurveEndpoint
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 100)];
+    [path addCurveToPoint:CGPointMake(0, 0) controlPoint1:CGPointMake(100, 50) controlPoint2:CGPointMake(50, 0)];
+
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(-50, 0)];
+
+    XCTAssertEqual(p.x, 0);
+    XCTAssertEqual(p.y, 0);
+
+    NSInteger index;
+    double tValue;
+    [path closestPointOnPathTo:CGPointMake(-50, 0) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+
+    XCTAssertEqual(index, 1);
+    XCTAssertEqual(tValue, 1);
+}
+
+- (void)testClosestPointAtOriginCurveInterior
+{
+    // the curve's lowest point is B(0.5) = (0, 0)
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(-100, 150)];
+    [path addCurveToPoint:CGPointMake(100, 150) controlPoint1:CGPointMake(-100, -50) controlPoint2:CGPointMake(100, -50)];
+
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(0, -50)];
+
+    XCTAssertEqualWithAccuracy(p.x, 0, 0.000001);
+    XCTAssertEqualWithAccuracy(p.y, 0, 0.000001);
+
+    NSInteger index;
+    double tValue;
+    [path closestPointOnPathTo:CGPointMake(0, -50) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointZero startIndexBeforeEndIndex:nil];
+
+    XCTAssertEqual(index, 1);
+    XCTAssertEqualWithAccuracy(tValue, 0.5, 0.000001);
+}
+
+- (void)testHopefulEndPointAtOriginOrdersAfterStart
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(100, 100)];
+    [path addLineToPoint:CGPointMake(100, 0)];
+    [path addLineToPoint:CGPointMake(0, 0)];
+
+    NSInteger index;
+    double tValue;
+    BOOL startIsBeforeEnd = NO;
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(150, 50) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointMake(-50, 0) startIndexBeforeEndIndex:&startIsBeforeEnd];
+
+    XCTAssertEqual(p.x, 100);
+    XCTAssertEqual(p.y, 50);
+    XCTAssertEqual(index, 1);
+    XCTAssertEqual(tValue, 0.5);
+    // the end point is nearest to (0, 0) at the end of element 2, which is after element 1
+    XCTAssertTrue(startIsBeforeEnd);
 }
 
 - (void)testSubpathRangeForIndexClosePath
