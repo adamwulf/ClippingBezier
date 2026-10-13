@@ -175,6 +175,28 @@
     XCTAssertTrue(startIsBeforeEnd);
 }
 
+- (void)testHopefulEndPointAtOriginOrdersBeforeStart
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(-100, 100)];
+    [path addLineToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(100, 0)];
+    [path addLineToPoint:CGPointMake(100, 100)];
+
+    NSInteger index;
+    double tValue;
+    BOOL startIsBeforeEnd = YES;
+    CGPoint p = [path closestPointOnPathTo:CGPointMake(50, 10) atIndex:&index andElementTValue:&tValue hopefulEndPoint:CGPointMake(0, -50) startIndexBeforeEndIndex:&startIsBeforeEnd];
+
+    XCTAssertEqual(p.x, 50);
+    XCTAssertEqual(p.y, 0);
+    XCTAssertEqual(index, 2);
+    XCTAssertEqual(tValue, 0.5);
+    // the end point is nearest to (0, 0) at the end of element 1, which is before element 2.
+    // a later element at the same or a farther distance must not take the end away from element 1
+    XCTAssertFalse(startIsBeforeEnd);
+}
+
 - (void)testSubpathRangeForIndexClosePath
 {
     NSRange key = NSMakeRange(0, 4);
